@@ -58,6 +58,7 @@
     "react/jsx-filename-extension": "off",
     "react/no-did-update-set-state": "off",
     "react/prefer-stateless-function": "off",
+    "react/jsx-props-no-spreading": "off",
     "quotes": ["error", "single", { "avoidEscape": true }],
     "react/prop-types": "off",
     "react/jsx-fragments": ["error"],

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MESSAGES from 'lang/en';
-import 'styles/index.scss';
 import App from 'containers/App';
+import { msg } from './lang/en';
+import 'styles/index.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App name={MESSAGES['app.title']} />
+    <App name={msg('app.title')} />
   </React.StrictMode>,
   document.getElementById('root')
 );
