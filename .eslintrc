@@ -1,0 +1,69 @@
+{
+  "plugins": ["react-hooks"],
+  "extends": [
+    "airbnb",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      // use <root>/tsconfig.json
+      "typescript": {}
+    },
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/indent": ["error", 2, {
+      "ignoredNodes": [
+        "SwitchCase",
+        "TSTypeReference", "TSTypeReference *",
+        "TSTypeParameterInstantiation", "TSTypeParameterInstantiation *"
+      ]
+    }],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "import/extensions": "off",
+    "arrow-parens": "off",
+    "implicit-arrow-linebreak": "off",
+    "comma-dangle": "off",
+    "import/no-cycle": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/prefer-default-export": "off",
+    "jsx-a11y/label-has-associated-control": ["error"],
+    "jsx-a11y/label-has-for": "off",
+    "max-len": "off",
+    "no-restricted-imports": ["error", {
+      "paths":  [{
+        "name": "lodash",
+        "message": "Import specific lodash methods instead."
+      }]
+    }],
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+    "no-use-before-define": "off",
+    "object-curly-newline": "off",
+    "operator-linebreak": "off",
+    "react/jsx-filename-extension": "off",
+    "react/no-did-update-set-state": "off",
+    "react/prefer-stateless-function": "off",
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "react/prop-types": "off",
+    "react/jsx-fragments": ["error"],
+    "react-hooks/rules-of-hooks": "error",
+    "react/no-unused-prop-types": "off",
+    "react/require-default-props": "off",
+    "react-redux/no-unused-prop-types": "off"
+  }
+}
