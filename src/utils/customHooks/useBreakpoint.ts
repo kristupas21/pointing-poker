@@ -21,9 +21,7 @@ const useBreakpoint = (): Breakpoint => {
     function setWidth() {
       const value = getBreakPoint(window.innerWidth);
 
-      if (value !== breakpoint) {
-        setBreakpoint(value);
-      }
+      setBreakpoint(value);
     }
 
     const handleResize = debounce(setWidth, 50);
