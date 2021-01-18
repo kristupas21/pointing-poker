@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import { Intent } from '@blueprintjs/core';
 import styles from './App.module.scss';
 import Button from '../../components/Button';
 import FormattedMessage from '../../components/FormattedMessage';
@@ -17,7 +16,7 @@ const App: React.FC<Props> = ({ name }) => (
       {name}
     </p>
     <div>
-      <Button icon="info-sign" intent={Intent.PRIMARY}>
+      <Button className={cx('button')}>
         <FormattedMessage id="complex.msg" values={{ name: 'John' }} tagName="i" />
       </Button>
     </div>
