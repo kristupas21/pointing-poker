@@ -3,3 +3,9 @@ export enum Breakpoint {
   Tablet = 'Tablet',
   Mobile = 'Mobile',
 }
+
+export interface User {
+  id: string;
+  name: string;
+  role?: string;
+}

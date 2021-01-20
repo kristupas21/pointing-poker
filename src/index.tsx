@@ -1,11 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import { Provider } from 'react-redux';
 import App from 'containers/App';
-import { getTranslation } from './components/Text/TextUtils';
+import store from './state/store';
+import history from './state/history';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App name={getTranslation('app.title')} />
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App name="Pointing Poker" />
+      </ConnectedRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

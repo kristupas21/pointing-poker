@@ -1,31 +1,39 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
+import { Route, Switch } from 'react-router';
 import classNames from 'classnames/bind';
+import ROUTES from '../../constants/routes';
 import styles from './App.module.scss';
-import Button from '../../components/Button';
-import Text from '../../components/Text';
-import { useBreakpoint } from '../../utils/customHooks';
+import ErrorPage from '../ErrorPage';
 
 const cx = classNames.bind(styles);
 
+const ChooseSession = lazy(() => import('../ChooseSession'));
+const Session = lazy(() => import('../Session'));
+
 interface Props {
-  name: string;
+  name?: string;
 }
 
-const App: React.FC<Props> = ({ name }) => {
-  const breakpoint = useBreakpoint();
-
-  return (
-    <>
-      <p className={cx('test')}>
-        {`${name} - ${breakpoint}`}
-      </p>
-      <div>
-        <Button>
-          <Text id="complex.msg" values={{ name: 'John' }} tag="i" className={cx('i')} />
-        </Button>
-      </div>
-    </>
-  );
-};
+const App: React.FC<Props> = () => (
+  <div className={cx('app')}>
+    <Suspense fallback={null}>
+      <Switch>
+        <Route
+          exact
+          path={ROUTES.BASE}
+          component={ChooseSession}
+        />
+        <Route
+          exact
+          path={ROUTES.SESSION}
+          component={Session}
+        />
+        <Route
+          component={ErrorPage}
+        />
+      </Switch>
+    </Suspense>
+  </div>
+);
 
 export default App;
