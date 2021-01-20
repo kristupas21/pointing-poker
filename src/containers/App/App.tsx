@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './App.module.scss';
 import Button from '../../components/Button';
-import FormattedMessage from '../../components/FormattedMessage';
+import Text from '../../components/Text';
 import { useBreakpoint } from '../../utils/customHooks';
 
 const cx = classNames.bind(styles);
@@ -20,8 +20,8 @@ const App: React.FC<Props> = ({ name }) => {
         {`${name} - ${breakpoint}`}
       </p>
       <div>
-        <Button className={cx('button')}>
-          <FormattedMessage id="complex.msg" values={{ name: 'John' }} tagName="i" />
+        <Button>
+          <Text id="complex.msg" values={{ name: 'John' }} tag="i" className={cx('i')} />
         </Button>
       </div>
     </>
