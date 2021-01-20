@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../components/Button';
+import Button, { ButtonVariant } from '../../components/Button';
 import Text from '../../components/Text/Text';
 import { useBreakpoint } from '../../utils/customHooks';
 
@@ -11,8 +11,8 @@ const ChooseSession: React.FC = () => {
       <p>
         {breakpoint}
       </p>
-      <Button>
-        <Text id="complex.msg" values={{ name: 'John' }} tag="i" />
+      <Button variant={ButtonVariant.Secondary}>
+        <Text id="test.complex" values={{ name: 'John' }} tag="i" />
       </Button>
     </div>
   );

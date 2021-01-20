@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import { getTranslation } from './TextUtils';
+import { MessageId } from '../../lang';
 
 interface Props {
   className?: string;
-  id: string;
+  id: MessageId;
   locale?: string;
   values?: Record<string, string>;
   tag?: keyof HTMLElementTagNameMap;
