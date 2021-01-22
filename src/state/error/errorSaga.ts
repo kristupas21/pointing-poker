@@ -3,7 +3,7 @@ import { ActionType } from 'typesafe-actions';
 import { LOCATION_CHANGE, push, LocationChangeAction } from 'connected-react-router';
 import { setErrorState, throwAppError } from './errorActions';
 import { getCurrentRoutePath } from '../../utils/routerUtils';
-import { THROW_APP_ERROR } from './errorConstants';
+import { getCurrentErrorId, THROW_APP_ERROR } from './errorConstants';
 import ROUTES from '../../constants/routes';
 
 type ThrowAction = ActionType<typeof throwAppError>;
@@ -21,7 +21,9 @@ function* clearErrorSaga(action: LocationChangeAction) {
     return;
   }
 
-  yield put(setErrorState(null));
+  if (yield select(getCurrentErrorId)) {
+    yield put(setErrorState(null));
+  }
 }
 
 export default function* errorSaga() {
