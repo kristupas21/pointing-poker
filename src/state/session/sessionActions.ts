@@ -1,7 +1,9 @@
 import { action } from 'typesafe-actions';
-import { SESSION_SET_ID, SESSION_SET_USER } from './sessionConstants';
 import { User } from '../../types/global';
+import { CREATE_SESSION, SET_SESSION_ID, SET_SESSION_USER } from './sessionConstants';
 
-export const sessionSetId = (id: string) => action(SESSION_SET_ID, id);
+export const setSessionId = (id: string) => action(SET_SESSION_ID, id);
 
-export const sessionSetUser = (user: User) => action(SESSION_SET_USER, user);
+export const setSessionUser = (user: User) => action(SET_SESSION_USER, user);
+
+export const createSession = () => action(CREATE_SESSION);

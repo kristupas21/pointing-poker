@@ -1,14 +1,17 @@
 import React, { lazy, Suspense } from 'react';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import classNames from 'classnames/bind';
 import ROUTES from '../../constants/routes';
 import styles from './App.module.scss';
-import ErrorPage from '../ErrorPage';
 
 const cx = classNames.bind(styles);
 
-const ChooseSession = lazy(() => import('../ChooseSession'));
-const Session = lazy(() => import('../Session'));
+const LandingPage = lazy(() => import('../LandingPage'));
+const CreateSessionPage = lazy(() => import('../CreateSessionPage'));
+const JoinSessionPage = lazy(() => import('../JoinSessionPage'));
+const SessionPage = lazy(() => import('../SessionPage'));
+const SessionNotFoundPage = lazy(() => import('../SessionNotFoundPage'));
+const ErrorPage = lazy(() => import('../ErrorPage'));
 
 interface Props {
   name?: string;
@@ -21,16 +24,34 @@ const App: React.FC<Props> = () => (
         <Route
           exact
           path={ROUTES.BASE}
-          component={ChooseSession}
+          component={LandingPage}
+        />
+        <Route
+          exact
+          path={ROUTES.CREATE_SESSION}
+          component={CreateSessionPage}
+        />
+        <Route
+          exact
+          path={ROUTES.JOIN_SESSION}
+          component={JoinSessionPage}
         />
         <Route
           exact
           path={ROUTES.SESSION}
-          component={Session}
+          component={SessionPage}
         />
         <Route
+          exact
+          path={ROUTES.SESSION_NOT_FOUND}
+          component={SessionNotFoundPage}
+        />
+        <Route
+          exact
+          path={ROUTES.ERROR}
           component={ErrorPage}
         />
+        <Redirect to={ROUTES.BASE} />
       </Switch>
     </Suspense>
   </div>

@@ -1,14 +1,21 @@
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import { routerMiddleware } from 'connected-react-router';
+import { routerMiddleware as createRouterMiddleware } from 'connected-react-router';
 import reducers from './reducers';
 import history from './history';
+import saga from './saga';
 
-const middleware = [createSagaMiddleware(), routerMiddleware(history)];
+const routerMiddleware = createRouterMiddleware(history);
+const sagaMiddleware = createSagaMiddleware();
+const middleware = [sagaMiddleware, routerMiddleware];
 const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 });
 
-export default createStore(
+const store = createStore(
   reducers,
   composeEnhancers(applyMiddleware(...middleware))
 );
+
+sagaMiddleware.run(saga);
+
+export default store;

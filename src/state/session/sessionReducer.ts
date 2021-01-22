@@ -1,6 +1,6 @@
 import { ActionType, Reducer } from 'typesafe-actions';
 import { SessionState } from './sessionTypes';
-import { SESSION_SET_ID, SESSION_SET_USER } from './sessionConstants';
+import { SET_SESSION_ID, SET_SESSION_USER } from './sessionConstants';
 
 type Action = ActionType<typeof import('./sessionActions')>;
 
@@ -13,12 +13,12 @@ const initialState: State = {
 
 const sessionReducer: Reducer<State, Action> = (state = initialState, action) => {
   switch (action.type) {
-    case SESSION_SET_ID:
+    case SET_SESSION_ID:
       return {
         ...state,
         sessionId: action.payload,
       };
-    case SESSION_SET_USER:
+    case SET_SESSION_USER:
       return {
         ...state,
         user: action.payload,
