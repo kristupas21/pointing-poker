@@ -5,4 +5,5 @@ export const messages = {
   'session.not-found': 'Session with id {id} not found',
   'session.create': 'Create Session',
   'session.join': 'Join session',
+  'user.name': 'Name',
 };

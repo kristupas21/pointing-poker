@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { getTranslation } from './TextUtils';
+import { getTranslation } from './utils';
 import { MessageId } from '../../lang';
 
 interface Props {

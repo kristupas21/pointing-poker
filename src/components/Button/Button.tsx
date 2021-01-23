@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Button.module.scss';
-import { ButtonVariant } from './ButtonTypes';
+import { ButtonVariant } from './types';
 
 const cx = classNames.bind(styles);
 

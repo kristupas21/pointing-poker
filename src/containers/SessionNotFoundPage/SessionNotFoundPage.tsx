@@ -1,17 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import { Redirect, RouteChildrenProps } from 'react-router';
+import React from 'react';
+import { Redirect } from 'react-router';
 import Text from '../../components/Text';
 import ROUTES from '../../constants/routes';
+import { useSessionId } from '../../utils/customHooks';
 
-type Props = RouteChildrenProps<any, { sessionId: string }>;
-
-const SessionNotFoundPage: React.FC<Props> = (props) => {
-  const { location: { state }, history } = props;
-  const { current: id } = useRef(state?.sessionId);
-
-  useEffect(() => {
-    history.replace({ state: null });
-  }, []);
+const SessionNotFoundPage: React.FC = () => {
+  const id = useSessionId();
 
   if (!id) {
     return <Redirect to={ROUTES.BASE} />;

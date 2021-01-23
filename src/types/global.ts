@@ -10,6 +10,7 @@ export interface User {
   id: string;
   name: string;
   role?: string;
+  registeredSessionId?: string;
 }
 
 const state = store.getState();
