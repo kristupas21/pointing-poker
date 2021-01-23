@@ -1,2 +1,2 @@
 export { default } from './Text';
-export { getTranslation } from './utils';
+export { getText } from './utils';

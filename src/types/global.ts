@@ -18,3 +18,8 @@ const state = store.getState();
 export type StateMapper = (s: typeof state) => Record<string, any>;
 
 export type ValueOf<T> = T[keyof T];
+
+export interface Identifier {
+  id: string;
+  name: string;
+}

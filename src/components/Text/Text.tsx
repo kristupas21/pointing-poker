@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { getTranslation } from './utils';
+import { getText } from './utils';
 import { MessageId } from '../../lang';
 
 interface Props {
@@ -18,7 +18,7 @@ const Text: React.FC<Props> = (props) => {
 
   return (
     <Tag {...tagProps}>
-      {getTranslation(id, values, locale)}
+      {getText(id, values, locale)}
     </Tag>
   );
 };

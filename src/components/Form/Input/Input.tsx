@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes } from 'react';
-import { Field } from 'formik';
+import { Field, FieldAttributes } from 'formik';
 
-type Props = InputHTMLAttributes<HTMLInputElement>;
+type Props = FieldAttributes<InputHTMLAttributes<HTMLInputElement>>;
 
 const Input: React.FC<Props> = (props) => {
   const { name } = props;
