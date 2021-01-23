@@ -5,13 +5,15 @@ export function replaceValues(message: string, prop: string, value: string): str
 }
 
 export function getText(id: MessageId, args: Record<string, string> = null, locale = 'en'): string {
-  let value = MESSAGES[locale][id];
+  const localeMessages = MESSAGES[locale];
 
-  if (!value) {
+  if (!(id in localeMessages)) {
     // eslint-disable-next-line no-console
     console.error(`Message with id "${id}" does not exist in messages.`);
     return id;
   }
+
+  let value = localeMessages[id];
 
   if (!args) {
     return value;
