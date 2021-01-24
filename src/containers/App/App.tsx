@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import classNames from 'classnames/bind';
-import ROUTES from '../../constants/routes';
+import { ROUTE } from '../../constants/routes';
 import styles from './App.module.scss';
 
 const cx = classNames.bind(styles);
@@ -23,35 +23,35 @@ const App: React.FC<Props> = () => (
       <Switch>
         <Route
           exact
-          path={ROUTES.BASE}
+          path={ROUTE.BASE}
           component={LandingPage}
         />
         <Route
           exact
-          path={ROUTES.CREATE_SESSION}
+          path={ROUTE.CREATE_SESSION}
           component={CreateSessionPage}
         />
         <Route
           exact
-          path={ROUTES.JOIN_SESSION}
+          path={ROUTE.JOIN_SESSION}
           component={JoinSessionPage}
         />
         <Route
           exact
-          path={ROUTES.SESSION}
+          path={ROUTE.SESSION}
           component={SessionPage}
         />
         <Route
           exact
-          path={ROUTES.SESSION_NOT_FOUND}
+          path={ROUTE.SESSION_NOT_FOUND}
           component={SessionNotFoundPage}
         />
         <Route
           exact
-          path={ROUTES.ERROR}
+          path={ROUTE.ERROR}
           component={ErrorPage}
         />
-        <Redirect to={ROUTES.BASE} />
+        <Redirect to={ROUTE.BASE} />
       </Switch>
     </Suspense>
   </div>

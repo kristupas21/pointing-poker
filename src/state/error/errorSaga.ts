@@ -4,7 +4,7 @@ import { LOCATION_CHANGE, push, LocationChangeAction } from 'connected-react-rou
 import { setErrorState, throwAppError } from './errorActions';
 import { getCurrentRoutePath } from '../../utils/routerUtils';
 import { getCurrentErrorId, THROW_APP_ERROR } from './errorConstants';
-import ROUTES from '../../constants/routes';
+import { ROUTE } from '../../constants/routes';
 
 type ThrowAction = ActionType<typeof throwAppError>;
 
@@ -13,11 +13,11 @@ function* throwErrorSaga(action: ThrowAction) {
   const { payload: errorId } = action;
 
   yield put(setErrorState({ errorId, redirectPath }));
-  yield put(push(ROUTES.ERROR));
+  yield put(push(ROUTE.ERROR));
 }
 
 function* clearErrorSaga(action: LocationChangeAction) {
-  if (action.payload.location.pathname === ROUTES.ERROR) {
+  if (action.payload.location.pathname === ROUTE.ERROR) {
     return;
   }
 

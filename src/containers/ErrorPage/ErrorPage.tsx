@@ -3,7 +3,7 @@ import { Redirect, RouteChildrenProps } from 'react-router';
 import { ErrorState } from '../../state/error/errorTypes';
 import Text from '../../components/Text';
 import Button, { ButtonVariant } from '../../components/Button';
-import ROUTES from '../../constants/routes';
+import { ROUTE } from '../../constants/routes';
 
 type Props = ErrorState & RouteChildrenProps;
 
@@ -14,7 +14,7 @@ const ErrorPage: React.FC<Props> = (props) => {
     history.push(redirectPath);
 
   if (!errorId) {
-    return <Redirect to={ROUTES.BASE} />;
+    return <Redirect to={ROUTE.BASE} />;
   }
 
   return (

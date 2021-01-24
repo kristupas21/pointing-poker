@@ -1,18 +1,16 @@
-import { ValueOf } from '../types/global';
-
-const ROUTES = {
-  BASE: '/',
-  CREATE_SESSION: '/create',
-  ERROR: '/error',
-  JOIN_SESSION: '/join',
-  SESSION: '/session/:sessionId',
-  SESSION_NOT_FOUND: '/session-not-found',
-} as const;
+export enum ROUTE {
+  BASE = '/',
+  CREATE_SESSION = '/create',
+  ERROR = '/error',
+  JOIN_SESSION = '/join',
+  SESSION = '/session/:sessionId',
+  SESSION_NOT_FOUND = '/session-not-found',
+}
 
 export const getMatchParamRoute = (
-  route: ValueOf<typeof ROUTES>,
+  route: ROUTE,
   match: Record<string, any>
-) => {
+): string => {
   let value = route as string;
 
   Object.keys(match).forEach((k) => {
@@ -21,5 +19,3 @@ export const getMatchParamRoute = (
 
   return value;
 };
-
-export default ROUTES;

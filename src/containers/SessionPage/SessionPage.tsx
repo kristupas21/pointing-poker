@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteChildrenProps } from 'react-router';
-import ROUTES from '../../constants/routes';
+import { ROUTE } from '../../constants/routes';
 import { User } from '../../types/global';
 
 interface Props extends RouteChildrenProps<{ sessionId: string }> {
@@ -12,12 +12,12 @@ class SessionPage extends React.Component<Props> {
     const { match: { params: { sessionId } }, history } = this.props;
 
     if (this.isNotFound()) {
-      history.push(ROUTES.SESSION_NOT_FOUND, { sessionId });
+      history.push(ROUTE.SESSION_NOT_FOUND, { sessionId });
       return;
     }
 
     if (!this.isRegistered()) {
-      history.push(ROUTES.JOIN_SESSION, { sessionId });
+      history.push(ROUTE.JOIN_SESSION, { sessionId });
     }
   }
 

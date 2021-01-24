@@ -3,7 +3,7 @@ import { RouteChildrenProps } from 'react-router';
 import Button, { ButtonVariant } from '../../components/Button';
 import Text from '../../components/Text/Text';
 import { useBreakpoint } from '../../utils/customHooks';
-import ROUTES from '../../constants/routes';
+import { ROUTE } from '../../constants/routes';
 
 type Props = RouteChildrenProps;
 
@@ -12,10 +12,10 @@ const LandingPage: React.FC<Props> = (props) => {
   const breakpoint = useBreakpoint();
 
   const handleCreateClick = () =>
-    history.push(ROUTES.CREATE_SESSION);
+    history.push(ROUTE.CREATE_SESSION);
 
   const handleJoinClick = () =>
-    history.push(ROUTES.JOIN_SESSION);
+    history.push(ROUTE.JOIN_SESSION);
 
   return (
     <div>
