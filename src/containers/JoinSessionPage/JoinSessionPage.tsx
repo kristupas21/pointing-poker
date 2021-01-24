@@ -3,7 +3,7 @@ import { Form, Formik } from 'formik';
 import { FieldType, FormField, SubmitHandler } from '../../components/Form';
 import { useSessionId } from '../../utils/customHooks';
 import Button from '../../components/Button';
-import Text, { WithText } from '../../components/Text';
+import { WithText } from '../../components/Text';
 import { MessageId } from '../../lang';
 import USER_ROLES from '../../constants/userRoles';
 import validationSchema from './validationSchema';
@@ -41,23 +41,23 @@ const JoinSessionPage: React.FC<Props> = ({ getText }) => {
             name="sessionId"
             type={FieldType.Input}
             error={errors.sessionId}
-            label={<Text id="session.id" />}
+            label={getText('session.id')}
           />
           <FormField
             name="name"
             type={FieldType.Input}
             error={errors.name}
-            label={<Text id="user.name" />}
+            label={getText('user.name')}
           />
           <FormField
             name="role"
             type={FieldType.Select}
-            label={<Text id="user.role" />}
+            label={getText('user.role')}
             emptyOptionText={getText('user.role.placeholder')}
             options={roles}
           />
           <Button type="submit" disabled={isSubmitting}>
-            <Text id="session.join" />
+            {getText('session.join')}
           </Button>
         </Form>
       )}

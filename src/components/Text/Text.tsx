@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
-import { getText } from './utils';
 import { MessageId } from '../../lang';
+import withText, { WithText } from './withText';
 
-interface Props {
+interface Props extends WithText {
   className?: string;
   id: MessageId;
   locale?: string;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Text: React.FC<Props> = (props) => {
-  const { className, id, locale = 'en', values, tag } = props;
+  const { className, id, locale = 'en', values, tag, getText } = props;
   const Tag = tag ? ({ children: c, className: cl }) =>
     React.createElement(tag, { className: cl }, c) : React.Fragment;
   const tagProps = tag && { className };
@@ -23,4 +23,4 @@ const Text: React.FC<Props> = (props) => {
   );
 };
 
-export default memo(Text);
+export default memo(withText(Text));
