@@ -1,1 +1,4 @@
-export { default } from './JoinSessionPage';
+import JoinSessionPage from './JoinSessionPage';
+import { withText } from '../../components/Text';
+
+export default withText(JoinSessionPage);

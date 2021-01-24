@@ -3,27 +3,29 @@ import { Form, Formik } from 'formik';
 import { FieldType, FormField, SubmitHandler } from '../../components/Form';
 import { useSessionId } from '../../utils/customHooks';
 import Button from '../../components/Button';
-import Text, { getText } from '../../components/Text';
+import Text, { WithText } from '../../components/Text';
 import { MessageId } from '../../lang';
 import USER_ROLES from '../../constants/userRoles';
 import validationSchema from './validationSchema';
 
-interface FormData {
+export interface JoinSessionFormData {
   sessionId: string;
   name: string;
   role: string;
 }
 
-const JoinSessionPage: React.FC = () => {
+type Props = WithText;
+
+const JoinSessionPage: React.FC<Props> = ({ getText }) => {
   const sessionId = useSessionId();
 
-  const initialValues: FormData =
+  const initialValues: JoinSessionFormData =
       { sessionId: sessionId || '', name: '', role: '' };
 
   const roles = USER_ROLES.map((role) =>
     ({ ...role, name: getText(role.name as MessageId) }));
 
-  const handleSubmit: SubmitHandler<FormData> = (values, { setSubmitting }) => {
+  const handleSubmit: SubmitHandler<JoinSessionFormData> = (values, { setSubmitting }) => {
     setSubmitting(false);
   };
 
@@ -31,7 +33,7 @@ const JoinSessionPage: React.FC = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={validationSchema}
+      validationSchema={validationSchema(getText)}
     >
       {({ isSubmitting, errors }) => (
         <Form>

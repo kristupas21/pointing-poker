@@ -1,10 +1,12 @@
 import { MessageId, MESSAGES } from '../../lang';
 
+export type GetText = (id: MessageId, args?: Record<string, string | number>, locale?: string) => string;
+
 export function replaceValues(message: string, prop: string, value: string): string {
   return message.split(`{${prop}}`).join(value);
 }
 
-export function getText(id: MessageId, args: Record<string, string | number> = null, locale = 'en'): string {
+export const getText: GetText = (id, args = null, locale = 'en') => {
   const localeMessages = MESSAGES[locale];
 
   if (!(id in localeMessages)) {
@@ -24,4 +26,4 @@ export function getText(id: MessageId, args: Record<string, string | number> = n
   });
 
   return value;
-}
+};

@@ -1,4 +1,4 @@
 import { action } from 'typesafe-actions';
-import { APP_SET_LOADING } from './appConstants';
+import { SET_APP_LOCALE } from './appConstants';
 
-export const appSetLoading = (status: boolean) => action(APP_SET_LOADING, status);
+export const setAppLocale = (locale: string) => action(SET_APP_LOCALE, locale);

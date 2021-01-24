@@ -1,15 +1,19 @@
 import * as Yup from 'yup';
-import { getText } from '../../components/Text';
+import {
+  GetValidationSchema, INPUT_MAX_CHARS, INPUT_MIN_CHARS, msgMax, msgMin, msgRequired,
+} from '../../constants/formValidation';
+import { JoinSessionFormData } from './JoinSessionPage';
 
-const MIN = 2;
-const MAX = 50;
-
-export default Yup.object().shape({
+const validationSchema: GetValidationSchema<JoinSessionFormData> = (text) => Yup.object().shape({
   sessionId: Yup.string()
-    .required(getText('form.validation.required')),
+    .required(text(msgRequired)),
 
   name: Yup.string()
-    .min(MIN, getText('form.validation.min', { chars: MIN }))
-    .max(MAX, getText('form.validation.max', { chars: MAX }))
-    .required(getText('form.validation.required')),
+    .min(INPUT_MIN_CHARS, text(msgMin, { chars: INPUT_MIN_CHARS }))
+    .max(INPUT_MAX_CHARS, text(msgMax, { chars: INPUT_MAX_CHARS }))
+    .required(text(msgRequired)),
+
+  role: undefined,
 });
+
+export default validationSchema;

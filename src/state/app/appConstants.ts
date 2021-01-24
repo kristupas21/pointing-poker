@@ -1,1 +1,1 @@
-export const APP_SET_LOADING = '@app/SET_LOADING';
+export const SET_APP_LOCALE = '@app/SET_LOCALE';

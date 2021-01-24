@@ -1,21 +1,21 @@
 import { ActionType, Reducer } from 'typesafe-actions';
 import { AppState } from './appTypes';
-import { APP_SET_LOADING } from './appConstants';
+import { SET_APP_LOCALE } from './appConstants';
 
 type Action = ActionType<typeof import('./appActions')>;
 
 type State = Readonly<AppState>;
 
 const initialState: State = {
-  isLoading: false,
+  locale: 'en',
 };
 
 const appReducer: Reducer<State, Action> = (state = initialState, action) => {
   switch (action.type) {
-    case APP_SET_LOADING:
+    case SET_APP_LOCALE:
       return {
         ...state,
-        isLoading: action.payload,
+        locale: action.payload,
       };
     default:
       return state;
