@@ -5,7 +5,6 @@ const MIN = 2;
 const MAX = 50;
 
 export default Yup.object().shape({
-
   sessionId: Yup.string()
     .required(getText('form.validation.required')),
 
