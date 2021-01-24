@@ -1,5 +1,5 @@
-export { default as Label } from './Label';
-export { default as Input } from './Input';
-export { default as Select } from './Select';
-export { default as Option } from './Option';
+export { default as FormField } from './FormField';
+
 export type { SubmitHandler } from './types';
+
+export { FieldType } from './types';

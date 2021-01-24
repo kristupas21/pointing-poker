@@ -4,7 +4,7 @@ export function replaceValues(message: string, prop: string, value: string): str
   return message.split(`{${prop}}`).join(value);
 }
 
-export function getText(id: MessageId, args: Record<string, string> = null, locale = 'en'): string {
+export function getText(id: MessageId, args: Record<string, string | number> = null, locale = 'en'): string {
   const localeMessages = MESSAGES[locale];
 
   if (!(id in localeMessages)) {
@@ -20,7 +20,7 @@ export function getText(id: MessageId, args: Record<string, string> = null, loca
   }
 
   Object.entries(args).forEach(([key, v]) => {
-    value = replaceValues(value, key, v);
+    value = replaceValues(value, key, `${v}`);
   });
 
   return value;

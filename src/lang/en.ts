@@ -3,6 +3,10 @@ export const messages = {
 
   'global.tryAgain': 'Try Again',
 
+  'form.validation.required': 'Required',
+  'form.validation.min': 'Min {chars} characters',
+  'form.validation.max': 'Max {chars} characters',
+
   'session.id': 'Session Id',
   'session.not-found': 'Session with id {id} not found',
   'session.create': 'Create Session',

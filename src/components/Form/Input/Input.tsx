@@ -1,9 +1,9 @@
 import React, { InputHTMLAttributes } from 'react';
 import { Field, FieldAttributes } from 'formik';
 
-type Props = FieldAttributes<InputHTMLAttributes<HTMLInputElement>>;
+export type InputProps = FieldAttributes<InputHTMLAttributes<HTMLInputElement>>;
 
-const Input: React.FC<Props> = (props) => {
+const Input: React.FC<InputProps> = (props) => {
   const { name } = props;
 
   return (
