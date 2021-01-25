@@ -15,7 +15,7 @@ export interface User {
 
 const state = store.getState();
 
-export type StateMapper = (s: typeof state) => Record<string, any>;
+export type State = typeof state;
 
 export type ValueOf<T> = T[keyof T];
 

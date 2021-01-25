@@ -14,6 +14,8 @@ const validationSchema: GetValidationSchema<JoinSessionFormData> = (text) => Yup
     .required(text(msgRequired)),
 
   role: undefined,
+
+  isObserver: undefined,
 });
 
 export default validationSchema;

@@ -1,17 +1,17 @@
 import api from '../../utils/api';
 
-interface CreateResponse {
+interface StartSessionResponse {
   data: {
     sessionId: string;
   };
 }
 
 interface Api {
-  create(): Promise<CreateResponse>;
+  start(): Promise<StartSessionResponse>;
 }
 
 export default <Api>{
-  create() {
-    return api.post('/create');
+  start() {
+    return api.post('/start');
   },
 };

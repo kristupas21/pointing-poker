@@ -4,6 +4,7 @@ import Input, { InputProps } from '../Input';
 import Select, { SelectProps } from '../Select';
 import Label from '../Label';
 import FieldError from '../FieldError';
+import Checkbox, { CheckboxProps } from '../Checkbox';
 
 type Props = (InputProps | SelectProps) & {
   label?: ReactNode;
@@ -20,6 +21,8 @@ const FormField: React.FC<Props> = (props) => {
         return <Input {...fieldProps as InputProps} />;
       case FieldType.Select:
         return <Select {...fieldProps as SelectProps} />;
+      case FieldType.Checkbox:
+        return <Checkbox {...fieldProps as CheckboxProps} />;
       default:
         return null;
     }

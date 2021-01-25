@@ -1,1 +1,1 @@
-export { default as createSessionSaga } from './createSessionSaga';
+export { default as startSessionSaga } from './startSessionSaga';

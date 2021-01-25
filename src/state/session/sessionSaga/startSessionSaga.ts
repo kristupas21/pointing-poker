@@ -2,13 +2,13 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { setSessionId } from '../sessionActions';
 import sessionApi from '../sessionApi';
-import { CREATE_SESSION } from '../sessionConstants';
+import { START_SESSION } from '../sessionConstants';
 import { ROUTE, getMatchParamRoute } from '../../../constants/routes';
 import { throwAppError } from '../../error/errorActions';
 
-function* createSaga() {
+function* startSaga() {
   try {
-    const { data: { sessionId } } = yield call(sessionApi.create);
+    const { data: { sessionId } } = yield call(sessionApi.start);
     yield put(setSessionId(sessionId));
     yield put(push(getMatchParamRoute(ROUTE.SESSION, { sessionId })));
   } catch (e) {
@@ -16,6 +16,6 @@ function* createSaga() {
   }
 }
 
-export default function* createSessionSaga() {
-  yield takeLatest(CREATE_SESSION, createSaga);
+export default function* startSessionSaga() {
+  yield takeLatest(START_SESSION, startSaga);
 }

@@ -4,5 +4,3 @@ export interface SessionState {
   sessionId: string;
   user: User;
 }
-
-export type CreateSession = typeof import('./sessionActions').createSession;

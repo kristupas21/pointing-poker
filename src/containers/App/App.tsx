@@ -7,7 +7,7 @@ import styles from './App.module.scss';
 const cx = classNames.bind(styles);
 
 const LandingPage = lazy(() => import('../LandingPage'));
-const CreateSessionPage = lazy(() => import('../CreateSessionPage'));
+const StartSessionPage = lazy(() => import('../StartSessionPage'));
 const JoinSessionPage = lazy(() => import('../JoinSessionPage'));
 const SessionPage = lazy(() => import('../SessionPage'));
 const SessionNotFoundPage = lazy(() => import('../SessionNotFoundPage'));
@@ -28,8 +28,8 @@ const App: React.FC<Props> = () => (
         />
         <Route
           exact
-          path={ROUTE.CREATE_SESSION}
-          component={CreateSessionPage}
+          path={ROUTE.START_SESSION}
+          component={StartSessionPage}
         />
         <Route
           exact

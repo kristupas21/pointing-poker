@@ -9,14 +9,14 @@ export const messages = {
 
   'session.id': 'Session Id',
   'session.not-found': 'Session with id {id} not found',
-  'session.create': 'Create Session',
+  'session.start': 'Start Session',
   'session.join': 'Join session',
+  'session.field.name.label': 'Name',
+  'session.field.role.label': 'Role',
+  'session.field.role.placeholder': 'Select a role',
+  'session.field.observer.label': 'Join as observer',
 
-  'user.name': 'Name',
-  'user.role': 'Role',
-  'user.role.observer': 'Observer',
   'user.role.backend': 'Backend Dev',
   'user.role.frontend': 'Frontend Dev',
   'user.role.qa': 'QA Engineer',
-  'user.role.placeholder': 'Select a Role',
 };

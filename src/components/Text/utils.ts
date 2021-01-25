@@ -1,4 +1,5 @@
 import { MessageId, MESSAGES } from '../../lang';
+import { State } from '../../types/global';
 
 export type GetText = (id: MessageId, args?: Record<string, string | number>, locale?: string) => string;
 
@@ -27,3 +28,7 @@ export const getText: GetText = (id, args = null, locale = 'en') => {
 
   return value;
 };
+
+export const mapLocaleToProps = (state: State) => ({
+  locale: state.app.locale,
+});

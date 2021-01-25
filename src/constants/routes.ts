@@ -1,6 +1,6 @@
 export enum ROUTE {
   BASE = '/',
-  CREATE_SESSION = '/create',
+  START_SESSION = '/start',
   ERROR = '/error',
   JOIN_SESSION = '/join',
   SESSION = '/session/:sessionId',
