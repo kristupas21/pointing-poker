@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router';
 import classNames from 'classnames/bind';
 import { ROUTE } from '../../constants/routes';
 import styles from './App.module.scss';
+import Modal from '../../components/Modal';
 
 const cx = classNames.bind(styles);
 
@@ -54,6 +55,7 @@ const App: React.FC<Props> = () => (
         <Redirect to={ROUTE.BASE} />
       </Switch>
     </Suspense>
+    <Modal />
   </div>
 );
 
