@@ -1,0 +1,17 @@
+.overlay {
+  align-items: flex-start;
+  background-color: rgba(0, 0, 0, .7);
+  bottom: 0;
+  display: flex;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.content {
+  background: white;
+  margin: auto;
+  position: relative;
+}

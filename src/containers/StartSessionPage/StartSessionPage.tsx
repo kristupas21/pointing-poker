@@ -5,7 +5,6 @@ import Text from '../../components/Text';
 import { startSession as startSessionAction } from '../../state/session/sessionActions';
 
 type ReduxProps = ConnectedProps<typeof connector>;
-
 type Props = ReduxProps;
 
 const StartSessionPage: React.FC<Props> = (props) => {

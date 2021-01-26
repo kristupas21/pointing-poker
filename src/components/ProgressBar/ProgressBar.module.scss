@@ -1,0 +1,34 @@
+.progress-bar {
+  bottom: 0;
+  height: 10px;
+  left: 0;
+  margin: 5px;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  width: auto;
+
+  &__content {
+    animation-duration: 0ms;
+    animation-fill-mode: both;
+    animation-name: auto-close;
+    animation-timing-function: linear;
+    background: black;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    @for $i from 1 through 7 {
+      &--#{$i}000 {
+        animation-duration: $i * 1000ms;
+      }
+    }
+  }
+}
+
+@keyframes auto-close {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}

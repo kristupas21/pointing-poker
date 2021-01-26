@@ -1,0 +1,12 @@
+.notification {
+  background: white;
+  height: 400px;
+  position: relative;
+  width: 400px;
+
+  &__close-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}

@@ -1,2 +1,1 @@
-export { ButtonVariant } from './types';
-export { default } from './Button';
+export { default, ButtonVariant } from './Button';

@@ -7,7 +7,6 @@ import { ROUTE } from '../../constants/routes';
 import { State } from '../../types/global';
 
 type ReduxProps = ConnectedProps<typeof connector>;
-
 type Props = ReduxProps & RouteChildrenProps;
 
 const ErrorPage: React.FC<Props> = (props) => {

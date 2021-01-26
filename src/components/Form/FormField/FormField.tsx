@@ -6,7 +6,7 @@ import Label from '../Label';
 import FieldError from '../FieldError';
 import Checkbox, { CheckboxProps } from '../Checkbox';
 
-type Props = (InputProps | SelectProps) & {
+type Props = (InputProps | SelectProps | CheckboxProps) & {
   label?: ReactNode;
   error?: ReactNode;
   type: FieldType;

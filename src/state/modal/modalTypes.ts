@@ -6,10 +6,10 @@ export interface ModalState {
 }
 
 export enum ModalType {
-  Default = 1,
-  Notification,
+  Default = 'default',
+  Notification = 'notification',
 }
 
 export enum ModalId {
-  Default = 1,
+  Generic = 1,
 }

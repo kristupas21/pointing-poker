@@ -1,5 +1,5 @@
 import { ActionType, Reducer } from 'typesafe-actions';
-import { ModalState, ModalType } from './modalTypes';
+import { ModalId, ModalState, ModalType } from './modalTypes';
 import { CLOSE_MODAL, OPEN_MODAL } from './modalConstants';
 
 type Action = ActionType<typeof import('./modalActions')>;
@@ -9,7 +9,7 @@ type State = Readonly<ModalState>;
 const initialState: State = {
   isOpen: false,
   contentProps: {},
-  id: null,
+  id: ModalId.Generic,
   type: ModalType.Default,
 };
 
