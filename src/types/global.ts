@@ -1,4 +1,5 @@
 import store from '../state/store';
+import { AvatarId } from '../components/Avatar';
 
 export enum Breakpoint {
   Desktop = 'Desktop',
@@ -7,10 +8,12 @@ export enum Breakpoint {
 }
 
 export interface User {
+  avatarId?: AvatarId;
   id: string;
   name: string;
   role?: string;
   registeredSessionId?: string;
+  voteValue?: string;
 }
 
 const state = store.getState();

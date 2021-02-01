@@ -17,11 +17,13 @@ export const messages = {
   'session.field.role.placeholder': 'Select a role',
   'session.field.observer.label': 'Join as observer',
 
-  'session.action.showVotes': 'Show votes',
-  'session.action.clearVotes': 'Clear votes',
-  'session.action.choosePoints': 'Choose points',
   'session.action.useRoles': 'Use roles',
   'session.action.pointValues': 'Point values',
+
+  'voteRound.action.clearVotes': 'Clear votes',
+  'voteRound.action.hideVotes': 'Hide votes',
+  'voteRound.action.showVotes': 'Show votes',
+  'voteRound.action.choosePoints': 'Choose points',
 
   'user.role.backend': 'Backend Dev',
   'user.role.frontend': 'Frontend Dev',

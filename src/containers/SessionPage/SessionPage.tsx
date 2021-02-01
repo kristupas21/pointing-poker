@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteChildrenProps } from 'react-router';
 import { ROUTE } from '../../constants/routes';
 import { User } from '../../types/global';
+import VoteRound from '../VoteRound';
 
 interface Props extends RouteChildrenProps<{ sessionId: string }> {
   user: User;
@@ -28,7 +29,8 @@ class SessionPage extends React.Component<Props> {
 
   private isRegistered = () => {
     const { match: { params: { sessionId } }, user } = this.props;
-    return user && sessionId === user.registeredSessionId;
+    // return user && sessionId === user.registeredSessionId;
+    return true;
   }
 
   public render() {
@@ -41,6 +43,7 @@ class SessionPage extends React.Component<Props> {
     return (
       <div>
         {sessionId}
+        <VoteRound />
       </div>
     );
   }
