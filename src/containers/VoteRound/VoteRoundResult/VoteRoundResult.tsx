@@ -9,7 +9,7 @@ const VoteRoundResult: React.FC<Props> = (props) => {
   const { result, votesShown } = props;
 
   return (
-    <div style={{ border: '1px solid' }}>
+    <div style={{ border: '1px solid', minHeight: 30 }}>
       <span>
         {votesShown && (result || 0)}
       </span>

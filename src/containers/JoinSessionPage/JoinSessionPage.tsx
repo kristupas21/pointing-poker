@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
+import { RouteChildrenProps } from 'react-router';
 import { FieldType, FormField, SubmitHandler } from '../../components/Form';
 import { useSessionId } from '../../utils/customHooks';
 import Button from '../../components/Button';
@@ -7,6 +8,7 @@ import { withText, WithText } from '../../components/Text';
 import { MessageId } from '../../lang';
 import USER_ROLES from '../../constants/userRoles';
 import validationSchema from './validationSchema';
+import { getMatchParamRoute, ROUTE } from '../../constants/routes';
 
 export interface JoinSessionFormData {
   sessionId: string;
@@ -15,9 +17,9 @@ export interface JoinSessionFormData {
   isObserver: boolean;
 }
 
-type Props = WithText;
+type Props = WithText & RouteChildrenProps;
 
-const JoinSessionPage: React.FC<Props> = ({ getText }) => {
+const JoinSessionPage: React.FC<Props> = ({ getText, history }) => {
   const sessionId = useSessionId();
 
   const initialValues: JoinSessionFormData =
@@ -28,6 +30,7 @@ const JoinSessionPage: React.FC<Props> = ({ getText }) => {
 
   const handleSubmit: SubmitHandler<JoinSessionFormData> = (values, { setSubmitting }) => {
     setSubmitting(false);
+    history.push(getMatchParamRoute(ROUTE.SESSION, { sessionId: values.sessionId }));
   };
 
   return (
