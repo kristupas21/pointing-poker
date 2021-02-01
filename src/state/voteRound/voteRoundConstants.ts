@@ -1,5 +1,6 @@
 import { User } from '../../types/global';
 import { AvatarId } from '../../components/Avatar';
+import { VOTE_OPTION_UNKNOWN } from '../session/sessionConstants';
 
 export const ADD_USER_TO_VOTE_ROUND = '@voteRound/ADD_USER';
 export const SET_USER_VOTE_VALUE = '@voteRound/SET_USER_VOTE_VALUE';
@@ -17,5 +18,5 @@ export const MOCK_USERS: User[] = [
 
   { id: 'qsx', voteValue: null, name: 'Joey', role: 'backend' },
   { id: 'q3s', voteValue: null, name: 'Chandler', role: 'backend' },
-  { id: 'qrs', voteValue: '?', name: 'Monica', role: 'backend' },
+  { id: 'qrs', voteValue: VOTE_OPTION_UNKNOWN, name: 'Monica', role: 'backend' },
 ];

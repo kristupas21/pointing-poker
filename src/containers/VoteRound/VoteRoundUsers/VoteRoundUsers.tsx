@@ -12,7 +12,7 @@ const VoteRoundUsers: React.FC<Props> = (props) => {
 
   return (
     <ul>
-      {sortBy(users, ['name']).map((u) => (
+      {sortBy(users, 'name').map((u) => (
         <li key={u.id}>
           <VoteRoundUser showVote={votesShown} {...u} />
         </li>
