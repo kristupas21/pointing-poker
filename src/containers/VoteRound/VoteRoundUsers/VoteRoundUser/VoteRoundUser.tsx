@@ -11,7 +11,7 @@ const VoteRoundUser: React.FC<Props> = (props) => {
   const hasVoted = voteValue != null;
 
   const renderValue = () => (hasVoted
-    ? <span data-className="value">{voteValue}</span>
+    ? <span data-classname="value">{voteValue}</span>
     : <i data-component="CloseMark">X</i>
   );
 
