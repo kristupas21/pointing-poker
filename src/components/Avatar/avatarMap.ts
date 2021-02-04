@@ -1,18 +1,18 @@
 import { ComponentType } from 'react';
-import { ReactComponent as EmojiHappy } from '../../assets/svg/avatars/emoji-happy.svg';
-import { ReactComponent as EmojiSad } from '../../assets/svg/avatars/emoji-sad.svg';
-import { ReactComponent as BlockSign } from '../../assets/svg/avatars/block-sign.svg';
 import { AvatarId } from './types';
+import { getIcon, IconId } from '../../utils/iconMap';
 
-const avatarMap: Record<AvatarId, ComponentType> = {
-  [AvatarId.EmojiHappy]: EmojiHappy,
-  [AvatarId.EmojiSad]: EmojiSad,
+const avatarMap: Record<AvatarId, IconId> = {
+  [AvatarId.EmojiHappy]: IconId.EmojiHappy,
+  [AvatarId.EmojiSad]: IconId.EmojiSad,
 };
 
 export const getAvatar = (id: AvatarId): { Component: ComponentType, exists: boolean } => {
-  if (avatarMap[id]) {
-    return { Component: avatarMap[id], exists: true };
+  const iconId = avatarMap[id];
+
+  if (iconId) {
+    return { Component: getIcon(iconId), exists: true };
   }
 
-  return { Component: BlockSign, exists: false };
+  return { Component: getIcon(IconId.BlockSign), exists: false };
 };

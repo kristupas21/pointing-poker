@@ -4,15 +4,17 @@ import classNames from 'classnames/bind';
 import { ROUTE } from '../../constants/routes';
 import styles from './App.module.scss';
 import Modal from '../../components/Modal';
+import { withMainLayout } from '../MainLayout';
 
 const cx = classNames.bind(styles);
 
 const LandingPage = lazy(() => import('../LandingPage'));
-const StartSessionPage = lazy(() => import('../StartSessionPage'));
-const JoinSessionPage = lazy(() => import('../JoinSessionPage'));
-const SessionPage = lazy(() => import('../SessionPage'));
 const SessionNotFoundPage = lazy(() => import('../SessionNotFoundPage'));
 const ErrorPage = lazy(() => import('../ErrorPage'));
+
+const StartSessionPage = withMainLayout(lazy(() => import('../StartSessionPage')));
+const JoinSessionPage = withMainLayout(lazy(() => import('../JoinSessionPage')));
+const SessionPage = withMainLayout(lazy(() => import('../SessionPage')));
 
 interface Props {
   name?: string;

@@ -5,7 +5,7 @@ import { User } from '../../types/global';
 import VoteRound from '../VoteRound';
 
 interface Props extends RouteChildrenProps<{ sessionId: string }> {
-  user: User;
+  user?: User;
 }
 
 class SessionPage extends React.Component<Props> {
