@@ -6,6 +6,11 @@ import Button, { ButtonVariant } from '../../components/Button';
 import { ROUTE } from '../../constants/routes';
 import { State } from '../../types/global';
 
+const mapStateToProps = (state: State) => ({
+  errorId: state.error.errorId,
+  redirectPath: state.error.redirectPath,
+});
+
 type ReduxProps = ConnectedProps<typeof connector>;
 type Props = ReduxProps & RouteChildrenProps;
 
@@ -30,11 +35,6 @@ const ErrorPage: React.FC<Props> = (props) => {
     </div>
   );
 };
-
-const mapStateToProps = (state: State) => ({
-  errorId: state.error.errorId,
-  redirectPath: state.error.redirectPath,
-});
 
 const connector = connect(mapStateToProps);
 

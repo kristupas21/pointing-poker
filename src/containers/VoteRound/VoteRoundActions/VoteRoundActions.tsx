@@ -9,6 +9,16 @@ import {
 import Button from '../../../components/Button';
 import Text from '../../../components/Text';
 
+const mapStateToProps = (state: State) => ({
+  votesShown: state.voteRound.votesShown,
+});
+
+const mapDispatchToProps = {
+  clearVotes: clearVotesAction,
+  hideVotes: hideVotesAction,
+  showVotes: showVotesAction,
+};
+
 type ReduxProps = ConnectedProps<typeof connector>;
 type Props = ReduxProps;
 
@@ -37,16 +47,6 @@ const VoteRoundActions: React.FC<Props> = (props) => {
       </Button>
     </div>
   );
-};
-
-const mapStateToProps = (state: State) => ({
-  votesShown: state.voteRound.votesShown,
-});
-
-const mapDispatchToProps = {
-  clearVotes: clearVotesAction,
-  hideVotes: hideVotesAction,
-  showVotes: showVotesAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

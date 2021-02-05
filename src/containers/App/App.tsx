@@ -9,9 +9,9 @@ import { withMainLayout } from '../MainLayout';
 const cx = classNames.bind(styles);
 
 const LandingPage = lazy(() => import('../LandingPage'));
-const SessionNotFoundPage = lazy(() => import('../SessionNotFoundPage'));
-const ErrorPage = lazy(() => import('../ErrorPage'));
 
+const SessionNotFoundPage = withMainLayout(lazy(() => import('../SessionNotFoundPage')));
+const ErrorPage = withMainLayout(lazy(() => import('../ErrorPage')));
 const StartSessionPage = withMainLayout(lazy(() => import('../StartSessionPage')));
 const JoinSessionPage = withMainLayout(lazy(() => import('../JoinSessionPage')));
 const SessionPage = withMainLayout(lazy(() => import('../SessionPage')));
@@ -47,12 +47,14 @@ const App: React.FC<Props> = () => (
         <Route
           exact
           path={ROUTE.SESSION_NOT_FOUND}
-          component={SessionNotFoundPage}
+          render={(routeProps) =>
+            <SessionNotFoundPage {...routeProps} withSettings={false} />}
         />
         <Route
           exact
           path={ROUTE.ERROR}
-          component={ErrorPage}
+          render={(routeProps) =>
+            <ErrorPage {...routeProps} withSettings={false} />}
         />
         <Redirect to={ROUTE.BASE} />
       </Switch>

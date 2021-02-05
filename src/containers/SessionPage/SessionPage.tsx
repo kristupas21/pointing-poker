@@ -13,7 +13,7 @@ class SessionPage extends React.Component<Props> {
     const { match: { params: { sessionId } }, history } = this.props;
 
     if (this.isNotFound()) {
-      history.push(ROUTE.SESSION_NOT_FOUND, { sessionId });
+      history.replace(ROUTE.SESSION_NOT_FOUND, { sessionId });
       return;
     }
 

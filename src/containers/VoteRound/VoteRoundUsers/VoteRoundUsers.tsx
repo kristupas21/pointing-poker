@@ -4,6 +4,11 @@ import sortBy from 'lodash/sortBy';
 import { State } from '../../../types/global';
 import VoteRoundUser from './VoteRoundUser';
 
+const mapStateToProps = (state: State) => ({
+  users: state.voteRound.users,
+  votesShown: state.voteRound.votesShown,
+});
+
 type ReduxProps = ConnectedProps<typeof connector>;
 type Props = ReduxProps;
 
@@ -20,11 +25,6 @@ const VoteRoundUsers: React.FC<Props> = (props) => {
     </ul>
   );
 };
-
-const mapStateToProps = (state: State) => ({
-  users: state.voteRound.users,
-  votesShown: state.voteRound.votesShown,
-});
 
 const connector = connect(mapStateToProps);
 

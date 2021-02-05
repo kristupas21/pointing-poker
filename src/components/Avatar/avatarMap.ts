@@ -1,18 +1,16 @@
-import { ComponentType } from 'react';
 import { AvatarId } from './types';
-import { getIcon, IconId } from '../../utils/iconMap';
+import { IconId } from '../Icon';
 
 const avatarMap: Record<AvatarId, IconId> = {
   [AvatarId.EmojiHappy]: IconId.EmojiHappy,
   [AvatarId.EmojiSad]: IconId.EmojiSad,
 };
 
-export const getAvatar = (id: AvatarId): { Component: ComponentType, exists: boolean } => {
+export const getAvatar = (id: AvatarId): { iconId: IconId, exists: boolean } => {
   const iconId = avatarMap[id];
 
-  if (iconId) {
-    return { Component: getIcon(iconId), exists: true };
-  }
-
-  return { Component: getIcon(IconId.BlockSign), exists: false };
+  return {
+    iconId: iconId || IconId.BlockSign,
+    exists: !!iconId,
+  };
 };

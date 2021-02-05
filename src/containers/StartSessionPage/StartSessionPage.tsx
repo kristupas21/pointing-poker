@@ -4,6 +4,10 @@ import Button from '../../components/Button';
 import Text from '../../components/Text';
 import { startSession as startSessionAction } from '../../state/session/sessionActions';
 
+const mapDispatchToProps = {
+  startSession: startSessionAction,
+};
+
 type ReduxProps = ConnectedProps<typeof connector>;
 type Props = ReduxProps;
 
@@ -15,10 +19,6 @@ const StartSessionPage: React.FC<Props> = (props) => {
       <Text id="session.start" />
     </Button>
   );
-};
-
-const mapDispatchToProps = {
-  startSession: startSessionAction,
 };
 
 const connector = connect(null, mapDispatchToProps);

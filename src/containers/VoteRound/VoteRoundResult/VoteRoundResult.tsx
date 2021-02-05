@@ -3,6 +3,15 @@ import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../../types/global';
 import { makeResultSelector } from '../../../utils/selectors';
 
+const mapStateToProps = () => {
+  const resultSelector = makeResultSelector();
+
+  return (state: State) => ({
+    result: resultSelector(state),
+    votesShown: state.voteRound.votesShown,
+  });
+};
+
 type Props = ConnectedProps<typeof connector>;
 
 const VoteRoundResult: React.FC<Props> = (props) => {
@@ -15,15 +24,6 @@ const VoteRoundResult: React.FC<Props> = (props) => {
       </span>
     </div>
   );
-};
-
-const mapStateToProps = () => {
-  const resultSelector = makeResultSelector();
-
-  return (state: State) => ({
-    result: resultSelector(state),
-    votesShown: state.voteRound.votesShown,
-  });
 };
 
 const connector = connect(mapStateToProps);

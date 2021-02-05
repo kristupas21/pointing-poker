@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { AvatarId } from './types';
 import { getAvatar } from './avatarMap';
 import styles from './Avatar.module.scss';
+import Icon from '../Icon';
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +13,7 @@ interface Props {
 
 const Avatar: React.FC<Props> = (props) => {
   const { id } = props;
-  const { Component, exists } = getAvatar(id);
+  const { iconId, exists } = getAvatar(id);
 
   const avatarClasses = cx('avatar', {
     'avatar--invalid': !exists,
@@ -20,7 +21,7 @@ const Avatar: React.FC<Props> = (props) => {
 
   return (
     <span className={avatarClasses}>
-      <Component />
+      <Icon id={iconId} />
     </span>
   );
 };

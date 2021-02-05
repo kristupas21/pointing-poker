@@ -4,6 +4,10 @@ import sortBy from 'lodash/sortBy';
 import { State } from '../../../types/global';
 import Button from '../../../components/Button';
 
+const mapStateToProps = (state: State) => ({
+  options: state.session.voteOptions,
+});
+
 type ReduxProps = ConnectedProps<typeof connector>;
 type Props = ReduxProps;
 
@@ -22,10 +26,6 @@ const VoteRoundOptions: React.FC<Props> = (props) => {
     </ul>
   );
 };
-
-const mapStateToProps = (state: State) => ({
-  options: state.session.voteOptions,
-});
 
 const connector = connect(mapStateToProps);
 
