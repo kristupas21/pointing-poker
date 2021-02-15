@@ -3,6 +3,8 @@ import { VoteOption } from './sessionTypes';
 export const SET_SESSION_ID = '@session/SET_ID';
 export const SET_SESSION_USER = '@session/SET_USER';
 export const START_SESSION = '@session/START';
+export const JOIN_SESSION = '@session/JOIN';
+export const LOAD_SESSION = '@session/LOAD';
 
 export const VOTE_OPTION_INFINITY = '∞';
 export const VOTE_OPTION_UNKNOWN = '?';

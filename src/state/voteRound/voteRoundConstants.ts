@@ -7,6 +7,7 @@ export const SET_USER_VOTE_VALUE = '@voteRound/SET_USER_VOTE_VALUE';
 export const CLEAR_VOTES = '@voteRound/CLEAR_VOTES';
 export const SHOW_VOTES = '@voteRound/SHOW_VOTES';
 export const HIDE_VOTES = '@voteRound/HIDE_VOTES';
+export const INIT_VOTE_ROUND = '@voteRound/INIT';
 
 export const MOCK_USERS: User[] = [
   { id: 'qq', voteValue: '3', name: 'Saulius', role: 'frontend', avatarId: AvatarId.EmojiSad },

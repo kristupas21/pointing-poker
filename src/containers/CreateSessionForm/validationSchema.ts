@@ -2,11 +2,13 @@ import * as Yup from 'yup';
 import {
   GetValidationSchema, INPUT_MAX_CHARS, INPUT_MIN_CHARS, msgMax, msgMin, msgRequired,
 } from '../../constants/formValidation';
-import { JoinSessionFormData } from './JoinSessionPage';
+import { CreateSessionFormData } from './CreateSessionForm';
 
-const validationSchema: GetValidationSchema<JoinSessionFormData> = (text) => Yup.object().shape({
-  sessionId: Yup.string()
-    .required(text(msgRequired)),
+const validationSchema: GetValidationSchema<CreateSessionFormData> = (text, withSessionId = false) => Yup.object().shape({
+  sessionId: withSessionId
+    ? Yup.string()
+      .required(text(msgRequired))
+    : undefined,
 
   name: Yup.string()
     .min(INPUT_MIN_CHARS, text(msgMin, { chars: INPUT_MIN_CHARS }))

@@ -6,7 +6,7 @@ export interface VoteOption {
 }
 
 export interface SessionState {
-  sessionId: string;
+  currentSessionId: string;
   user: User;
   voteOptions: VoteOption[];
 }

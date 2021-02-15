@@ -8,7 +8,7 @@ type Action = ActionType<typeof import('./sessionActions')>;
 type State = Readonly<SessionState>;
 
 const initialState: State = {
-  sessionId: null,
+  currentSessionId: null,
   user: sessionStorage.getItem('user'),
   voteOptions: DEFAULT_VOTE_OPTIONS,
 };
@@ -18,7 +18,7 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
     case SET_SESSION_ID:
       return {
         ...state,
-        sessionId: action.payload,
+        currentSessionId: action.payload,
       };
     case SET_SESSION_USER:
       return {

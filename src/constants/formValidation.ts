@@ -12,4 +12,4 @@ export const msgMin: MessageId = 'form.validation.min';
 
 export const msgMax: MessageId = 'form.validation.max';
 
-export type GetValidationSchema<T> = (textGetter: GetText) => SchemaOf<Partial<T>>;
+export type GetValidationSchema<T> = (textGetter: GetText, withSessionId?: boolean) => SchemaOf<Partial<T>>;

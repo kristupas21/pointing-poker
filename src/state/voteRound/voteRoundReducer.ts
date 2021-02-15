@@ -4,7 +4,7 @@ import {
   ADD_USER_TO_VOTE_ROUND,
   CLEAR_VOTES,
   HIDE_VOTES,
-  MOCK_USERS,
+  INIT_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
   SHOW_VOTES
 } from './voteRoundConstants';
@@ -14,12 +14,17 @@ type Action = ActionType<typeof import('./voteRoundActions')>;
 type State = Readonly<VoteRoundState>;
 
 const initialState: State = {
-  users: MOCK_USERS,
+  users: [],
   votesShown: false,
 };
 
 const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) => {
   switch (action.type) {
+    case INIT_VOTE_ROUND:
+      return {
+        ...initialState,
+        users: action.payload,
+      };
     case ADD_USER_TO_VOTE_ROUND:
       return {
         ...state,

@@ -1,42 +1,33 @@
 import React from 'react';
 import { RouteChildrenProps } from 'react-router';
-import { ROUTE } from '../../constants/routes';
-import { User } from '../../types/global';
+import { connect, ConnectedProps } from 'react-redux';
 import VoteRound from '../VoteRound';
+import { loadSession as loadSessionAction } from '../../state/session/sessionActions';
+import { State } from '../../types/global';
 
-interface Props extends RouteChildrenProps<{ sessionId: string }> {
-  user?: User;
-}
+const mapStateToProps = (state: State) => ({
+  currentSessionId: state.session.currentSessionId,
+});
+
+const mapDispatchToProps = {
+  loadSession: loadSessionAction,
+};
+
+type ReduxProps = ConnectedProps<typeof connector>;
+
+type Props = RouteChildrenProps<{ sessionId: string }> & ReduxProps;
 
 class SessionPage extends React.Component<Props> {
   public componentDidMount() {
-    const { match: { params: { sessionId } }, history } = this.props;
+    const { match: { params: { sessionId } }, loadSession } = this.props;
 
-    if (this.isNotFound()) {
-      history.replace(ROUTE.SESSION_NOT_FOUND, { sessionId });
-      return;
-    }
-
-    if (!this.isRegistered()) {
-      history.push(ROUTE.JOIN_SESSION, { sessionId });
-    }
-  }
-
-  private isNotFound = () => {
-    const { match: { params: { sessionId } } } = this.props;
-    return sessionId !== 'test';
-  }
-
-  private isRegistered = () => {
-    const { match: { params: { sessionId } }, user } = this.props;
-    // return user && sessionId === user.registeredSessionId;
-    return true;
+    loadSession(sessionId);
   }
 
   public render() {
-    const { match: { params: { sessionId } } } = this.props;
+    const { match: { params: { sessionId } }, currentSessionId } = this.props;
 
-    if (this.isNotFound() || !this.isRegistered()) {
+    if (!currentSessionId) {
       return null;
     }
 
@@ -49,4 +40,6 @@ class SessionPage extends React.Component<Props> {
   }
 }
 
-export default SessionPage;
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(SessionPage);
