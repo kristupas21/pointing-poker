@@ -1,6 +1,6 @@
 import api from '../../utils/api';
 import { User } from '../../types/global';
-import { CreateSessionFormData } from '../../containers/CreateSessionForm/CreateSessionForm';
+import { JoinSessionParams } from './sessionTypes';
 
 interface StartSessionResponse {
   data: {
@@ -19,7 +19,7 @@ interface GetSessionResponse {
 
 interface Api {
   start(user: User): Promise<StartSessionResponse>;
-  join(data: CreateSessionFormData): Promise<GetSessionResponse>;
+  join(params: JoinSessionParams): Promise<GetSessionResponse>;
   load(id: string): Promise<GetSessionResponse>;
 }
 
@@ -28,8 +28,8 @@ export default <Api>{
     return api.post('/session/start', user);
   },
 
-  join(data) {
-    return api.post('/session/join', data);
+  join(params) {
+    return api.post('/session/join', params);
   },
 
   load(id) {

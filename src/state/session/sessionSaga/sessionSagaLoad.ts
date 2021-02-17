@@ -14,7 +14,7 @@ function* loadSaga(action: ActionType<typeof loadSession>) {
     yield put(setSessionId(action.payload));
     yield put(initVoteRound(data.session.users));
   } catch (e) {
-    if (e.response.status === 400) {
+    if (e?.response?.data?.error === 'error.generic.notFound') {
       yield put(replace(ROUTE.SESSION_NOT_FOUND, { sessionId: action.payload }));
     } else {
       yield put(throwAppError('error.unexpected'));
@@ -22,6 +22,6 @@ function* loadSaga(action: ActionType<typeof loadSession>) {
   }
 }
 
-export default function* joinSessionSaga() {
+export default function* sessionSagaLoad() {
   yield takeLatest(LOAD_SESSION, loadSaga);
 }

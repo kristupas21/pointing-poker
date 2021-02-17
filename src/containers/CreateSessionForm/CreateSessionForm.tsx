@@ -11,6 +11,11 @@ import { MessageId } from '../../lang';
 import USER_ROLES from '../../constants/userRoles';
 import validationSchema from './validationSchema';
 import { joinSession as joinSessionAction, startSession as startSessionAction } from '../../state/session/sessionActions';
+import { State } from '../../types/global';
+
+const mapStateToProps = (state: State) => ({
+  user: state.session.user,
+});
 
 const mapDispatchToProps = {
   joinSession: joinSessionAction,
@@ -31,12 +36,12 @@ type Props = WithText & RouteChildrenProps & ReduxProps & {
 };
 
 const JoinSessionPage: React.FC<Props> = (props) => {
-  const { getText, joinSession, type, startSession } = props;
+  const { getText, joinSession, type, startSession, user } = props;
   const isJoinType = type === 'join';
   const sessionId = useSessionId();
 
   const initialValues: CreateSessionFormData =
-        { sessionId: sessionId || '', name: '', role: '', isObserver: false };
+        { sessionId: sessionId || '', name: user?.name || '', role: user?.role || '', isObserver: false };
 
   const roles = USER_ROLES.map((role) =>
     ({ ...role, name: getText(role.name as MessageId) }));
@@ -93,6 +98,6 @@ const JoinSessionPage: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(null, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default connector(withText(JoinSessionPage));

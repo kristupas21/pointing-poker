@@ -1,3 +1,3 @@
-export { default as startSessionSaga } from './startSessionSaga';
-export { default as joinSessionSaga } from './joinSessionSaga';
-export { default as loadSessionSaga } from './loadSessionSaga';
+export { default as sessionSagaStart } from './sessionSagaStart';
+export { default as sessionSagaJoin } from './sessionSagaJoin';
+export { default as sessionSagaLoad } from './sessionSagaLoad';

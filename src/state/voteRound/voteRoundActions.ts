@@ -5,9 +5,13 @@ import {
   HIDE_VOTES,
   INIT_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
+  SET_VOTE_ROUND_USERS,
   SHOW_VOTES
 } from './voteRoundConstants';
 import { User } from '../../types/global';
+
+export const setVoteRoundUsers = (users: User[]) =>
+  action(SET_VOTE_ROUND_USERS, users);
 
 export const addUserToVoteRound = (user: User) =>
   action(ADD_USER_TO_VOTE_ROUND, user);

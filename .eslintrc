@@ -68,6 +68,7 @@
     "react/require-default-props": "off",
     "react-redux/no-unused-prop-types": "off",
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"]
+    "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/no-misused-promises": "off"
   }
 }

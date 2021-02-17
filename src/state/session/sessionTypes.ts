@@ -10,3 +10,9 @@ export interface SessionState {
   user: User;
   voteOptions: VoteOption[];
 }
+
+export interface JoinSessionParams {
+  sessionId: string;
+  isObserver?: boolean;
+  user: User;
+}

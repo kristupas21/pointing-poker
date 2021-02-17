@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteChildrenProps } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import VoteRound from '../VoteRound';
-import { loadSession as loadSessionAction } from '../../state/session/sessionActions';
+import { loadSession as loadSessionAction, closeSession as closeSessionAction } from '../../state/session/sessionActions';
 import { State } from '../../types/global';
 
 const mapStateToProps = (state: State) => ({
@@ -11,6 +11,7 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = {
   loadSession: loadSessionAction,
+  closeSession: closeSessionAction,
 };
 
 type ReduxProps = ConnectedProps<typeof connector>;
@@ -22,6 +23,12 @@ class SessionPage extends React.Component<Props> {
     const { match: { params: { sessionId } }, loadSession } = this.props;
 
     loadSession(sessionId);
+  }
+
+  public componentWillUnmount() {
+    const { match: { params: { sessionId } }, closeSession } = this.props;
+
+    closeSession(sessionId);
   }
 
   public render() {

@@ -6,6 +6,7 @@ import {
   HIDE_VOTES,
   INIT_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
+  SET_VOTE_ROUND_USERS,
   SHOW_VOTES
 } from './voteRoundConstants';
 
@@ -23,6 +24,11 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
     case INIT_VOTE_ROUND:
       return {
         ...initialState,
+        users: action.payload,
+      };
+    case SET_VOTE_ROUND_USERS:
+      return {
+        ...state,
         users: action.payload,
       };
     case ADD_USER_TO_VOTE_ROUND:

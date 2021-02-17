@@ -1,10 +1,12 @@
 import { fork } from 'redux-saga/effects';
-import { joinSessionSaga, loadSessionSaga, startSessionSaga } from './session/sessionSaga';
+import { sessionSagaJoin, sessionSagaLoad, sessionSagaStart } from './session/sessionSaga';
 import errorSaga from './error/errorSaga';
+import wsSaga from './ws/wsSaga';
 
 export default function* saga() {
   yield fork(errorSaga);
-  yield fork(startSessionSaga);
-  yield fork(joinSessionSaga);
-  yield fork(loadSessionSaga);
+  yield fork(sessionSagaStart);
+  yield fork(sessionSagaJoin);
+  yield fork(sessionSagaLoad);
+  yield fork(wsSaga);
 }
