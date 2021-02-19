@@ -4,6 +4,7 @@ import { VOTE_OPTION_UNKNOWN } from '../session/sessionConstants';
 
 export const SET_VOTE_ROUND_USERS = '@voteRound/SET_USERS';
 export const ADD_USER_TO_VOTE_ROUND = '@voteRound/ADD_USER';
+export const REMOVE_USER_FROM_VOTE_ROUND = '@voteRound/REMOVE_USER';
 export const SET_USER_VOTE_VALUE = '@voteRound/SET_USER_VOTE_VALUE';
 export const CLEAR_VOTES = '@voteRound/CLEAR_VOTES';
 export const SHOW_VOTES = '@voteRound/SHOW_VOTES';

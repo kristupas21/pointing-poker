@@ -5,6 +5,7 @@ import {
   CLEAR_VOTES,
   HIDE_VOTES,
   INIT_VOTE_ROUND,
+  REMOVE_USER_FROM_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
   SET_VOTE_ROUND_USERS,
   SHOW_VOTES
@@ -35,9 +36,14 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
       return {
         ...state,
         users: [
-          ...state.users,
+          ...state.users.filter((u) => u.id !== action.payload.id),
           action.payload,
         ],
+      };
+    case REMOVE_USER_FROM_VOTE_ROUND:
+      return {
+        ...state,
+        users: state.users.filter((u) => u.id !== action.payload),
       };
     case SET_USER_VOTE_VALUE: {
       const { userId, voteValue } = action.payload;

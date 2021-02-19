@@ -1,39 +1,29 @@
-import { take, call, put } from 'redux-saga/effects';
-import { EventChannel } from 'redux-saga';
+import { all, call, fork, put, take } from 'redux-saga/effects';
 import { CLOSE_SESSION, SET_SESSION_ID } from '../session/sessionConstants';
-import { setVoteRoundUsers } from '../voteRound/voteRoundActions';
-import { initWSChannel } from './wsUtils';
-import { WSBodySessionJoined, WSMessage } from './wsTypes';
-import { WS_EVENTS } from './wsConstants';
+import { baseWsEmitter, createSocket } from './wsUtils';
+import { wsUserJoined, wsUserLeft } from './wsActions';
+import { initWSChannel } from './wsChannel';
+import { WS_EVENT_MAP } from './wsConstants';
 
 function* wsSaga() {
   while (true) {
     const { payload: sessionId } = yield take(SET_SESSION_ID);
+    const socket = createSocket({ sessionId });
 
-    const channel: EventChannel<void> = yield call(
-      initWSChannel,
-      sessionId,
-      handler,
-    );
+    socket.connect();
 
+    const channels = yield all(WS_EVENT_MAP.map((item) =>
+      call(initWSChannel, socket, item)));
+
+    yield all(WS_EVENT_MAP.map((item) =>
+      fork(baseWsEmitter, item, socket)));
+
+    yield put(wsUserJoined(sessionId));
     yield take(CLOSE_SESSION);
+    yield put(wsUserLeft(sessionId));
 
-    channel.close();
-  }
-}
-
-function* handler(message: WSMessage) {
-  switch (message.eventType) {
-    case WS_EVENTS.SESSION_JOINED: {
-      const { body: { session: { users } } } =
-          message as WSMessage<WSBodySessionJoined>;
-
-      yield put(setVoteRoundUsers(users));
-      break;
-    }
-    default:
-      // eslint-disable-next-line no-console
-      console.warn(`Unhandled WS Event: ${message.eventType}`);
+    channels.forEach((channel) => channel.close());
+    socket.disconnect();
   }
 }
 

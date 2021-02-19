@@ -3,7 +3,7 @@ import {
   ADD_USER_TO_VOTE_ROUND,
   CLEAR_VOTES,
   HIDE_VOTES,
-  INIT_VOTE_ROUND,
+  INIT_VOTE_ROUND, REMOVE_USER_FROM_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
   SET_VOTE_ROUND_USERS,
   SHOW_VOTES
@@ -15,6 +15,9 @@ export const setVoteRoundUsers = (users: User[]) =>
 
 export const addUserToVoteRound = (user: User) =>
   action(ADD_USER_TO_VOTE_ROUND, user);
+
+export const removeUserFromVoteRound = (userId: string) =>
+  action(REMOVE_USER_FROM_VOTE_ROUND, userId);
 
 export const setUserVoteValue = (userId: string, voteValue: string) =>
   action(SET_USER_VOTE_VALUE, { userId, voteValue });

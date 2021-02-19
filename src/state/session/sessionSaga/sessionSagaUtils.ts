@@ -1,13 +1,14 @@
 import { select, call, put } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
-import { State, User } from '../../../types/global';
+import { User } from '../../../types/global';
 import storageService from '../../../utils/storageService';
 import { setSessionUser } from '../sessionActions';
 import { createEmptyUser } from '../sessionUtils';
 import { getMatchParamRoute, ROUTE } from '../../../constants/routes';
+import { selectSessionUserId } from '../sessionSelectors';
 
 export function* acquireCurrentUserId(): Generator<unknown, string> {
-  const stateValue = yield select((state: State) => state.session.user?.id);
+  const stateValue = yield select(selectSessionUserId);
 
   if (stateValue) {
     return stateValue as string;
