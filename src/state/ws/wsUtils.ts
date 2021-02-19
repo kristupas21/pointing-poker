@@ -10,7 +10,10 @@ export const createSocket = (auth: { sessionId: string; }) => io(
 export function* baseWsEmitter(item: WSEventMapItem, socket: Socket) {
   while (true) {
     const { payload } = yield take(item.event);
-    const body = yield call(item.emitter, payload);
+
+    const body = yield item.emitter
+      ? call(item.emitter, payload)
+      : null;
 
     socket.emit(item.event, { body });
   }

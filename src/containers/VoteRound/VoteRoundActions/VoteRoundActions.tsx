@@ -6,6 +6,10 @@ import {
   hideVotes as hideVotesAction,
   showVotes as showVotesAction,
 } from '../../../state/voteRound/voteRoundActions';
+import {
+  wsShowVotes,
+  wsHideVotes, wsClearVotes
+} from '../../../state/ws/wsActions';
 import Button from '../../../components/Button';
 import Text from '../../../components/Text';
 
@@ -13,11 +17,20 @@ const mapStateToProps = (state: State) => ({
   votesShown: state.voteRound.votesShown,
 });
 
-const mapDispatchToProps = {
-  clearVotes: clearVotesAction,
-  hideVotes: hideVotesAction,
-  showVotes: showVotesAction,
-};
+const mapDispatchToProps = (dispatch) => ({
+  clearVotes: () => {
+    dispatch(clearVotesAction());
+    dispatch(wsClearVotes());
+  },
+  hideVotes: () => {
+    dispatch(hideVotesAction());
+    dispatch(wsHideVotes());
+  },
+  showVotes: () => {
+    dispatch(showVotesAction());
+    dispatch(wsShowVotes());
+  },
+});
 
 type ReduxProps = ConnectedProps<typeof connector>;
 type Props = ReduxProps;

@@ -17,8 +17,8 @@ function* startSaga(action: ActionType<typeof startSession>) {
   };
 
   try {
-    const { data: { session } } = yield call(sessionApi.start, user);
-    yield* beginUserSession(user, session.id);
+    const { data: { sessionId } } = yield call(sessionApi.start, user);
+    yield* beginUserSession(user, sessionId);
   } catch (e) {
     yield put(throwAppError('error.unexpected'));
   } finally {

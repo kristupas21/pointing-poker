@@ -15,8 +15,8 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
   const params = createJoinSessionParams(formData, userId);
 
   try {
-    const { data } = yield call(sessionApi.join, params);
-    yield* beginUserSession(params.user, data.session.id);
+    const { data: { sessionId } } = yield call(sessionApi.join, params);
+    yield* beginUserSession(params.user, sessionId);
   } catch (e) {
     if (e?.response?.data?.error === 'error.generic.notFound') {
       yield put(replace(ROUTE.SESSION_NOT_FOUND, { sessionId: action.payload }));

@@ -25,7 +25,7 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
     case INIT_VOTE_ROUND:
       return {
         ...initialState,
-        users: action.payload,
+        ...action.payload,
       };
     case SET_VOTE_ROUND_USERS:
       return {

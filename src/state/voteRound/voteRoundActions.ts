@@ -28,4 +28,5 @@ export const showVotes = () => action(SHOW_VOTES);
 
 export const hideVotes = () => action(HIDE_VOTES);
 
-export const initVoteRound = (users: User[]) => action(INIT_VOTE_ROUND, users);
+export const initVoteRound = (users: User[], votesShown: boolean) =>
+  action(INIT_VOTE_ROUND, { users, votesShown });
