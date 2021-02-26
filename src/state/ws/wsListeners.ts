@@ -1,10 +1,12 @@
 import { put } from 'redux-saga/effects';
 import {
   addUserToVoteRound,
-  clearVotes,
+  resetVoteRound,
   hideVotes,
-  removeUserFromVoteRound, setUserVoteValue,
-  showVotes
+  removeUserFromVoteRound,
+  setUserVoteValue,
+  showVotes,
+  setVoteRoundTopic
 } from '../voteRound/voteRoundActions';
 import { User } from '../../types/global';
 import { WSMessage } from './wsTypes';
@@ -25,10 +27,14 @@ export function* hideVotesListener() {
   yield put(hideVotes());
 }
 
-export function* clearVotesListener() {
-  yield put(clearVotes());
+export function* resetVoteRoundListener() {
+  yield put(resetVoteRound());
 }
 
 export function* setVoteValueListener(message: WSMessage<{ userId: string, voteValue: string }>) {
   yield put(setUserVoteValue(message.body.userId, message.body.voteValue));
+}
+
+export function* setVoteRoundTopicListener(message: WSMessage<{ topic: string }>) {
+  yield put(setVoteRoundTopic(message.body.topic));
 }

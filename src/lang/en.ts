@@ -1,5 +1,11 @@
 export const messages = {
+  'error.internalServer': 'Internal server error',
+  'error.missingParam': 'Missing required parameter',
+  'error.mustChooseRole': 'Must choose your role',
+  'error.notFound': 'Resource not found',
+  'error.sessionNotFound': 'Session does not exist',
   'error.unexpected': 'Unexpected Error',
+  'error.userNotFound': 'User does not exist',
 
   'global.tryAgain': 'Try Again',
   'global.copy': 'Copy',

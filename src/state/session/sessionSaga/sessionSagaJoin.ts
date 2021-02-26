@@ -33,7 +33,7 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
       return;
     }
 
-    yield put(throwAppError('error.unexpected'));
+    yield put(throwAppError(ERROR_CODES.UNEXPECTED));
   } finally {
     yield call(setSubmitting, false);
   }

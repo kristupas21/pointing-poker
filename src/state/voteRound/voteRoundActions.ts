@@ -1,14 +1,15 @@
 import { action } from 'typesafe-actions';
 import {
   ADD_USER_TO_VOTE_ROUND,
-  CLEAR_VOTES,
+  RESET_VOTE_ROUND,
   HIDE_VOTES,
   INIT_VOTE_ROUND, REMOVE_USER_FROM_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
   SET_VOTE_ROUND_USERS,
-  SHOW_VOTES
+  SHOW_VOTES, SET_VOTE_ROUND_TOPIC
 } from './voteRoundConstants';
 import { User } from '../../types/global';
+import { VoteRoundState } from './voteRoundTypes';
 
 export const setVoteRoundUsers = (users: User[]) =>
   action(SET_VOTE_ROUND_USERS, users);
@@ -22,11 +23,13 @@ export const removeUserFromVoteRound = (userId: string) =>
 export const setUserVoteValue = (userId: string, voteValue: string) =>
   action(SET_USER_VOTE_VALUE, { userId, voteValue });
 
-export const clearVotes = () => action(CLEAR_VOTES);
+export const resetVoteRound = () => action(RESET_VOTE_ROUND);
 
 export const showVotes = () => action(SHOW_VOTES);
 
 export const hideVotes = () => action(HIDE_VOTES);
 
-export const initVoteRound = (users: User[], votesShown: boolean) =>
-  action(INIT_VOTE_ROUND, { users, votesShown });
+export const initVoteRound = (params: VoteRoundState) =>
+  action(INIT_VOTE_ROUND, params);
+
+export const setVoteRoundTopic = (topic: string) => action(SET_VOTE_ROUND_TOPIC, topic);

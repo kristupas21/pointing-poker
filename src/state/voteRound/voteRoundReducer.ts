@@ -2,11 +2,12 @@ import { ActionType, Reducer } from 'typesafe-actions';
 import { VoteRoundState } from './voteRoundTypes';
 import {
   ADD_USER_TO_VOTE_ROUND,
-  CLEAR_VOTES,
   HIDE_VOTES,
   INIT_VOTE_ROUND,
   REMOVE_USER_FROM_VOTE_ROUND,
+  RESET_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
+  SET_VOTE_ROUND_TOPIC,
   SET_VOTE_ROUND_USERS,
   SHOW_VOTES
 } from './voteRoundConstants';
@@ -16,6 +17,7 @@ type Action = ActionType<typeof import('./voteRoundActions')>;
 type State = Readonly<VoteRoundState>;
 
 const initialState: State = {
+  currentTopic: '',
   users: [],
   votesShown: false,
 };
@@ -56,12 +58,18 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
             ...(userId === user.id && { voteValue }) }))
       };
     }
-    case CLEAR_VOTES:
+    case RESET_VOTE_ROUND:
       return {
         ...state,
+        currentTopic: '',
         votesShown: false,
         users: state.users.map((user) =>
           ({ ...user, voteValue: null })),
+      };
+    case SET_VOTE_ROUND_TOPIC:
+      return {
+        ...state,
+        currentTopic: action.payload,
       };
     case SHOW_VOTES:
       return {
