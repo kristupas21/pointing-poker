@@ -4,6 +4,9 @@ import { connect, ConnectedProps } from 'react-redux';
 import VoteRound from '../VoteRound';
 import { loadSession as loadSessionAction, closeSession as closeSessionAction } from '../../state/session/sessionActions';
 import { State } from '../../types/global';
+import Button from '../../components/Button';
+import Text from '../../components/Text';
+import { copyToClipboard } from '../../utils/commands';
 
 const mapStateToProps = (state: State) => ({
   currentSessionId: state.session.currentSessionId,
@@ -41,6 +44,9 @@ class SessionPage extends React.Component<Props> {
     return (
       <div>
         {sessionId}
+        <Button onClick={() => copyToClipboard(currentSessionId)}>
+          <Text id="global.copy" />
+        </Button>
         <VoteRound />
       </div>
     );

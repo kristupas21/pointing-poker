@@ -11,13 +11,13 @@ const VoteRoundUser: React.FC<Props> = (props) => {
   const hasVoted = voteValue != null;
 
   const renderValue = () => (hasVoted
-    ? <span data-classname="value">{voteValue}</span>
-    : <i data-component="CloseMark">X</i>
+    ? <i>{voteValue}</i>
+    : <i>X</i>
   );
 
   const renderHiddenValue = () => (hasVoted
-    ? <i data-component="CheckMark">V</i>
-    : <i data-component="CloseMark">X</i>
+    ? <i style={{ background: 'lawngreen' }}>V</i>
+    : <i>X</i>
   );
 
   return (

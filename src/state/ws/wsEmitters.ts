@@ -1,8 +1,8 @@
 import { select } from 'redux-saga/effects';
-import { selectSessionUser } from '../session/sessionSelectors';
+import { getSessionUser } from '../session/sessionStateGetters';
 
 export function* userEmitter(sessionId: string) {
-  const user = yield select(selectSessionUser);
+  const user = yield select(getSessionUser);
 
   return { user, sessionId };
 }

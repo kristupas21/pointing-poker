@@ -1,14 +1,16 @@
-import { all, call, fork, put, take } from 'redux-saga/effects';
-import { CLOSE_SESSION, SET_SESSION_ID } from '../session/sessionConstants';
+import { all, call, fork, put, select, take } from 'redux-saga/effects';
+import { CLOSE_SESSION, INIT_SESSION } from '../session/sessionConstants';
 import { baseWsEmitter, createSocket } from './wsUtils';
-import { wsUserJoined, wsUserLeft } from './wsActions';
 import { initWSChannel } from './wsChannel';
 import { WS_EVENT_MAP } from './wsConstants';
+import { getSessionUserId } from '../session/sessionStateGetters';
+import { wsUserJoined } from './wsActions';
 
 function* wsSaga() {
   while (true) {
-    const { payload: sessionId } = yield take(SET_SESSION_ID);
-    const socket = createSocket({ sessionId });
+    const { payload: { sessionId } } = yield take(INIT_SESSION);
+    const userId = yield select(getSessionUserId);
+    const socket = createSocket({ sessionId, userId });
 
     socket.connect();
 
@@ -20,7 +22,6 @@ function* wsSaga() {
 
     yield put(wsUserJoined(sessionId));
     yield take(CLOSE_SESSION);
-    yield put(wsUserLeft(sessionId));
 
     channels.forEach((channel) => channel.close());
     socket.disconnect();

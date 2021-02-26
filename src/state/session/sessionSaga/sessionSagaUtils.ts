@@ -3,27 +3,27 @@ import { push } from 'connected-react-router';
 import { User } from '../../../types/global';
 import storageService from '../../../utils/storageService';
 import { setSessionUser } from '../sessionActions';
-import { createEmptyUser } from '../sessionUtils';
+import { createUser } from '../sessionUtils';
 import { getMatchParamRoute, ROUTE } from '../../../constants/routes';
-import { selectSessionUserId } from '../sessionSelectors';
+import { getSessionUserId } from '../sessionStateGetters';
 
-export function* acquireCurrentUserId(): Generator<unknown, string> {
-  const stateValue = yield select(selectSessionUserId);
+export function* acquireCurrentUserId(userProps?: Partial<User>): Generator<unknown, string> {
+  const stateValue = yield select(getSessionUserId);
 
   if (stateValue) {
     return stateValue as string;
   }
 
-  const emptyUser = createEmptyUser();
+  const newUser = createUser(userProps);
 
-  yield call(storageService.setItem, { user: emptyUser });
-  yield put(setSessionUser(emptyUser));
+  yield call(storageService.setItem, 'user', newUser);
+  yield put(setSessionUser(newUser));
 
-  return emptyUser.id;
+  return newUser.id;
 }
 
 export function* beginUserSession(user: User, sessionId: string): Generator<unknown, void> {
-  yield call(storageService.setItem, { user });
+  yield call(storageService.setItem, 'user', user);
   yield put(setSessionUser(user));
   yield put(push(getMatchParamRoute(ROUTE.SESSION, { sessionId })));
 }

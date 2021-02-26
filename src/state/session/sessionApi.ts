@@ -1,6 +1,6 @@
 import api from '../../utils/api';
 import { User } from '../../types/global';
-import { JoinSessionParams } from './sessionTypes';
+import { JoinSessionParams, LoadSessionParams, StartSessionParams } from './sessionTypes';
 
 interface StartSessionResponse {
   data: {
@@ -18,21 +18,21 @@ interface GetSessionResponse {
 }
 
 interface Api {
-  start(user: User): Promise<StartSessionResponse>;
+  start(params: StartSessionParams): Promise<StartSessionResponse>;
   join(params: JoinSessionParams): Promise<GetSessionResponse>;
-  load(id: string): Promise<GetSessionResponse>;
+  load(params: LoadSessionParams): Promise<GetSessionResponse>;
 }
 
 export default <Api>{
-  start(user) {
-    return api.post('/session/start', user);
+  start(params) {
+    return api.post('/session/start', params);
   },
 
   join(params) {
     return api.post('/session/join', params);
   },
 
-  load(id) {
-    return api.get(`/session/load/${id}`);
+  load({ sessionId, userId }) {
+    return api.get(`/session/load/${sessionId}`, { params: { userId } });
   }
 };

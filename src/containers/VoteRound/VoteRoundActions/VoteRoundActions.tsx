@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { Form, Formik } from 'formik';
 import { State } from '../../../types/global';
 import {
   clearVotes as clearVotesAction,
@@ -12,6 +13,7 @@ import {
 } from '../../../state/ws/wsActions';
 import Button from '../../../components/Button';
 import Text from '../../../components/Text';
+import { FieldType, FormField } from '../../../components/Form';
 
 const mapStateToProps = (state: State) => ({
   votesShown: state.voteRound.votesShown,
@@ -56,8 +58,17 @@ const VoteRoundActions: React.FC<Props> = (props) => {
         <Text id={showHideTextId} />
       </Button>
       <Button onClick={clearVotes}>
-        <Text id="voteRound.action.clearVotes" />
+        <Text id="voteRound.action.nextRound" />
       </Button>
+      <Formik initialValues={{ topic: '' }} onSubmit={undefined}>
+        <Form>
+          <FormField
+            name="topic"
+            type={FieldType.Input}
+            label={<Text id="voteRound.field.topic.label" />}
+          />
+        </Form>
+      </Formik>
     </div>
   );
 };

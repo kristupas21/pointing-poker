@@ -1,3 +1,10 @@
+import merge from 'lodash/merge';
+
+/**
+ * user: User,
+ * [sessionId: string]: { useRoles: boolean },
+ */
+
 class StorageService {
   private readonly appKey = 'pointing-poker-app';
 
@@ -9,8 +16,13 @@ class StorageService {
     }
   }
 
-  public setItem = (item: Record<string, any>): void => {
+  public setItem = (itemName: string, value: any, mergeProps = false): void => {
     const currentState = this.getState();
+    let item = { [itemName]: value };
+
+    if (mergeProps) {
+      item = merge(this.getItem(itemName) || {}, item);
+    }
 
     sessionStorage.setItem(this.appKey, JSON.stringify({
       ...currentState,

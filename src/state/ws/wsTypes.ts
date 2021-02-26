@@ -1,6 +1,6 @@
 export interface WSMessage<T = never> {
-  eventType: string;
   body: T;
+  sessionId: string;
 }
 
 export type WSEventMapItem = {

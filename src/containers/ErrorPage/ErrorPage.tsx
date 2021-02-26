@@ -26,9 +26,9 @@ const ErrorPage: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <p style={{ color: 'red' }}>
+      <div>
         <Text id={errorId} />
-      </p>
+      </div>
       <Button variant={ButtonVariant.Danger} onClick={handleRedirectClick} role="link">
         <Text id="global.tryAgain" />
       </Button>

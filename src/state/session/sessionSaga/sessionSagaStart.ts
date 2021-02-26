@@ -9,15 +9,19 @@ import { acquireCurrentUserId, beginUserSession } from './sessionSagaUtils';
 
 function* startSaga(action: ActionType<typeof startSession>) {
   const { formData, setSubmitting } = action.payload;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { useRoles, sessionId: s, ...userData } = formData;
   const userId = yield* acquireCurrentUserId();
 
   const user: User = {
-    ...formData,
+    ...userData,
     id: userId,
   };
 
+  const params = { user, useRoles };
+
   try {
-    const { data: { sessionId } } = yield call(sessionApi.start, user);
+    const { data: { sessionId } } = yield call(sessionApi.start, params);
     yield* beginUserSession(user, sessionId);
   } catch (e) {
     yield put(throwAppError('error.unexpected'));

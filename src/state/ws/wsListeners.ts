@@ -3,7 +3,7 @@ import {
   addUserToVoteRound,
   clearVotes,
   hideVotes,
-  removeUserFromVoteRound,
+  removeUserFromVoteRound, setUserVoteValue,
   showVotes
 } from '../voteRound/voteRoundActions';
 import { User } from '../../types/global';
@@ -27,4 +27,8 @@ export function* hideVotesListener() {
 
 export function* clearVotesListener() {
   yield put(clearVotes());
+}
+
+export function* setVoteValueListener(message: WSMessage<{ userId: string, voteValue: string }>) {
+  yield put(setUserVoteValue(message.body.userId, message.body.voteValue));
 }

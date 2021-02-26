@@ -1,64 +1,45 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
-import { connect, ConnectedProps } from 'react-redux';
+import { SchemaOf } from 'yup';
 import { RouteChildrenProps } from 'react-router';
-import omit from 'lodash/omit';
 import { FieldType, FormField, SubmitHandler } from '../../components/Form';
-import { useSessionId } from '../../utils/customHooks';
 import Button from '../../components/Button';
 import { withText, WithText } from '../../components/Text';
 import { MessageId } from '../../lang';
 import USER_ROLES from '../../constants/userRoles';
-import validationSchema from './validationSchema';
-import { joinSession as joinSessionAction, startSession as startSessionAction } from '../../state/session/sessionActions';
-import { State } from '../../types/global';
-
-const mapStateToProps = (state: State) => ({
-  user: state.session.user,
-});
-
-const mapDispatchToProps = {
-  joinSession: joinSessionAction,
-  startSession: startSessionAction,
-};
-
-type ReduxProps = ConnectedProps<typeof connector>;
 
 export interface CreateSessionFormData {
   sessionId?: string;
   name: string;
-  role: string;
+  role?: string;
   isObserver: boolean;
+  useRoles?: boolean;
 }
 
-type Props = WithText & RouteChildrenProps & ReduxProps & {
-  type: 'join' | 'start';
+type Props = WithText & RouteChildrenProps & {
+  isJoinType?: boolean;
+  initialValues: CreateSessionFormData;
+  onSubmit: (values: CreateSessionFormData, fn: (v: boolean) => void) => void;
+  validationSchema: SchemaOf<CreateSessionFormData>;
 };
 
 const JoinSessionPage: React.FC<Props> = (props) => {
-  const { getText, joinSession, type, startSession, user } = props;
-  const isJoinType = type === 'join';
-  const sessionId = useSessionId();
-
-  const initialValues: CreateSessionFormData =
-        { sessionId: sessionId || '', name: user?.name || '', role: user?.role || '', isObserver: false };
+  const { getText, isJoinType = false, initialValues, onSubmit, validationSchema } = props;
 
   const roles = USER_ROLES.map((role) =>
     ({ ...role, name: getText(role.name as MessageId) }));
 
-  const handleSubmit: SubmitHandler<CreateSessionFormData> = (values, { setSubmitting }) => {
-    if (isJoinType) {
-      joinSession(values, setSubmitting);
-    } else {
-      startSession(omit(values, 'sessionId'), setSubmitting);
-    }
-  };
+  const handleSubmit: SubmitHandler<CreateSessionFormData> = (
+    values,
+    { setSubmitting }
+  ) => onSubmit(values, setSubmitting);
 
   return (
     <Formik
       initialValues={initialValues}
+      enableReinitialize
       onSubmit={handleSubmit}
-      validationSchema={validationSchema(getText, isJoinType)}
+      validationSchema={validationSchema}
     >
       {({ isSubmitting, errors, values }) => (
         <Form>
@@ -76,14 +57,24 @@ const JoinSessionPage: React.FC<Props> = (props) => {
             error={errors.name}
             label={getText('session.field.name.label')}
           />
-          <FormField
-            name="role"
-            type={FieldType.Select}
-            label={getText('session.field.role.label')}
-            emptyOptionText={getText('session.field.role.placeholder')}
-            options={roles}
-            disabled={values.isObserver}
-          />
+          {isJoinType || (
+            <FormField
+              name="useRoles"
+              type={FieldType.Checkbox}
+              label={getText('session.field.useRoles.label')}
+            />
+          )}
+          {values.useRoles && (
+            <FormField
+              name="role"
+              type={FieldType.Select}
+              label={getText('session.field.role.label')}
+              emptyOptionText={getText('session.field.role.placeholder')}
+              error={errors.role}
+              options={roles}
+              disabled={values.isObserver}
+            />
+          )}
           <FormField
             name="isObserver"
             type={FieldType.Checkbox}
@@ -98,6 +89,4 @@ const JoinSessionPage: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(withText(JoinSessionPage));
+export default withText(JoinSessionPage);

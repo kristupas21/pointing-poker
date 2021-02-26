@@ -10,6 +10,7 @@ export enum Breakpoint {
 export interface User {
   avatarId?: AvatarId;
   id: string;
+  isObserver?: boolean;
   name: string;
   role?: string;
   registeredSessionId?: string;

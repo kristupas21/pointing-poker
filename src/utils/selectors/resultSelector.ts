@@ -1,19 +1,9 @@
 import { createSelector } from 'reselect';
-import sum from 'lodash/sum';
 import { State, User } from '../../types/global';
+import { calculateVoteAvg, filterAndMapVotes } from './utils';
+import { getVoteRoundUsers } from '../../state/voteRound/voteRoundStateGetters';
 
 export default () => createSelector<State, User[], string>(
-  (state) => state.voteRound.users,
-  (users) => {
-    const values =
-        users
-          .filter((u) => u.voteValue && !Number.isNaN(Number(u.voteValue)))
-          .map((u) => Number(u.voteValue));
-
-    if (!values.length) {
-      return null;
-    }
-
-    return (sum(values) / values.length).toString();
-  }
+  getVoteRoundUsers,
+  (users) => calculateVoteAvg(filterAndMapVotes(users))
 );

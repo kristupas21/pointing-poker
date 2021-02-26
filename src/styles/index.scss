@@ -1,3 +1,11 @@
 * {
   box-sizing: border-box;
 }
+
+div:not([class]) {
+  @include dev-indicator('div', #999);
+}
+
+span:not([class]) {
+  @include dev-indicator('div', #aaa);
+}

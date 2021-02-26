@@ -2,6 +2,7 @@ export const messages = {
   'error.unexpected': 'Unexpected Error',
 
   'global.tryAgain': 'Try Again',
+  'global.copy': 'Copy',
 
   'form.validation.required': 'Required',
   'form.validation.min': 'Min {chars} characters',
@@ -16,11 +17,13 @@ export const messages = {
   'session.field.role.label': 'Role',
   'session.field.role.placeholder': 'Select a role',
   'session.field.observer.label': 'Join as observer',
+  'session.field.useRoles.label': 'Use roles',
 
   'session.action.useRoles': 'Use roles',
   'session.action.pointValues': 'Point values',
 
-  'voteRound.action.clearVotes': 'Clear votes',
+  'voteRound.field.topic.label': 'Topic',
+  'voteRound.action.nextRound': 'Next round →',
   'voteRound.action.hideVotes': 'Hide votes',
   'voteRound.action.showVotes': 'Show votes',
   'voteRound.action.choosePoints': 'Choose points',

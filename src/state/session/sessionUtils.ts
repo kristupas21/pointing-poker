@@ -13,10 +13,12 @@ export function createJoinSessionParams(formData: CreateSessionFormData, userId:
   };
 }
 
-export function createEmptyUser(): User {
+export function createUser(props?: Partial<User>): User {
   return {
     id: uuidv4(),
     name: undefined,
     role: undefined,
+    isObserver: false,
+    ...props,
   };
 }
