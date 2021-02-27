@@ -15,7 +15,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  joinSession: (v, s) => dispatch(joinSessionAction(v, s)),
+  joinSession: (v) => dispatch(joinSessionAction(v)),
   clearSessionParams: () => dispatch(setSessionParams(null, false)),
 });
 

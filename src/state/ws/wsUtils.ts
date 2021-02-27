@@ -16,7 +16,7 @@ export function* baseWsEmitter(item: WSEventMapItem, socket: Socket) {
     if (debounced) {
       while (true) {
         const { wait, latestAction } = yield race({
-          wait: delay(500),
+          wait: delay(1000),
           latestAction: take(item.event)
         });
 

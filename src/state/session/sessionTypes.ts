@@ -1,15 +1,11 @@
 import { User } from '../../types/global';
-
-export interface VoteOption {
-  pos: number;
-  value: string;
-}
+import { PointValueLib } from '../../utils/pointValues/types';
 
 export interface SessionState {
   currentSessionId: string;
   useRoles: boolean;
   user: User;
-  voteOptions: VoteOption[];
+  pointValueLib: PointValueLib;
 }
 
 export interface JoinSessionParams {

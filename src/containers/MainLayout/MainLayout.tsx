@@ -6,17 +6,17 @@ import { ROUTE } from '../../constants/routes';
 import { IconId } from '../../components/Icon';
 import styles from './MainLayout.module.scss';
 import Sidebar from '../../components/Sidebar';
+import ThemeChangeButton from './ThemeChangeButton';
 
 const cx = classNames.bind(styles);
 
 export interface MainLayoutProps {
   history?: History;
   pathname?: string;
-  withSettings?: boolean;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = (props) => {
-  const { withSettings = true, children, history, pathname } = props;
+  const { children, history, pathname } = props;
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
@@ -35,13 +35,12 @@ const MainLayout: React.FC<MainLayoutProps> = (props) => {
 
   return (
     <div className={cx('layout')}>
-      {withSettings && (
-        <Sidebar isOpen={isSidebarOpen} onCloseClick={closeSidebar} />
-      )}
+      <Sidebar isOpen={isSidebarOpen} onCloseClick={closeSidebar} />
       <div className={contentClasses} {...getContentProps()}>
         <div className={cx('layout__controls')}>
+          <ThemeChangeButton />
           {isHomeRoute || <Button icon={IconId.Home} onClick={onHomeClick} />}
-          {withSettings && <Button icon={IconId.Settings} onClick={openSidebar} />}
+          <Button icon={IconId.Settings} onClick={openSidebar} />
         </div>
         <div className={cx('layout__children')}>
           {children}

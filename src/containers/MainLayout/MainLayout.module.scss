@@ -1,4 +1,6 @@
 .layout {
+  background: var(--app-background-color);
+  color: var(--app-color);
   min-height: 100vh;
 
   &__content {

@@ -6,12 +6,15 @@ import App from 'containers/App';
 import store from './state/store';
 import history from './state/history';
 import './styles/index.scss';
+import { ThemeContextProvider } from './containers/Theme';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <App name="Pointing Poker" />
+        <ThemeContextProvider>
+          <App />
+        </ThemeContextProvider>
       </ConnectedRouter>
     </Provider>
   </React.StrictMode>,

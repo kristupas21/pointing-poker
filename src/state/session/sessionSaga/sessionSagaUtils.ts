@@ -16,14 +16,14 @@ export function* acquireCurrentUserId(userProps?: Partial<User>): Generator<unkn
 
   const newUser = createUser(userProps);
 
-  yield call(storageService.setItem, 'user', newUser);
+  yield call(storageService.set, 'user', newUser);
   yield put(setSessionUser(newUser));
 
   return newUser.id;
 }
 
 export function* beginUserSession(user: User, sessionId: string): Generator<unknown, void> {
-  yield call(storageService.setItem, 'user', user);
+  yield call(storageService.set, 'user', user);
   yield put(setSessionUser(user));
   yield put(push(getMatchParamRoute(ROUTE.SESSION, { sessionId })));
 }

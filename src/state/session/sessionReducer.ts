@@ -1,26 +1,21 @@
 import { ActionType, Reducer } from 'typesafe-actions';
 import { SessionState } from './sessionTypes';
-import {
-  CLOSE_SESSION,
-  DEFAULT_VOTE_OPTIONS,
-  INIT_SESSION,
-  SET_SESSION_USER,
-  SET_SESSION_PARAMS
-} from './sessionConstants';
+import { CLOSE_SESSION, INIT_SESSION, SET_SESSION_PARAMS, SET_SESSION_USER } from './sessionConstants';
 import storageService from '../../utils/storageService';
 import { User } from '../../types/global';
+import { PointValueLib } from '../../utils/pointValues/types';
 
 type Action = ActionType<typeof import('./sessionActions')>;
 
 type State = Readonly<SessionState>;
 
-const getSessionUser = (): User => storageService.getItem('user');
+const getSessionUser = (): User => storageService.get('user');
 
 const initialState: State = {
   currentSessionId: null,
   user: getSessionUser(),
   useRoles: false,
-  voteOptions: DEFAULT_VOTE_OPTIONS,
+  pointValueLib: PointValueLib.Default,
 };
 
 const sessionReducer: Reducer<State, Action> = (state = initialState, action) => {

@@ -9,13 +9,19 @@ import { throwAppError } from '../../error/errorActions';
 import { createJoinSessionParams } from '../sessionUtils';
 import { acquireCurrentUserId, beginUserSession } from './sessionSagaUtils';
 import { ERROR_CODES } from '../../../constants/errorCodes';
+import storageService from '../../../utils/storageService';
 
 function* joinSaga(action: ActionType<typeof joinSession>) {
-  const { formData, setSubmitting } = action.payload;
+  const { payload: formData } = action;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { sessionId: s, useRoles, ...userProps } = formData;
+  const { sessionId: formSessionId, useRoles, ...userProps } = formData;
   const userId = yield* acquireCurrentUserId(userProps);
   const params = createJoinSessionParams(formData, userId);
+
+  if (storageService.get(formSessionId)?.useRoles && !formData.role && !formData.isObserver) {
+    yield put(setSessionParams(formSessionId, true));
+    return;
+  }
 
   try {
     const { data: { sessionId } } = yield call(sessionApi.join, params);
@@ -24,18 +30,17 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
     const error = e?.response?.data?.error;
 
     if (error === ERROR_CODES.SESSION_NOT_FOUND) {
-      yield put(replace(ROUTE.SESSION_NOT_FOUND, { sessionId: action.payload }));
+      yield put(replace(ROUTE.SESSION_NOT_FOUND, { sessionId: formSessionId }));
       return;
     }
 
     if (error === ERROR_CODES.MUST_CHOOSE_ROLE) {
-      yield put(setSessionParams(params.sessionId, true));
+      yield put(setSessionParams(formSessionId, true));
+      yield call(storageService.set, formSessionId, { useRoles: true }, true);
       return;
     }
 
     yield put(throwAppError(ERROR_CODES.UNEXPECTED));
-  } finally {
-    yield call(setSubmitting, false);
   }
 }
 

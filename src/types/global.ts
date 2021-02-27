@@ -27,5 +27,3 @@ export interface Identifier {
   id: string;
   name: string;
 }
-
-export type Selector<R> = (state: State) => R;

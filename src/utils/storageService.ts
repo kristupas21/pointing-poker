@@ -1,4 +1,5 @@
 import merge from 'lodash/merge';
+import omit from 'lodash/omit';
 
 /**
  * user: User,
@@ -8,33 +9,47 @@ import merge from 'lodash/merge';
 class StorageService {
   private readonly appKey = 'pointing-poker-app';
 
+  private storage = process.env.NODE_ENV === 'production'
+    ? localStorage
+    : sessionStorage;
+
   public getState = (): Record<string, any> | null => {
     try {
-      return JSON.parse(sessionStorage.getItem(this.appKey)) || null;
+      return JSON.parse(this.storage.getItem(this.appKey)) || null;
     } catch {
       return null;
     }
   }
 
-  public setItem = (itemName: string, value: any, mergeProps = false): void => {
+  public set = (key: string, value: any, mergeProps = false): void => {
     const currentState = this.getState();
-    let item = { [itemName]: value };
+    let item = { [key]: value };
 
     if (mergeProps) {
-      item = merge(this.getItem(itemName) || {}, item);
+      item = merge(this.get(key) || {}, item);
     }
 
-    sessionStorage.setItem(this.appKey, JSON.stringify({
+    this.storage.setItem(this.appKey, JSON.stringify({
       ...currentState,
       ...item,
     }));
   }
 
-  public getItem = <T = any>(key: string): T | null =>
+  public remove = (key: string): void => {
+    if (!this.get(key)) {
+      return;
+    }
+
+    const newState = omit(this.getState(), key);
+
+    this.storage.setItem(this.appKey, JSON.stringify(newState));
+  }
+
+  public get = <T = any>(key: string): T | null =>
     this.getState()?.[key] || null;
 
   public clearState = (): void =>
-    sessionStorage.setItem(this.appKey, null);
+    this.storage.setItem(this.appKey, null);
 }
 
 export default new StorageService();

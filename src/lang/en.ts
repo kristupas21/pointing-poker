@@ -9,6 +9,8 @@ export const messages = {
 
   'global.tryAgain': 'Try Again',
   'global.copy': 'Copy',
+  'global.lightMode': 'Light Mode',
+  'global.darkMode': 'Dark Mode',
 
   'form.validation.required': 'Required',
   'form.validation.min': 'Min {chars} characters',

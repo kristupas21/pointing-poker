@@ -19,7 +19,7 @@ export interface CreateSessionFormData {
 type Props = WithText & RouteChildrenProps & {
   isJoinType?: boolean;
   initialValues: CreateSessionFormData;
-  onSubmit: (values: CreateSessionFormData, fn: (v: boolean) => void) => void;
+  onSubmit: (values: CreateSessionFormData) => void;
   validationSchema: SchemaOf<CreateSessionFormData>;
 };
 
@@ -29,10 +29,8 @@ const JoinSessionPage: React.FC<Props> = (props) => {
   const roles = USER_ROLES.map((role) =>
     ({ ...role, name: getText(role.name as MessageId) }));
 
-  const handleSubmit: SubmitHandler<CreateSessionFormData> = (
-    values,
-    { setSubmitting }
-  ) => onSubmit(values, setSubmitting);
+  const handleSubmit: SubmitHandler<CreateSessionFormData> = (values) =>
+    onSubmit(values);
 
   return (
     <Formik

@@ -16,11 +16,11 @@ export const initSession = (sessionId: string, useRoles: boolean) =>
 
 export const setSessionUser = (user: User) => action(SET_SESSION_USER, user);
 
-export const startSession = (formData: CreateSessionFormData, setSubmitting: (v: boolean) => void) =>
-  action(START_SESSION, { formData, setSubmitting });
+export const startSession = (formData: CreateSessionFormData) =>
+  action(START_SESSION, formData);
 
-export const joinSession = (formData: CreateSessionFormData, setSubmitting: (v: boolean) => void) =>
-  action(JOIN_SESSION, { formData, setSubmitting });
+export const joinSession = (formData: CreateSessionFormData) =>
+  action(JOIN_SESSION, formData);
 
 export const loadSession = (id: string) => action(LOAD_SESSION, id);
 
