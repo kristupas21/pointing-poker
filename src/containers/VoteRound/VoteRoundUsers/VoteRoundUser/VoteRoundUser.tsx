@@ -7,7 +7,7 @@ interface Props extends User {
 }
 
 const VoteRoundUser: React.FC<Props> = (props) => {
-  const { avatarId, name, voteValue, showVote } = props;
+  const { avatarId, name, voteValue, showVote, isObserver } = props;
   const hasVoted = voteValue != null;
 
   const renderValue = () => (hasVoted
@@ -24,9 +24,11 @@ const VoteRoundUser: React.FC<Props> = (props) => {
     <div>
       <Avatar id={avatarId} />
       <span>{name}</span>
-      <span>
-        {showVote ? renderValue() : renderHiddenValue()}
-      </span>
+      {isObserver || (
+        <span>
+          {showVote ? renderValue() : renderHiddenValue()}
+        </span>
+      )}
     </div>
   );
 };

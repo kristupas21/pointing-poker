@@ -1,16 +1,13 @@
 import React, { ComponentType } from 'react';
 import { RouteComponentProps } from 'react-router';
-import MainLayout, { MainLayoutProps } from './MainLayout';
+import MainLayout from './MainLayout';
 
-function withMainLayout <T extends RouteComponentProps>(Component: ComponentType<T>): React.FC<T & MainLayoutProps> {
+function withMainLayout <T extends RouteComponentProps>(Component: ComponentType<T>): React.FC<T> {
   return (props) => {
-    const { history, location } = props;
+    const { location } = props;
 
     return (
-      <MainLayout
-        history={history}
-        pathname={location.pathname}
-      >
+      <MainLayout route={location?.pathname}>
         <Component {...props as T} />
       </MainLayout>
     );

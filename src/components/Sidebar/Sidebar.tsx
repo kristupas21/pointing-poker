@@ -12,15 +12,19 @@ interface Props {
 
 const Sidebar: React.FC<Props> = (props) => {
   const { isOpen, onCloseClick, children } = props;
+
   const sidebarClasses = cx('sidebar', {
     'sidebar--open': isOpen,
   });
 
   return (
     <div className={sidebarClasses}>
-      <Button onClick={onCloseClick}>X</Button>
-      <div className={cx('sidebar__content')}>
-        {children}
+      <div className={cx('sidebar__shade')} onClick={onCloseClick} role="presentation" />
+      <div className={cx('sidebar__drawer')}>
+        <Button onClick={onCloseClick}>X</Button>
+        <div className={cx('sidebar__content')}>
+          {children}
+        </div>
       </div>
     </div>
   );

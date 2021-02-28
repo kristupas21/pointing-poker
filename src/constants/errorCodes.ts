@@ -1,6 +1,4 @@
-import { MessageId } from '../lang';
-
-export const ERROR_CODES: Record<string, MessageId> = {
+export const ERROR_CODES = {
   INTERNAL_SERVER: 'error.internalServer',
   MISSING_PARAM: 'error.missingParam',
   MUST_CHOOSE_ROLE: 'error.mustChooseRole',

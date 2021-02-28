@@ -16,11 +16,17 @@ export function calculateVoteAvg(values: number[]): string {
 }
 
 export function divideUsersByRole(users: User[]): { [role: string]: User[] } {
-  return users.reduce((acc, user) => ({
-    ...acc,
-    [user.role]: [
-      ...(acc[user.role] || []),
-      user,
-    ],
-  }), {});
+  return users.reduce((acc, user) => {
+    if (user.isObserver) {
+      return acc;
+    }
+
+    return ({
+      ...acc,
+      [user.role]: [
+        ...(acc[user.role] || []),
+        user,
+      ],
+    });
+  }, {});
 }

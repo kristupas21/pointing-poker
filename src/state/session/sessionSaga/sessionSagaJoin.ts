@@ -1,13 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { replace } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 import { ActionType } from 'typesafe-actions';
 import { joinSession, setSessionParams } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { JOIN_SESSION } from '../sessionConstants';
-import { ROUTE } from '../../../constants/routes';
+import { getMatchParamRoute, ROUTE } from '../../../constants/routes';
 import { throwAppError } from '../../error/errorActions';
-import { createJoinSessionParams } from '../sessionUtils';
-import { acquireCurrentUserId, beginUserSession } from './sessionSagaUtils';
+import { acquireCurrentUser } from './sessionSagaUtils';
 import { ERROR_CODES } from '../../../constants/errorCodes';
 import storageService from '../../../utils/storageService';
 
@@ -15,17 +14,17 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
   const { payload: formData } = action;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { sessionId: formSessionId, useRoles, ...userProps } = formData;
-  const userId = yield* acquireCurrentUserId(userProps);
-  const params = createJoinSessionParams(formData, userId);
+  const user = yield* acquireCurrentUser(userProps);
+  const params = { sessionId: formSessionId, user };
 
-  if (storageService.get(formSessionId)?.useRoles && !formData.role && !formData.isObserver) {
+  if (storageService.get(formSessionId)?.useRoles && !user.role && !user.isObserver) {
     yield put(setSessionParams(formSessionId, true));
     return;
   }
 
   try {
     const { data: { sessionId } } = yield call(sessionApi.join, params);
-    yield* beginUserSession(params.user, sessionId);
+    yield put(push(getMatchParamRoute(ROUTE.SESSION, { sessionId })));
   } catch (e) {
     const error = e?.response?.data?.error;
 

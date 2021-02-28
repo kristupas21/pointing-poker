@@ -7,6 +7,10 @@ export const messages = {
   'error.unexpected': 'Unexpected Error',
   'error.userNotFound': 'User does not exist',
 
+  'nav.home': 'Home',
+  'nav.joinSession': 'Join Session',
+  'nav.startSession': 'StartSession',
+
   'global.tryAgain': 'Try Again',
   'global.copy': 'Copy',
   'global.lightMode': 'Light Mode',

@@ -3,17 +3,10 @@
   color: var(--app-color);
   min-height: 100vh;
 
-  &__content {
-    &--disabled {
-      &::after {
-        content: '';
-        background: rgba(0, 0, 0, .05);
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        width: 100vw;
-      }
-    }
+  &__controls {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
   }
 
   &__children {

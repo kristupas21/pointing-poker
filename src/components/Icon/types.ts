@@ -6,6 +6,7 @@ export enum IconId {
   EmojiSad = 'EmojiSad',
   Settings = 'Settings',
   Home = 'Home',
+  Menu = 'Menu',
 }
 
 export type SvgIcon = FunctionComponent<SVGProps<SVGSVGElement>>;

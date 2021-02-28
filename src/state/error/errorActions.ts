@@ -5,4 +5,4 @@ import { MessageId } from '../../lang';
 
 export const setErrorState = (state: ErrorState) => action(SET_ERROR_STATE, state);
 
-export const throwAppError = (errorId: MessageId) => action(THROW_APP_ERROR, errorId);
+export const throwAppError = (errorId: string) => action(THROW_APP_ERROR, errorId as MessageId);

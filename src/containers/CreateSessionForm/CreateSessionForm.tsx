@@ -47,6 +47,7 @@ const JoinSessionPage: React.FC<Props> = (props) => {
               type={FieldType.Input}
               error={errors.sessionId}
               label={getText('session.id')}
+              isBlock
             />
           )}
           <FormField
@@ -54,12 +55,14 @@ const JoinSessionPage: React.FC<Props> = (props) => {
             type={FieldType.Input}
             error={errors.name}
             label={getText('session.field.name.label')}
+            isBlock
           />
           {isJoinType || (
             <FormField
               name="useRoles"
               type={FieldType.Checkbox}
               label={getText('session.field.useRoles.label')}
+              isBlock
             />
           )}
           {values.useRoles && (
@@ -71,12 +74,14 @@ const JoinSessionPage: React.FC<Props> = (props) => {
               error={errors.role}
               options={roles}
               disabled={values.isObserver}
+              isBlock
             />
           )}
           <FormField
             name="isObserver"
             type={FieldType.Checkbox}
             label={getText('session.field.observer.label')}
+            isBlock
           />
           <Button type="submit" disabled={isSubmitting}>
             {getText(isJoinType ? 'session.join' : 'session.start')}

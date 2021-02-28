@@ -23,10 +23,10 @@ class StorageService {
 
   public set = (key: string, value: any, mergeProps = false): void => {
     const currentState = this.getState();
-    let item = { [key]: value };
+    const item = { [key]: value };
 
     if (mergeProps) {
-      item = merge(this.get(key) || {}, item);
+      item[key] = merge(this.get(key) || {}, value);
     }
 
     this.storage.setItem(this.appKey, JSON.stringify({

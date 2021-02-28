@@ -31,7 +31,7 @@ const VoteRoundResult: React.FC<Props> = (props) => {
       <div>
         {votesShown ? (result || 0) : '-'}
       </div>
-      {useRoles && (
+      {useRoles && !!resultByRole.length && (
         <div>
           {resultByRole.map(renderResultByRole)}
         </div>
