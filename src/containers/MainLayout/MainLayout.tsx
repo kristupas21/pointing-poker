@@ -21,6 +21,7 @@ const mapDispatchToProps = {
 };
 
 type ReduxProps = ConnectedProps<typeof connector>;
+
 type Props = ReduxProps & {
   children?: ReactNode;
   route: string;

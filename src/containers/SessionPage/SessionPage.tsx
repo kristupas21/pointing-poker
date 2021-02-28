@@ -18,7 +18,6 @@ const mapDispatchToProps = {
 };
 
 type ReduxProps = ConnectedProps<typeof connector>;
-
 type Props = RouteChildrenProps<{ sessionId: string }> & ReduxProps;
 
 class SessionPage extends React.Component<Props> {

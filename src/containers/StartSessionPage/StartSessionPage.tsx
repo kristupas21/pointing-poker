@@ -18,7 +18,6 @@ const mapDispatchToProps = {
 };
 
 type ReduxProps = ConnectedProps<typeof connector>;
-
 type Props = RouteChildrenProps & ReduxProps;
 
 const StartSessionPage: React.FC<Props> = (props) => {

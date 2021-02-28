@@ -10,13 +10,15 @@ import storageService, { StorageKey } from '../../../utils/storageService';
 import { getMatchParamRoute, ROUTE } from '../../../constants/routes';
 import { ERROR_CODES } from '../../../constants/errorCodes';
 import { getSessionPointValues } from '../sessionStateGetters';
+import { removeEmptyPointValues } from '../sessionUtils';
 
 function* startSaga(action: ActionType<typeof startSession>) {
   const { payload: formData } = action;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { useRoles, sessionId: s, ...userData } = formData;
   const user = yield* acquireCurrentUser(userData);
-  const pointValues = yield select(getSessionPointValues);
+  const statePointValues = yield select(getSessionPointValues);
+  const pointValues = removeEmptyPointValues(statePointValues);
   const params = { user, useRoles, pointValues };
 
   try {

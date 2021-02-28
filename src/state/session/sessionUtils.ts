@@ -23,3 +23,12 @@ export function createPointValue(props: Partial<PointValue>): PointValue {
     pos,
   };
 }
+
+export function removeEmptyPointValues(points: PointValue[]): PointValue[] {
+  return points
+    .filter((p) => p.value)
+    .map((p, idx) => ({
+      ...p,
+      pos: idx,
+    }));
+}

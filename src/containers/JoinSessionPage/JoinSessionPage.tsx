@@ -20,7 +20,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 type ReduxProps = ConnectedProps<typeof connector>;
-
 type Props = RouteChildrenProps & ReduxProps;
 
 const JoinSessionPage: React.FC<Props> = (props) => {
