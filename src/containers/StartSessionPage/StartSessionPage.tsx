@@ -6,6 +6,7 @@ import { CreateSessionFormData } from '../CreateSessionForm/CreateSessionForm';
 import { State } from '../../types/global';
 import { startSessionValidationSchema } from '../CreateSessionForm/validationSchema';
 import { startSession as startSessionAction } from '../../state/session/sessionActions';
+import PointValuesForm from '../PointValuesForm';
 
 const mapStateToProps = (state: State) => ({
   useRoles: state.session.useRoles,
@@ -31,11 +32,15 @@ const StartSessionPage: React.FC<Props> = (props) => {
   };
 
   return (
-    <CreateSessionForm
-      initialValues={initialValues}
-      onSubmit={startSession}
-      validationSchema={startSessionValidationSchema}
-    />
+    <div>
+      <CreateSessionForm
+        initialValues={initialValues}
+        onSubmit={startSession}
+        validationSchema={startSessionValidationSchema}
+      />
+      <div style={{ height: 40 }} />
+      <PointValuesForm />
+    </div>
   );
 };
 

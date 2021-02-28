@@ -1,9 +1,5 @@
-export enum PointValueLib {
-  Default = 'default',
-  Numeric = 'numeric',
-}
-
-export interface PointValueOption {
+export interface PointValue {
+  id: string;
   pos: number;
   value: string;
 }

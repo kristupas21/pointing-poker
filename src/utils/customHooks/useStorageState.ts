@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import storageService from '../storageService';
+import storageService, { StorageKey } from '../storageService';
 
-export default <T>(key: string, fallback: T): [v: T, set: (v: T) => void] => {
+export default <T>(key: StorageKey, fallback: T): [v: T, set: (v: T) => void] => {
   const [value, setValue] = useState(
     storageService.get(key) as T || fallback
   );

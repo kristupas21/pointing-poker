@@ -1,10 +1,13 @@
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
+import { StorageKey } from './types';
 
 /**
  * user: User,
  * [sessionId: string]: { useRoles: boolean },
  */
+
+type Key = StorageKey | string;
 
 class StorageService {
   private readonly appKey = 'pointing-poker-app';
@@ -13,7 +16,7 @@ class StorageService {
     ? localStorage
     : sessionStorage;
 
-  public getState = (): Record<string, any> | null => {
+  public getState = (): Record<Key, any> | null => {
     try {
       return JSON.parse(this.storage.getItem(this.appKey)) || null;
     } catch {
@@ -21,7 +24,7 @@ class StorageService {
     }
   }
 
-  public set = (key: string, value: any, mergeProps = false): void => {
+  public set = (key: Key, value: any, mergeProps = false): void => {
     const currentState = this.getState();
     const item = { [key]: value };
 
@@ -35,7 +38,7 @@ class StorageService {
     }));
   }
 
-  public remove = (key: string): void => {
+  public remove = (key: Key): void => {
     if (!this.get(key)) {
       return;
     }
@@ -45,7 +48,7 @@ class StorageService {
     this.storage.setItem(this.appKey, JSON.stringify(newState));
   }
 
-  public get = <T = any>(key: string): T | null =>
+  public get = <T = any>(key: Key): T | null =>
     this.getState()?.[key] || null;
 
   public clearState = (): void =>

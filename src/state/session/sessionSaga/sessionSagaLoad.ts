@@ -26,12 +26,18 @@ function* loadSaga(action: ActionType<typeof loadSession>) {
           useRoles,
           users,
           showVotes: votesShown,
-          currentTopic
+          currentTopic,
+          pointValues,
         }
       }
     } = yield call(sessionApi.load, { sessionId, userId });
 
-    yield put(initSession(sessionId, useRoles));
+    yield put(initSession({
+      currentSessionId: sessionId,
+      useRoles,
+      pointValues,
+    }));
+
     yield put(initVoteRound({ users, votesShown, currentTopic }));
   } catch (e) {
     const error = e?.response?.data?.error;

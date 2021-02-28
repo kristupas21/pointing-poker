@@ -16,7 +16,7 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   joinSession: (v) => dispatch(joinSessionAction(v)),
-  clearSessionParams: () => dispatch(setSessionParams(null, false)),
+  clearSessionParams: () => dispatch(setSessionParams({ currentSessionId: null })),
 });
 
 type ReduxProps = ConnectedProps<typeof connector>;

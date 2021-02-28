@@ -1,11 +1,11 @@
 import { User } from '../../types/global';
-import { PointValueLib } from '../../utils/pointValues/types';
+import { PointValue } from '../../utils/pointValues/types';
 
 export interface SessionState {
   currentSessionId: string;
   useRoles: boolean;
   user: User;
-  pointValueLib: PointValueLib;
+  pointValues: PointValue[];
 }
 
 export interface JoinSessionParams {
@@ -20,6 +20,7 @@ export interface LoadSessionParams {
 }
 
 export interface StartSessionParams {
+  pointValues: PointValue[];
   user: User;
   useRoles: boolean;
 }

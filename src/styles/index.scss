@@ -9,5 +9,5 @@ div:not([class]) {
 }
 
 span:not([class]) {
-  @include dev-indicator('div', #aaa);
+  @include dev-indicator('span', #aaa);
 }

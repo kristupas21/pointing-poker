@@ -8,7 +8,7 @@ import { wsUserJoined } from './wsActions';
 
 function* wsSaga() {
   while (true) {
-    const { payload: { sessionId } } = yield take(INIT_SESSION);
+    const { payload: { currentSessionId: sessionId } } = yield take(INIT_SESSION);
     const userId = yield select(getSessionUserId);
     const socket = createSocket({ sessionId, userId });
 

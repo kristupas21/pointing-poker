@@ -18,7 +18,11 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
   const params = { sessionId: formSessionId, user };
 
   if (storageService.get(formSessionId)?.useRoles && !user.role && !user.isObserver) {
-    yield put(setSessionParams(formSessionId, true));
+    yield put(setSessionParams({
+      currentSessionId: formSessionId,
+      useRoles: true,
+    }));
+
     return;
   }
 
@@ -34,7 +38,11 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
     }
 
     if (error === ERROR_CODES.MUST_CHOOSE_ROLE) {
-      yield put(setSessionParams(formSessionId, true));
+      yield put(setSessionParams({
+        currentSessionId: formSessionId,
+        useRoles: true,
+      }));
+
       yield call(storageService.set, formSessionId, { useRoles: true }, true);
       return;
     }

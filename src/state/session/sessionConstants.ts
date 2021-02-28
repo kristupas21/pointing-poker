@@ -5,3 +5,6 @@ export const START_SESSION = '@session/START';
 export const JOIN_SESSION = '@session/JOIN';
 export const LOAD_SESSION = '@session/LOAD';
 export const CLOSE_SESSION = '@session/CLOSE';
+export const ADD_SESSION_POINT_VALUE = '@session/ADD_POINT_VALUE';
+export const REMOVE_SESSION_POINT_VALUE = '@session/REMOVE_POINT_VALUE';
+export const SAVE_SESSION_POINT_VALUE = '@session/SAVE_POINT_VALUE';
