@@ -50,7 +50,7 @@ class StorageService {
     this.getState()?.[key] || null;
 
   public clearState = (): void =>
-    this.storage.setItem(this.appKey, null);
+    this.storage.removeItem(this.appKey);
 }
 
 export default new StorageService();

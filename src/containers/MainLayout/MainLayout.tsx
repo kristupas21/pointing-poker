@@ -9,6 +9,7 @@ import ThemeChangeButton from './ThemeChangeButton';
 import Navigation from '../../components/Navigation';
 import { State } from '../../types/global';
 import { setAppSidebarOpen } from '../../state/app/appActions';
+import storageService from '../../utils/storageService';
 
 const cx = classNames.bind(styles);
 
@@ -45,6 +46,9 @@ const MainLayout: React.FC<Props> = (props) => {
         <div className={cx('layout__controls')}>
           <Button icon={IconId.Menu} onClick={openSidebar} />
           {route}
+          <Button onClick={storageService.clearState}>
+            Clear Storage
+          </Button>
           <ThemeChangeButton />
         </div>
         <div className={cx('layout__children')}>
