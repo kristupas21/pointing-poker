@@ -8,7 +8,6 @@ import { getMatchParamRoute, ROUTE } from '../../../constants/routes';
 import { throwAppError } from '../../error/errorActions';
 import { acquireCurrentUser } from './sessionSagaUtils';
 import { ERROR_CODES } from '../../../constants/errorCodes';
-import storageService from '../../../utils/storageService';
 
 function* joinSaga(action: ActionType<typeof joinSession>) {
   const { payload: formData } = action;
@@ -16,15 +15,6 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
   const { sessionId: formSessionId, useRoles, ...userProps } = formData;
   const user = yield* acquireCurrentUser(userProps);
   const params = { sessionId: formSessionId, user };
-
-  if (storageService.get(formSessionId)?.useRoles && !user.role && !user.isObserver) {
-    yield put(setSessionParams({
-      currentSessionId: formSessionId,
-      useRoles: true,
-    }));
-
-    return;
-  }
 
   try {
     const { data: { sessionId } } = yield call(sessionApi.join, params);
@@ -44,7 +34,6 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
         roles: payload,
       }));
 
-      yield call(storageService.set, formSessionId, { useRoles: true }, true);
       return;
     }
 

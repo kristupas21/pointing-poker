@@ -7,8 +7,6 @@ import { StorageKey } from './types';
  * [sessionId: string]: { useRoles: boolean },
  */
 
-type Key = StorageKey | string;
-
 class StorageService {
   private readonly appKey = 'pointing-poker-app';
 
@@ -16,7 +14,7 @@ class StorageService {
     ? localStorage
     : sessionStorage;
 
-  public getState = (): Record<Key, any> | null => {
+  public getState = (): Record<StorageKey, any> | null => {
     try {
       return JSON.parse(this.storage.getItem(this.appKey)) || null;
     } catch {
@@ -24,7 +22,7 @@ class StorageService {
     }
   }
 
-  public set = (key: Key, value: any, mergeProps = false): void => {
+  public set = (key: StorageKey, value: any, mergeProps = false): void => {
     const currentState = this.getState();
     const item = { [key]: value };
 
@@ -38,7 +36,7 @@ class StorageService {
     }));
   }
 
-  public remove = (key: Key): void => {
+  public remove = (key: StorageKey): void => {
     if (!this.get(key)) {
       return;
     }
@@ -48,7 +46,7 @@ class StorageService {
     this.storage.setItem(this.appKey, JSON.stringify(newState));
   }
 
-  public get = <T = any>(key: Key): T | null =>
+  public get = <T = any>(key: StorageKey): T | null =>
     this.getState()?.[key] || null;
 
   public clearState = (): void =>

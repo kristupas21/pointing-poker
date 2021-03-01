@@ -2,13 +2,13 @@ import { ActionType, Reducer } from 'typesafe-actions';
 import { VoteRoundState } from './voteRoundTypes';
 import {
   ADD_USER_TO_VOTE_ROUND,
+  CLEAR_VOTE_ROUND_STATE,
   HIDE_VOTES,
   INIT_VOTE_ROUND,
   REMOVE_USER_FROM_VOTE_ROUND,
   RESET_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
   SET_VOTE_ROUND_TOPIC,
-  SET_VOTE_ROUND_USERS,
   SHOW_VOTES
 } from './voteRoundConstants';
 
@@ -28,11 +28,6 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
       return {
         ...initialState,
         ...action.payload,
-      };
-    case SET_VOTE_ROUND_USERS:
-      return {
-        ...state,
-        users: action.payload,
       };
     case ADD_USER_TO_VOTE_ROUND:
       return {
@@ -80,6 +75,10 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
       return {
         ...state,
         votesShown: false,
+      };
+    case CLEAR_VOTE_ROUND_STATE:
+      return {
+        ...initialState
       };
     default:
       return state;

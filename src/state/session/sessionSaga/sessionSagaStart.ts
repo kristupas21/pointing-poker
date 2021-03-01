@@ -28,7 +28,6 @@ function* startSaga(action: ActionType<typeof startSession>) {
     yield put(push(getMatchParamRoute(ROUTE.SESSION, { sessionId })));
     yield call(storageService.set, StorageKey.PointValues, pointValues);
     yield call(storageService.set, StorageKey.Roles, roles);
-    yield call(storageService.set, sessionId, { useRoles }, true);
   } catch (e) {
     yield put(throwAppError(ERROR_CODES.UNEXPECTED));
   }

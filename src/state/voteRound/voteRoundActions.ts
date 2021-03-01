@@ -5,14 +5,10 @@ import {
   HIDE_VOTES,
   INIT_VOTE_ROUND, REMOVE_USER_FROM_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
-  SET_VOTE_ROUND_USERS,
-  SHOW_VOTES, SET_VOTE_ROUND_TOPIC
+  SHOW_VOTES, SET_VOTE_ROUND_TOPIC, CLEAR_VOTE_ROUND_STATE
 } from './voteRoundConstants';
 import { User } from '../../types/global';
 import { VoteRoundState } from './voteRoundTypes';
-
-export const setVoteRoundUsers = (users: User[]) =>
-  action(SET_VOTE_ROUND_USERS, users);
 
 export const addUserToVoteRound = (user: User) =>
   action(ADD_USER_TO_VOTE_ROUND, user);
@@ -33,3 +29,5 @@ export const initVoteRound = (params: VoteRoundState) =>
   action(INIT_VOTE_ROUND, params);
 
 export const setVoteRoundTopic = (topic: string) => action(SET_VOTE_ROUND_TOPIC, topic);
+
+export const clearVoteRoundState = () => action(CLEAR_VOTE_ROUND_STATE);
