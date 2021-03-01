@@ -10,11 +10,12 @@ import {
   SET_SESSION_PARAMS,
   ADD_SESSION_POINT_VALUE,
   REMOVE_SESSION_POINT_VALUE,
-  SAVE_SESSION_POINT_VALUE,
+  SAVE_SESSION_POINT_VALUE, ADD_SESSION_ROLE, REMOVE_SESSION_ROLE, SAVE_SESSION_ROLE,
 } from './sessionConstants';
 import { CreateSessionFormData } from '../../containers/CreateSessionForm/CreateSessionForm';
 import { SessionState } from './sessionTypes';
 import { PointValue } from '../../utils/pointValues/types';
+import { UserRole } from '../../utils/userRoles/types';
 
 export const initSession = (params: Partial<SessionState>) =>
   action(INIT_SESSION, params);
@@ -41,3 +42,11 @@ export const removeSessionPointValue = (id: string) =>
 
 export const saveSessionPointValue = (value: Partial<PointValue>) =>
   action(SAVE_SESSION_POINT_VALUE, value);
+
+export const addSessionRole = () => action(ADD_SESSION_ROLE);
+
+export const removeSessionRole = (id: string) =>
+  action(REMOVE_SESSION_ROLE, id);
+
+export const saveSessionRole = (role: UserRole) =>
+  action(SAVE_SESSION_ROLE, role);

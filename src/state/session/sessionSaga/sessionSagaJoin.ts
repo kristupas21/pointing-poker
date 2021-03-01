@@ -30,17 +30,18 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
     const { data: { sessionId } } = yield call(sessionApi.join, params);
     yield put(push(getMatchParamRoute(ROUTE.SESSION, { sessionId })));
   } catch (e) {
-    const error = e?.response?.data?.error;
+    const { code, payload } = e?.response?.data || {};
 
-    if (error === ERROR_CODES.SESSION_NOT_FOUND) {
+    if (code === ERROR_CODES.SESSION_NOT_FOUND) {
       yield put(replace(ROUTE.SESSION_NOT_FOUND, { sessionId: formSessionId }));
       return;
     }
 
-    if (error === ERROR_CODES.MUST_CHOOSE_ROLE) {
+    if (code === ERROR_CODES.MUST_CHOOSE_ROLE) {
       yield put(setSessionParams({
         currentSessionId: formSessionId,
         useRoles: true,
+        roles: payload,
       }));
 
       yield call(storageService.set, formSessionId, { useRoles: true }, true);

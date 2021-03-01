@@ -9,8 +9,8 @@ import { acquireCurrentUser } from './sessionSagaUtils';
 import storageService, { StorageKey } from '../../../utils/storageService';
 import { getMatchParamRoute, ROUTE } from '../../../constants/routes';
 import { ERROR_CODES } from '../../../constants/errorCodes';
-import { getSessionPointValues } from '../sessionStateGetters';
-import { removeEmptyPointValues } from '../sessionUtils';
+import { getSessionPointValues, getSessionRoles } from '../sessionStateGetters';
+import { removeEmptyPointValues, removeEmptyRoles } from '../sessionUtils';
 
 function* startSaga(action: ActionType<typeof startSession>) {
   const { payload: formData } = action;
@@ -18,13 +18,16 @@ function* startSaga(action: ActionType<typeof startSession>) {
   const { useRoles, sessionId: s, ...userData } = formData;
   const user = yield* acquireCurrentUser(userData);
   const statePointValues = yield select(getSessionPointValues);
+  const stateRoles = yield select(getSessionRoles);
   const pointValues = removeEmptyPointValues(statePointValues);
-  const params = { user, useRoles, pointValues };
+  const roles = removeEmptyRoles(stateRoles);
+  const params = { user, useRoles, pointValues, roles };
 
   try {
     const { data: { sessionId } } = yield call(sessionApi.start, params);
     yield put(push(getMatchParamRoute(ROUTE.SESSION, { sessionId })));
     yield call(storageService.set, StorageKey.PointValues, pointValues);
+    yield call(storageService.set, StorageKey.Roles, roles);
     yield call(storageService.set, sessionId, { useRoles }, true);
   } catch (e) {
     yield put(throwAppError(ERROR_CODES.UNEXPECTED));

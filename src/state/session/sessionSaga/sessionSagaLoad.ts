@@ -28,6 +28,7 @@ function* loadSaga(action: ActionType<typeof loadSession>) {
           showVotes: votesShown,
           currentTopic,
           pointValues,
+          roles,
         }
       }
     } = yield call(sessionApi.load, { sessionId, userId });
@@ -36,23 +37,24 @@ function* loadSaga(action: ActionType<typeof loadSession>) {
       currentSessionId: sessionId,
       useRoles,
       pointValues,
+      roles,
     }));
 
     yield put(initVoteRound({ users, votesShown, currentTopic }));
   } catch (e) {
-    const error = e?.response?.data?.error;
+    const { code } = e?.response?.data || {};
 
-    if (error === ERROR_CODES.NOT_FOUND) {
+    if (code === ERROR_CODES.NOT_FOUND) {
       yield put(replace(ROUTE.SESSION_NOT_FOUND, { sessionId }));
       return;
     }
 
-    if (error === ERROR_CODES.USER_NOT_FOUND) {
+    if (code === ERROR_CODES.USER_NOT_FOUND) {
       yield put(replace(ROUTE.JOIN_SESSION, { sessionId }));
       return;
     }
 
-    yield put(throwAppError(error || 'error.unexpected'));
+    yield put(throwAppError(code || ERROR_CODES.UNEXPECTED));
   }
 }
 

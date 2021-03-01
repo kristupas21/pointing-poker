@@ -1,19 +1,20 @@
 import React, { useEffect, useRef } from 'react';
-import { FieldType, FormField } from '../../../components/Form';
-import { PointValue } from '../../../utils/pointValues/types';
-import Button from '../../../components/Button';
-import { IconId } from '../../../components/Icon';
+import { FieldType, FormField } from '..';
+import Button from '../../Button';
+import { IconId } from '../../Icon';
 
-interface Props extends PointValue {
+interface Props {
   onRemoveClick: (id: string) => void;
   isRemoveDisabled: boolean;
   name: string;
   onBlur: (e, id: string, name: string) => void;
   currentValue: string;
+  id: string;
+  className?: string;
 }
 
-const PointValueField: React.FC<Props> = (props) => {
-  const { name, id, onRemoveClick, isRemoveDisabled, onBlur, currentValue } = props;
+const DynamicFormField: React.FC<Props> = (props) => {
+  const { name, id, onRemoveClick, isRemoveDisabled, onBlur, currentValue, className } = props;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleEditClick = () =>
@@ -29,7 +30,7 @@ const PointValueField: React.FC<Props> = (props) => {
   }, []);
 
   return (
-    <span>
+    <span className={className}>
       <FormField
         name={name}
         type={FieldType.Input}
@@ -43,4 +44,4 @@ const PointValueField: React.FC<Props> = (props) => {
   );
 };
 
-export default PointValueField;
+export default DynamicFormField;

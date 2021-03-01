@@ -2,10 +2,13 @@ import { ActionType, Reducer } from 'typesafe-actions';
 import { SessionState } from './sessionTypes';
 import {
   ADD_SESSION_POINT_VALUE,
+  ADD_SESSION_ROLE,
   CLOSE_SESSION,
   INIT_SESSION,
   REMOVE_SESSION_POINT_VALUE,
+  REMOVE_SESSION_ROLE,
   SAVE_SESSION_POINT_VALUE,
+  SAVE_SESSION_ROLE,
   SET_SESSION_PARAMS,
   SET_SESSION_USER
 } from './sessionConstants';
@@ -13,7 +16,9 @@ import storageService, { StorageKey } from '../../utils/storageService';
 import { User } from '../../types/global';
 import { PointValue } from '../../utils/pointValues/types';
 import { DEFAULT_POINT_VALUES } from '../../utils/pointValues/constants';
-import { createPointValue } from './sessionUtils';
+import { createPointValue, createRole } from './sessionUtils';
+import { UserRole } from '../../utils/userRoles/types';
+import { DEFAULT_USER_ROLES } from '../../utils/userRoles/constants';
 
 type Action = ActionType<typeof import('./sessionActions')>;
 
@@ -24,11 +29,15 @@ const getSessionUser = (): User => storageService.get(StorageKey.User);
 const getSessionPointValues = (): PointValue[] =>
   storageService.get(StorageKey.PointValues) || DEFAULT_POINT_VALUES;
 
+const getSessionRoles = (): UserRole[] =>
+  storageService.get(StorageKey.Roles) || DEFAULT_USER_ROLES;
+
 const initialState: State = {
   currentSessionId: null,
   user: getSessionUser(),
   useRoles: false,
   pointValues: getSessionPointValues(),
+  roles: getSessionRoles(),
 };
 
 const sessionReducer: Reducer<State, Action> = (state = initialState, action) => {
@@ -57,12 +66,33 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
         pointValues,
       };
     }
+    case SAVE_SESSION_ROLE: {
+      const roles = state.roles.map((p) => ({
+        ...p,
+        ...(p.id === action.payload.id && action.payload)
+      }));
+
+      storageService.set(StorageKey.Roles, roles);
+
+      return {
+        ...state,
+        roles,
+      };
+    }
     case ADD_SESSION_POINT_VALUE:
       return {
         ...state,
         pointValues: [
           ...state.pointValues,
           createPointValue({ pos: state.pointValues.length }),
+        ],
+      };
+    case ADD_SESSION_ROLE:
+      return {
+        ...state,
+        roles: [
+          ...state.roles,
+          createRole(),
         ],
       };
     case REMOVE_SESSION_POINT_VALUE: {
@@ -77,11 +107,23 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
         pointValues,
       };
     }
+    case REMOVE_SESSION_ROLE: {
+      const roles = state.roles
+        .filter((p) => p.id !== action.payload);
+
+      storageService.set(StorageKey.Roles, roles);
+
+      return {
+        ...state,
+        roles,
+      };
+    }
     case CLOSE_SESSION:
       return {
         ...initialState,
         user: getSessionUser(),
         pointValues: getSessionPointValues(),
+        roles: getSessionRoles(),
       };
     default:
       return state;

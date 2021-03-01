@@ -1,5 +1,6 @@
 import sum from 'lodash/sum';
 import { User } from '../../types/global';
+import { UserRole } from '../userRoles/types';
 
 export function filterAndMapVotes(users: User[]): number[] {
   return users
@@ -15,16 +16,21 @@ export function calculateVoteAvg(values: number[]): string {
   return (sum(values) / values.length).toString();
 }
 
-export function divideUsersByRole(users: User[]): { [role: string]: User[] } {
+export function divideUsersByRole(users: User[], roles: UserRole[]): { [role: string]: User[] } {
+  const findRole = (id: string) =>
+    roles.find((r) => r.id === id).name;
+
   return users.reduce((acc, user) => {
     if (user.isObserver) {
       return acc;
     }
 
+    const roleName = findRole(user.role);
+
     return ({
       ...acc,
-      [user.role]: [
-        ...(acc[user.role] || []),
+      [roleName]: [
+        ...(acc[roleName] || []),
         user,
       ],
     });

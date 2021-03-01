@@ -2,35 +2,35 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../../types/global';
-import { mapPointValuesToFormData, withPVF } from './utils';
+import { mapRolesToFormData, withURF } from './utils';
 import {
-  addSessionPointValue,
-  removeSessionPointValue,
-  saveSessionPointValue
+  addSessionRole,
+  removeSessionRole,
+  saveSessionRole
 } from '../../state/session/sessionActions';
 import Button from '../../components/Button';
 import { IconId } from '../../components/Icon';
-import { MAX_POINT_VALUES_COUNT, MIN_POINT_VALUES_COUNT } from './constants';
+import { MAX_ROLES_COUNT, MIN_ROLES_COUNT } from './constants';
 import DynamicFormField from '../../components/Form/DynamicFormField';
 
 const mapStateToProps = (state: State) => ({
-  pointValues: state.session.pointValues,
+  roles: state.session.roles,
 });
 
 const mapDispatchToProps = {
-  removePointValue: removeSessionPointValue,
-  savePointValue: saveSessionPointValue,
-  addPointValue: addSessionPointValue,
+  removeRole: removeSessionRole,
+  saveRole: saveSessionRole,
+  addRole: addSessionRole,
 };
 
 type ReduxProps = ConnectedProps<typeof connector>;
 type Props = ReduxProps;
 
-const PointValuesForm: React.FC<Props> = (props) => {
-  const { pointValues, removePointValue, savePointValue, addPointValue } = props;
-  const initialValues = mapPointValuesToFormData(pointValues);
-  const isRemoveDisabled = pointValues.length <= MIN_POINT_VALUES_COUNT;
-  const isAddDisabled = pointValues.length >= MAX_POINT_VALUES_COUNT;
+const RolesForm: React.FC<Props> = (props) => {
+  const { roles, removeRole, saveRole, addRole } = props;
+  const initialValues = mapRolesToFormData(roles);
+  const isRemoveDisabled = roles.length <= MIN_ROLES_COUNT;
+  const isAddDisabled = roles.length >= MAX_ROLES_COUNT;
 
   return (
     <Formik
@@ -45,30 +45,30 @@ const PointValuesForm: React.FC<Props> = (props) => {
           handleBlur(e);
 
           if (value) {
-            savePointValue({ id, value: values[name] });
+            saveRole({ id, name: values[name] });
           } else {
             resetForm();
           }
         };
 
         return (
-          <Form name="pvf">
-            {pointValues.map((point) => {
-              const name = withPVF(point.pos);
+          <Form name="urf">
+            {roles.map((role) => {
+              const name = withURF(role.id);
 
               return (
                 <DynamicFormField
-                  key={point.id}
+                  key={role.id}
+                  id={role.id}
                   isRemoveDisabled={isRemoveDisabled}
-                  onRemoveClick={removePointValue}
+                  onRemoveClick={removeRole}
                   onBlur={submitValues}
                   name={name}
                   currentValue={values[name]}
-                  {...point}
                 />
               );
             })}
-            <Button icon={IconId.Add} onClick={addPointValue} disabled={isAddDisabled} />
+            <Button icon={IconId.Add} onClick={addRole} disabled={isAddDisabled} />
           </Form>
         );
       }}
@@ -78,4 +78,4 @@ const PointValuesForm: React.FC<Props> = (props) => {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(PointValuesForm);
+export default connector(RolesForm);

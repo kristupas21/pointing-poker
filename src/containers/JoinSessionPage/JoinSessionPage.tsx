@@ -7,11 +7,13 @@ import { State } from '../../types/global';
 import { joinSessionValidationSchema } from '../CreateSessionForm/validationSchema';
 import { joinSession as joinSessionAction, setSessionParams } from '../../state/session/sessionActions';
 import { useSessionId } from '../../utils/customHooks';
+import { removeEmptyRoles } from '../../state/session/sessionUtils';
 
 const mapStateToProps = (state: State) => ({
   currentSessionId: state.session.currentSessionId,
   useRoles: state.session.useRoles,
   user: state.session.user,
+  roles: state.session.roles,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -23,8 +25,9 @@ type ReduxProps = ConnectedProps<typeof connector>;
 type Props = RouteChildrenProps & ReduxProps;
 
 const JoinSessionPage: React.FC<Props> = (props) => {
-  const { user, useRoles, joinSession, currentSessionId, clearSessionParams } = props;
+  const { user, useRoles, joinSession, currentSessionId, clearSessionParams, roles } = props;
   const sessionIdFromLocationState = useSessionId();
+  const userRoles = removeEmptyRoles(roles);
 
   const initialValues: CreateSessionFormData = {
     sessionId: currentSessionId || sessionIdFromLocationState || '',
@@ -42,6 +45,7 @@ const JoinSessionPage: React.FC<Props> = (props) => {
       initialValues={initialValues}
       onSubmit={joinSession}
       validationSchema={joinSessionValidationSchema}
+      roles={userRoles}
     />
   );
 };
