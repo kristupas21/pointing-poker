@@ -3,7 +3,7 @@ import { SchemaOf } from 'yup';
 import {
   INPUT_MAX_CHARS, INPUT_MIN_CHARS, FORM_ERR_MAX, FORM_ERR_MIN, FORM_ERR_REQUIRED,
 } from '../../constants/formValidation';
-import { CreateSessionFormData } from './CreateSessionForm';
+import { CreateSessionFormData } from './types';
 
 const defaultSchemaProps = () => ({
   name: Yup.string()

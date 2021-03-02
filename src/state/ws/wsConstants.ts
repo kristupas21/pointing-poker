@@ -1,4 +1,4 @@
-import { WSEventMapItem } from './wsTypes';
+import { WSEventMapItem } from './wsModel';
 import {
   resetVoteRoundListener,
   hideVotesListener,

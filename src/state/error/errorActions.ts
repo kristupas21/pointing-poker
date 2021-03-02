@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { ErrorState } from './errorTypes';
+import { ErrorState } from './errorModel';
 import { SET_ERROR_STATE, THROW_APP_ERROR } from './errorConstants';
 import { MessageId } from '../../lang';
 

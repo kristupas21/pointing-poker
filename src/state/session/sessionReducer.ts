@@ -1,5 +1,5 @@
 import { ActionType, Reducer } from 'typesafe-actions';
-import { SessionState } from './sessionTypes';
+import { SessionState } from './sessionModel';
 import {
   ADD_SESSION_POINT_VALUE,
   ADD_SESSION_ROLE,

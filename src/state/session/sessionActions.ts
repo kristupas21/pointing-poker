@@ -12,10 +12,10 @@ import {
   REMOVE_SESSION_POINT_VALUE,
   SAVE_SESSION_POINT_VALUE, ADD_SESSION_ROLE, REMOVE_SESSION_ROLE, SAVE_SESSION_ROLE,
 } from './sessionConstants';
-import { CreateSessionFormData } from '../../containers/CreateSessionForm/CreateSessionForm';
-import { SessionState } from './sessionTypes';
+import { SessionState } from './sessionModel';
 import { PointValue } from '../../utils/pointValues/types';
 import { UserRole } from '../../utils/userRoles/types';
+import { CreateSessionFormData } from '../../containers/CreateSessionForm/types';
 
 export const initSession = (params: Partial<SessionState>) =>
   action(INIT_SESSION, params);

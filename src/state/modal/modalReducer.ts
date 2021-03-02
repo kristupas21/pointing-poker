@@ -1,5 +1,5 @@
 import { ActionType, Reducer } from 'typesafe-actions';
-import { ModalId, ModalState, ModalType } from './modalTypes';
+import { ModalId, ModalState, ModalType } from './modalModel';
 import { CLOSE_MODAL, OPEN_MODAL } from './modalConstants';
 
 type Action = ActionType<typeof import('./modalActions')>;

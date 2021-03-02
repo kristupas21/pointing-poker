@@ -1,5 +1,5 @@
 import { ActionType, Reducer } from 'typesafe-actions';
-import { ErrorState } from './errorTypes';
+import { ErrorState } from './errorModel';
 import { ROUTE } from '../../constants/routes';
 import { SET_ERROR_STATE } from './errorConstants';
 

@@ -1,5 +1,5 @@
 import { ActionType, Reducer } from 'typesafe-actions';
-import { VoteRoundState } from './voteRoundTypes';
+import { VoteRoundState } from './voteRoundModel';
 import {
   ADD_USER_TO_VOTE_ROUND,
   CLEAR_VOTE_ROUND_STATE,

@@ -8,7 +8,7 @@ import {
   SHOW_VOTES, SET_VOTE_ROUND_TOPIC, CLEAR_VOTE_ROUND_STATE
 } from './voteRoundConstants';
 import { User } from '../../types/global';
-import { VoteRoundState } from './voteRoundTypes';
+import { VoteRoundState } from './voteRoundModel';
 
 export const addUserToVoteRound = (user: User) =>
   action(ADD_USER_TO_VOTE_ROUND, user);

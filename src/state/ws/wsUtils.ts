@@ -1,6 +1,6 @@
 import { io, Socket } from 'socket.io-client';
 import { call, take, delay, race } from 'redux-saga/effects';
-import { WSEventMapItem } from './wsTypes';
+import { WSEventMapItem } from './wsModel';
 
 export const createSocket = (auth: { sessionId: string; userId: string }) => io(
   process.env.API_URL || 'http://localhost:9000',

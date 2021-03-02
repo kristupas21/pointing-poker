@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
 import CreateSessionForm from '../CreateSessionForm';
-import { CreateSessionFormData } from '../CreateSessionForm/CreateSessionForm';
 import { startSessionValidationSchema } from '../CreateSessionForm/validationSchema';
 import { startSession as startSessionAction } from '../../state/session/sessionActions';
 import PointValuesForm from '../PointValuesForm';
@@ -10,6 +9,7 @@ import RolesForm from '../RolesForm';
 import { removeEmptyRoles } from '../../state/session/sessionUtils';
 import { getSessionState } from '../../state/session/sessionStateGetters';
 import { useMappedDispatch } from '../../utils/customHooks';
+import { CreateSessionFormData } from '../CreateSessionForm/types';
 
 const mapDispatchToProps = {
   startSession: startSessionAction,

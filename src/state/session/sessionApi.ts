@@ -1,6 +1,6 @@
 import api from '../../utils/api';
 import { User } from '../../types/global';
-import { JoinSessionParams, LoadSessionParams, StartSessionParams } from './sessionTypes';
+import { JoinSessionParams, LoadSessionParams, StartSessionParams } from './sessionModel';
 
 interface StartSessionResponse {
   data: {

@@ -9,7 +9,7 @@ import {
   setVoteRoundTopic
 } from '../voteRound/voteRoundActions';
 import { User } from '../../types/global';
-import { WSMessage } from './wsTypes';
+import { WSMessage } from './wsModel';
 
 export function* userJoinedListener(message: WSMessage<{ user: User }>) {
   yield put(addUserToVoteRound(message.body.user));

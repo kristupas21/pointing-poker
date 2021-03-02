@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { ModalId } from '../state/modal/modalTypes';
+import { ModalId } from '../state/modal/modalModel';
 
 type ModalCloser = { closeModal: typeof import('../state/modal/modalActions').closeModal };
 

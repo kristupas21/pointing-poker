@@ -6,14 +6,7 @@ import Button from '../../components/Button';
 import { UserRole } from '../../utils/userRoles/types';
 import { useText } from '../../utils/customHooks';
 import { CustomFormError, CustomFormErrors } from '../../types/global';
-
-export interface CreateSessionFormData {
-  sessionId?: string;
-  name: string;
-  role?: string;
-  isObserver: boolean;
-  useRoles?: boolean;
-}
+import { CreateSessionFormData } from './types';
 
 type Props = {
   isJoinType?: boolean;

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
 import CreateSessionForm from '../CreateSessionForm';
-import { CreateSessionFormData } from '../CreateSessionForm/CreateSessionForm';
 import { joinSessionValidationSchema } from '../CreateSessionForm/validationSchema';
 import {
   joinSession as joinSessionAction,
@@ -11,6 +10,7 @@ import {
 import { useMappedDispatch, useSessionId } from '../../utils/customHooks';
 import { removeEmptyRoles } from '../../state/session/sessionUtils';
 import { getSessionState } from '../../state/session/sessionStateGetters';
+import { CreateSessionFormData } from '../CreateSessionForm/types';
 
 const mapDispatchToProps = {
   joinSession: joinSessionAction,

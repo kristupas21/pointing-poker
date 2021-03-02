@@ -1,5 +1,5 @@
 import { ActionType, Reducer } from 'typesafe-actions';
-import { AppState } from './appTypes';
+import { AppState } from './appModel';
 import { SET_APP_LOCALE, SET_APP_SIDEBAR_OPEN } from './appConstants';
 
 type Action = ActionType<typeof import('./appActions')>;

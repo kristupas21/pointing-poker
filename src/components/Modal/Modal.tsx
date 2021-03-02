@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactModal, { setAppElement } from 'react-modal';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
-import { ModalType } from '../../state/modal/modalTypes';
+import { ModalType } from '../../state/modal/modalModel';
 import styles from './Modal.module.scss';
 import { closeModal as closeModalAction } from '../../state/modal/modalActions';
 import getModalContent from '../../constants/modalContents';

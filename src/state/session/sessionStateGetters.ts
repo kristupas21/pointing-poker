@@ -1,7 +1,7 @@
 import { State, User } from '../../types/global';
 import { PointValue } from '../../utils/pointValues/types';
 import { UserRole } from '../../utils/userRoles/types';
-import { SessionState } from './sessionTypes';
+import { SessionState } from './sessionModel';
 
 export const getSessionState = (state: State): SessionState => state.session;
 

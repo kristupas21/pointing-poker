@@ -1,7 +1,7 @@
 import { call, fork, take, spawn } from 'redux-saga/effects';
 import { EventChannel, eventChannel } from 'redux-saga';
 import { Socket } from 'socket.io-client';
-import { WSEventMapItem } from './wsTypes';
+import { WSEventMapItem } from './wsModel';
 
 function createSocketChannel(socket: Socket, event: string) {
   return eventChannel((emit) => {
