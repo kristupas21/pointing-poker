@@ -1,13 +1,15 @@
+import { useSelector } from 'react-redux';
+import { getAppLocale } from '../../state/app/appStateGetters';
 import { MessageId, MESSAGES } from '../../lang';
-import { State } from '../../types/global';
 
-export type GetText = (id: MessageId, args?: Record<string, string | number>, locale?: string) => string;
+type Args = Record<string, string | number>;
+type TextFn = (id: MessageId, args?: Args) => string;
 
-export function replaceValues(message: string, prop: string, value: string): string {
+function replaceValues(message: string, prop: string, value: string): string {
   return message.split(`{${prop}}`).join(value);
 }
 
-export const getText: GetText = (id, args = null, locale = 'en') => {
+function getText(id: MessageId, args: Args = null, locale = 'en'): string {
   const localeMessages = MESSAGES[locale];
 
   if (!(id in localeMessages)) {
@@ -27,8 +29,10 @@ export const getText: GetText = (id, args = null, locale = 'en') => {
   });
 
   return value;
-};
+}
 
-export const mapLocaleToProps = (state: State) => ({
-  locale: state.app.locale,
-});
+export default (): TextFn => {
+  const locale = useSelector(getAppLocale);
+
+  return (id, args = null) => getText(id, args, locale);
+};

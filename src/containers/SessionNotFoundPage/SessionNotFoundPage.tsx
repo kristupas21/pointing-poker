@@ -1,18 +1,20 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import Text from '../../components/Text';
 import { ROUTE } from '../../constants/routes';
-import { useSessionId } from '../../utils/customHooks';
+import { useSessionId, useText } from '../../utils/customHooks';
 
 const SessionNotFoundPage: React.FC = () => {
   const id = useSessionId();
+  const text = useText();
 
   if (!id) {
     return <Redirect to={ROUTE.BASE} />;
   }
 
   return (
-    <Text id="session.not-found" values={{ id }} tag="span" />
+    <span>
+      {text('session.not-found', { id })}
+    </span>
   );
 };
 

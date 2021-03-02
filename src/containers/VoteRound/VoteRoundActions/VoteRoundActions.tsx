@@ -14,10 +14,9 @@ import {
   wsSetVoteRoundTopic,
 } from '../../../state/ws/wsActions';
 import Button from '../../../components/Button';
-import Text from '../../../components/Text';
 import { FieldType, FormField } from '../../../components/Form';
 import { getVoteRoundState } from '../../../state/voteRound/voteRoundStateGetters';
-import { useMappedDispatch } from '../../../utils/customHooks';
+import { useMappedDispatch, useText } from '../../../utils/customHooks';
 
 const mapDispatchToProps = {
   resetVoteRound: [resetVoteRoundAction, wsResetVoteRound],
@@ -38,10 +37,11 @@ export interface VoteRoundFormData {
 }
 
 const VoteRoundActions: React.FC = () => {
+  const text = useText();
+  const { votesShown, currentTopic } = useSelector(getVoteRoundState);
+
   const { resetVoteRound, hideVotes, showVotes, setVoteRoundTopic } =
       useMappedDispatch<M>(mapDispatchToProps as unknown as M);
-
-  const { votesShown, currentTopic } = useSelector(getVoteRoundState);
 
   const initialValues: VoteRoundFormData = {
     topic: currentTopic || '',
@@ -65,10 +65,10 @@ const VoteRoundActions: React.FC = () => {
   return (
     <div>
       <Button onClick={handleShowHideClick}>
-        <Text id={showHideTextId} />
+        {text(showHideTextId)}
       </Button>
       <Button onClick={resetVoteRound}>
-        <Text id="voteRound.action.nextRound" />
+        {text('voteRound.action.nextRound')}
       </Button>
       <Formik
         initialValues={initialValues}
@@ -78,7 +78,7 @@ const VoteRoundActions: React.FC = () => {
           <FormField
             name="topic"
             type={FieldType.Input}
-            label={<Text id="voteRound.field.topic.label" />}
+            label={text('voteRound.field.topic.label')}
             value={currentTopic || ''}
             onChange={handleTopicChange}
           />

@@ -17,7 +17,7 @@ const cx = classNames.bind(styles);
 
 type Props = (InputProps | SelectProps | CheckboxProps) & {
   label?: ReactNode;
-  error?: ReactNode;
+  error?: string;
   setRef?: RefObject<any>;
   isBlock?: boolean;
   type: FieldType;

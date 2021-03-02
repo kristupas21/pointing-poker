@@ -1,16 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, RouteChildrenProps } from 'react-router';
-import Text from '../../components/Text';
 import Button, { ButtonVariant } from '../../components/Button';
 import { ROUTE } from '../../constants/routes';
 import { getErrorState } from '../../state/error/errorStateGetters';
+import { useText } from '../../utils/customHooks';
 
 type Props = RouteChildrenProps;
 
 const ErrorPage: React.FC<Props> = (props) => {
   const { history } = props;
   const { errorId, redirectPath } = useSelector(getErrorState);
+  const text = useText();
 
   const handleRedirectClick = () =>
     history.push(redirectPath);
@@ -22,10 +23,10 @@ const ErrorPage: React.FC<Props> = (props) => {
   return (
     <div>
       <div>
-        <Text id={errorId} />
+        {text(errorId)}
       </div>
       <Button variant={ButtonVariant.Danger} onClick={handleRedirectClick} role="link">
-        <Text id="global.tryAgain" />
+        {text('global.tryAgain')}
       </Button>
     </div>
   );

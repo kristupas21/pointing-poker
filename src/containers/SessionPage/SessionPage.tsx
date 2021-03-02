@@ -7,11 +7,10 @@ import {
   closeSession as closeSessionAction
 } from '../../state/session/sessionActions';
 import Button from '../../components/Button';
-import Text from '../../components/Text';
 import { copyToClipboard } from '../../utils/commands';
 import { clearVoteRoundState as clearVoteRoundStateAction } from '../../state/voteRound/voteRoundActions';
 import { getSessionCurrentId } from '../../state/session/sessionStateGetters';
-import { useMappedDispatch } from '../../utils/customHooks';
+import { useMappedDispatch, useText } from '../../utils/customHooks';
 
 const mapDispatchToProps = {
   loadSession: loadSessionAction,
@@ -25,6 +24,7 @@ const SessionPage: React.FC<Props> = (props) => {
   const { match: { params: { sessionId } } } = props;
   const currentSessionId = useSelector(getSessionCurrentId);
   const { loadSession, clearVoteRoundState, closeSession } = useMappedDispatch(mapDispatchToProps);
+  const text = useText();
 
   useEffect(() => {
     loadSession(sessionId);
@@ -43,7 +43,7 @@ const SessionPage: React.FC<Props> = (props) => {
     <div>
       {sessionId}
       <Button onClick={() => copyToClipboard(currentSessionId)}>
-        <Text id="global.copy" />
+        {text('global.copy')}
       </Button>
       <VoteRound />
     </div>

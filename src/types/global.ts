@@ -1,5 +1,6 @@
 import store from '../state/store';
 import { AvatarId } from '../components/Avatar';
+import { MessageId } from '../lang';
 
 export enum Breakpoint {
   Desktop = 'Desktop',
@@ -27,3 +28,7 @@ export interface Identifier {
   id: string;
   name: string;
 }
+
+export type CustomFormError = { id: MessageId; values: any };
+
+export type CustomFormErrors<T> = Record<keyof T, CustomFormError>;

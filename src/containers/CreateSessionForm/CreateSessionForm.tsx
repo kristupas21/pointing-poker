@@ -1,11 +1,11 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import { SchemaOf } from 'yup';
-import { RouteChildrenProps } from 'react-router';
 import { FieldType, FormField, SubmitHandler } from '../../components/Form';
 import Button from '../../components/Button';
-import { withText, WithText } from '../../components/Text';
 import { UserRole } from '../../utils/userRoles/types';
+import { useText } from '../../utils/customHooks';
+import { CustomFormError, CustomFormErrors } from '../../types/global';
 
 export interface CreateSessionFormData {
   sessionId?: string;
@@ -15,7 +15,7 @@ export interface CreateSessionFormData {
   useRoles?: boolean;
 }
 
-type Props = WithText & RouteChildrenProps & {
+type Props = {
   isJoinType?: boolean;
   initialValues: CreateSessionFormData;
   onSubmit: (values: CreateSessionFormData) => void;
@@ -24,7 +24,9 @@ type Props = WithText & RouteChildrenProps & {
 };
 
 const CreateSessionForm: React.FC<Props> = (props) => {
-  const { getText, isJoinType = false, initialValues, onSubmit, validationSchema, roles } = props;
+  const { isJoinType = false, initialValues, onSubmit, validationSchema, roles } = props;
+  const text = useText();
+  const getErrorText = (e: CustomFormError) => e?.id && text(e.id, e.values);
 
   const handleSubmit: SubmitHandler<CreateSessionFormData> = (values) => {
     onSubmit(values);
@@ -36,8 +38,11 @@ const CreateSessionForm: React.FC<Props> = (props) => {
       enableReinitialize
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
+      id="create-session-form"
     >
-      {({ isSubmitting, errors, values, setValues }) => {
+      {({ isSubmitting, errors: err, values, setValues }) => {
+        const errors = err as unknown as CustomFormErrors<CreateSessionFormData>;
+
         if (values.role && !roles.some((r) => r.id === values.role)) {
           setValues({
             ...values,
@@ -51,23 +56,23 @@ const CreateSessionForm: React.FC<Props> = (props) => {
               <FormField
                 name="sessionId"
                 type={FieldType.Input}
-                error={errors.sessionId}
-                label={getText('session.id')}
+                error={getErrorText(errors.sessionId)}
+                label={text('session.id')}
                 isBlock
               />
             )}
             <FormField
               name="name"
               type={FieldType.Input}
-              error={errors.name}
-              label={getText('session.field.name.label')}
+              error={getErrorText(errors.name)}
+              label={text('session.field.name.label')}
               isBlock
             />
             {isJoinType || (
               <FormField
                 name="useRoles"
                 type={FieldType.Checkbox}
-                label={getText('session.field.useRoles.label')}
+                label={text('session.field.useRoles.label')}
                 isBlock
               />
             )}
@@ -75,9 +80,9 @@ const CreateSessionForm: React.FC<Props> = (props) => {
               <FormField
                 name="role"
                 type={FieldType.Select}
-                label={getText('session.field.role.label')}
-                emptyOptionText={getText('session.field.role.placeholder')}
-                error={errors.role}
+                label={text('session.field.role.label')}
+                emptyOptionText={text('session.field.role.placeholder')}
+                error={getErrorText(errors.role)}
                 options={roles}
                 disabled={values.isObserver}
                 isBlock
@@ -87,11 +92,11 @@ const CreateSessionForm: React.FC<Props> = (props) => {
             <FormField
               name="isObserver"
               type={FieldType.Checkbox}
-              label={getText('session.field.observer.label')}
+              label={text('session.field.observer.label')}
               isBlock
             />
             <Button type="submit" disabled={isSubmitting}>
-              {getText(isJoinType ? 'session.join' : 'session.start')}
+              {text(isJoinType ? 'session.join' : 'session.start')}
             </Button>
           </Form>
         );
@@ -100,4 +105,4 @@ const CreateSessionForm: React.FC<Props> = (props) => {
   );
 };
 
-export default withText(CreateSessionForm);
+export default CreateSessionForm;

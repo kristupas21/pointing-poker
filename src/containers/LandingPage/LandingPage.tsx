@@ -1,8 +1,7 @@
 import React from 'react';
 import { RouteChildrenProps } from 'react-router';
 import Button, { ButtonVariant } from '../../components/Button';
-import Text from '../../components/Text/Text';
-import { useBreakpoint } from '../../utils/customHooks';
+import { useBreakpoint, useText } from '../../utils/customHooks';
 import { ROUTE } from '../../constants/routes';
 
 type Props = RouteChildrenProps;
@@ -10,6 +9,7 @@ type Props = RouteChildrenProps;
 const LandingPage: React.FC<Props> = (props) => {
   const { history } = props;
   const breakpoint = useBreakpoint();
+  const text = useText();
 
   const handleStartClick = () =>
     history.push(ROUTE.START_SESSION);
@@ -23,10 +23,10 @@ const LandingPage: React.FC<Props> = (props) => {
         {breakpoint}
       </p>
       <Button variant={ButtonVariant.Primary} onClick={handleStartClick} role="link">
-        <Text id="session.start" />
+        {text('session.start')}
       </Button>
       <Button variant={ButtonVariant.Primary} onClick={handleJoinClick} role="link">
-        <Text id="session.join" />
+        {text('session.join')}
       </Button>
     </div>
   );

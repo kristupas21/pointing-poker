@@ -1,16 +1,15 @@
 import * as Yup from 'yup';
 import { SchemaOf } from 'yup';
 import {
-  INPUT_MAX_CHARS, INPUT_MIN_CHARS, msgMax, msgMin, msgRequired,
+  INPUT_MAX_CHARS, INPUT_MIN_CHARS, FORM_ERR_MAX, FORM_ERR_MIN, FORM_ERR_REQUIRED,
 } from '../../constants/formValidation';
 import { CreateSessionFormData } from './CreateSessionForm';
-import { getText } from '../../components/Text';
 
 const defaultSchemaProps = () => ({
   name: Yup.string()
-    .min(INPUT_MIN_CHARS, getText(msgMin, { chars: INPUT_MIN_CHARS }))
-    .max(INPUT_MAX_CHARS, getText(msgMax, { chars: INPUT_MAX_CHARS }))
-    .required(getText(msgRequired)),
+    .min(INPUT_MIN_CHARS, { id: FORM_ERR_MIN, values: { chars: INPUT_MIN_CHARS } })
+    .max(INPUT_MAX_CHARS, { id: FORM_ERR_MAX, values: { chars: INPUT_MAX_CHARS } })
+    .required({ id: FORM_ERR_REQUIRED }),
 
   role: Yup.string()
     .when('useRoles', {
@@ -18,7 +17,7 @@ const defaultSchemaProps = () => ({
       then: Yup.string()
         .when('isObserver', {
           is: false,
-          then: Yup.string().required(getText(msgRequired))
+          then: Yup.string().required({ id: FORM_ERR_REQUIRED }),
         })
     }),
 
@@ -30,7 +29,7 @@ const defaultSchemaProps = () => ({
 export const joinSessionValidationSchema: SchemaOf<CreateSessionFormData> =
     Yup.object().shape({
       ...defaultSchemaProps(),
-      sessionId: Yup.string().required(getText(msgRequired)),
+      sessionId: Yup.string().required({ id: FORM_ERR_REQUIRED }),
     });
 
 export const startSessionValidationSchema: SchemaOf<CreateSessionFormData> =
