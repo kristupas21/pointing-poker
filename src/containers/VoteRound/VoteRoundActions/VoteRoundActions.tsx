@@ -1,7 +1,6 @@
 import React, { ChangeEvent } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Form, Formik } from 'formik';
-import { State } from '../../../types/global';
 import {
   resetVoteRound as resetVoteRoundAction,
   hideVotes as hideVotesAction,
@@ -17,40 +16,32 @@ import {
 import Button from '../../../components/Button';
 import Text from '../../../components/Text';
 import { FieldType, FormField } from '../../../components/Form';
+import { getVoteRoundState } from '../../../state/voteRound/voteRoundStateGetters';
+import { useMappedDispatch } from '../../../utils/customHooks';
 
-const mapStateToProps = (state: State) => ({
-  votesShown: state.voteRound.votesShown,
-  currentTopic: state.voteRound.currentTopic,
-});
+const mapDispatchToProps = {
+  resetVoteRound: [resetVoteRoundAction, wsResetVoteRound],
+  hideVotes: [hideVotesAction, wsHideVotes],
+  showVotes: [showVotesAction, wsShowVotes],
+  setVoteRoundTopic: [setVoteRoundTopicAction, wsSetVoteRoundTopic],
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  resetVoteRound: () => {
-    dispatch(resetVoteRoundAction());
-    dispatch(wsResetVoteRound());
-  },
-  hideVotes: () => {
-    dispatch(hideVotesAction());
-    dispatch(wsHideVotes());
-  },
-  showVotes: () => {
-    dispatch(showVotesAction());
-    dispatch(wsShowVotes());
-  },
-  setVoteRoundTopic: (t: string) => {
-    dispatch(setVoteRoundTopicAction(t));
-    dispatch(wsSetVoteRoundTopic(t));
-  }
-});
+type M = {
+  resetVoteRound: typeof resetVoteRoundAction,
+  hideVotes: typeof hideVotesAction,
+  showVotes: typeof showVotesAction,
+  setVoteRoundTopic: typeof setVoteRoundTopicAction,
+}
 
 export interface VoteRoundFormData {
   topic: string;
 }
 
-type ReduxProps = ConnectedProps<typeof connector>;
-type Props = ReduxProps;
+const VoteRoundActions: React.FC = () => {
+  const { resetVoteRound, hideVotes, showVotes, setVoteRoundTopic } =
+      useMappedDispatch<M>(mapDispatchToProps as unknown as M);
 
-const VoteRoundActions: React.FC<Props> = (props) => {
-  const { resetVoteRound, hideVotes, showVotes, votesShown, currentTopic, setVoteRoundTopic } = props;
+  const { votesShown, currentTopic } = useSelector(getVoteRoundState);
 
   const initialValues: VoteRoundFormData = {
     topic: currentTopic || '',
@@ -97,6 +88,4 @@ const VoteRoundActions: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(VoteRoundActions);
+export default VoteRoundActions;

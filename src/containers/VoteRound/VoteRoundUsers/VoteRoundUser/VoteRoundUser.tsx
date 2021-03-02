@@ -1,6 +1,7 @@
 import React from 'react';
 import { User } from '../../../../types/global';
 import Avatar from '../../../../components/Avatar';
+import { POINT_VALUE_INFINITY, POINT_VALUE_UNKNOWN } from '../../../../utils/pointValues/constants';
 
 interface Props extends User {
   showVote: boolean;
@@ -11,13 +12,13 @@ const VoteRoundUser: React.FC<Props> = (props) => {
   const hasVoted = voteValue != null;
 
   const renderValue = () => (hasVoted
-    ? <i>{voteValue}</i>
-    : <i>X</i>
+    ? <span>{getDisplayValue(voteValue)}</span>
+    : <span role="img" aria-labelledby="">❌</span>
   );
 
   const renderHiddenValue = () => (hasVoted
-    ? <i style={{ background: 'lawngreen' }}>V</i>
-    : <i>X</i>
+    ? <span role="img" aria-labelledby="">✅</span>
+    : <span role="img" aria-labelledby="">❌</span>
   );
 
   return (
@@ -32,4 +33,16 @@ const VoteRoundUser: React.FC<Props> = (props) => {
     </div>
   );
 };
+
+function getDisplayValue(vote: string): string {
+  switch (vote) {
+    case POINT_VALUE_UNKNOWN:
+      return '🤷';
+    case POINT_VALUE_INFINITY:
+      return '♾️';
+    default:
+      return vote;
+  }
+}
+
 export default VoteRoundUser;

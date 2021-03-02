@@ -1,34 +1,26 @@
 import React, { CSSProperties } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import sortBy from 'lodash/sortBy';
-import { State } from '../../../types/global';
 import Button from '../../../components/Button';
 import { setUserVoteValue } from '../../../state/voteRound/voteRoundActions';
 import { wsSetUserVoteValue } from '../../../state/ws/wsActions';
 import { makeCurrentUserVoteSelector } from '../../../utils/selectors';
+import { getSessionPointValues, getSessionUserId } from '../../../state/session/sessionStateGetters';
+import { useMappedDispatch } from '../../../utils/customHooks';
 
-const mapStateToProps = () => {
-  const currentUserVoteSelector = makeCurrentUserVoteSelector();
-
-  return (state: State) => ({
-    pointValues: state.session.pointValues,
-    userId: state.session.user?.id,
-    currentUserVote: currentUserVoteSelector(state),
-  });
+const mapDispatchToProps = {
+  setVoteValue: [setUserVoteValue, wsSetUserVoteValue],
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setVoteValue: (userId: string, value: string) => {
-    dispatch(setUserVoteValue(userId, value));
-    dispatch(wsSetUserVoteValue(userId, value));
-  }
-});
+type M = { setVoteValue: typeof setUserVoteValue };
 
-type ReduxProps = ConnectedProps<typeof connector>;
-type Props = ReduxProps;
+const currentUserVoteSelector = makeCurrentUserVoteSelector();
 
-const VoteRoundOptions: React.FC<Props> = (props) => {
-  const { pointValues, setVoteValue, userId, currentUserVote } = props;
+const VoteRoundOptions: React.FC = () => {
+  const userId = useSelector(getSessionUserId);
+  const pointValues = useSelector(getSessionPointValues);
+  const currentUserVote = useSelector(currentUserVoteSelector);
+  const { setVoteValue } = useMappedDispatch<M>(mapDispatchToProps as unknown as M);
 
   const getTempStyle = (value: string): CSSProperties => ({
     ...(value === currentUserVote) && { border: '2px solid' }
@@ -47,6 +39,4 @@ const VoteRoundOptions: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(VoteRoundOptions);
+export default VoteRoundOptions;

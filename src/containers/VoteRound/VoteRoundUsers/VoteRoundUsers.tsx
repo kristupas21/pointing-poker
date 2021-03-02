@@ -1,19 +1,12 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import sortBy from 'lodash/sortBy';
-import { State } from '../../../types/global';
 import VoteRoundUser from './VoteRoundUser';
+import { getVoteRoundUsers, getVotesShownValue } from '../../../state/voteRound/voteRoundStateGetters';
 
-const mapStateToProps = (state: State) => ({
-  users: state.voteRound.users,
-  votesShown: state.voteRound.votesShown,
-});
-
-type ReduxProps = ConnectedProps<typeof connector>;
-type Props = ReduxProps;
-
-const VoteRoundUsers: React.FC<Props> = (props) => {
-  const { users, votesShown } = props;
+const VoteRoundUsers: React.FC = () => {
+  const users = useSelector(getVoteRoundUsers);
+  const votesShown = useSelector(getVotesShownValue);
 
   return (
     <ul>
@@ -26,6 +19,4 @@ const VoteRoundUsers: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(mapStateToProps);
-
-export default connector(VoteRoundUsers);
+export default VoteRoundUsers;

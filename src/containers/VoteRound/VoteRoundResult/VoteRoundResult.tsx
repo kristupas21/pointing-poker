@@ -1,24 +1,17 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../../../types/global';
+import { useSelector } from 'react-redux';
 import { makeResultByRoleSelector, makeResultSelector } from '../../../utils/selectors';
+import { getVotesShownValue } from '../../../state/voteRound/voteRoundStateGetters';
+import { getSessionUseRoles } from '../../../state/session/sessionStateGetters';
 
-const mapStateToProps = () => {
-  const resultSelector = makeResultSelector();
-  const resultByRoleSelector = makeResultByRoleSelector();
+const resultSelector = makeResultSelector();
+const resultByRoleSelector = makeResultByRoleSelector();
 
-  return (state: State) => ({
-    result: resultSelector(state),
-    resultByRole: resultByRoleSelector(state),
-    votesShown: state.voteRound.votesShown,
-    useRoles: state.session.useRoles,
-  });
-};
-
-type Props = ConnectedProps<typeof connector>;
-
-const VoteRoundResult: React.FC<Props> = (props) => {
-  const { result, votesShown, resultByRole, useRoles } = props;
+const VoteRoundResult: React.FC = () => {
+  const result = useSelector(resultSelector);
+  const resultByRole = useSelector(resultByRoleSelector);
+  const votesShown = useSelector(getVotesShownValue);
+  const useRoles = useSelector(getSessionUseRoles);
 
   const renderResultByRole = ([key, value]) => (
     <div key={key}>
@@ -40,6 +33,4 @@ const VoteRoundResult: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(mapStateToProps);
-
-export default connector(VoteRoundResult);
+export default VoteRoundResult;

@@ -5,7 +5,8 @@ import { IconId } from '../../Icon';
 
 interface Props {
   onRemoveClick: (id: string) => void;
-  isRemoveDisabled: boolean;
+  isRemoveDisabled?: boolean;
+  isEditDisabled?: boolean;
   name: string;
   onBlur: (e, id: string, name: string) => void;
   currentValue: string;
@@ -14,7 +15,7 @@ interface Props {
 }
 
 const DynamicFormField: React.FC<Props> = (props) => {
-  const { name, id, onRemoveClick, isRemoveDisabled, onBlur, currentValue, className } = props;
+  const { name, id, onRemoveClick, isRemoveDisabled, onBlur, currentValue, className, isEditDisabled } = props;
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleEditClick = () =>
@@ -37,8 +38,9 @@ const DynamicFormField: React.FC<Props> = (props) => {
         setRef={inputRef}
         onBlur={handleBlur}
         value={currentValue || ''}
+        disabled={isEditDisabled}
       />
-      <Button icon={IconId.Edit} onClick={handleEditClick} />
+      <Button icon={IconId.Edit} onClick={handleEditClick} disabled={isEditDisabled} />
       <Button icon={IconId.Delete} onClick={handleRemoveClick} disabled={isRemoveDisabled} />
     </span>
   );

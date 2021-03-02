@@ -1,30 +1,25 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
 import CreateSessionForm from '../CreateSessionForm';
 import { CreateSessionFormData } from '../CreateSessionForm/CreateSessionForm';
-import { State } from '../../types/global';
 import { startSessionValidationSchema } from '../CreateSessionForm/validationSchema';
 import { startSession as startSessionAction } from '../../state/session/sessionActions';
 import PointValuesForm from '../PointValuesForm';
 import RolesForm from '../RolesForm';
 import { removeEmptyRoles } from '../../state/session/sessionUtils';
-
-const mapStateToProps = (state: State) => ({
-  useRoles: state.session.useRoles,
-  user: state.session.user,
-  roles: state.session.roles,
-});
+import { getSessionState } from '../../state/session/sessionStateGetters';
+import { useMappedDispatch } from '../../utils/customHooks';
 
 const mapDispatchToProps = {
   startSession: startSessionAction,
 };
 
-type ReduxProps = ConnectedProps<typeof connector>;
-type Props = RouteChildrenProps & ReduxProps;
+type Props = RouteChildrenProps
 
-const StartSessionPage: React.FC<Props> = (props) => {
-  const { user, useRoles, startSession, roles } = props;
+const StartSessionPage: React.FC<Props> = () => {
+  const { user, useRoles, roles } = useSelector(getSessionState);
+  const { startSession } = useMappedDispatch(mapDispatchToProps);
   const userRoles = removeEmptyRoles(roles);
 
   const initialValues: CreateSessionFormData = {
@@ -50,6 +45,4 @@ const StartSessionPage: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(StartSessionPage);
+export default StartSessionPage;

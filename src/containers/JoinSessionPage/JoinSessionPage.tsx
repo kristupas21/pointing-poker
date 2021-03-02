@@ -1,31 +1,27 @@
 import React, { useEffect } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
 import CreateSessionForm from '../CreateSessionForm';
 import { CreateSessionFormData } from '../CreateSessionForm/CreateSessionForm';
-import { State } from '../../types/global';
 import { joinSessionValidationSchema } from '../CreateSessionForm/validationSchema';
-import { joinSession as joinSessionAction, setSessionParams } from '../../state/session/sessionActions';
-import { useSessionId } from '../../utils/customHooks';
+import {
+  joinSession as joinSessionAction,
+  setSessionParams as setSessionParamsAction
+} from '../../state/session/sessionActions';
+import { useMappedDispatch, useSessionId } from '../../utils/customHooks';
 import { removeEmptyRoles } from '../../state/session/sessionUtils';
+import { getSessionState } from '../../state/session/sessionStateGetters';
 
-const mapStateToProps = (state: State) => ({
-  currentSessionId: state.session.currentSessionId,
-  useRoles: state.session.useRoles,
-  user: state.session.user,
-  roles: state.session.roles,
-});
+const mapDispatchToProps = {
+  joinSession: joinSessionAction,
+  setSessionParams: setSessionParamsAction,
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  joinSession: (v) => dispatch(joinSessionAction(v)),
-  clearSessionParams: () => dispatch(setSessionParams({ currentSessionId: null })),
-});
+type Props = RouteChildrenProps;
 
-type ReduxProps = ConnectedProps<typeof connector>;
-type Props = RouteChildrenProps & ReduxProps;
-
-const JoinSessionPage: React.FC<Props> = (props) => {
-  const { user, useRoles, joinSession, currentSessionId, clearSessionParams, roles } = props;
+const JoinSessionPage: React.FC<Props> = () => {
+  const { user, useRoles, currentSessionId, roles } = useSelector(getSessionState);
+  const { joinSession, setSessionParams } = useMappedDispatch(mapDispatchToProps);
   const sessionIdFromLocationState = useSessionId();
   const userRoles = removeEmptyRoles(roles);
 
@@ -37,7 +33,7 @@ const JoinSessionPage: React.FC<Props> = (props) => {
     useRoles,
   };
 
-  useEffect(() => () => clearSessionParams(), []);
+  useEffect(() => () => setSessionParams({ currentSessionId: null }), []);
 
   return (
     <CreateSessionForm
@@ -50,6 +46,4 @@ const JoinSessionPage: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(JoinSessionPage);
+export default JoinSessionPage;

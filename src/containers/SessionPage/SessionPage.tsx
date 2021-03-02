@@ -1,36 +1,38 @@
 import React, { useEffect } from 'react';
 import { RouteChildrenProps } from 'react-router';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import VoteRound from '../VoteRound';
-import { loadSession as loadSessionAction, closeSession } from '../../state/session/sessionActions';
-import { State } from '../../types/global';
+import {
+  loadSession as loadSessionAction,
+  closeSession as closeSessionAction
+} from '../../state/session/sessionActions';
 import Button from '../../components/Button';
 import Text from '../../components/Text';
 import { copyToClipboard } from '../../utils/commands';
-import { clearVoteRoundState } from '../../state/voteRound/voteRoundActions';
+import { clearVoteRoundState as clearVoteRoundStateAction } from '../../state/voteRound/voteRoundActions';
+import { getSessionCurrentId } from '../../state/session/sessionStateGetters';
+import { useMappedDispatch } from '../../utils/customHooks';
 
-const mapStateToProps = (state: State) => ({
-  currentSessionId: state.session.currentSessionId,
-});
+const mapDispatchToProps = {
+  loadSession: loadSessionAction,
+  closeSession: closeSessionAction,
+  clearVoteRoundState: clearVoteRoundStateAction,
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  loadSession: (id: string) => dispatch(loadSessionAction(id)),
-  clearSession: (id: string) => {
-    dispatch(closeSession(id));
-    dispatch(clearVoteRoundState());
-  },
-});
-
-type ReduxProps = ConnectedProps<typeof connector>;
-type Props = RouteChildrenProps<{ sessionId: string }> & ReduxProps;
+type Props = RouteChildrenProps<{ sessionId: string }>;
 
 const SessionPage: React.FC<Props> = (props) => {
-  const { match: { params: { sessionId } }, currentSessionId, clearSession, loadSession } = props;
+  const { match: { params: { sessionId } } } = props;
+  const currentSessionId = useSelector(getSessionCurrentId);
+  const { loadSession, clearVoteRoundState, closeSession } = useMappedDispatch(mapDispatchToProps);
 
   useEffect(() => {
     loadSession(sessionId);
 
-    return () => clearSession(sessionId);
+    return () => {
+      closeSession(sessionId);
+      clearVoteRoundState();
+    };
   }, []);
 
   if (!currentSessionId) {
@@ -48,6 +50,4 @@ const SessionPage: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(SessionPage);
+export default SessionPage;

@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import Button from '../../components/Button';
 import { IconId } from '../../components/Icon';
@@ -7,29 +7,26 @@ import styles from './MainLayout.module.scss';
 import Sidebar from '../../components/Sidebar';
 import ThemeChangeButton from './ThemeChangeButton';
 import Navigation from '../../components/Navigation';
-import { State } from '../../types/global';
 import { setAppSidebarOpen } from '../../state/app/appActions';
 import storageService from '../../utils/storageService';
+import { getSidebarOpenValue } from '../../state/app/appStateGetters';
+import { useMappedDispatch } from '../../utils/customHooks';
 
 const cx = classNames.bind(styles);
-
-const mapStateToProps = (state: State) => ({
-  isSidebarOpen: state.app.isSidebarOpen,
-});
 
 const mapDispatchToProps = {
   setSidebarOpen: setAppSidebarOpen,
 };
 
-type ReduxProps = ConnectedProps<typeof connector>;
-
-type Props = ReduxProps & {
+type Props = {
   children?: ReactNode;
   route: string;
 };
 
 const MainLayout: React.FC<Props> = (props) => {
-  const { children, isSidebarOpen, setSidebarOpen, route } = props;
+  const { children, route } = props;
+  const isSidebarOpen = useSelector(getSidebarOpenValue);
+  const { setSidebarOpen } = useMappedDispatch(mapDispatchToProps);
   const closeSidebar = () => setSidebarOpen(false);
   const openSidebar = () => setSidebarOpen(true);
 
@@ -59,6 +56,4 @@ const MainLayout: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(MainLayout);
+export default MainLayout;

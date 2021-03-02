@@ -17,12 +17,13 @@ export function createUser(props?: Partial<User>): User {
 }
 
 export function createPointValue(props: Partial<PointValue>): PointValue {
-  const { id, value, pos } = props;
+  const { id, value, pos, ...other } = props;
 
   return {
     id: id || uuidv4(),
     value: value || '',
     pos,
+    ...other,
   };
 }
 

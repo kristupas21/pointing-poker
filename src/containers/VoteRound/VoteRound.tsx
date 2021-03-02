@@ -1,27 +1,22 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import VoteRoundActions from './VoteRoundActions';
 import VoteRoundOptions from './VoteRoundOptions';
 import VoteRoundResult from './VoteRoundResult';
 import VoteRoundUsers from './VoteRoundUsers';
-import { State } from '../../types/global';
+import { getSessionUser } from '../../state/session/sessionStateGetters';
 
-const mapStateToProps = (state: State) => ({
-  user: state.session.user,
-});
+const VoteRound: React.FC = () => {
+  const user = useSelector(getSessionUser);
 
-type ReduxProps = ConnectedProps<typeof connector>;
-type Props = ReduxProps;
+  return (
+    <div>
+      <VoteRoundActions />
+      {user?.isObserver || <VoteRoundOptions />}
+      <VoteRoundResult />
+      <VoteRoundUsers />
+    </div>
+  );
+};
 
-const VoteRound: React.FC<Props> = ({ user }) => (
-  <div>
-    <VoteRoundActions />
-    {user.isObserver || <VoteRoundOptions />}
-    <VoteRoundResult />
-    <VoteRoundUsers />
-  </div>
-);
-
-const connector = connect(mapStateToProps);
-
-export default connector(VoteRound);
+export default VoteRound;

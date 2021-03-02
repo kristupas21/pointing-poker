@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
-import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../../types/global';
+import { useSelector } from 'react-redux';
 import { mapPointValuesToFormData, withPVF } from './utils';
 import {
   addSessionPointValue,
@@ -12,10 +11,9 @@ import Button from '../../components/Button';
 import { IconId } from '../../components/Icon';
 import { MAX_POINT_VALUES_COUNT, MIN_POINT_VALUES_COUNT } from './constants';
 import DynamicFormField from '../../components/Form/DynamicFormField';
-
-const mapStateToProps = (state: State) => ({
-  pointValues: state.session.pointValues,
-});
+import { getPointValuesFormSchema } from './validationSchema';
+import { getSessionPointValues } from '../../state/session/sessionStateGetters';
+import { useMappedDispatch } from '../../utils/customHooks';
 
 const mapDispatchToProps = {
   removePointValue: removeSessionPointValue,
@@ -23,11 +21,9 @@ const mapDispatchToProps = {
   addPointValue: addSessionPointValue,
 };
 
-type ReduxProps = ConnectedProps<typeof connector>;
-type Props = ReduxProps;
-
-const PointValuesForm: React.FC<Props> = (props) => {
-  const { pointValues, removePointValue, savePointValue, addPointValue } = props;
+const PointValuesForm: React.FC = () => {
+  const { removePointValue, savePointValue, addPointValue } = useMappedDispatch(mapDispatchToProps);
+  const pointValues = useSelector(getSessionPointValues);
   const initialValues = mapPointValuesToFormData(pointValues);
   const isRemoveDisabled = pointValues.length <= MIN_POINT_VALUES_COUNT;
   const isAddDisabled = pointValues.length >= MAX_POINT_VALUES_COUNT;
@@ -37,14 +33,15 @@ const PointValuesForm: React.FC<Props> = (props) => {
       enableReinitialize
       initialValues={initialValues}
       onSubmit={undefined}
+      validationSchema={getPointValuesFormSchema(pointValues)}
     >
-      {({ handleBlur, values, resetForm }) => {
+      {({ handleBlur, values, resetForm, errors }) => {
         const submitValues = (e, id: string, name: string) => {
           const value = values[name];
 
           handleBlur(e);
 
-          if (value) {
+          if (value && !errors[name]) {
             savePointValue({ id, value: values[name] });
           } else {
             resetForm();
@@ -54,16 +51,17 @@ const PointValuesForm: React.FC<Props> = (props) => {
         return (
           <Form name="pvf">
             {pointValues.map((point) => {
-              const name = withPVF(point.pos);
+              const name = withPVF(point.mandatoryId || point.pos);
 
               return (
                 <DynamicFormField
                   key={point.id}
-                  isRemoveDisabled={isRemoveDisabled}
+                  isRemoveDisabled={isRemoveDisabled || !!point.mandatoryId}
                   onRemoveClick={removePointValue}
                   onBlur={submitValues}
                   name={name}
                   currentValue={values[name]}
+                  isEditDisabled={!!point.mandatoryId}
                   {...point}
                 />
               );
@@ -76,6 +74,4 @@ const PointValuesForm: React.FC<Props> = (props) => {
   );
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(PointValuesForm);
+export default PointValuesForm;

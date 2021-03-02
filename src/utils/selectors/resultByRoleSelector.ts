@@ -3,12 +3,17 @@ import { State, User } from '../../types/global';
 import { calculateVoteAvg, divideUsersByRole, filterAndMapVotes } from './utils';
 import { getVoteRoundUsers } from '../../state/voteRound/voteRoundStateGetters';
 import { UserRole } from '../userRoles/types';
-import { getSessionRoles } from '../../state/session/sessionStateGetters';
+import { getSessionRoles, getSessionUseRoles } from '../../state/session/sessionStateGetters';
 
-export default () => createSelector<State, User[], UserRole[], [string, string][]>(
+export default () => createSelector<State, boolean, User[], UserRole[], [string, string][]>(
+  getSessionUseRoles,
   getVoteRoundUsers,
   getSessionRoles,
-  (users, roles) => {
+  (useRoles, users, roles) => {
+    if (!useRoles) {
+      return [];
+    }
+
     const groups = divideUsersByRole(users, roles);
 
     return Object.entries(groups).map(([key, value]) =>
