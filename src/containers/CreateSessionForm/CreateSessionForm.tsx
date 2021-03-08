@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import { SchemaOf } from 'yup';
+import isEmpty from 'lodash/isEmpty';
 import { FieldType, FormField, SubmitHandler } from '../../components/Form';
 import Button from '../../components/Button';
 import { UserRole } from '../../utils/userRoles/types';
@@ -36,6 +37,16 @@ const CreateSessionForm: React.FC<Props> = (props) => {
       {({ isSubmitting, errors: err, values, setValues }) => {
         const errors = err as unknown as CustomFormErrors<CreateSessionFormData>;
 
+        const handleSessionFieldChange = (e) => {
+          const newValues = {
+            ...values,
+            ...(values.useRoles && { useRoles: false, role: '' }),
+            sessionId: e.target.value,
+          };
+
+          setValues(newValues);
+        };
+
         if (values.role && !roles.some((r) => r.id === values.role)) {
           setValues({
             ...values,
@@ -51,6 +62,7 @@ const CreateSessionForm: React.FC<Props> = (props) => {
                 type={FieldType.Input}
                 error={getErrorText(errors.sessionId)}
                 label={text('session.id')}
+                onChange={handleSessionFieldChange}
                 isBlock
               />
             )}
@@ -88,7 +100,7 @@ const CreateSessionForm: React.FC<Props> = (props) => {
               label={text('session.field.observer.label')}
               isBlock
             />
-            <Button type="submit" disabled={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting || !isEmpty(errors)}>
               {text(isJoinType ? 'session.join' : 'session.start')}
             </Button>
           </Form>

@@ -44,5 +44,5 @@ export function removeEmptyPointValues(points: PointValue[]): PointValue[] {
 }
 
 export function removeEmptyRoles(roles: UserRole[]): UserRole[] {
-  return uniqBy(roles.filter((r) => r.name), 'id');
+  return uniqBy((roles || []).filter((r) => r.name), 'id');
 }

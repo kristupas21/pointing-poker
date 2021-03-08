@@ -1,7 +1,28 @@
 .button {
-  display: inline-flex;
+  $this: &;
 
-  &--primary {
-    color: black;
+  display: inline-flex;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 6px 9px;
+  transform: scale(1);
+  transition: transform .2s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &--block {
+    display: block;
+  }
+
+  &--disabled {
+    opacity: .6;
+  }
+
+  &:active {
+    transform: scale(.9);
   }
 }

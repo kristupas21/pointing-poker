@@ -4,7 +4,7 @@ import styles from './ProgressBar.module.scss';
 
 const cx = classNames.bind(styles);
 
-export type ProgressBarInterval = 1000 | 2000 | 3000 | 4000 | 5000 | 6000 | 7000;
+export type ProgressBarInterval = 2000 | 4000 | 6000;
 
 interface Props {
   interval: ProgressBarInterval;

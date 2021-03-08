@@ -1,12 +1,24 @@
 .layout {
   background: var(--app-background-color);
   color: var(--app-color);
-  min-height: 100vh;
+  padding: 15px;
 
   &__controls {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    & > * {
+      justify-self: center;
+      align-self: center;
+    }
+
+    & > *:first-child {
+      justify-self: baseline;
+    }
+
+    & > *:last-child {
+      justify-self: end;
+    }
   }
 
   &__children {

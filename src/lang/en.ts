@@ -21,6 +21,7 @@ export const messages = {
   'form.validation.max': 'Max {chars} characters',
 
   'session.id': 'Session ID',
+  'session.idCopied': 'Session ID copied!',
   'session.not-found': 'Session with ID {id} not found',
   'session.start': 'Start Session',
   'session.join': 'Join session',

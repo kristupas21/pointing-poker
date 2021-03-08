@@ -1,5 +1,5 @@
 import { ActionType, Reducer } from 'typesafe-actions';
-import { ModalId, ModalState, ModalType } from './modalModel';
+import { ModalId, ModalState } from './modalModel';
 import { CLOSE_MODAL, OPEN_MODAL } from './modalConstants';
 
 type Action = ActionType<typeof import('./modalActions')>;
@@ -10,7 +10,6 @@ const initialState: State = {
   isOpen: false,
   contentProps: {},
   id: ModalId.Generic,
-  type: ModalType.Default,
 };
 
 const modalReducer: Reducer<State, Action> = (state = initialState, action) => {

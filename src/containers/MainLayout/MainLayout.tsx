@@ -1,16 +1,14 @@
-import React, { ReactNode, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { ReactNode } from 'react';
 import classNames from 'classnames/bind';
+import { motion } from 'framer-motion';
 import Button from '../../components/Button';
 import { IconId } from '../../components/Icon';
 import styles from './MainLayout.module.scss';
-import Sidebar from '../../components/Sidebar';
 import ThemeChangeButton from './ThemeChangeButton';
-import Navigation from '../../components/Navigation';
 import { setAppSidebarOpen } from '../../state/app/appActions';
 import storageService from '../../utils/storageService';
-import { getSidebarOpenValue } from '../../state/app/appStateGetters';
 import { useMappedDispatch } from '../../utils/customHooks';
+import { mainLayoutContentMotionProps } from './constants';
 
 const cx = classNames.bind(styles);
 
@@ -25,32 +23,27 @@ type Props = {
 
 const MainLayout: React.FC<Props> = (props) => {
   const { children, route } = props;
-  const isSidebarOpen = useSelector(getSidebarOpenValue);
   const { setSidebarOpen } = useMappedDispatch(mapDispatchToProps);
-  const closeSidebar = () => setSidebarOpen(false);
   const openSidebar = () => setSidebarOpen(true);
-
-  useEffect(() => {
-    closeSidebar();
-  }, []);
 
   return (
     <div className={cx('layout')}>
-      <Sidebar isOpen={isSidebarOpen} onCloseClick={closeSidebar}>
-        <Navigation />
-      </Sidebar>
       <div className={cx('layout__content')}>
         <div className={cx('layout__controls')}>
           <Button icon={IconId.Menu} onClick={openSidebar} />
           {route}
-          <Button onClick={storageService.clearState}>
+          <Button onClick={storageService.clearState} isOutline>
             Clear Storage
           </Button>
           <ThemeChangeButton />
         </div>
-        <div className={cx('layout__children')}>
+        <motion.div
+          className={cx('layout__children')}
+          key={route}
+          {...mainLayoutContentMotionProps}
+        >
           {children}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
