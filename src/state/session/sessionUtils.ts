@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import uniqBy from 'lodash/uniqBy';
-import { User } from '../../types/global';
-import { PointValue } from '../../utils/pointValues/types';
-import { UserRole } from '../../utils/userRoles/types';
+import { User } from 'types/global';
+import { PointValue } from 'utils/pointValues/types';
+import { UserRole } from 'utils/userRoles/types';
 
 export function createUser(props?: Partial<User>): User {
   const { id, ...other } = props;

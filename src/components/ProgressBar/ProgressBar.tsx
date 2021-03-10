@@ -1,10 +1,9 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './ProgressBar.module.scss';
+import { ProgressBarInterval } from './types';
 
 const cx = classNames.bind(styles);
-
-export type ProgressBarInterval = 2000 | 4000 | 6000;
 
 interface Props {
   interval: ProgressBarInterval;

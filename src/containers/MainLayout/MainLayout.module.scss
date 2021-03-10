@@ -5,7 +5,7 @@
 
   &__controls {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 
     & > * {
       justify-self: center;
@@ -23,6 +23,11 @@
 
   &__children {
     padding: 15px;
+  }
+
+  &__route {
+    font-weight: bold;
+    text-transform: uppercase;
   }
 }
 

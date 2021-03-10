@@ -1,5 +1,9 @@
 import { action } from 'typesafe-actions';
-import { User } from '../../types/global';
+import { User } from 'types/global';
+import { PointValue } from 'utils/pointValues/types';
+import { UserRole } from 'utils/userRoles/types';
+import { CreateSessionFormData } from 'containers/CreateSessionForm/types';
+import { SessionState } from './sessionModel';
 import {
   START_SESSION,
   SET_SESSION_USER,
@@ -12,10 +16,6 @@ import {
   REMOVE_SESSION_POINT_VALUE,
   SAVE_SESSION_POINT_VALUE, ADD_SESSION_ROLE, REMOVE_SESSION_ROLE, SAVE_SESSION_ROLE,
 } from './sessionConstants';
-import { SessionState } from './sessionModel';
-import { PointValue } from '../../utils/pointValues/types';
-import { UserRole } from '../../utils/userRoles/types';
-import { CreateSessionFormData } from '../../containers/CreateSessionForm/types';
 
 export const initSession = (params: Partial<SessionState>) =>
   action(INIT_SESSION, params);

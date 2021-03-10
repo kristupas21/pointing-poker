@@ -21,7 +21,6 @@ export const messages = {
   'form.validation.max': 'Max {chars} characters',
 
   'session.id': 'Session ID',
-  'session.idCopied': 'Session ID copied!',
   'session.not-found': 'Session with ID {id} not found',
   'session.start': 'Start Session',
   'session.join': 'Join session',
@@ -41,7 +40,13 @@ export const messages = {
   'voteRound.action.showVotes': 'Show votes',
   'voteRound.action.choosePoints': 'Choose points',
 
-  'user.role.backend': 'Backend Dev',
-  'user.role.frontend': 'Frontend Dev',
-  'user.role.qa': 'QA Engineer',
+  'notifications.sessionIdCopied': 'Session ID copied!',
+  'notifications.userLeft': 'left this session.',
+
+  'routes.base': 'Home Page',
+  'routes.joinSession': 'Join Session Page',
+  'routes.startSession': 'Start Session Page',
+  'routes.session': 'Session Page',
+  'routes.sessionNotFound': 'Session Not Found Page',
+  'routes.error': 'Error Page'
 };

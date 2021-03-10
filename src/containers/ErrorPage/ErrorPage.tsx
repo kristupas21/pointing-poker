@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, RouteChildrenProps } from 'react-router';
-import Button, { ButtonVariant } from '../../components/Button';
-import { ROUTE } from '../../constants/routes';
-import { getErrorState } from '../../state/error/errorStateGetters';
-import { useText } from '../../utils/customHooks';
+import Button, { ButtonVariant } from 'components/Button';
+import { ROUTE } from 'constants/routes';
+import { getErrorState } from 'state/error/errorStateGetters';
+import { useText } from 'utils/customHooks';
 
 type Props = RouteChildrenProps;
 

@@ -1,15 +1,15 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
+import Button from 'components/Button';
+import { getSidebarOpenValue } from 'state/app/appStateGetters';
+import { useMappedDispatch } from 'utils/customHooks';
+import { setAppSidebarOpen } from 'state/app/appActions';
 import styles from './Sidebar.module.scss';
-import Button from '../Button';
-import { getSidebarOpenValue } from '../../state/app/appStateGetters';
-import { useMappedDispatch } from '../../utils/customHooks';
-import { setAppSidebarOpen } from '../../state/app/appActions';
 
 const cx = classNames.bind(styles);
 
-const mapDispatchToProps = {
+const actions = {
   setSidebarOpen: setAppSidebarOpen,
 };
 
@@ -20,7 +20,7 @@ interface Props {
 const Sidebar: React.FC<Props> = (props) => {
   const { onCloseClick, children } = props;
   const isOpen = useSelector(getSidebarOpenValue);
-  const { setSidebarOpen } = useMappedDispatch(mapDispatchToProps);
+  const { setSidebarOpen } = useMappedDispatch(actions);
 
   const handleClose = () => {
     onCloseClick && onCloseClick();

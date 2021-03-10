@@ -6,19 +6,19 @@ import {
   hideVotes as hideVotesAction,
   showVotes as showVotesAction,
   setVoteRoundTopic as setVoteRoundTopicAction,
-} from '../../../state/voteRound/voteRoundActions';
+} from 'state/voteRound/voteRoundActions';
 import {
   wsShowVotes,
   wsHideVotes,
   wsResetVoteRound,
   wsSetVoteRoundTopic,
-} from '../../../state/ws/wsActions';
-import Button from '../../../components/Button';
-import { FieldType, FormField } from '../../../components/Form';
-import { getVoteRoundState } from '../../../state/voteRound/voteRoundStateGetters';
-import { useMappedDispatch, useText } from '../../../utils/customHooks';
+} from 'state/ws/wsActions';
+import Button from 'components/Button';
+import { FieldType, FormField } from 'components/Form';
+import { getVoteRoundState } from 'state/voteRound/voteRoundStateGetters';
+import { useMappedDispatch, useText } from 'utils/customHooks';
 
-const mapDispatchToProps = {
+const actions = {
   resetVoteRound: [resetVoteRoundAction, wsResetVoteRound],
   hideVotes: [hideVotesAction, wsHideVotes],
   showVotes: [showVotesAction, wsShowVotes],
@@ -41,7 +41,7 @@ const VoteRoundActions: React.FC = () => {
   const { votesShown, currentTopic } = useSelector(getVoteRoundState);
 
   const { resetVoteRound, hideVotes, showVotes, setVoteRoundTopic } =
-      useMappedDispatch<M>(mapDispatchToProps as unknown as M);
+      useMappedDispatch<M>(actions as unknown as M);
 
   const initialValues: VoteRoundFormData = {
     topic: currentTopic || '',

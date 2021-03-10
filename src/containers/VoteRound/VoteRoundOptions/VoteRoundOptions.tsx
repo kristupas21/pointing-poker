@@ -1,14 +1,14 @@
 import React, { CSSProperties } from 'react';
 import { useSelector } from 'react-redux';
 import sortBy from 'lodash/sortBy';
-import Button from '../../../components/Button';
-import { setUserVoteValue } from '../../../state/voteRound/voteRoundActions';
-import { wsSetUserVoteValue } from '../../../state/ws/wsActions';
-import { makeCurrentUserVoteSelector } from '../../../utils/selectors';
-import { getSessionPointValues, getSessionUserId } from '../../../state/session/sessionStateGetters';
-import { useMappedDispatch } from '../../../utils/customHooks';
+import Button from 'components/Button';
+import { setUserVoteValue } from 'state/voteRound/voteRoundActions';
+import { wsSetUserVoteValue } from 'state/ws/wsActions';
+import { makeCurrentUserVoteSelector } from 'utils/selectors';
+import { getSessionPointValues, getSessionUserId } from 'state/session/sessionStateGetters';
+import { useMappedDispatch } from 'utils/customHooks';
 
-const mapDispatchToProps = {
+const actions = {
   setVoteValue: [setUserVoteValue, wsSetUserVoteValue],
 };
 
@@ -20,7 +20,7 @@ const VoteRoundOptions: React.FC = () => {
   const userId = useSelector(getSessionUserId);
   const pointValues = useSelector(getSessionPointValues);
   const currentUserVote = useSelector(currentUserVoteSelector);
-  const { setVoteValue } = useMappedDispatch<M>(mapDispatchToProps as unknown as M);
+  const { setVoteValue } = useMappedDispatch<M>(actions as unknown as M);
 
   const getTempStyle = (value: string): CSSProperties => ({
     ...(value === currentUserVote) && { border: '2px solid' }

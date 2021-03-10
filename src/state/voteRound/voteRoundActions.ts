@@ -1,4 +1,5 @@
 import { action } from 'typesafe-actions';
+import { User } from 'types/global';
 import {
   ADD_USER_TO_VOTE_ROUND,
   RESET_VOTE_ROUND,
@@ -7,7 +8,6 @@ import {
   SET_USER_VOTE_VALUE,
   SHOW_VOTES, SET_VOTE_ROUND_TOPIC, CLEAR_VOTE_ROUND_STATE
 } from './voteRoundConstants';
-import { User } from '../../types/global';
 import { VoteRoundState } from './voteRoundModel';
 
 export const addUserToVoteRound = (user: User) =>

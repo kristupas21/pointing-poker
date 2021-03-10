@@ -1,8 +1,12 @@
 import * as Yup from 'yup';
 import { SchemaOf } from 'yup';
 import {
-  INPUT_MAX_CHARS, INPUT_MIN_CHARS, FORM_ERR_MAX, FORM_ERR_MIN, FORM_ERR_REQUIRED,
-} from '../../constants/formValidation';
+  INPUT_MAX_CHARS,
+  INPUT_MIN_CHARS,
+  FORM_ERR_MAX,
+  FORM_ERR_MIN,
+  FORM_ERR_REQUIRED,
+} from 'constants/formValidation';
 import { CreateSessionFormData } from './types';
 
 const defaultSchemaProps = () => ({

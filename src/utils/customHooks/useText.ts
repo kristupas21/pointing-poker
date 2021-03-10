@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { getAppLocale } from '../../state/app/appStateGetters';
-import { MessageId, MESSAGES } from '../../lang';
+import { MessageId, MESSAGES } from 'lang';
+import { getAppLocale } from 'state/app/appStateGetters';
 
 type Args = Record<string, string | number>;
 type TextFn = (id: MessageId, args?: Args) => string;

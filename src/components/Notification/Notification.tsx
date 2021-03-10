@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
-import styles from './Notification.module.scss';
-import Button from '../Button';
-import ProgressBar from '../ProgressBar';
-import { AppNotification } from '../../state/notifications/notificationsModel';
+import Button from 'components/Button';
+import ProgressBar from 'components/ProgressBar';
+import { AppNotification } from 'state/notifications/notificationsModel';
 import { LIFESPAN_TO_INTERVAL_MAP, notificationMotionProps } from './constants';
+import styles from './Notification.module.scss';
 
 const cx = classNames.bind(styles);
 

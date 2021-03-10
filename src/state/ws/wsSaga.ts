@@ -1,9 +1,9 @@
 import { all, call, fork, put, select, take } from 'redux-saga/effects';
-import { CLOSE_SESSION, INIT_SESSION } from '../session/sessionConstants';
+import { getSessionUserId } from 'state/session/sessionStateGetters';
+import { CLOSE_SESSION, INIT_SESSION } from 'state/session/sessionConstants';
 import { baseWsEmitter, createSocket } from './wsUtils';
 import { initWSChannel } from './wsChannel';
 import { WS_EVENT_MAP } from './wsConstants';
-import { getSessionUserId } from '../session/sessionStateGetters';
 import { wsUserJoined } from './wsActions';
 
 function* wsSaga() {

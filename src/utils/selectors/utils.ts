@@ -1,6 +1,6 @@
 import sum from 'lodash/sum';
-import { User } from '../../types/global';
-import { UserRole } from '../userRoles/types';
+import { User } from 'types/global';
+import { UserRole } from 'utils/userRoles/types';
 
 export function filterAndMapVotes(users: User[]): number[] {
   return users

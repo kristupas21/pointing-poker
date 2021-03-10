@@ -1,0 +1,26 @@
+import { select, takeLeading, put } from 'redux-saga/effects';
+import { ActionType } from 'typesafe-actions';
+import { User } from 'types/global';
+import { getSessionUserId } from 'state/session/sessionStateGetters';
+import { getVoteRoundUsers } from './voteRoundStateGetters';
+import { setUserVoteValue, showVotes } from './voteRoundActions';
+import { SET_USER_VOTE_VALUE } from './voteRoundConstants';
+
+function* showVotesIfAllVoted(action: ActionType<typeof setUserVoteValue>) {
+  const userId = yield select(getSessionUserId);
+
+  if (userId !== action.payload.userId) {
+    return;
+  }
+
+  const users: User[] = yield select(getVoteRoundUsers);
+  const allVoted = users.every((u) => u.voteValue != null);
+
+  if (allVoted) {
+    yield put(showVotes());
+  }
+}
+
+export default function* voteRoundSaga() {
+  yield takeLeading(SET_USER_VOTE_VALUE, showVotesIfAllVoted);
+}

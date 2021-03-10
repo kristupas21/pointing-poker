@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import debounce from 'lodash/debounce';
-import { Breakpoint } from '../../types/global';
+import { Breakpoint } from 'types/global';
 
 const getBreakPoint = (windowWidth: number): Breakpoint => {
   if (windowWidth >= 1024) {

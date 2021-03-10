@@ -1,5 +1,5 @@
 import { select } from 'redux-saga/effects';
-import { getSessionUser } from '../session/sessionStateGetters';
+import { getSessionUser } from 'state/session/sessionStateGetters';
 
 /**
  * Function args are payload.

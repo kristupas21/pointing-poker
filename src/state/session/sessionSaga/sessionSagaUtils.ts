@@ -1,6 +1,6 @@
 import { select, call, put } from 'redux-saga/effects';
-import { User } from '../../../types/global';
-import storageService, { StorageKey } from '../../../utils/storageService';
+import storageService, { StorageKey } from 'utils/storageService';
+import { User } from 'types/global';
 import { setSessionUser } from '../sessionActions';
 import { createUser } from '../sessionUtils';
 import { getSessionUserId } from '../sessionStateGetters';

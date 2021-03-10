@@ -1,14 +1,16 @@
 import { put } from 'redux-saga/effects';
 import {
   addUserToVoteRound,
-  resetVoteRound,
   hideVotes,
   removeUserFromVoteRound,
+  resetVoteRound,
   setUserVoteValue,
-  showVotes,
-  setVoteRoundTopic
-} from '../voteRound/voteRoundActions';
-import { User } from '../../types/global';
+  setVoteRoundTopic,
+  showVotes
+} from 'state/voteRound/voteRoundActions';
+import { User } from 'types/global';
+import { pushNotification } from 'state/notifications/notificationsActions';
+import NFC, { NotificationContent } from 'utils/notificationContent';
 import { WSMessage } from './wsModel';
 
 export function* userJoinedListener(message: WSMessage<{ user: User }>) {
@@ -16,7 +18,11 @@ export function* userJoinedListener(message: WSMessage<{ user: User }>) {
 }
 
 export function* userLeftListener(message: WSMessage<{ user: User }>) {
-  yield put(removeUserFromVoteRound(message.body.user.id));
+  const { user } = message.body;
+  const notification = NFC.render(NotificationContent.UserLeft, user);
+
+  yield put(removeUserFromVoteRound(user.id));
+  yield put(pushNotification(notification));
 }
 
 export function* showVotesListener() {

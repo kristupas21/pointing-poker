@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { createRef, useEffect } from 'react';
+import Button from 'components/Button';
+import { IconId } from 'components/Icon';
 import { FieldType, FormField } from '..';
-import Button from '../../Button';
-import { IconId } from '../../Icon';
 
 interface Props {
   onRemoveClick: (id: string) => void;
@@ -16,7 +16,7 @@ interface Props {
 
 const DynamicFormField: React.FC<Props> = (props) => {
   const { name, id, onRemoveClick, isRemoveDisabled, onBlur, currentValue, className, isEditDisabled } = props;
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = createRef<HTMLInputElement>();
 
   const handleEditClick = () =>
     inputRef.current && inputRef.current.focus();

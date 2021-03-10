@@ -1,5 +1,12 @@
 import { ActionType, Reducer } from 'typesafe-actions';
+import storageService, { StorageKey } from 'utils/storageService';
+import { User } from 'types/global';
+import { PointValue } from 'utils/pointValues/types';
+import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
+import { UserRole } from 'utils/userRoles/types';
+import { DEFAULT_USER_ROLES } from 'utils/userRoles/constants';
 import { SessionState } from './sessionModel';
+import { createPointValue, createRole } from './sessionUtils';
 import {
   ADD_SESSION_POINT_VALUE,
   ADD_SESSION_ROLE,
@@ -12,13 +19,6 @@ import {
   SET_SESSION_PARAMS,
   SET_SESSION_USER
 } from './sessionConstants';
-import storageService, { StorageKey } from '../../utils/storageService';
-import { User } from '../../types/global';
-import { PointValue } from '../../utils/pointValues/types';
-import { DEFAULT_POINT_VALUES } from '../../utils/pointValues/constants';
-import { createPointValue, createRole } from './sessionUtils';
-import { UserRole } from '../../utils/userRoles/types';
-import { DEFAULT_USER_ROLES } from '../../utils/userRoles/constants';
 
 type Action = ActionType<typeof import('./sessionActions')>;
 

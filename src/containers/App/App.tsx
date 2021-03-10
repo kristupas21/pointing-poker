@@ -2,19 +2,20 @@ import React from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router';
 import classNames from 'classnames/bind';
 import { AnimatePresence } from 'framer-motion';
-import { ROUTE } from '../../constants/routes';
+import { ROUTE } from 'constants/routes';
+import Modal from 'components/Modal';
+import { withMainLayout } from 'containers/MainLayout';
+import LandingPageComponent from 'containers/LandingPage';
+import StartSessionPageComponent from 'containers/StartSessionPage';
+import JoinSessionPageComponent from 'containers/JoinSessionPage';
+import SessionPageComponent from 'containers/SessionPage';
+import SessionNotFoundPageComponent from 'containers/SessionNotFoundPage';
+import ErrorPageComponent from 'containers/ErrorPage';
+import Navigation from 'components/Navigation';
+import Sidebar from 'components/Sidebar';
+import Notifications from 'containers/Notifications';
+import { ClearStorageButton } from '_develop/_developComponents';
 import styles from './App.module.scss';
-import Modal from '../../components/Modal';
-import { withMainLayout } from '../MainLayout';
-import LandingPageComponent from '../LandingPage';
-import StartSessionPageComponent from '../StartSessionPage';
-import JoinSessionPageComponent from '../JoinSessionPage';
-import SessionPageComponent from '../SessionPage';
-import SessionNotFoundPageComponent from '../SessionNotFoundPage';
-import ErrorPageComponent from '../ErrorPage';
-import Navigation from '../../components/Navigation';
-import Sidebar from '../../components/Sidebar';
-import Notifications from '../Notifications';
 
 const cx = classNames.bind(styles);
 
@@ -67,6 +68,7 @@ const App: React.FC = () => {
       </AnimatePresence>
       <Sidebar>
         <Navigation />
+        <ClearStorageButton />
       </Sidebar>
       <Modal />
       <Notifications />

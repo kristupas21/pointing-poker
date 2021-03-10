@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import App from 'containers/App';
-import store from './state/store';
-import history from './state/history';
-import './styles/index.scss';
-import { ThemeContextProvider } from './containers/Theme';
+import store from 'state/store';
+import history from 'state/history';
+import { ThemeContextProvider } from 'containers/Theme';
+import 'styles/index.scss';
 
 ReactDOM.render(
   <React.StrictMode>

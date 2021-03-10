@@ -1,3 +1,10 @@
+import {
+  RESET_VOTE_ROUND,
+  HIDE_VOTES,
+  SET_USER_VOTE_VALUE,
+  SHOW_VOTES,
+  SET_VOTE_ROUND_TOPIC
+} from 'state/voteRound/voteRoundConstants';
 import { WSEventMapItem } from './wsModel';
 import {
   resetVoteRoundListener,
@@ -8,13 +15,6 @@ import {
   userLeftListener, setVoteRoundTopicListener
 } from './wsListeners';
 import { userEmitter } from './wsEmitters';
-import {
-  RESET_VOTE_ROUND,
-  HIDE_VOTES,
-  SET_USER_VOTE_VALUE,
-  SHOW_VOTES,
-  SET_VOTE_ROUND_TOPIC
-} from '../voteRound/voteRoundConstants';
 
 export const WS_USER_JOINED = '@@ws/USER_JOINED';
 export const WS_USER_LEFT = '@@ws/USER_LEFT';

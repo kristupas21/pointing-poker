@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
-import CreateSessionForm from '../CreateSessionForm';
-import { joinSessionValidationSchema } from '../CreateSessionForm/validationSchema';
+import CreateSessionForm from 'containers/CreateSessionForm';
+import { joinSessionValidationSchema } from 'containers/CreateSessionForm/validationSchema';
 import {
   joinSession as joinSessionAction,
   setSessionParams as setSessionParamsAction
-} from '../../state/session/sessionActions';
-import { useMappedDispatch, useSessionId } from '../../utils/customHooks';
-import { removeEmptyRoles } from '../../state/session/sessionUtils';
-import { getSessionState } from '../../state/session/sessionStateGetters';
-import { CreateSessionFormData } from '../CreateSessionForm/types';
+} from 'state/session/sessionActions';
+import { useMappedDispatch, useSessionId } from 'utils/customHooks';
+import { removeEmptyRoles } from 'state/session/sessionUtils';
+import { getSessionState } from 'state/session/sessionStateGetters';
+import { CreateSessionFormData } from 'containers/CreateSessionForm/types';
 
-const mapDispatchToProps = {
+const actions = {
   joinSession: joinSessionAction,
   setSessionParams: setSessionParamsAction,
 };
@@ -21,7 +21,7 @@ type Props = RouteChildrenProps;
 
 const JoinSessionPage: React.FC<Props> = () => {
   const { user, useRoles, currentSessionId, roles } = useSelector(getSessionState);
-  const { joinSession, setSessionParams } = useMappedDispatch(mapDispatchToProps);
+  const { joinSession, setSessionParams } = useMappedDispatch(actions);
   const sessionIdFromLocationState = useSessionId();
   const userRoles = removeEmptyRoles(roles);
 

@@ -1,10 +1,11 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { LOCATION_CHANGE, push, LocationChangeAction } from 'connected-react-router';
+import { getCurrentRoutePath } from 'state/router/routerStateGetters';
+import { ROUTE } from 'constants/routes';
 import { setErrorState, throwAppError } from './errorActions';
-import { getCurrentRoutePath } from '../../utils/routerUtils';
-import { getCurrentErrorId, THROW_APP_ERROR } from './errorConstants';
-import { ROUTE } from '../../constants/routes';
+import { THROW_APP_ERROR } from './errorConstants';
+import { getCurrentErrorId } from './errorStateGetters';
 
 type ThrowAction = ActionType<typeof throwAppError>;
 

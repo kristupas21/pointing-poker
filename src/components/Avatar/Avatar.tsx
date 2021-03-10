@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import classNames from 'classnames/bind';
+import Icon from 'components/Icon';
 import { AvatarId } from './types';
 import { getAvatar } from './avatarMap';
 import styles from './Avatar.module.scss';
-import Icon from '../Icon';
 
 const cx = classNames.bind(styles);
 

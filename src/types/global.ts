@@ -1,6 +1,6 @@
-import store from '../state/store';
-import { AvatarId } from '../components/Avatar';
-import { MessageId } from '../lang';
+import store from 'state/store';
+import { MessageId } from 'lang';
+import { AvatarId } from 'components/Avatar';
 
 export enum Breakpoint {
   Desktop = 'Desktop',

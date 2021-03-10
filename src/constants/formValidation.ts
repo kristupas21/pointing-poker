@@ -1,4 +1,4 @@
-import { MessageId } from '../lang';
+import { MessageId } from 'lang';
 
 export const INPUT_MIN_CHARS = 2;
 

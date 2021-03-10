@@ -1,8 +1,8 @@
 import React from 'react';
 import { RouteChildrenProps } from 'react-router';
-import Button, { ButtonVariant } from '../../components/Button';
-import { useBreakpoint, useText } from '../../utils/customHooks';
-import { ROUTE } from '../../constants/routes';
+import Button, { ButtonVariant } from 'components/Button';
+import { useBreakpoint, useText } from 'utils/customHooks';
+import { ROUTE } from 'constants/routes';
 
 type Props = RouteChildrenProps;
 

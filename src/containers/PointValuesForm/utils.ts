@@ -1,4 +1,4 @@
-import { PointValue } from '../../utils/pointValues/types';
+import { PointValue } from 'utils/pointValues/types';
 
 export const withPVF = (pos: number | string) => `pvf-${pos}`;
 

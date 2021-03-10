@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { makeResultByRoleSelector, makeResultSelector } from '../../../utils/selectors';
-import { getVotesShownValue } from '../../../state/voteRound/voteRoundStateGetters';
-import { getSessionUseRoles } from '../../../state/session/sessionStateGetters';
+import { makeResultByRoleSelector, makeResultSelector } from 'utils/selectors';
+import { getVotesShownValue } from 'state/voteRound/voteRoundStateGetters';
+import { getSessionUseRoles } from 'state/session/sessionStateGetters';
 
 const resultSelector = makeResultSelector();
 const resultByRoleSelector = makeResultByRoleSelector();

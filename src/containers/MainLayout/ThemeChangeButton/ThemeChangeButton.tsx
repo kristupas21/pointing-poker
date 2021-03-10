@@ -1,7 +1,7 @@
 import React from 'react';
-import { WithTheme, withThemeContext } from '../../Theme';
-import Button from '../../../components/Button';
-import { useText } from '../../../utils/customHooks';
+import { WithTheme, withThemeContext } from 'containers/Theme';
+import Button from 'components/Button';
+import { useText } from 'utils/customHooks';
 
 type Props = WithTheme;
 

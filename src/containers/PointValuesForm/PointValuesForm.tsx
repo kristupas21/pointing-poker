@@ -1,28 +1,28 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
-import { mapPointValuesToFormData, withPVF } from './utils';
 import {
   addSessionPointValue,
   removeSessionPointValue,
   saveSessionPointValue
-} from '../../state/session/sessionActions';
-import Button from '../../components/Button';
-import { IconId } from '../../components/Icon';
+} from 'state/session/sessionActions';
+import Button from 'components/Button';
+import { IconId } from 'components/Icon';
+import DynamicFormField from 'components/Form/DynamicFormField';
+import { getSessionPointValues } from 'state/session/sessionStateGetters';
+import { useMappedDispatch } from 'utils/customHooks';
+import { mapPointValuesToFormData, withPVF } from './utils';
 import { MAX_POINT_VALUES_COUNT, MIN_POINT_VALUES_COUNT } from './constants';
-import DynamicFormField from '../../components/Form/DynamicFormField';
 import { getPointValuesFormSchema } from './validationSchema';
-import { getSessionPointValues } from '../../state/session/sessionStateGetters';
-import { useMappedDispatch } from '../../utils/customHooks';
 
-const mapDispatchToProps = {
+const actions = {
   removePointValue: removeSessionPointValue,
   savePointValue: saveSessionPointValue,
   addPointValue: addSessionPointValue,
 };
 
 const PointValuesForm: React.FC = () => {
-  const { removePointValue, savePointValue, addPointValue } = useMappedDispatch(mapDispatchToProps);
+  const { removePointValue, savePointValue, addPointValue } = useMappedDispatch(actions);
   const pointValues = useSelector(getSessionPointValues);
   const initialValues = mapPointValuesToFormData(pointValues);
   const isRemoveDisabled = pointValues.length <= MIN_POINT_VALUES_COUNT;

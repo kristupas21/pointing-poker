@@ -1,6 +1,6 @@
 import React, { SelectHTMLAttributes } from 'react';
+import { Identifier } from 'types/global';
 import { Field, FieldAttributes } from 'formik';
-import { Identifier } from '../../../types/global';
 import Option from '../Option';
 
 export type SelectProps = FieldAttributes<SelectHTMLAttributes<HTMLSelectElement>> & {

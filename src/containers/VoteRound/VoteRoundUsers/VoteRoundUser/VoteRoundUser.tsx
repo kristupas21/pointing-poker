@@ -1,7 +1,7 @@
 import React from 'react';
-import { User } from '../../../../types/global';
-import Avatar from '../../../../components/Avatar';
-import { POINT_VALUE_INFINITY, POINT_VALUE_UNKNOWN } from '../../../../utils/pointValues/constants';
+import { User } from 'types/global';
+import Avatar from 'components/Avatar';
+import { POINT_VALUE_INFINITY, POINT_VALUE_UNKNOWN } from 'utils/pointValues/constants';
 
 interface Props extends User {
   showVote: boolean;

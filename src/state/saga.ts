@@ -1,8 +1,9 @@
 import { fork } from 'redux-saga/effects';
-import { sessionSagaJoin, sessionSagaLoad, sessionSagaStart } from './session/sessionSaga';
-import errorSaga from './error/errorSaga';
-import wsSaga from './ws/wsSaga';
-import appSaga from './app/appSaga';
+import { sessionSagaJoin, sessionSagaLoad, sessionSagaStart } from 'state/session/sessionSaga';
+import errorSaga from 'state/error/errorSaga';
+import wsSaga from 'state/ws/wsSaga';
+import appSaga from 'state/app/appSaga';
+import voteRoundSaga from 'state/voteRound/voteRoundSaga';
 
 export default function* saga() {
   yield fork(appSaga);
@@ -10,5 +11,6 @@ export default function* saga() {
   yield fork(sessionSagaStart);
   yield fork(sessionSagaJoin);
   yield fork(sessionSagaLoad);
+  yield fork(voteRoundSaga);
   yield fork(wsSaga);
 }

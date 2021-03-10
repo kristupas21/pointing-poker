@@ -1,20 +1,20 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
-import { mapRolesToFormData, withURF } from './utils';
 import {
   addSessionRole,
   removeSessionRole,
   saveSessionRole
-} from '../../state/session/sessionActions';
-import Button from '../../components/Button';
-import { IconId } from '../../components/Icon';
+} from 'state/session/sessionActions';
+import Button from 'components/Button';
+import { IconId } from 'components/Icon';
+import DynamicFormField from 'components/Form/DynamicFormField';
+import { getSessionRoles } from 'state/session/sessionStateGetters';
+import { useMappedDispatch } from 'utils/customHooks';
+import { mapRolesToFormData, withURF } from './utils';
 import { MAX_ROLES_COUNT, MIN_ROLES_COUNT } from './constants';
-import DynamicFormField from '../../components/Form/DynamicFormField';
-import { getSessionRoles } from '../../state/session/sessionStateGetters';
-import { useMappedDispatch } from '../../utils/customHooks';
 
-const mapDispatchToProps = {
+const actions = {
   removeRole: removeSessionRole,
   saveRole: saveSessionRole,
   addRole: addSessionRole,
@@ -22,7 +22,7 @@ const mapDispatchToProps = {
 
 const RolesForm: React.FC = () => {
   const roles = useSelector(getSessionRoles);
-  const { removeRole, saveRole, addRole } = useMappedDispatch(mapDispatchToProps);
+  const { removeRole, saveRole, addRole } = useMappedDispatch(actions);
   const initialValues = mapRolesToFormData(roles);
   const isRemoveDisabled = roles.length <= MIN_ROLES_COUNT;
   const isAddDisabled = roles.length >= MAX_ROLES_COUNT;

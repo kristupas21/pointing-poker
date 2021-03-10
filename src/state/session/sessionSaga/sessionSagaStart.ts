@@ -1,14 +1,14 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { push } from 'connected-react-router';
+import storageService, { StorageKey } from 'utils/storageService';
+import { getMatchParamRoute, ROUTE } from 'constants/routes';
+import { ERROR_CODES } from 'constants/errorCodes';
+import { throwAppError } from 'state/error/errorActions';
 import { startSession } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { START_SESSION } from '../sessionConstants';
-import { throwAppError } from '../../error/errorActions';
 import { acquireCurrentUser } from './sessionSagaUtils';
-import storageService, { StorageKey } from '../../../utils/storageService';
-import { getMatchParamRoute, ROUTE } from '../../../constants/routes';
-import { ERROR_CODES } from '../../../constants/errorCodes';
 import { getSessionPointValues, getSessionRoles } from '../sessionStateGetters';
 import { removeEmptyPointValues, removeEmptyRoles } from '../sessionUtils';
 

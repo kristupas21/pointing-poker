@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useStorageState } from '../../utils/customHooks';
+import { useStorageState } from 'utils/customHooks';
+import { StorageKey } from 'utils/storageService';
 import ThemeContext from './ThemeContext';
 import { Theme } from './types';
 import { setThemeVars } from './utils';
-import { StorageKey } from '../../utils/storageService';
 
 const ThemeContextProvider: React.FC = ({ children }) => {
   const [theme, setTheme] = useStorageState<Theme>(StorageKey.Theme, 'light');

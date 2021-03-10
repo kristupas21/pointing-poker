@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
-import history from './history';
-import sessionReducer from './session/sessionReducer';
-import appReducer from './app/appReducer';
-import errorReducer from './error/errorReducer';
-import modalReducer from './modal/modalReducer';
-import voteRoundReducer from './voteRound/voteRoundReducer';
-import notificationsReducer from './notifications/notificationsReducer';
+import sessionReducer from 'state/session/sessionReducer';
+import appReducer from 'state/app/appReducer';
+import errorReducer from 'state/error/errorReducer';
+import modalReducer from 'state/modal/modalReducer';
+import voteRoundReducer from 'state/voteRound/voteRoundReducer';
+import notificationsReducer from 'state/notifications/notificationsReducer';
+import routerReducer from './router/routerReducer';
 
 export default combineReducers({
   app: appReducer,
@@ -14,6 +13,6 @@ export default combineReducers({
   modal: modalReducer,
   notifications: notificationsReducer,
   session: sessionReducer,
-  router: connectRouter(history),
+  router: routerReducer,
   voteRound: voteRoundReducer,
 });

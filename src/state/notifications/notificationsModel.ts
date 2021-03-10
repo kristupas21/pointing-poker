@@ -1,5 +1,3 @@
-import { MessageId } from '../../lang';
-
 export enum NotificationType {
   Default = 'default',
   Success = 'success',
@@ -16,7 +14,7 @@ export enum NotificationLifespan {
 export interface AppNotification {
   id: string;
   lifespan?: NotificationLifespan;
-  text?: MessageId;
+  content: JSX.Element | string | number;
   type?: NotificationType;
   undoCallback?: () => void;
 }

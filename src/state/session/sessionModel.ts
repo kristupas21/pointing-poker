@@ -1,6 +1,6 @@
-import { User } from '../../types/global';
-import { PointValue } from '../../utils/pointValues/types';
-import { UserRole } from '../../utils/userRoles/types';
+import { User } from 'types/global';
+import { PointValue } from 'utils/pointValues/types';
+import { UserRole } from 'utils/userRoles/types';
 
 export interface SessionState {
   currentSessionId: string;

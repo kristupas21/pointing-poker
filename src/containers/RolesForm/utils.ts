@@ -1,4 +1,4 @@
-import { UserRole } from '../../utils/userRoles/types';
+import { UserRole } from 'utils/userRoles/types';
 
 export const withURF = (id: string) => `urf-${id}`;
 

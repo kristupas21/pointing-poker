@@ -1,5 +1,6 @@
 import React, { ReactNode, RefObject } from 'react';
 import classNames from 'classnames/bind';
+import withForwardRef from 'utils/withForwardRef';
 import { FieldType } from '../types';
 import InputField, { InputProps } from '../Input';
 import SelectField, { SelectProps } from '../Select';
@@ -7,7 +8,6 @@ import Label from '../Label';
 import FieldError from '../FieldError';
 import CheckboxField, { CheckboxProps } from '../Checkbox';
 import styles from './FormField.module.scss';
-import withForwardRef from '../../../utils/withForwardRef';
 
 const Input = withForwardRef(InputField);
 const Select = withForwardRef(SelectField);

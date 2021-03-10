@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
-import { State, User } from '../../types/global';
+import { State, User } from 'types/global';
+import { getVoteRoundUsers } from 'state/voteRound/voteRoundStateGetters';
+import { UserRole } from 'utils/userRoles/types';
+import { getSessionRoles, getSessionUseRoles } from 'state/session/sessionStateGetters';
 import { calculateVoteAvg, divideUsersByRole, filterAndMapVotes } from './utils';
-import { getVoteRoundUsers } from '../../state/voteRound/voteRoundStateGetters';
-import { UserRole } from '../userRoles/types';
-import { getSessionRoles, getSessionUseRoles } from '../../state/session/sessionStateGetters';
 
 export default () => createSelector<State, boolean, User[], UserRole[], [string, string][]>(
   getSessionUseRoles,

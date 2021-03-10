@@ -1,13 +1,13 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { push, replace } from 'connected-react-router';
 import { ActionType } from 'typesafe-actions';
+import { getMatchParamRoute, ROUTE } from 'constants/routes';
+import { ERROR_CODES } from 'constants/errorCodes';
+import { throwAppError } from 'state/error/errorActions';
 import { joinSession, setSessionParams } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { JOIN_SESSION } from '../sessionConstants';
-import { getMatchParamRoute, ROUTE } from '../../../constants/routes';
-import { throwAppError } from '../../error/errorActions';
 import { acquireCurrentUser } from './sessionSagaUtils';
-import { ERROR_CODES } from '../../../constants/errorCodes';
 
 function* joinSaga(action: ActionType<typeof joinSession>) {
   const { payload: formData } = action;

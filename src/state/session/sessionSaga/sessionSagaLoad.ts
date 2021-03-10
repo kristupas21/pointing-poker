@@ -1,13 +1,13 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { replace } from 'connected-react-router';
+import { ROUTE } from 'constants/routes';
+import { ERROR_CODES } from 'constants/errorCodes';
+import { throwAppError } from 'state/error/errorActions';
+import { initVoteRound } from 'state/voteRound/voteRoundActions';
+import { LOAD_SESSION } from '../sessionConstants';
 import { initSession, loadSession } from '../sessionActions';
 import sessionApi from '../sessionApi';
-import { LOAD_SESSION } from '../sessionConstants';
-import { throwAppError } from '../../error/errorActions';
-import { initVoteRound } from '../../voteRound/voteRoundActions';
-import { ROUTE } from '../../../constants/routes';
-import { ERROR_CODES } from '../../../constants/errorCodes';
 import { getSessionUserId } from '../sessionStateGetters';
 
 function* loadSaga(action: ActionType<typeof loadSession>) {
