@@ -1,6 +1,7 @@
 import React, { InputHTMLAttributes } from 'react';
 import { Field, FieldAttributes } from 'formik';
 import classNames from 'classnames/bind';
+import withForwardRef from 'utils/withForwardRef';
 import { SharedFieldProps } from '../types';
 import styles from './Checkbox.module.scss';
 
@@ -30,4 +31,4 @@ const Checkbox: React.FC<CheckboxProps> = (props) => {
   );
 };
 
-export default Checkbox;
+export default withForwardRef(Checkbox);

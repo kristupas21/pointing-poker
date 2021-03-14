@@ -30,8 +30,8 @@ const SelectDropdown: React.FC<Props> = (props) => {
       dropdownRef.current?.contains(e.target) || onOutsideClick(e);
     };
 
-    window.addEventListener('mousedown', outsideClickHandler, true);
-    return () => window.removeEventListener('mousedown', outsideClickHandler, true);
+    window.addEventListener('mousedown', outsideClickHandler);
+    return () => window.removeEventListener('mousedown', outsideClickHandler);
   }, []);
 
   return (

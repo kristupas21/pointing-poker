@@ -1,16 +1,11 @@
 import React, { RefObject } from 'react';
 import classNames from 'classnames/bind';
-import withForwardRef from 'utils/withForwardRef';
 import { FieldAttributes } from 'formik';
 import { FieldType, SharedFieldProps } from '../types';
-import InputField, { InputProps } from '../Input';
-import SelectField, { SelectProps } from '../Select';
-import CheckboxField, { CheckboxProps } from '../Checkbox';
+import Input, { InputProps } from '../Input';
+import Select, { SelectProps } from '../Select';
+import Checkbox, { CheckboxProps } from '../Checkbox';
 import styles from './FormField.module.scss';
-
-const Input = withForwardRef(InputField);
-const Select = withForwardRef(SelectField);
-const Checkbox = withForwardRef(CheckboxField);
 
 const cx = classNames.bind(styles);
 

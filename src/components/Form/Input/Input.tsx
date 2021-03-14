@@ -1,6 +1,7 @@
 import React, { InputHTMLAttributes } from 'react';
 import { Field, FieldAttributes } from 'formik';
 import classNames from 'classnames/bind';
+import withForwardRef from 'utils/withForwardRef';
 import { SharedFieldProps, FieldSize } from '../types';
 import styles from './Input.module.scss';
 import FieldError from '../FieldError';
@@ -35,4 +36,4 @@ const Input: React.FC<InputProps> = (props) => {
   );
 };
 
-export default Input;
+export default withForwardRef(Input);
