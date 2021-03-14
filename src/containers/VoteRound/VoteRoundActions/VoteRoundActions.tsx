@@ -25,7 +25,7 @@ const actions = {
   setVoteRoundTopic: [setVoteRoundTopicAction, wsSetVoteRoundTopic],
 };
 
-type M = {
+type A = {
   resetVoteRound: typeof resetVoteRoundAction,
   hideVotes: typeof hideVotesAction,
   showVotes: typeof showVotesAction,
@@ -41,7 +41,7 @@ const VoteRoundActions: React.FC = () => {
   const { votesShown, currentTopic } = useSelector(getVoteRoundState);
 
   const { resetVoteRound, hideVotes, showVotes, setVoteRoundTopic } =
-      useMappedDispatch<M>(actions as unknown as M);
+      useMappedDispatch<A>(actions as unknown as A);
 
   const initialValues: VoteRoundFormData = {
     topic: currentTopic || '',

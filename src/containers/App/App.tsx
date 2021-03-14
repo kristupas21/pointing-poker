@@ -11,10 +11,7 @@ import JoinSessionPageComponent from 'containers/JoinSessionPage';
 import SessionPageComponent from 'containers/SessionPage';
 import SessionNotFoundPageComponent from 'containers/SessionNotFoundPage';
 import ErrorPageComponent from 'containers/ErrorPage';
-import Navigation from 'components/Navigation';
-import Sidebar from 'components/Sidebar';
 import Notifications from 'containers/Notifications';
-import { ClearStorageButton } from '_develop/_developComponents';
 import styles from './App.module.scss';
 
 const cx = classNames.bind(styles);
@@ -24,7 +21,7 @@ const SessionNotFoundPage = withMainLayout(SessionNotFoundPageComponent);
 const ErrorPage = withMainLayout(ErrorPageComponent);
 const StartSessionPage = withMainLayout(StartSessionPageComponent);
 const JoinSessionPage = withMainLayout(JoinSessionPageComponent);
-const SessionPage = withMainLayout(SessionPageComponent);
+const SessionPage = withMainLayout(SessionPageComponent, true);
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -66,10 +63,6 @@ const App: React.FC = () => {
           <Redirect to={ROUTE.BASE} />
         </Switch>
       </AnimatePresence>
-      <Sidebar>
-        <Navigation />
-        <ClearStorageButton />
-      </Sidebar>
       <Modal />
       <Notifications />
     </div>

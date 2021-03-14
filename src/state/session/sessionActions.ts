@@ -14,7 +14,7 @@ import {
   SET_SESSION_PARAMS,
   ADD_SESSION_POINT_VALUE,
   REMOVE_SESSION_POINT_VALUE,
-  SAVE_SESSION_POINT_VALUE, ADD_SESSION_ROLE, REMOVE_SESSION_ROLE, SAVE_SESSION_ROLE,
+  SAVE_SESSION_POINT_VALUE, ADD_SESSION_ROLE, REMOVE_SESSION_ROLE, SAVE_SESSION_ROLE, MODIFY_SESSION_USER,
 } from './sessionConstants';
 
 export const initSession = (params: Partial<SessionState>) =>
@@ -50,3 +50,5 @@ export const removeSessionRole = (id: string) =>
 
 export const saveSessionRole = (role: UserRole) =>
   action(SAVE_SESSION_ROLE, role);
+
+export const modifySessionUser = (params: Partial<User>) => action(MODIFY_SESSION_USER, params);

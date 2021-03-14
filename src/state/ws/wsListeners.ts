@@ -44,3 +44,7 @@ export function* setVoteValueListener(message: WSMessage<{ userId: string, voteV
 export function* setVoteRoundTopicListener(message: WSMessage<{ topic: string }>) {
   yield put(setVoteRoundTopic(message.body.topic));
 }
+
+export function* modifySessionUserListener(message: WSMessage<{ user: User }>) {
+  yield put(addUserToVoteRound(message.body.user));
+}

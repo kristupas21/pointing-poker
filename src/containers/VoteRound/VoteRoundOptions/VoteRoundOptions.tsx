@@ -12,7 +12,7 @@ const actions = {
   setVoteValue: [setUserVoteValue, wsSetUserVoteValue],
 };
 
-type M = { setVoteValue: typeof setUserVoteValue };
+type A = { setVoteValue: typeof setUserVoteValue };
 
 const currentUserVoteSelector = makeCurrentUserVoteSelector();
 
@@ -20,7 +20,7 @@ const VoteRoundOptions: React.FC = () => {
   const userId = useSelector(getSessionUserId);
   const pointValues = useSelector(getSessionPointValues);
   const currentUserVote = useSelector(currentUserVoteSelector);
-  const { setVoteValue } = useMappedDispatch<M>(actions as unknown as M);
+  const { setVoteValue } = useMappedDispatch<A>(actions as unknown as A);
 
   const getTempStyle = (value: string): CSSProperties => ({
     ...(value === currentUserVote) && { border: '2px solid' }

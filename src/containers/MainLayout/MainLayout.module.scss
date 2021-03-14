@@ -5,16 +5,7 @@
 
   &__controls {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-
-    & > * {
-      justify-self: center;
-      align-self: center;
-    }
-
-    & > *:first-child {
-      justify-self: baseline;
-    }
+    grid-template-columns: 1fr 1fr;
 
     & > *:last-child {
       justify-self: end;

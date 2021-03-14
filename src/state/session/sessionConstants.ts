@@ -11,3 +11,4 @@ export const SAVE_SESSION_POINT_VALUE = '@session/SAVE_POINT_VALUE';
 export const ADD_SESSION_ROLE = '@session/ADD_ROLE';
 export const REMOVE_SESSION_ROLE = '@session/REMOVE_ROLE';
 export const SAVE_SESSION_ROLE = '@session/SAVE_ROLE';
+export const MODIFY_SESSION_USER = '@session/MODIFY_USER';

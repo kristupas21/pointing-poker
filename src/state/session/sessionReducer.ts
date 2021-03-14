@@ -12,6 +12,7 @@ import {
   ADD_SESSION_ROLE,
   CLOSE_SESSION,
   INIT_SESSION,
+  MODIFY_SESSION_USER,
   REMOVE_SESSION_POINT_VALUE,
   REMOVE_SESSION_ROLE,
   SAVE_SESSION_POINT_VALUE,
@@ -53,6 +54,19 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
         ...state,
         user: action.payload,
       };
+    case MODIFY_SESSION_USER: {
+      const { payload: params } = action;
+
+      storageService.set(StorageKey.User, params, true);
+
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...params,
+        }
+      };
+    }
     case SAVE_SESSION_POINT_VALUE: {
       const pointValues = state.pointValues.map((p) => ({
         ...p,

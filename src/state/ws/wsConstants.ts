@@ -12,17 +12,21 @@ import {
   setVoteValueListener,
   showVotesListener,
   userJoinedListener,
-  userLeftListener, setVoteRoundTopicListener
+  userLeftListener, setVoteRoundTopicListener, modifySessionUserListener
 } from './wsListeners';
-import { userEmitter } from './wsEmitters';
+import { modifyUserEmitter, userEmitter } from './wsEmitters';
+import { MODIFY_SESSION_USER } from '../session/sessionConstants';
 
-export const WS_USER_JOINED = '@@ws/USER_JOINED';
-export const WS_USER_LEFT = '@@ws/USER_LEFT';
-export const WS_SHOW_VOTES = `@@ws/${SHOW_VOTES}`;
-export const WS_HIDE_VOTES = `@@ws/${HIDE_VOTES}`;
-export const WS_RESET_VOTE_ROUND = `@@ws/${RESET_VOTE_ROUND}`;
-export const WS_SET_USER_VOTE_VALUE = `@@ws/${SET_USER_VOTE_VALUE}`;
-export const WS_SET_VOTE_ROUND_TOPIC = `@@ws/${SET_VOTE_ROUND_TOPIC}`;
+const withWS = (name: string): string => `@@ws/${name}`;
+
+export const WS_USER_JOINED = withWS('USER_JOINED');
+export const WS_USER_LEFT = withWS('USER_LEFT');
+export const WS_SHOW_VOTES = withWS(SHOW_VOTES);
+export const WS_HIDE_VOTES = withWS(HIDE_VOTES);
+export const WS_RESET_VOTE_ROUND = withWS(RESET_VOTE_ROUND);
+export const WS_SET_USER_VOTE_VALUE = withWS(SET_USER_VOTE_VALUE);
+export const WS_SET_VOTE_ROUND_TOPIC = withWS(SET_VOTE_ROUND_TOPIC);
+export const WS_MODIFY_SESSION_USER = withWS(MODIFY_SESSION_USER);
 
 export const WS_EVENT_MAP: WSEventMapItem[] = [
   { event: WS_USER_JOINED, listener: userJoinedListener, emitter: userEmitter },
@@ -32,4 +36,5 @@ export const WS_EVENT_MAP: WSEventMapItem[] = [
   { event: WS_RESET_VOTE_ROUND, listener: resetVoteRoundListener },
   { event: WS_SET_USER_VOTE_VALUE, listener: setVoteValueListener },
   { event: WS_SET_VOTE_ROUND_TOPIC, listener: setVoteRoundTopicListener, debounced: true },
+  { event: WS_MODIFY_SESSION_USER, listener: modifySessionUserListener, emitter: modifyUserEmitter },
 ];

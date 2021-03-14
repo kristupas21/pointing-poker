@@ -1,9 +1,10 @@
 import { action } from 'typesafe-actions';
+import { User } from 'types/global';
 import {
   WS_RESET_VOTE_ROUND,
   WS_HIDE_VOTES,
   WS_SET_USER_VOTE_VALUE,
-  WS_SHOW_VOTES, WS_USER_JOINED, WS_SET_VOTE_ROUND_TOPIC,
+  WS_SHOW_VOTES, WS_USER_JOINED, WS_SET_VOTE_ROUND_TOPIC, WS_MODIFY_SESSION_USER,
 } from './wsConstants';
 
 /**
@@ -23,3 +24,5 @@ export const wsSetUserVoteValue = (userId: string, voteValue: string) =>
 export const wsUserJoined = (sessionId: string) => action(WS_USER_JOINED, sessionId);
 
 export const wsSetVoteRoundTopic = (topic: string) => action(WS_SET_VOTE_ROUND_TOPIC, { topic });
+
+export const wsModifySessionUser = (params: Partial<User>) => action(WS_MODIFY_SESSION_USER, params);
