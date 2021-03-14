@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FocusEvent } from 'react';
 import { Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import {
@@ -11,6 +11,7 @@ import { IconId } from 'components/Icon';
 import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { useMappedDispatch } from 'utils/customHooks';
+import { AnimatePresence } from 'framer-motion';
 import { mapRolesToFormData, withURF } from './utils';
 import { MAX_ROLES_COUNT, MIN_ROLES_COUNT } from './constants';
 
@@ -28,47 +29,51 @@ const RolesForm: React.FC = () => {
   const isAddDisabled = roles.length >= MAX_ROLES_COUNT;
 
   return (
-    <Formik
-      enableReinitialize
-      initialValues={initialValues}
-      onSubmit={undefined}
-    >
-      {({ handleBlur, values, resetForm }) => {
-        const submitValues = (e, id: string, name: string) => {
-          const value = values[name];
-          const duplicateOrEmpty = !value || roles.some((r) => r.id !== id && r.name === value);
+    <>
+      <Formik
+        enableReinitialize
+        initialValues={initialValues}
+        onSubmit={undefined}
+      >
+        {({ handleBlur, values, resetForm }) => {
+          const submitValues = (e: FocusEvent<HTMLInputElement>, id: string, name: string) => {
+            const value = values[name];
+            const duplicateOrEmpty = !value || roles.some((r) => r.id !== id && r.name === value);
 
-          handleBlur(e);
+            handleBlur(e);
 
-          if (duplicateOrEmpty) {
-            resetForm();
-          } else {
-            saveRole({ id, name: value });
-          }
-        };
+            if (duplicateOrEmpty) {
+              resetForm();
+            } else {
+              saveRole({ id, name: value });
+            }
+          };
 
-        return (
-          <Form name="urf">
-            {roles.map((role) => {
-              const name = withURF(role.id);
+          return (
+            <Form name={withURF('form')}>
+              <AnimatePresence>
+                {roles.map((role) => {
+                  const name = withURF(role.id);
 
-              return (
-                <DynamicFormField
-                  key={role.id}
-                  id={role.id}
-                  isRemoveDisabled={isRemoveDisabled}
-                  onRemoveClick={removeRole}
-                  onBlur={submitValues}
-                  name={name}
-                  currentValue={values[name]}
-                />
-              );
-            })}
-            <Button icon={IconId.Add} onClick={addRole} disabled={isAddDisabled} />
-          </Form>
-        );
-      }}
-    </Formik>
+                  return (
+                    <DynamicFormField
+                      key={role.id}
+                      id={role.id}
+                      isRemoveDisabled={isRemoveDisabled}
+                      onRemoveClick={removeRole}
+                      onBlur={submitValues}
+                      name={name}
+                      currentValue={values[name]}
+                    />
+                  );
+                })}
+              </AnimatePresence>
+            </Form>
+          );
+        }}
+      </Formik>
+      <Button icon={IconId.Add} onClick={addRole} disabled={isAddDisabled} />
+    </>
   );
 };
 

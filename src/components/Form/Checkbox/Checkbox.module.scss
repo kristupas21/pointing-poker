@@ -1,0 +1,55 @@
+.checkbox {
+  $this: &;
+  $_color: #00A3FF;
+
+  display: flex;
+
+  &__label {
+    font-size: 14px;
+    margin-left: 6px;
+  }
+
+  &__field {
+    @extend %visually-hidden;
+
+    &:checked {
+      & ~ #{$this}__ui {
+        background: $_color;
+
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__wrapper {
+    cursor: pointer;
+    display: inline-flex;
+    user-select: none;
+  }
+
+  &__ui {
+    height: 19px;
+    width: 19px;
+    border-radius: 4px;
+    border: 2px solid $_color;
+    position: relative;
+    display: inline-flex;
+    transition: all .15s;
+
+    &::after {
+      left: 5px;
+      top: 2px;
+      width: 4px;
+      height: 7px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      content: '';
+      position: absolute;
+      opacity: 0;
+      transition: all .15s;
+    }
+  }
+}

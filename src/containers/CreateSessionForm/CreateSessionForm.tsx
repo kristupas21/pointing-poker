@@ -7,6 +7,7 @@ import Button from 'components/Button';
 import { UserRole } from 'utils/userRoles/types';
 import { useText } from 'utils/customHooks';
 import { CustomFormError, CustomFormErrors } from 'types/global';
+import { FieldSize } from 'components/Form/types';
 import { CreateSessionFormData } from './types';
 
 type Props = {
@@ -34,7 +35,7 @@ const CreateSessionForm: React.FC<Props> = (props) => {
       validationSchema={validationSchema}
       id="create-session-form"
     >
-      {({ isSubmitting, errors: err, values, setValues }) => {
+      {({ isSubmitting, errors: err, values, setValues, setFieldValue }) => {
         const errors = err as unknown as CustomFormErrors<CreateSessionFormData>;
 
         const handleSessionFieldChange = (e) => {
@@ -61,8 +62,10 @@ const CreateSessionForm: React.FC<Props> = (props) => {
                 name="sessionId"
                 type={FieldType.Input}
                 error={getErrorText(errors.sessionId)}
-                label={text('session.id')}
+                label={text('session.field.id.label')}
                 onChange={handleSessionFieldChange}
+                size={FieldSize.Large}
+                placeholder={text('session.field.id.placeholder')}
                 isBlock
               />
             )}
@@ -71,6 +74,8 @@ const CreateSessionForm: React.FC<Props> = (props) => {
               type={FieldType.Input}
               error={getErrorText(errors.name)}
               label={text('session.field.name.label')}
+              size={FieldSize.Large}
+              placeholder={text('session.field.name.placeholder')}
               isBlock
             />
             {isJoinType || (
@@ -86,12 +91,14 @@ const CreateSessionForm: React.FC<Props> = (props) => {
                 name="role"
                 type={FieldType.Select}
                 label={text('session.field.role.label')}
-                emptyOptionText={text('session.field.role.placeholder')}
+                placeholder={text('session.field.role.placeholder')}
                 error={getErrorText(errors.role)}
                 options={roles}
                 disabled={values.isObserver}
                 isBlock
                 value={values.role}
+                size={FieldSize.Large}
+                setFieldValue={setFieldValue}
               />
             )}
             <FormField

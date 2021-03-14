@@ -2,7 +2,7 @@ import { Theme } from './types';
 
 const THEME_VARS: Record<string, Record<Theme, string>> = {
   '--app-background-color': { light: '#fff', dark: '#333' },
-  '--app-color': { light: '#333', dark: '#eee' },
+  '--app-color': { light: '#333', dark: '#fff' },
 };
 
 export const setThemeVars = (theme: Theme) => {

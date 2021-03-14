@@ -6,6 +6,9 @@ import styles from './Button.module.scss';
 
 /* eslint-disable react/button-has-type */
 const cx = classNames.bind(styles);
+const wiggleClass = '-wiggle';
+const wiggleTime = 300;
+const clickDelay = 70;
 
 let wiggleTimeout: ReturnType<typeof setTimeout>;
 let clickTimeout: ReturnType<typeof setTimeout>;
@@ -59,29 +62,34 @@ const Button: React.FC<Props> = (props) => {
       return;
     }
 
-    clickTimeout && clearTimeout(clickTimeout);
-
-    if (onClick) {
-      clickTimeout = setTimeout(() => onClick(e), 70);
-    }
-  };
-
-  const handleMouseDown = (e) => {
-    if (disabled) {
-      wiggleTimeout && clearTimeout(wiggleTimeout);
-
-      if (btnRef.current) {
-        btnRef.current.classList.add('-wiggle');
-
-        wiggleTimeout = setTimeout(() => {
-          btnRef.current.classList.remove('-wiggle');
-        }, 300);
-      }
-
+    if (!onClick) {
       return;
     }
 
-    onMouseDown && onMouseDown(e);
+    clickTimeout = setTimeout(() => {
+      onClick(e);
+      clearTimeout(clickTimeout);
+    }, clickDelay);
+  };
+
+  const handleMouseDown = (e) => {
+    const { current: btn } = btnRef;
+
+    if (!disabled) {
+      onMouseDown && onMouseDown(e);
+      return;
+    }
+
+    if (!btn) {
+      return;
+    }
+
+    btn.classList.add(wiggleClass);
+
+    wiggleTimeout = setTimeout(() => {
+      btn.classList.remove(wiggleClass);
+      clearTimeout(wiggleTimeout);
+    }, wiggleTime);
   };
 
   return (

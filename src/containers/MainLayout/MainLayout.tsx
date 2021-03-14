@@ -7,8 +7,8 @@ import { setAppSidebarOpen } from 'state/app/appActions';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { getRouteName, ROUTE } from 'constants/routes';
 import ThemeChangeButton from './ThemeChangeButton';
-import { mainLayoutContentMotionProps } from './constants';
 import styles from './MainLayout.module.scss';
+import animations from '../../utils/animations';
 
 const cx = classNames.bind(styles);
 
@@ -40,7 +40,7 @@ const MainLayout: React.FC<Props> = (props) => {
         <motion.div
           className={cx('layout__children')}
           key={route}
-          {...mainLayoutContentMotionProps}
+          {...animations.simpleOpacity}
         >
           {children}
         </motion.div>

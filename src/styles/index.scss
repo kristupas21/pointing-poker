@@ -24,3 +24,16 @@ ul {
 li {
   display: inline-flex;
 }
+
+html {
+  background: var(--app-background-color);
+}
+
+body, input, select, button {
+  font-family: 'Avenir Next', sans-serif;
+}
+
+input, select {
+  font-weight: 500;
+  font-size: 14px;
+}

@@ -1,0 +1,23 @@
+.dropdown {
+  position: absolute;
+  top: 53px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 2px solid;
+  border-radius: 7px;
+  z-index: 1;
+
+  &--small {
+    width: 70px;
+  }
+
+  &--medium {
+    width: 140px;
+  }
+
+  &--large {
+    width: 230px;
+  }
+}

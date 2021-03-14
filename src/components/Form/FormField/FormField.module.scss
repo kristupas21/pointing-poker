@@ -1,5 +1,8 @@
 .field {
+  display: inline-flex;
+
   &--block {
     display: block;
+    margin-bottom: 10px;
   }
 }

@@ -25,9 +25,12 @@ export const messages = {
   'session.start': 'Start Session',
   'session.join': 'Join session',
 
+  'session.field.id.label': 'Session ID',
+  'session.field.id.placeholder': 'Enter Session ID',
   'session.field.name.label': 'Name',
+  'session.field.name.placeholder': 'Enter Your Name',
   'session.field.role.label': 'Role',
-  'session.field.role.placeholder': 'Select a role',
+  'session.field.role.placeholder': 'Choose Your Role',
   'session.field.observer.label': 'Join as observer',
   'session.field.useRoles.label': 'Use roles',
 

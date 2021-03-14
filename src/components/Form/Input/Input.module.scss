@@ -1,0 +1,70 @@
+.input {
+  $this: &;
+  $_input-height: 43px;
+  $_label-offset: 15px;
+  $_border-width: 2px;
+  $_label-padding: $_border-width * 2;
+  $_error-height: 20px;
+
+  display: block;
+  height: $_input-height + 10px + $_error-height;
+  position: relative;
+
+  &--small {
+    width: 70px;
+  }
+
+  &--medium {
+    width: 140px;
+  }
+
+  &--large {
+    width: 230px;
+  }
+
+  &__field {
+    background: #fff;
+    border: $_border-width solid;
+    border-radius: 7px;
+    bottom: $_error-height;
+    height: $_input-height;
+    left: 0;
+    padding: 0 ($_label-offset + $_border-width);
+    position: absolute;
+    outline: 0;
+    width: 100%;
+
+    &--error {
+      border-color: $color-red;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+    &::placeholder {
+      color: #CCC8DF;
+    }
+  }
+
+  &__label {
+    background: #fff;
+    font-size: 12px;
+    left: $_label-offset;
+    line-height: 1.4;
+    padding: 0 $_label-padding;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+  }
+
+  &__error {
+    bottom: 0;
+    left: 0;
+    line-height: 2;
+    height: $_error-height;
+    padding: 0 $_label-offset + $_label-padding;
+    position: absolute;
+    width: 100%;
+  }
+}

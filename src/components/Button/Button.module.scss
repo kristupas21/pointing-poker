@@ -6,9 +6,15 @@
   border-style: solid;
   border-radius: 3px;
   cursor: pointer;
+  height: max-content;
   padding: 6px 9px;
   transform: scale(1);
-  transition: transform .2s;
+  transition: all 150ms;
+  width: max-content;
+
+  &:hover {
+    background: #ddd;
+  }
 
   &:focus {
     outline: none;

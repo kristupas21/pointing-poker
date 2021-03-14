@@ -24,7 +24,7 @@ const StartSessionPage: React.FC<Props> = () => {
 
   const initialValues: CreateSessionFormData = {
     name: user?.name || '',
-    role: useRoles ? (user?.role || '') : '',
+    role: user?.role || '',
     isObserver: user?.isObserver || false,
     useRoles,
   };
@@ -37,9 +37,7 @@ const StartSessionPage: React.FC<Props> = () => {
         validationSchema={startSessionValidationSchema}
         roles={userRoles}
       />
-      <div style={{ height: 40 }} />
       <PointValuesForm />
-      <div style={{ height: 40 }} />
       <RolesForm />
     </div>
   );
