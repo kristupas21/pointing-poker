@@ -1,31 +1,22 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { modifySessionUser } from 'state/session/sessionActions';
-import { wsModifySessionUser } from 'state/ws/wsActions';
 import { useSelector } from 'react-redux';
-import { useMappedDispatch, useText } from 'utils/customHooks';
+import { useText } from 'utils/customHooks';
 import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { FieldType, FormField } from 'components/Form';
 import { FieldSize } from 'components/Form/types';
 import { UserSettingsFormData } from './types';
-
-const actions = {
-  modifyUser: [modifySessionUser, wsModifySessionUser],
-};
-
-type A = {
-  modifyUser: typeof modifySessionUser;
-}
+import { User } from '../../../types/global';
 
 type Props = {
   initialValues: UserSettingsFormData;
   isObserver: boolean;
   useRoles: boolean;
+  submitField: (params: Partial<User>) => void;
 }
 
 const UserSettingsForm: React.FC<Props> = (props) => {
-  const { initialValues, isObserver, useRoles } = props;
-  const { modifyUser } = useMappedDispatch<A>(actions as unknown as A);
+  const { initialValues, isObserver, useRoles, submitField } = props;
   const roles = useSelector(getSessionRoles);
   const text = useText();
 
@@ -41,7 +32,7 @@ const UserSettingsForm: React.FC<Props> = (props) => {
           handleBlur(e);
 
           if (values.name) {
-            modifyUser({ name: values.name });
+            submitField({ name: values.name });
           } else {
             resetForm();
           }
@@ -49,7 +40,7 @@ const UserSettingsForm: React.FC<Props> = (props) => {
 
         const submitRole = (fieldName: string, value: string) => {
           setFieldValue(fieldName, value);
-          modifyUser({ role: value });
+          submitField({ role: value });
         };
 
         return (
