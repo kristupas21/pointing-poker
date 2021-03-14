@@ -1,9 +1,7 @@
-import React, { RefObject, MouseEvent, useEffect } from 'react';
+import React, { MouseEvent, useEffect, createRef } from 'react';
 import { motion } from 'framer-motion';
 import { Identifier } from 'types/global';
 import classNames from 'classnames/bind';
-import withForwardRef from 'utils/withForwardRef';
-import animations from 'utils/animations';
 import SelectOption from '../SelectOption';
 import styles from './SelectDropdown.module.scss';
 import { FieldSize } from '../../types';
@@ -11,7 +9,6 @@ import { FieldSize } from '../../types';
 const cx = classNames.bind(styles);
 
 type Props = {
-  innerRef?: RefObject<HTMLSpanElement>;
   options: Identifier[];
   onSelect: (name: string) => void;
   onOutsideClick: (e) => void;
@@ -20,7 +17,8 @@ type Props = {
 }
 
 const SelectDropdown: React.FC<Props> = (props) => {
-  const { options, innerRef, onSelect, selectedOptionId, onOutsideClick, size } = props;
+  const { options, onSelect, selectedOptionId, onOutsideClick, size } = props;
+  const dropdownRef = createRef<HTMLSpanElement>();
 
   const handleSelect = (e: MouseEvent<HTMLButtonElement>, name: string) => {
     e.preventDefault();
@@ -28,16 +26,19 @@ const SelectDropdown: React.FC<Props> = (props) => {
   };
 
   useEffect(() => {
-    window.addEventListener('click', onOutsideClick);
-    return () => window.removeEventListener('click', onOutsideClick);
+    const outsideClickHandler = (e) => {
+      dropdownRef.current?.contains(e.target) || onOutsideClick(e);
+    };
+
+    window.addEventListener('mousedown', outsideClickHandler, true);
+    return () => window.removeEventListener('mousedown', outsideClickHandler, true);
   }, []);
 
   return (
     <motion.span
       key="select-dropdown"
-      ref={innerRef}
+      ref={dropdownRef}
       className={cx('dropdown', `dropdown--${size}`)}
-      {...animations.simpleOpacity}
     >
       {options.map((o) => (
         <SelectOption
@@ -52,4 +53,4 @@ const SelectDropdown: React.FC<Props> = (props) => {
   );
 };
 
-export default withForwardRef(SelectDropdown);
+export default SelectDropdown;

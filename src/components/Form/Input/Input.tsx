@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 export type InputProps = FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & SharedFieldProps;
 
 const Input: React.FC<InputProps> = (props) => {
-  const { name, label, size = FieldSize.Medium, error, ...fieldProps } = props;
+  const { name, label, size = FieldSize.Medium, error, children, ...fieldProps } = props;
 
   return (
     <span className={cx('input', `input--${size}`)}>
@@ -29,6 +29,7 @@ const Input: React.FC<InputProps> = (props) => {
         type="input"
         className={cx('input__field', { 'input__field--error': !!error })}
       />
+      {children}
       {error && <FieldError className={cx('input__error')}>{error}</FieldError>}
     </span>
   );

@@ -30,10 +30,12 @@ const Select: React.FC<SelectProps> = (props) => {
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = createRef<HTMLSpanElement>();
   const inputRef = createRef<HTMLSelectElement>();
 
-  const handleFocus = () => setIsOpen(true);
+  const handleFocus = () => {
+    inputRef.current.blur();
+    setIsOpen(true);
+  };
 
   const handleOptionSelect = (optionId: string) => {
     setFieldValue(name, optionId);
@@ -41,10 +43,7 @@ const Select: React.FC<SelectProps> = (props) => {
   };
 
   const handleOutsideClick = (e) => {
-    if (dropdownRef.current?.contains(e.target) || inputRef.current?.contains(e.target)) {
-      return;
-    }
-
+    inputRef.current?.contains(e.target) && e.preventDefault();
     setIsOpen(false);
   };
 
@@ -64,7 +63,9 @@ const Select: React.FC<SelectProps> = (props) => {
         innerRef={inputRef as any}
         placeholder={placeholder}
         disabled={disabled}
-      />
+      >
+        <span className={cx('select__arrow', { 'select__arrow--up': isOpen })} />
+      </Input>
       <AnimatePresence>
         {isOpen && (
           <SelectDropdown
