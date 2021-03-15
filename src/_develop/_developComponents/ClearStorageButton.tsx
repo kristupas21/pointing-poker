@@ -1,9 +1,9 @@
 import React from 'react';
 import { pushNotification as pushNotificationAction } from 'state/notifications/notificationsActions';
 import Button from 'components/Button/Button';
-import storageService from '../../utils/storageService/storageService';
-import { useMappedDispatch } from '../../utils/customHooks';
-import NFC, { NotificationContent } from '../../utils/notificationContent';
+import storageService from 'utils/storageService/storageService';
+import { useMappedDispatch } from 'utils/customHooks';
+import NFC, { NotificationContent } from 'utils/notificationContent';
 
 const actions = {
   pushNotification: pushNotificationAction,

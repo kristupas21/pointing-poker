@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { push, replace } from 'connected-react-router';
 import { ActionType } from 'typesafe-actions';
-import { getMatchParamRoute, ROUTE } from 'constants/routes';
+import { AppRoute, getMatchParamRoute } from 'constants/routes';
 import { ERROR_CODES } from 'constants/errorCodes';
 import { throwAppError } from 'state/error/errorActions';
 import { joinSession, setSessionParams } from '../sessionActions';
@@ -18,12 +18,14 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
 
   try {
     const { data: { sessionId } } = yield call(sessionApi.join, params);
-    yield put(push(getMatchParamRoute(ROUTE.SESSION, { sessionId })));
+    const route = getMatchParamRoute(AppRoute.Session, { sessionId });
+
+    yield put(push(route));
   } catch (e) {
     const { code, payload } = e?.response?.data || {};
 
     if (code === ERROR_CODES.SESSION_NOT_FOUND) {
-      yield put(replace(ROUTE.SESSION_NOT_FOUND, { sessionId: formSessionId }));
+      yield put(replace(AppRoute.SessionNotFound, { sessionId: formSessionId }));
       return;
     }
 

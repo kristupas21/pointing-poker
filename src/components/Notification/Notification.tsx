@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 import Button from 'components/Button';
 import ProgressBar from 'components/ProgressBar';
 import { AppNotification } from 'state/notifications/notificationsModel';
+import animations from 'utils/animations';
 import { LIFESPAN_TO_INTERVAL_MAP } from './constants';
 import styles from './Notification.module.scss';
-import animations from '../../utils/animations';
 
 const cx = classNames.bind(styles);
 

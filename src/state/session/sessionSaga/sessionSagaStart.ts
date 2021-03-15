@@ -2,7 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { push } from 'connected-react-router';
 import storageService, { StorageKey } from 'utils/storageService';
-import { getMatchParamRoute, ROUTE } from 'constants/routes';
+import { AppRoute, getMatchParamRoute } from 'constants/routes';
 import { ERROR_CODES } from 'constants/errorCodes';
 import { throwAppError } from 'state/error/errorActions';
 import { startSession } from '../sessionActions';
@@ -25,7 +25,9 @@ function* startSaga(action: ActionType<typeof startSession>) {
 
   try {
     const { data: { sessionId } } = yield call(sessionApi.start, params);
-    yield put(push(getMatchParamRoute(ROUTE.SESSION, { sessionId })));
+    const route = getMatchParamRoute(AppRoute.Session, { sessionId });
+
+    yield put(push(route));
     yield call(storageService.set, StorageKey.PointValues, pointValues);
     yield call(storageService.set, StorageKey.Roles, roles);
   } catch (e) {

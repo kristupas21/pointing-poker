@@ -1,33 +1,33 @@
 import { MessageId } from 'lang';
 
-export enum ROUTE {
-  BASE = '/',
-  START_SESSION = '/start',
-  ERROR = '/error',
-  JOIN_SESSION = '/join',
-  SESSION = '/session/:sessionId',
-  SESSION_NOT_FOUND = '/session-not-found',
+export enum AppRoute {
+  Base = '/',
+  StartSession = '/start',
+  Error = '/error',
+  JoinSession = '/join',
+  Session = '/session/:sessionId',
+  SessionNotFound = '/session-not-found',
 }
 
-const ROUTE_NAMES: Record<ROUTE, MessageId> = {
-  [ROUTE.BASE]: 'routes.base',
-  [ROUTE.JOIN_SESSION]: 'routes.joinSession',
-  [ROUTE.START_SESSION]: 'routes.startSession',
-  [ROUTE.SESSION]: 'routes.session',
-  [ROUTE.SESSION_NOT_FOUND]: 'routes.sessionNotFound',
-  [ROUTE.ERROR]: 'routes.error',
+const ROUTE_NAMES: Record<AppRoute, MessageId> = {
+  [AppRoute.Base]: 'routes.base',
+  [AppRoute.JoinSession]: 'routes.joinSession',
+  [AppRoute.StartSession]: 'routes.startSession',
+  [AppRoute.Session]: 'routes.session',
+  [AppRoute.SessionNotFound]: 'routes.sessionNotFound',
+  [AppRoute.Error]: 'routes.error',
 };
 
-export const getRouteName = (route: ROUTE): MessageId => {
+export const getRouteName = (route: AppRoute): MessageId => {
   const r = route.includes('/session/')
-    ? ROUTE.SESSION
+    ? AppRoute.Session
     : route;
 
   return ROUTE_NAMES[r];
 };
 
 export const getMatchParamRoute = (
-  route: ROUTE,
+  route: AppRoute,
   match: Record<string, any>
 ): string => {
   let value = route as string;

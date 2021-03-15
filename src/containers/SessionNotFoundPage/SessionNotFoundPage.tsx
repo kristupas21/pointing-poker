@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import { ROUTE } from 'constants/routes';
+import { AppRoute } from 'constants/routes';
 import { useSessionId, useText } from 'utils/customHooks';
 
 const SessionNotFoundPage: React.FC = () => {
@@ -8,7 +8,7 @@ const SessionNotFoundPage: React.FC = () => {
   const text = useText();
 
   if (!id) {
-    return <Redirect to={ROUTE.BASE} />;
+    return <Redirect to={AppRoute.Base} />;
   }
 
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, RouteChildrenProps } from 'react-router';
 import Button, { ButtonVariant } from 'components/Button';
-import { ROUTE } from 'constants/routes';
+import { AppRoute } from 'constants/routes';
 import { getErrorState } from 'state/error/errorStateGetters';
 import { useText } from 'utils/customHooks';
 
@@ -17,7 +17,7 @@ const ErrorPage: React.FC<Props> = (props) => {
     history.push(redirectPath);
 
   if (!errorId) {
-    return <Redirect to={ROUTE.BASE} />;
+    return <Redirect to={AppRoute.Base} />;
   }
 
   return (

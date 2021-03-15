@@ -1,5 +1,5 @@
 import { ActionType, Reducer } from 'typesafe-actions';
-import { ROUTE } from 'constants/routes';
+import { AppRoute } from 'constants/routes';
 import { ErrorState } from './errorModel';
 import { SET_ERROR_STATE } from './errorConstants';
 
@@ -9,7 +9,7 @@ type State = Readonly<ErrorState>;
 
 const initialState: State = {
   errorId: null,
-  redirectPath: ROUTE.BASE,
+  redirectPath: AppRoute.Base,
 };
 
 const errorReducer: Reducer<State, Action> = (state = initialState, action) => {

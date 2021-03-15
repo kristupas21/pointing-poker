@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router';
 import classNames from 'classnames/bind';
 import { AnimatePresence } from 'framer-motion';
-import { ROUTE } from 'constants/routes';
+import { AppRoute } from 'constants/routes';
 import Modal from 'components/Modal';
 import { withMainLayout } from 'containers/MainLayout';
 import LandingPageComponent from 'containers/LandingPage';
@@ -32,35 +32,35 @@ const App: React.FC = () => {
         <Switch location={location} key={location.pathname}>
           <Route
             exact
-            path={ROUTE.BASE}
+            path={AppRoute.Base}
             component={LandingPage}
           />
           <Route
             exact
-            path={ROUTE.START_SESSION}
+            path={AppRoute.StartSession}
             component={StartSessionPage}
           />
           <Route
             exact
-            path={ROUTE.JOIN_SESSION}
+            path={AppRoute.JoinSession}
             component={JoinSessionPage}
           />
           <Route
             exact
-            path={ROUTE.SESSION}
+            path={AppRoute.Session}
             component={SessionPage}
           />
           <Route
             exact
-            path={ROUTE.SESSION_NOT_FOUND}
+            path={AppRoute.SessionNotFound}
             component={SessionNotFoundPage}
           />
           <Route
             exact
-            path={ROUTE.ERROR}
+            path={AppRoute.Error}
             component={ErrorPage}
           />
-          <Redirect to={ROUTE.BASE} />
+          <Redirect to={AppRoute.Base} />
         </Switch>
       </AnimatePresence>
       <Modal />

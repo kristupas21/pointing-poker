@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteChildrenProps } from 'react-router';
 import Button, { ButtonVariant } from 'components/Button';
 import { useBreakpoint, useText } from 'utils/customHooks';
-import { ROUTE } from 'constants/routes';
+import { AppRoute } from 'constants/routes';
 
 type Props = RouteChildrenProps;
 
@@ -12,10 +12,10 @@ const LandingPage: React.FC<Props> = (props) => {
   const text = useText();
 
   const handleStartClick = () =>
-    history.push(ROUTE.START_SESSION);
+    history.push(AppRoute.StartSession);
 
   const handleJoinClick = () =>
-    history.push(ROUTE.JOIN_SESSION);
+    history.push(AppRoute.JoinSession);
 
   return (
     <div>

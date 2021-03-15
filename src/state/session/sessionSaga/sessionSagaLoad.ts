@@ -1,7 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { replace } from 'connected-react-router';
-import { ROUTE } from 'constants/routes';
+import { AppRoute } from 'constants/routes';
 import { ERROR_CODES } from 'constants/errorCodes';
 import { throwAppError } from 'state/error/errorActions';
 import { initVoteRound } from 'state/voteRound/voteRoundActions';
@@ -15,7 +15,7 @@ function* loadSaga(action: ActionType<typeof loadSession>) {
   const { payload: sessionId } = action;
 
   if (!userId) {
-    yield put(replace(ROUTE.JOIN_SESSION, { sessionId }));
+    yield put(replace(AppRoute.JoinSession, { sessionId }));
     return;
   }
 
@@ -45,12 +45,12 @@ function* loadSaga(action: ActionType<typeof loadSession>) {
     const { code } = e?.response?.data || {};
 
     if (code === ERROR_CODES.NOT_FOUND) {
-      yield put(replace(ROUTE.SESSION_NOT_FOUND, { sessionId }));
+      yield put(replace(AppRoute.SessionNotFound, { sessionId }));
       return;
     }
 
     if (code === ERROR_CODES.USER_NOT_FOUND) {
-      yield put(replace(ROUTE.JOIN_SESSION, { sessionId }));
+      yield put(replace(AppRoute.JoinSession, { sessionId }));
       return;
     }
 

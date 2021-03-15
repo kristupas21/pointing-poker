@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import { NavLink } from 'react-router-dom';
-import { getRouteName, ROUTE } from 'constants/routes';
+import { AppRoute, getRouteName } from 'constants/routes';
 import { useText } from 'utils/customHooks';
 import styles from './Navigation.module.scss';
 
@@ -13,18 +13,18 @@ const Navigation: React.FC = () => {
   return (
     <ul className={cx('list')}>
       <li className={cx('list__item')}>
-        <NavLink to={ROUTE.BASE}>
-          {text(getRouteName(ROUTE.BASE))}
+        <NavLink to={AppRoute.Base}>
+          {text(getRouteName(AppRoute.Base))}
         </NavLink>
       </li>
       <li className={cx('list__item')}>
-        <NavLink to={ROUTE.START_SESSION}>
-          {text(getRouteName(ROUTE.START_SESSION))}
+        <NavLink to={AppRoute.StartSession}>
+          {text(getRouteName(AppRoute.StartSession))}
         </NavLink>
       </li>
       <li className={cx('list__item')}>
-        <NavLink to={ROUTE.JOIN_SESSION}>
-          {text(getRouteName(ROUTE.JOIN_SESSION))}
+        <NavLink to={AppRoute.JoinSession}>
+          {text(getRouteName(AppRoute.JoinSession))}
         </NavLink>
       </li>
     </ul>

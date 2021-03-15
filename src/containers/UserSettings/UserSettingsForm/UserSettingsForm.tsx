@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { FocusEvent } from 'react';
 import { Formik, Form } from 'formik';
 import { useSelector } from 'react-redux';
 import { useText } from 'utils/customHooks';
 import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { FieldType, FormField } from 'components/Form';
 import { FieldSize } from 'components/Form/types';
+import { User } from 'types/global';
 import { UserSettingsFormData } from './types';
-import { User } from '../../../types/global';
 
 type Props = {
   initialValues: UserSettingsFormData;
@@ -28,7 +28,7 @@ const UserSettingsForm: React.FC<Props> = (props) => {
       id="user-settings-form"
     >
       {({ handleBlur, values, setFieldValue, resetForm }) => {
-        const submitName = (e) => {
+        const submitName = (e: FocusEvent<HTMLInputElement>) => {
           handleBlur(e);
 
           if (values.name) {

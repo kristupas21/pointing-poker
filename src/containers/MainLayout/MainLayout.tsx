@@ -1,17 +1,17 @@
 import React, { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
 import Button from 'components/Button';
-import { ROUTE } from 'constants/routes';
+import { AppRoute } from 'constants/routes';
 import animations from 'utils/animations';
 import Logo from 'components/Logo';
-import { useHistory } from 'react-router';
+import { setAppSidebarOpen } from 'state/app/appActions';
+import { useMappedDispatch } from 'utils/customHooks';
+import Sidebar from 'components/Sidebar';
+import { ClearStorageButton } from '_develop/_developComponents';
+import UserSettings from 'containers/UserSettings';
 import styles from './MainLayout.module.scss';
-import { setAppSidebarOpen } from '../../state/app/appActions';
-import { useMappedDispatch } from '../../utils/customHooks';
-import Sidebar from '../../components/Sidebar';
-import UserSettings from '../UserSettings';
-import { ClearStorageButton } from '../../_develop/_developComponents';
 
 const cx = classNames.bind(styles);
 
@@ -28,16 +28,14 @@ type Props = {
 const MainLayout: React.FC<Props> = (props) => {
   const { children, route, withSettings = false } = props;
   const { setSidebarOpen } = useMappedDispatch(actions);
-  const history = useHistory();
-  const handleLogoClick = () => history.push(ROUTE.BASE);
 
   return (
     <div className={cx('layout')}>
       <div className={cx('layout__content')}>
         <div className={cx('layout__controls')}>
-          <Button onClick={handleLogoClick}>
+          <Link to={AppRoute.Base}>
             <Logo />
-          </Button>
+          </Link>
           {withSettings && <Button onClick={() => setSidebarOpen(true)}>Settings</Button>}
         </div>
         <motion.div
