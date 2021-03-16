@@ -13,7 +13,7 @@ span:not([class]) {
 }
 
 a:visited {
-  color: var(--app-background-color);
+  color: var(--app-secondaryColor);
 }
 
 ul {
@@ -26,7 +26,7 @@ li {
 }
 
 html {
-  background: var(--app-background-color);
+  background: var(--app-mainColor);
 }
 
 body, input, select, button {

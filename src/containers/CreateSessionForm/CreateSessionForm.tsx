@@ -2,12 +2,11 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import { SchemaOf } from 'yup';
 import isEmpty from 'lodash/isEmpty';
-import { FieldType, FormField, SubmitHandler } from 'components/Form';
+import { FieldType, FormField, SubmitHandler, FieldSize } from 'components/Form';
 import Button from 'components/Button';
 import { UserRole } from 'utils/userRoles/types';
 import { useText } from 'utils/customHooks';
 import { CustomFormError, CustomFormErrors } from 'types/global';
-import { FieldSize } from 'components/Form/types';
 import { CreateSessionFormData } from './types';
 
 type Props = {

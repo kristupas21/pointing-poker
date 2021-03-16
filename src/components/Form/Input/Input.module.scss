@@ -48,7 +48,8 @@
   }
 
   &__label {
-    background: #fff;
+    background: var(--app-mainColor);
+    color: var(--app-secondaryColor);
     font-size: 12px;
     left: $_label-offset;
     line-height: 1.4;

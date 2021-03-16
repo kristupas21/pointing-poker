@@ -6,23 +6,19 @@ import { Theme } from './types';
 import { setThemeVars } from './utils';
 
 const ThemeContextProvider: React.FC = ({ children }) => {
-  const [theme, setTheme] = useStorageState<Theme>(StorageKey.Theme, 'light');
+  const [theme, setTheme] = useStorageState<Theme>(StorageKey.Theme, Theme.Light);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-
+  const setAppTheme = (newTheme: Theme) => {
     setTheme(newTheme);
     setThemeVars(newTheme);
   };
-
-  const value = { theme, toggleTheme };
 
   useEffect(() => {
     setThemeVars(theme);
   }, []);
 
   return (
-    <ThemeContext.Provider value={value}>
+    <ThemeContext.Provider value={{ theme, setAppTheme }}>
       {children}
     </ThemeContext.Provider>
   );

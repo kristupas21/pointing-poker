@@ -1,6 +1,10 @@
-export type Theme = 'dark' | 'light';
-
 export interface WithTheme {
   theme?: Theme;
-  toggleTheme?: () => void
+  setAppTheme?: (theme: Theme) => void;
+}
+
+export enum Theme {
+  Dark = 'dark',
+  Light = 'light',
+  Rose = 'rose',
 }

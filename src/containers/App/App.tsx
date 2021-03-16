@@ -12,6 +12,7 @@ import SessionPageComponent from 'containers/SessionPage';
 import SessionNotFoundPageComponent from 'containers/SessionNotFoundPage';
 import ErrorPageComponent from 'containers/ErrorPage';
 import Notifications from 'containers/Notifications';
+import { ClearStorageButton } from '_develop/_developComponents';
 import styles from './App.module.scss';
 
 const cx = classNames.bind(styles);
@@ -65,6 +66,7 @@ const App: React.FC = () => {
       </AnimatePresence>
       <Modal />
       <Notifications />
+      <ClearStorageButton />
     </div>
   );
 };

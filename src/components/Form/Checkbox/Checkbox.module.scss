@@ -1,6 +1,6 @@
 .checkbox {
   $this: &;
-  $_color: #00A3FF;
+  $_color: var(--app-secondaryColor);
 
   display: flex;
 
@@ -43,7 +43,7 @@
       top: 2px;
       width: 4px;
       height: 7px;
-      border: solid white;
+      border: solid var(--app-mainColor);
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
       content: '';

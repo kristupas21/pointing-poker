@@ -8,6 +8,7 @@ export enum IconId {
   Home = 'Home',
   Menu = 'Menu',
   Settings = 'Settings',
+  Logo = 'Logo',
 
   // avatars
 

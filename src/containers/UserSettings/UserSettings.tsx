@@ -3,22 +3,28 @@ import { useSelector } from 'react-redux';
 import { getSessionUser, getSessionUseRoles } from 'state/session/sessionStateGetters';
 import { modifySessionUser } from 'state/session/sessionActions';
 import { wsModifySessionUser } from 'state/ws/wsActions';
-import { useMappedDispatch } from 'utils/customHooks';
+import { useMappedDispatch, useText } from 'utils/customHooks';
+import ThemeSelector from 'containers/ThemeSelector';
+import Button from 'components/Button';
+import { setAppSidebarOpen } from 'state/app/appActions';
 import UserSettingsForm from './UserSettingsForm';
 import AvatarSelector from './AvatarSelector';
 
 const actions = {
   modifyUser: [modifySessionUser, wsModifySessionUser],
+  setSidebarOpen: setAppSidebarOpen,
 };
 
 type A = {
   modifyUser: typeof modifySessionUser;
+  setSidebarOpen: typeof setAppSidebarOpen;
 }
 
 const UserSettings: React.FC = () => {
-  const { modifyUser } = useMappedDispatch<A>(actions as unknown as A);
+  const { modifyUser, setSidebarOpen } = useMappedDispatch<A>(actions as unknown as A);
   const { name, role, isObserver, avatarId } = useSelector(getSessionUser);
   const useRoles = useSelector(getSessionUseRoles);
+  const text = useText();
   const initialValues = { name, role: useRoles ? role : '' };
 
   return (
@@ -30,6 +36,8 @@ const UserSettings: React.FC = () => {
         submitField={modifyUser}
       />
       <AvatarSelector onSelect={modifyUser} value={avatarId} />
+      <ThemeSelector />
+      <Button onClick={() => setSidebarOpen(false)}>{text('global.done')}</Button>
     </div>
   );
 };

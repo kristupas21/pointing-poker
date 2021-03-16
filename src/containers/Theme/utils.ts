@@ -1,15 +1,37 @@
+import { AppVariables } from 'types/global';
 import { Theme } from './types';
 
-const THEME_VARS: Record<string, Record<Theme, string>> = {
-  '--app-background-color': { light: '#fff', dark: '#333' },
-  '--app-color': { light: '#333', dark: '#fff' },
+const _white = '#ffffff';
+const _darkGrey = '#333333';
+const _rose = '#ec3669';
+
+const withPrefix = (name: string): string => `--app-${name}`;
+
+const THEME_VARIABLES: Record<Theme, AppVariables> = {
+  [Theme.Light]: {
+    mainColor: _white,
+    secondaryColor: _darkGrey,
+  },
+  [Theme.Dark]: {
+    mainColor: _darkGrey,
+    secondaryColor: _white,
+  },
+  [Theme.Rose]: {
+    mainColor: _rose,
+    secondaryColor: _white,
+  },
 };
 
-export const setThemeVars = (theme: Theme) => {
-  Object.entries(THEME_VARS).forEach(([variable, val]) => {
+export const getThemeColor = (theme: Theme): string =>
+  THEME_VARIABLES[theme].mainColor;
+
+export const setThemeVars = (theme: Theme): void => {
+  const record = THEME_VARIABLES[theme];
+
+  Object.entries(record).forEach(([variable, value]) => {
     document
       .documentElement
       .style
-      .setProperty(variable, val[theme]);
+      .setProperty(withPrefix(variable), value);
   });
 };

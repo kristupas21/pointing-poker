@@ -1,0 +1,13 @@
+.field {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.indicator {
+  border-radius: 50%;
+  display: block;
+  height: 20px;
+  width: 20px;
+}

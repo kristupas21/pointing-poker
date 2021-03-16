@@ -12,7 +12,7 @@ import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionPointValues } from 'state/session/sessionStateGetters';
 import { useMappedDispatch } from 'utils/customHooks';
 import { AnimatePresence } from 'framer-motion';
-import { FieldSize } from 'components/Form/types';
+import { FieldSize } from 'components/Form';
 import { mapPointValuesToFormData, withPVF } from './utils';
 import { MAX_POINT_VALUES_COUNT, MIN_POINT_VALUES_COUNT } from './constants';
 import { getPointValuesFormSchema } from './validationSchema';

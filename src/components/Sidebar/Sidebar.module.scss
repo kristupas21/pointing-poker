@@ -2,44 +2,38 @@
   $this: &;
   $_transition-ms: 300ms;
 
-  left: 0;
+  right: 0;
   position: fixed;
   top: 0;
   z-index: 1;
 
-  &__shade {
-    background: black;
+  &__shade,
+  &__drawer {
     height: 100vh;
-    left: 0;
-    opacity: 0;
     position: absolute;
+    right: 0;
     top: 0;
-    transform: translateX(-100%);
-    transition: opacity $_transition-ms;
+    transform: translateX(100%);
+  }
+
+  &__shade {
+    background: transparent;
     width: 100vw;
     z-index: 1;
   }
 
   &__drawer {
-    background: var(--app-color);
-    height: 100vh;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform: translateX(-100%);
+    background: #ccc;
+    padding: 10px;
     transition: transform $_transition-ms;
-    width: 350px;
+    width: 400px;
     z-index: 2;
   }
 
   &--open {
     display: block;
 
-    #{$this}__shade {
-      opacity: .2;
-      transform: translateX(0);
-    }
-
+    #{$this}__shade,
     #{$this}__drawer {
       transform: translateX(0);
     }

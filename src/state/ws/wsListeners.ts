@@ -10,16 +10,20 @@ import {
 } from 'state/voteRound/voteRoundActions';
 import { User } from 'types/global';
 import { pushNotification } from 'state/notifications/notificationsActions';
-import NFC, { NotificationContent } from 'utils/notificationContent';
+import renderNotification, { NotificationContent } from 'utils/notificationContent';
 import { WSMessage } from './wsModel';
 
 export function* userJoinedListener(message: WSMessage<{ user: User }>) {
-  yield put(addUserToVoteRound(message.body.user));
+  const { user } = message.body;
+  const notification = renderNotification(NotificationContent.UserJoined, user);
+
+  yield put(addUserToVoteRound(user));
+  yield put(pushNotification(notification));
 }
 
 export function* userLeftListener(message: WSMessage<{ user: User }>) {
   const { user } = message.body;
-  const notification = NFC.render(NotificationContent.UserLeft, user);
+  const notification = renderNotification(NotificationContent.UserLeft, user);
 
   yield put(removeUserFromVoteRound(user.id));
   yield put(pushNotification(notification));

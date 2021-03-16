@@ -32,3 +32,8 @@ export interface Identifier {
 export type CustomFormError = { id: MessageId; values: any };
 
 export type CustomFormErrors<T> = Record<keyof T, CustomFormError>;
+
+export interface AppVariables {
+  mainColor: string;
+  secondaryColor: string;
+}

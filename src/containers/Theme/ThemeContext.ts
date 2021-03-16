@@ -1,8 +1,9 @@
 import React from 'react';
-import { WithTheme } from './types';
+import noop from 'lodash/noop';
+import { Theme, WithTheme } from './types';
 
 const ThemeContext = React.createContext<WithTheme>(
-  { theme: 'light', toggleTheme: () => undefined }
+  { theme: Theme.Light, setAppTheme: noop }
 );
 
 export default ThemeContext;

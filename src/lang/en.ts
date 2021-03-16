@@ -13,8 +13,8 @@ export const messages = {
 
   'global.tryAgain': 'Try Again',
   'global.copy': 'Copy',
-  'global.lightMode': 'Light Mode',
-  'global.darkMode': 'Dark Mode',
+  'global.done': 'Done',
+  'global.session': 'Session',
 
   'form.validation.required': 'Required',
   'form.validation.min': 'Min {chars} characters',
@@ -44,12 +44,20 @@ export const messages = {
   'voteRound.action.choosePoints': 'Choose points',
 
   'notifications.sessionIdCopied': 'Session ID copied!',
-  'notifications.userLeft': 'left this session.',
+  'notifications.userLeft': 'has left the session.',
+  'notifications.userJoined': 'has joined the session.',
 
   'routes.base': 'Home Page',
   'routes.joinSession': 'Join Session Page',
   'routes.startSession': 'Start Session Page',
   'routes.session': 'Session Page',
   'routes.sessionNotFound': 'Session Not Found Page',
-  'routes.error': 'Error Page'
+  'routes.error': 'Error Page',
+
+  'settings.avatar.title': 'Choose Avatar',
+  'settings.theme.title': 'App Theme',
+
+  'theme.variant.light': 'Light',
+  'theme.variant.dark': 'Dark',
+  'theme.variant.rose': 'Rose'
 };

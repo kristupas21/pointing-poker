@@ -14,7 +14,7 @@ import {
   wsSetVoteRoundTopic,
 } from 'state/ws/wsActions';
 import Button from 'components/Button';
-import { FieldType, FormField } from 'components/Form';
+import { FieldType, FormField, FieldSize } from 'components/Form';
 import { getVoteRoundState } from 'state/voteRound/voteRoundStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 
@@ -81,6 +81,7 @@ const VoteRoundActions: React.FC = () => {
             label={text('voteRound.field.topic.label')}
             value={currentTopic || ''}
             onChange={handleTopicChange}
+            size={FieldSize.Large}
           />
         </Form>
       </Formik>

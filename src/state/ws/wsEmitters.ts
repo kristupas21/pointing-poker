@@ -1,6 +1,6 @@
 import { select } from 'redux-saga/effects';
+import { User } from 'types/global';
 import { getSessionUser, getSessionUserId } from 'state/session/sessionStateGetters';
-import { User } from '../../types/global';
 
 /**
  * Function args are payload.
