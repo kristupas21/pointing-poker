@@ -1,4 +1,4 @@
-import React, { createRef, SelectHTMLAttributes, useState } from 'react';
+import React, { useRef, SelectHTMLAttributes, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Identifier } from 'types/global';
 import classNames from 'classnames/bind';
@@ -31,7 +31,7 @@ const Select: React.FC<SelectProps> = (props) => {
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
-  const inputRef = createRef<HTMLSelectElement>();
+  const inputRef = useRef<HTMLSelectElement>(null);
 
   const openDropdown = () => {
     isOpen || setIsOpen(true);

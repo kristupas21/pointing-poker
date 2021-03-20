@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, createRef } from 'react';
+import React, { MouseEvent, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Identifier } from 'types/global';
 import classNames from 'classnames/bind';
@@ -18,7 +18,7 @@ type Props = {
 
 const SelectDropdown: React.FC<Props> = (props) => {
   const { options, onSelect, selectedOptionId, onOutsideClick, fieldSize } = props;
-  const dropdownRef = createRef<HTMLSpanElement>();
+  const dropdownRef = useRef<HTMLSpanElement>(null);
 
   const handleSelect = (e: MouseEvent<HTMLButtonElement>, name: string) => {
     e.preventDefault();

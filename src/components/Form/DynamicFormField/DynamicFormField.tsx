@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, FocusEvent } from 'react';
+import React, { useRef, useEffect, FocusEvent } from 'react';
 import Button from 'components/Button';
 import { IconId } from 'components/Icon';
 import { motion } from 'framer-motion';
@@ -32,7 +32,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
     ...fieldProps
   } = props;
 
-  const inputRef = createRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleEditClick = () =>
     inputRef.current && inputRef.current.focus();
