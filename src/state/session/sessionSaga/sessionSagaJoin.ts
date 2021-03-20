@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { push, replace } from 'connected-react-router';
+import { push } from 'connected-react-router';
 import { ActionType } from 'typesafe-actions';
 import { AppRoute, getMatchParamRoute } from 'constants/routes';
 import { ERROR_CODES } from 'constants/errorCodes';
@@ -10,7 +10,7 @@ import { JOIN_SESSION } from '../sessionConstants';
 import { acquireCurrentUser } from './sessionSagaUtils';
 
 function* joinSaga(action: ActionType<typeof joinSession>) {
-  const { payload: formData } = action;
+  const { formData, setFieldError, setSubmitting } = action.payload;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { sessionId: formSessionId, useRoles, ...userProps } = formData;
   const user = yield* acquireCurrentUser(userProps);
@@ -25,7 +25,7 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
     const { code, payload } = e?.response?.data || {};
 
     if (code === ERROR_CODES.SESSION_NOT_FOUND) {
-      yield put(replace(AppRoute.SessionNotFound, { sessionId: formSessionId }));
+      yield call(setFieldError, 'sessionId', { id: 'error.sessionNotFound' });
       return;
     }
 
@@ -40,6 +40,8 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
     }
 
     yield put(throwAppError(ERROR_CODES.UNEXPECTED));
+  } finally {
+    yield call(setSubmitting, false);
   }
 }
 

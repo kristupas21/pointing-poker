@@ -12,7 +12,7 @@ import { CreateSessionFormData } from './types';
 type Props = {
   isJoinType?: boolean;
   initialValues: CreateSessionFormData;
-  onSubmit: (values: CreateSessionFormData) => void;
+  onSubmit: (values: CreateSessionFormData, ...args: any) => void;
   roles: UserRole[];
   validationSchema: SchemaOf<CreateSessionFormData>;
 };
@@ -22,8 +22,11 @@ const CreateSessionForm: React.FC<Props> = (props) => {
   const text = useText();
   const getErrorText = (e: CustomFormError) => e?.id && text(e.id, e.values);
 
-  const handleSubmit: SubmitHandler<CreateSessionFormData> = (values) => {
-    onSubmit(values);
+  const handleSubmit: SubmitHandler<CreateSessionFormData> = (
+    values,
+    { setFieldError, setSubmitting }
+  ) => {
+    onSubmit(values, setFieldError, setSubmitting);
   };
 
   return (
@@ -34,8 +37,16 @@ const CreateSessionForm: React.FC<Props> = (props) => {
       validationSchema={validationSchema}
       id="create-session-form"
     >
-      {({ isSubmitting, errors: err, values, setValues, setFieldValue }) => {
+      {({
+        isSubmitting,
+        errors: err,
+        values,
+        setValues,
+        setFieldValue,
+        submitForm
+      }) => {
         const errors = err as unknown as CustomFormErrors<CreateSessionFormData>;
+        const submitDisabled = isSubmitting || !isEmpty(errors);
 
         const handleSessionFieldChange = (e) => {
           const newValues = {
@@ -54,8 +65,13 @@ const CreateSessionForm: React.FC<Props> = (props) => {
           });
         }
 
+        const onFormSubmit = (e) => {
+          e.preventDefault();
+          submitDisabled || submitForm();
+        };
+
         return (
-          <Form>
+          <Form onSubmit={onFormSubmit}>
             {isJoinType && (
               <FormField
                 name="sessionId"
@@ -106,7 +122,7 @@ const CreateSessionForm: React.FC<Props> = (props) => {
               label={text('session.field.observer.label')}
               isBlock
             />
-            <Button type="submit" disabled={isSubmitting || !isEmpty(errors)}>
+            <Button type="submit" disabled={submitDisabled}>
               {text(isJoinType ? 'session.join' : 'session.start')}
             </Button>
           </Form>

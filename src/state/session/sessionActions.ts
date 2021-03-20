@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { User } from 'types/global';
+import { CustomFormError, User } from 'types/global';
 import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';
 import { CreateSessionFormData } from 'containers/CreateSessionForm/types';
@@ -25,8 +25,12 @@ export const setSessionUser = (user: User) => action(SET_SESSION_USER, user);
 export const startSession = (formData: CreateSessionFormData) =>
   action(START_SESSION, formData);
 
-export const joinSession = (formData: CreateSessionFormData) =>
-  action(JOIN_SESSION, formData);
+export const joinSession = (
+  formData: CreateSessionFormData,
+  setFieldError: (name: string, error: CustomFormError) => void,
+  setSubmitting: (value: boolean) => void,
+) =>
+  action(JOIN_SESSION, { formData, setFieldError, setSubmitting });
 
 export const loadSession = (id: string) => action(LOAD_SESSION, id);
 

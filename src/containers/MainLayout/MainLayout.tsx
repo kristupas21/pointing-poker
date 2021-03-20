@@ -8,7 +8,9 @@ import Logo from 'components/Logo';
 import Sidebar from 'components/Sidebar';
 import UserSettings from 'containers/UserSettings';
 import UserSettingsOpener from 'containers/UserSettings/UserSettingsOpener';
+import { useSelector } from 'react-redux';
 import styles from './MainLayout.module.scss';
+import { getSessionUser } from '../../state/session/sessionStateGetters';
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +22,8 @@ type Props = {
 
 const MainLayout: React.FC<Props> = (props) => {
   const { children, route, withSettings = false } = props;
+  const user = useSelector(getSessionUser);
+  const showSettings = withSettings && !!user;
 
   return (
     <div className={cx('layout')}>
@@ -28,7 +32,7 @@ const MainLayout: React.FC<Props> = (props) => {
           <Link to={AppRoute.Base}>
             <Logo />
           </Link>
-          {withSettings && <UserSettingsOpener />}
+          {showSettings && <UserSettingsOpener />}
         </div>
         <motion.div
           className={cx('layout__children')}
@@ -38,7 +42,7 @@ const MainLayout: React.FC<Props> = (props) => {
           {children}
         </motion.div>
       </div>
-      {withSettings && (
+      {showSettings && (
         <Sidebar>
           <UserSettings />
         </Sidebar>

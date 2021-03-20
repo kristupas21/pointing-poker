@@ -29,7 +29,7 @@ export interface Identifier {
   name: string;
 }
 
-export type CustomFormError = { id: MessageId; values: any };
+export type CustomFormError = { id: MessageId; values?: any };
 
 export type CustomFormErrors<T> = Record<keyof T, CustomFormError>;
 
