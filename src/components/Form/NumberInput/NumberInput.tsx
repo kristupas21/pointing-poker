@@ -2,21 +2,24 @@ import React, { InputHTMLAttributes } from 'react';
 import { Field, FieldAttributes } from 'formik';
 import classNames from 'classnames/bind';
 import withForwardRef from 'utils/withForwardRef';
+import { NUMBER_INPUT_MAX, NUMBER_INPUT_MIN } from 'constants/formValidation';
 import { SharedFieldProps, FieldSize, SharedFieldState } from '../types';
-import styles from './Input.module.scss';
+import styles from '../Input/Input.module.scss';
 import FieldError from '../FieldError';
 
 const cx = classNames.bind(styles);
 
-export type InputProps = FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & SharedFieldProps & SharedFieldState;
+export type NumberInputProps = FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & SharedFieldProps & SharedFieldState;
 
-const Input: React.FC<InputProps> = (props) => {
+const NumberInput: React.FC<NumberInputProps> = (props) => {
   const {
     name,
     label,
     fieldSize = FieldSize.Medium,
     error,
     children,
+    min = NUMBER_INPUT_MIN,
+    max = NUMBER_INPUT_MAX,
     isText,
     value,
     ...fieldProps
@@ -44,7 +47,9 @@ const Input: React.FC<InputProps> = (props) => {
         {...fieldProps}
         name={name}
         id={name}
-        type="input"
+        type="number"
+        min={min}
+        max={max}
         className={inputClasses}
         {...getValueProps()}
       />
@@ -54,4 +59,4 @@ const Input: React.FC<InputProps> = (props) => {
   );
 };
 
-export default withForwardRef(Input);
+export default withForwardRef(NumberInput);

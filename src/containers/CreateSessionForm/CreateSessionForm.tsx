@@ -63,7 +63,7 @@ const CreateSessionForm: React.FC<Props> = (props) => {
                 error={getErrorText(errors.sessionId)}
                 label={text('session.field.id.label')}
                 onChange={handleSessionFieldChange}
-                size={FieldSize.Large}
+                fieldSize={FieldSize.Large}
                 placeholder={text('session.field.id.placeholder')}
                 isBlock
               />
@@ -73,7 +73,7 @@ const CreateSessionForm: React.FC<Props> = (props) => {
               type={FieldType.Input}
               error={getErrorText(errors.name)}
               label={text('session.field.name.label')}
-              size={FieldSize.Large}
+              fieldSize={FieldSize.Large}
               placeholder={text('session.field.name.placeholder')}
               isBlock
             />
@@ -96,7 +96,7 @@ const CreateSessionForm: React.FC<Props> = (props) => {
                 disabled={values.isObserver}
                 isBlock
                 value={values.role}
-                size={FieldSize.Large}
+                fieldSize={FieldSize.Large}
                 setFieldValue={setFieldValue}
               />
             )}

@@ -7,6 +7,7 @@ export enum FieldType {
   Input = 'input',
   Select = 'select',
   Checkbox = 'checkbox',
+  Number = 'number',
 }
 
 export enum FieldSize {
@@ -18,7 +19,12 @@ export enum FieldSize {
 export interface SharedFieldProps {
   error?: string;
   label?: ReactNode;
-  size?: FieldSize;
+  fieldSize?: FieldSize;
   name: string;
   id: string;
+  renderTextWhenInactive?: boolean;
+}
+
+export interface SharedFieldState {
+  isText?: boolean;
 }

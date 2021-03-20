@@ -26,7 +26,7 @@ const Select: React.FC<SelectProps> = (props) => {
     error,
     options = [],
     placeholder,
-    size,
+    fieldSize,
     setFieldValue
   } = props;
 
@@ -68,7 +68,7 @@ const Select: React.FC<SelectProps> = (props) => {
         onChange={undefined}
         onBlur={undefined}
         readOnly
-        size={size}
+        fieldSize={fieldSize}
         ref={inputRef}
         placeholder={placeholder}
         disabled={disabled}
@@ -85,7 +85,7 @@ const Select: React.FC<SelectProps> = (props) => {
             options={options}
             onSelect={handleOptionSelect}
             onOutsideClick={handleOutsideClick}
-            size={size}
+            fieldSize={fieldSize}
             selectedOptionId={value}
             key="dropdown"
           />

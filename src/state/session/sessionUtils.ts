@@ -34,13 +34,31 @@ export function createRole(): UserRole {
   };
 }
 
-export function removeEmptyPointValues(points: PointValue[]): PointValue[] {
-  return points
-    .filter((p) => p.value)
-    .map((p, idx) => ({
-      ...p,
-      pos: idx,
-    }));
+export function normalizePointValues(points: PointValue[]): PointValue[] {
+  const duplicates: string[] = [];
+  const unique = points.filter((point, idx, arr) => {
+    const value = `${point.value ?? ''}`;
+
+    if (!value) {
+      return false;
+    }
+
+    if (arr.some((f, i) => `${f.value}` === value && i !== idx)) {
+      if (duplicates.includes(value)) {
+        return false;
+      }
+
+      duplicates.push(value);
+    }
+
+    return true;
+  });
+
+  return unique.map((p, idx) => ({
+    ...p,
+    value: `${p.value}`,
+    pos: idx,
+  }));
 }
 
 export function removeEmptyRoles(roles: UserRole[]): UserRole[] {

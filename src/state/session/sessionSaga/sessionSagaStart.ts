@@ -10,7 +10,7 @@ import sessionApi from '../sessionApi';
 import { START_SESSION } from '../sessionConstants';
 import { acquireCurrentUser } from './sessionSagaUtils';
 import { getSessionPointValues, getSessionRoles } from '../sessionStateGetters';
-import { removeEmptyPointValues, removeEmptyRoles } from '../sessionUtils';
+import { normalizePointValues, removeEmptyRoles } from '../sessionUtils';
 
 function* startSaga(action: ActionType<typeof startSession>) {
   const { payload: formData } = action;
@@ -19,7 +19,7 @@ function* startSaga(action: ActionType<typeof startSession>) {
   const user = yield* acquireCurrentUser(userData);
   const statePointValues = yield select(getSessionPointValues);
   const stateRoles = yield select(getSessionRoles);
-  const pointValues = removeEmptyPointValues(statePointValues);
+  const pointValues = normalizePointValues(statePointValues);
   const roles = removeEmptyRoles(stateRoles);
   const params = { user, useRoles, pointValues, roles };
 

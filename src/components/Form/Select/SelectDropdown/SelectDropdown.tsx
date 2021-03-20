@@ -13,11 +13,11 @@ type Props = {
   onSelect: (name: string) => void;
   onOutsideClick: (e) => void;
   selectedOptionId: string;
-  size: FieldSize;
+  fieldSize: FieldSize;
 }
 
 const SelectDropdown: React.FC<Props> = (props) => {
-  const { options, onSelect, selectedOptionId, onOutsideClick, size } = props;
+  const { options, onSelect, selectedOptionId, onOutsideClick, fieldSize } = props;
   const dropdownRef = createRef<HTMLSpanElement>();
 
   const handleSelect = (e: MouseEvent<HTMLButtonElement>, name: string) => {
@@ -38,7 +38,7 @@ const SelectDropdown: React.FC<Props> = (props) => {
     <motion.span
       key="select-dropdown"
       ref={dropdownRef}
-      className={cx('dropdown', `dropdown--${size}`)}
+      className={cx('dropdown', `dropdown--${fieldSize}`)}
     >
       {options.map((o) => (
         <SelectOption

@@ -8,3 +8,11 @@ export function mapPointValuesToFormData(points: PointValue[]): Record<string, s
     [withPVF(point.mandatoryId || point.pos)]: point.value,
   }), {});
 }
+
+export function normalizePoint(value: string): string {
+  const n = Number(value);
+
+  return Number.isInteger(n)
+    ? `${parseFloat(value)}`
+    : n.toFixed(1);
+}

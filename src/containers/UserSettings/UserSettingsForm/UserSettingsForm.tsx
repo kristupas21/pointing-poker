@@ -48,7 +48,7 @@ const UserSettingsForm: React.FC<Props> = (props) => {
               name="name"
               type={FieldType.Input}
               label={text('session.field.name.label')}
-              size={FieldSize.Large}
+              fieldSize={FieldSize.Large}
               placeholder={text('session.field.name.placeholder')}
               onBlur={submitName}
               isBlock
@@ -63,7 +63,7 @@ const UserSettingsForm: React.FC<Props> = (props) => {
                 disabled={isObserver}
                 isBlock
                 value={values.role}
-                size={FieldSize.Large}
+                fieldSize={FieldSize.Large}
                 setFieldValue={submitRole}
               />
             )}

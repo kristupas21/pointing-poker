@@ -1,19 +1,15 @@
 import React, { FocusEvent } from 'react';
 import { Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
-import {
-  addSessionPointValue,
-  removeSessionPointValue,
-  saveSessionPointValue
-} from 'state/session/sessionActions';
+import { addSessionPointValue, removeSessionPointValue, saveSessionPointValue } from 'state/session/sessionActions';
 import Button from 'components/Button';
 import { IconId } from 'components/Icon';
 import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionPointValues } from 'state/session/sessionStateGetters';
 import { useMappedDispatch } from 'utils/customHooks';
 import { AnimatePresence } from 'framer-motion';
-import { FieldSize } from 'components/Form';
-import { mapPointValuesToFormData, withPVF } from './utils';
+import { FieldSize, FieldType } from 'components/Form';
+import { mapPointValuesToFormData, normalizePoint, withPVF } from './utils';
 import { MAX_POINT_VALUES_COUNT, MIN_POINT_VALUES_COUNT } from './constants';
 import { getPointValuesFormSchema } from './validationSchema';
 
@@ -38,13 +34,16 @@ const PointValuesForm: React.FC = () => {
         onSubmit={undefined}
         validationSchema={getPointValuesFormSchema(pointValues)}
       >
-        {({ handleBlur, values, resetForm, errors }) => {
+        {({ handleBlur, setFieldValue, values, resetForm, errors }) => {
           const submitValues = (e: FocusEvent<HTMLInputElement>, id: string, name: string) => {
-            const value = values[name];
+            const inputValue = values[name];
 
             handleBlur(e);
 
-            if (value && !errors[name]) {
+            if (inputValue && !errors[name]) {
+              const value = normalizePoint(inputValue);
+
+              setFieldValue(name, value);
               savePointValue({ id, value });
             } else {
               resetForm();
@@ -55,19 +54,21 @@ const PointValuesForm: React.FC = () => {
             <Form name={withPVF('form')}>
               <AnimatePresence>
                 {pointValues.map((point) => {
-                  const name = withPVF(point.mandatoryId || point.pos);
+                  const { id, mandatoryId, pos } = point;
+                  const name = withPVF(mandatoryId || pos);
 
                   return (
                     <DynamicFormField
-                      key={point.id}
-                      id={point.id}
-                      isRemoveDisabled={isRemoveDisabled || !!point.mandatoryId}
+                      key={id}
+                      id={id}
+                      isRemoveDisabled={isRemoveDisabled || !!mandatoryId}
                       onRemoveClick={removePointValue}
                       onBlur={submitValues}
                       name={name}
                       currentValue={values[name]}
-                      isEditDisabled={!!point.mandatoryId}
-                      size={FieldSize.Small}
+                      isEditDisabled={!!mandatoryId}
+                      fieldSize={FieldSize.Small}
+                      fieldType={mandatoryId ? FieldType.Input : FieldType.Number}
                     />
                   );
                 })}

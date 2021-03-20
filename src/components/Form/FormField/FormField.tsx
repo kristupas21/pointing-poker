@@ -1,10 +1,11 @@
-import React, { RefObject } from 'react';
+import React, { RefObject, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FieldAttributes } from 'formik';
 import { FieldType, SharedFieldProps } from '../types';
 import Input, { InputProps } from '../Input';
 import Select, { SelectProps } from '../Select';
 import Checkbox, { CheckboxProps } from '../Checkbox';
+import NumberInput, { NumberInputProps } from '../NumberInput';
 import styles from './FormField.module.scss';
 
 const cx = classNames.bind(styles);
@@ -16,16 +17,62 @@ type Props = FieldAttributes<any> & SharedFieldProps & {
 }
 
 const FormField: React.FC<Props> = (props) => {
-  const { type, isBlock, setRef, ...fieldProps } = props;
+  const { type, isBlock, setRef, renderTextWhenInactive, onFocus, onBlur, ...fieldProps } = props;
+
+  const [isText, setIsText] = useState(renderTextWhenInactive);
+
+  const handleFocus = (e) => {
+    renderTextWhenInactive && setIsText(false);
+    onFocus && onFocus(e);
+  };
+  const handleBlur = (e) => {
+    renderTextWhenInactive && setIsText(true);
+    onBlur && onBlur(e);
+  };
 
   const renderContent = () => {
     switch (type) {
       case FieldType.Input:
-        return <Input {...fieldProps as InputProps} ref={setRef} autoComplete="off" />;
+        return (
+          <Input
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            {...fieldProps as InputProps}
+            ref={setRef}
+            autoComplete="off"
+            isText={isText}
+          />
+        );
       case FieldType.Select:
-        return <Select {...fieldProps as SelectProps} ref={setRef} autoComplete="off" />;
+        return (
+          <Select
+            onFocus={onFocus}
+            onBlur={onBlur}
+            {...fieldProps as SelectProps}
+            ref={setRef}
+            autoComplete="off"
+          />
+        );
+      case FieldType.Number:
+        return (
+          <NumberInput
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            {...fieldProps as NumberInputProps}
+            ref={setRef}
+            autoComplete="off"
+            isText={isText}
+          />
+        );
       case FieldType.Checkbox:
-        return <Checkbox {...fieldProps as CheckboxProps} ref={setRef} />;
+        return (
+          <Checkbox
+            onFocus={onFocus}
+            onBlur={onBlur}
+            {...fieldProps as CheckboxProps}
+            ref={setRef}
+          />
+        );
       default:
         return null;
     }

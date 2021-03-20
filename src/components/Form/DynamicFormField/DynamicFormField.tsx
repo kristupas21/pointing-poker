@@ -5,17 +5,18 @@ import { motion } from 'framer-motion';
 import animations from 'utils/animations';
 import classNames from 'classnames/bind';
 import { FieldType, FormField } from '..';
-import { SharedFieldProps } from '../types';
 import styles from './DynamicFormField.module.scss';
+import { InputProps } from '../Input';
 
 const cx = classNames.bind(styles);
 
-type Props = SharedFieldProps & {
+type Props = Omit<InputProps, 'onBlur'> & {
   onRemoveClick: (id: string) => void;
   isRemoveDisabled?: boolean;
   isEditDisabled?: boolean;
   onBlur: (e: FocusEvent<HTMLInputElement>, id: string, name: string) => void;
   currentValue: string;
+  fieldType?: FieldType.Input | FieldType.Number;
 }
 
 const DynamicFormField: React.FC<Props> = (props) => {
@@ -27,6 +28,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
     onBlur,
     currentValue,
     isEditDisabled,
+    fieldType = FieldType.Input,
     ...fieldProps
   } = props;
 
@@ -49,7 +51,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
       <FormField
         {...fieldProps}
         name={name}
-        type={FieldType.Input}
+        type={fieldType}
         setRef={inputRef}
         onBlur={handleBlur}
         value={currentValue || ''}

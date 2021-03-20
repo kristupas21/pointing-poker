@@ -64,6 +64,7 @@ const RolesForm: React.FC = () => {
                       onBlur={submitValues}
                       name={name}
                       currentValue={values[name]}
+                      renderTextWhenInactive
                     />
                   );
                 })}

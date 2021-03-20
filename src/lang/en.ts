@@ -38,7 +38,7 @@ export const messages = {
   'session.action.pointValues': 'Point values',
 
   'voteRound.field.topic.label': 'Topic',
-  'voteRound.action.nextRound': 'Next round →',
+  'voteRound.action.newRound': 'New round →',
   'voteRound.action.hideVotes': 'Hide votes',
   'voteRound.action.showVotes': 'Show votes',
   'voteRound.action.choosePoints': 'Choose points',
