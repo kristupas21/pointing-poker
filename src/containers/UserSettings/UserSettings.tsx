@@ -5,10 +5,10 @@ import { modifySessionUser } from 'state/session/sessionActions';
 import { wsModifySessionUser } from 'state/ws/wsActions';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import ThemeSelector from 'containers/ThemeSelector';
+import AvatarSelector from 'containers/AvatarSelector';
 import Button from 'components/Button';
 import { setAppSidebarOpen } from 'state/app/appActions';
 import UserSettingsForm from './UserSettingsForm';
-import AvatarSelector from './AvatarSelector';
 
 const actions = {
   modifyUser: [modifySessionUser, wsModifySessionUser],

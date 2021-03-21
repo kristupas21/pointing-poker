@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 import Button from 'components/Button';
 import { getSidebarOpenValue } from 'state/app/appStateGetters';
-import { useMappedDispatch } from 'utils/customHooks';
+import { useMappedDispatch, useOutsideClose } from 'utils/customHooks';
 import { setAppSidebarOpen } from 'state/app/appActions';
 import styles from './Sidebar.module.scss';
 
@@ -19,6 +19,7 @@ interface Props {
 
 const Sidebar: React.FC<Props> = (props) => {
   const { onCloseClick, children } = props;
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const isOpen = useSelector(getSidebarOpenValue);
   const { setSidebarOpen } = useMappedDispatch(actions);
 
@@ -31,9 +32,10 @@ const Sidebar: React.FC<Props> = (props) => {
     'sidebar--open': isOpen,
   });
 
+  useOutsideClose(sidebarRef, handleClose);
+
   return (
-    <div className={sidebarClasses}>
-      <div className={cx('sidebar__shade')} onClick={handleClose} role="presentation" />
+    <div className={sidebarClasses} ref={sidebarRef}>
       <div className={cx('sidebar__drawer')}>
         <Button onClick={handleClose}>X</Button>
         <div className={cx('sidebar__content')}>

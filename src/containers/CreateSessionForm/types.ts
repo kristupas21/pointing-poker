@@ -1,7 +1,7 @@
 export interface CreateSessionFormData {
-  sessionId?: string;
+  isObserver: boolean;
   name: string;
   role?: string;
-  isObserver: boolean;
+  sessionId?: string;
   useRoles?: boolean;
 }

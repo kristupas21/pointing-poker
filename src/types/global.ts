@@ -37,3 +37,9 @@ export interface AppVariables {
   mainColor: string;
   secondaryColor: string;
 }
+
+export enum AlignType {
+  Left = 'left',
+  Right = 'right',
+  Center = 'center',
+}

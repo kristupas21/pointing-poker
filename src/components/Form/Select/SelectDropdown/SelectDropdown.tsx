@@ -1,7 +1,8 @@
-import React, { MouseEvent, useEffect, useRef } from 'react';
+import React, { MouseEvent, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Identifier } from 'types/global';
 import classNames from 'classnames/bind';
+import { useOutsideClose } from 'utils/customHooks';
 import SelectOption from '../SelectOption';
 import styles from './SelectDropdown.module.scss';
 import { FieldSize } from '../../types';
@@ -25,14 +26,7 @@ const SelectDropdown: React.FC<Props> = (props) => {
     onSelect(name);
   };
 
-  useEffect(() => {
-    const outsideClickHandler = (e) => {
-      dropdownRef.current?.contains(e.target) || onOutsideClick(e);
-    };
-
-    window.addEventListener('mousedown', outsideClickHandler);
-    return () => window.removeEventListener('mousedown', outsideClickHandler);
-  }, []);
+  useOutsideClose(dropdownRef, onOutsideClick);
 
   return (
     <motion.span

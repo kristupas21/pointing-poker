@@ -8,6 +8,7 @@ import { UserRole } from 'utils/userRoles/types';
 import { useText } from 'utils/customHooks';
 import { CustomFormError, CustomFormErrors } from 'types/global';
 import { CreateSessionFormData } from './types';
+import AvatarField from './AvatarField';
 
 type Props = {
   isJoinType?: boolean;
@@ -93,6 +94,7 @@ const CreateSessionForm: React.FC<Props> = (props) => {
               placeholder={text('session.field.name.placeholder')}
               isBlock
             />
+            <AvatarField />
             {isJoinType || (
               <FormField
                 name="useRoles"

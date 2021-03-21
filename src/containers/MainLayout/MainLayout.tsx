@@ -9,8 +9,10 @@ import Sidebar from 'components/Sidebar';
 import UserSettings from 'containers/UserSettings';
 import UserSettingsOpener from 'containers/UserSettings/UserSettingsOpener';
 import { useSelector } from 'react-redux';
+import { getSessionUser } from 'state/session/sessionStateGetters';
+import AppFooter from 'components/AppFooter';
+import ClearStorageButton from '_develop/ClearStorageButton';
 import styles from './MainLayout.module.scss';
-import { getSessionUser } from '../../state/session/sessionStateGetters';
 
 const cx = classNames.bind(styles);
 
@@ -47,6 +49,9 @@ const MainLayout: React.FC<Props> = (props) => {
           <UserSettings />
         </Sidebar>
       )}
+      <AppFooter>
+        <ClearStorageButton />
+      </AppFooter>
     </div>
   );
 };
