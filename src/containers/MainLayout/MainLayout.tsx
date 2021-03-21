@@ -9,7 +9,7 @@ import Sidebar from 'components/Sidebar';
 import UserSettings from 'containers/UserSettings';
 import UserSettingsOpener from 'containers/UserSettings/UserSettingsOpener';
 import { useSelector } from 'react-redux';
-import { getSessionUser } from 'state/session/sessionStateGetters';
+import { getSessionUserId } from 'state/session/sessionStateGetters';
 import AppFooter from 'components/AppFooter';
 import ClearStorageButton from '_develop/ClearStorageButton';
 import styles from './MainLayout.module.scss';
@@ -24,8 +24,8 @@ type Props = {
 
 const MainLayout: React.FC<Props> = (props) => {
   const { children, route, withSettings = false } = props;
-  const user = useSelector(getSessionUser);
-  const showSettings = withSettings && !!user;
+  const userId = useSelector(getSessionUserId);
+  const showSettings = withSettings && !!userId;
 
   return (
     <div className={cx('layout')}>

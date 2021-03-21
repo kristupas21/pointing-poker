@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getSessionUser } from 'state/session/sessionStateGetters';
+import { getSessionUserAvatarId } from 'state/session/sessionStateGetters';
 import { modifySessionUser } from 'state/session/sessionActions';
 import { useMappedDispatch } from 'utils/customHooks';
 import Avatar from 'components/Avatar';
@@ -13,7 +13,7 @@ const actions = {
 };
 
 const AvatarField: React.FC = () => {
-  const { avatarId } = useSelector(getSessionUser);
+  const avatarId = useSelector(getSessionUserAvatarId);
   const { modifyUser } = useMappedDispatch(actions);
   const [isPopoverOpen, setPopoverOpen] = useState(false);
 

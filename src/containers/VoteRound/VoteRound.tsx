@@ -1,18 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getSessionUser } from 'state/session/sessionStateGetters';
+import { getSessionUserIsObserver } from 'state/session/sessionStateGetters';
 import VoteRoundActions from './VoteRoundActions';
 import VoteRoundOptions from './VoteRoundOptions';
 import VoteRoundResult from './VoteRoundResult';
 import VoteRoundUsers from './VoteRoundUsers';
 
 const VoteRound: React.FC = () => {
-  const user = useSelector(getSessionUser);
+  const isObserver = useSelector(getSessionUserIsObserver);
 
   return (
     <div>
       <VoteRoundActions />
-      {user?.isObserver || <VoteRoundOptions />}
+      {isObserver || <VoteRoundOptions />}
       <VoteRoundResult />
       <VoteRoundUsers />
     </div>

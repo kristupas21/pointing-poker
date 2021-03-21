@@ -25,20 +25,20 @@ type Action = ActionType<typeof import('./sessionActions')>;
 
 type State = Readonly<SessionState>;
 
-const getSessionUser = (): User => storageService.get(StorageKey.User);
+const initialUser = (): User => storageService.get(StorageKey.User);
 
-const getSessionPointValues = (): PointValue[] =>
+const initialPointValues = (): PointValue[] =>
   storageService.get(StorageKey.PointValues) || DEFAULT_POINT_VALUES;
 
-const getSessionRoles = (): UserRole[] =>
+const initialRoles = (): UserRole[] =>
   storageService.get(StorageKey.Roles) || DEFAULT_USER_ROLES;
 
 const initialState: State = {
   currentSessionId: null,
-  user: getSessionUser(),
+  user: initialUser(),
   useRoles: false,
-  pointValues: getSessionPointValues(),
-  roles: getSessionRoles(),
+  pointValues: initialPointValues(),
+  roles: initialRoles(),
 };
 
 const sessionReducer: Reducer<State, Action> = (state = initialState, action) => {
@@ -135,9 +135,9 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
     case CLOSE_SESSION:
       return {
         ...initialState,
-        user: getSessionUser(),
-        pointValues: getSessionPointValues(),
-        roles: getSessionRoles(),
+        user: initialUser(),
+        pointValues: initialPointValues(),
+        roles: initialRoles(),
       };
     default:
       return state;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getSessionCurrentId, getSessionUser } from 'state/session/sessionStateGetters';
+import { getSessionCurrentId, getSessionUserName } from 'state/session/sessionStateGetters';
 import { pushNotification as pushNotificationAction } from 'state/notifications/notificationsActions';
 import classNames from 'classnames/bind';
 import Button from 'components/Button';
@@ -18,7 +18,7 @@ const actions = {
 };
 
 const UserSettingsOpener: React.FC = () => {
-  const { name } = useSelector(getSessionUser);
+  const name = useSelector(getSessionUserName);
   const { setSidebarOpen, pushNotification } = useMappedDispatch(actions);
   const text = useText();
   const currentSessionId = useSelector(getSessionCurrentId);
