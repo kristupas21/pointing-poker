@@ -16,9 +16,11 @@ const VoteRoundResult: React.FC = () => {
   const points = useSelector(getSessionPointValues);
   const closestPoint = calcClosestPoint(result, points);
 
+  const conditionalDisplay = (v: any) => (votesShown ? v : '-');
+
   const renderResultByRole = ([key, value]) => (
     <div key={key}>
-      {`${key}: ${votesShown ? (value || 0) : '-'}`}
+      {`${key}: ${conditionalDisplay(value || 0)}`}
     </div>
   );
 
@@ -27,12 +29,12 @@ const VoteRoundResult: React.FC = () => {
       <div>
         RESULT:
         {' '}
-        {votesShown ? (result || 0) : '-'}
+        {conditionalDisplay(result || 0)}
       </div>
       <div>
         CLOSEST:
         {' '}
-        {votesShown ? closestPoint : '-'}
+        {conditionalDisplay(closestPoint)}
       </div>
       {useRoles && !!resultByRole.length && (
         <div>
