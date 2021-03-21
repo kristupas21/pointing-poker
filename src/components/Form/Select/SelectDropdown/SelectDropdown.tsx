@@ -1,8 +1,7 @@
-import React, { MouseEvent, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { MouseEvent } from 'react';
 import { Identifier } from 'types/global';
 import classNames from 'classnames/bind';
-import { useOutsideClose } from 'utils/customHooks';
+import Popover from 'components/Popover';
 import SelectOption from '../SelectOption';
 import styles from './SelectDropdown.module.scss';
 import { FieldSize } from '../../types';
@@ -19,21 +18,15 @@ type Props = {
 
 const SelectDropdown: React.FC<Props> = (props) => {
   const { options, onSelect, selectedOptionId, onOutsideClick, fieldSize } = props;
-  const dropdownRef = useRef<HTMLSpanElement>(null);
+  const className = cx('dropdown', `dropdown--${fieldSize}`);
 
   const handleSelect = (e: MouseEvent<HTMLButtonElement>, name: string) => {
     e.preventDefault();
     onSelect(name);
   };
 
-  useOutsideClose(dropdownRef, onOutsideClick);
-
   return (
-    <motion.span
-      key="select-dropdown"
-      ref={dropdownRef}
-      className={cx('dropdown', `dropdown--${fieldSize}`)}
-    >
+    <Popover onClose={onOutsideClick} className={className}>
       {options.map((o) => (
         <SelectOption
           key={o.id}
@@ -43,7 +36,7 @@ const SelectDropdown: React.FC<Props> = (props) => {
           {o.name}
         </SelectOption>
       ))}
-    </motion.span>
+    </Popover>
   );
 };
 

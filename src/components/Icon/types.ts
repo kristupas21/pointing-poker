@@ -8,8 +8,12 @@ export enum IconId {
   Home = 'Home',
   Menu = 'Menu',
   Settings = 'Settings',
-  Logo = 'Logo',
-  LogoCartoon = 'LogoCartoon',
+
+  // logos
+
+  Logo1 = 'logo-1',
+  Logo2 = 'logo-2',
+  Logo3 = 'logo-3',
 
   // avatars
 

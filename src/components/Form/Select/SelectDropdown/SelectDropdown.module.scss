@@ -1,13 +1,7 @@
-.dropdown {
-  position: absolute;
-  top: 53px;
-  left: 0;
+div.dropdown {
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border: 2px solid;
-  z-index: 1;
-  border-radius: 7px;
+  top: 53px;
 
   &--small {
     width: 70px;

@@ -21,6 +21,12 @@
         }
       }
     }
+
+    &:focus {
+      & ~ #{$this}__ui {
+        outline: -webkit-focus-ring-color auto 1px;
+      }
+    }
   }
 
   &__wrapper {
