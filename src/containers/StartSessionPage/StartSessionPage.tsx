@@ -1,15 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
-import CreateSessionForm from 'containers/CreateSessionForm';
-import { startSessionValidationSchema } from 'containers/CreateSessionForm/validationSchema';
+import SessionForm from 'containers/SessionForm';
+import { startSessionValidationSchema } from 'containers/SessionForm/validationSchema';
 import { startSession as startSessionAction } from 'state/session/sessionActions';
 import PointValuesForm from 'containers/PointValuesForm';
 import RolesForm from 'containers/RolesForm';
 import { removeEmptyRoles } from 'state/session/sessionUtils';
 import { getSessionState } from 'state/session/sessionStateGetters';
 import { useMappedDispatch } from 'utils/customHooks';
-import { CreateSessionFormData } from 'containers/CreateSessionForm/types';
+import { SessionFormData } from 'containers/SessionForm/types';
 
 const actions = {
   startSession: startSessionAction,
@@ -18,20 +18,20 @@ const actions = {
 type Props = RouteChildrenProps
 
 const StartSessionPage: React.FC<Props> = () => {
-  const { user, useRoles, roles } = useSelector(getSessionState);
+  const { user, roles } = useSelector(getSessionState);
   const { startSession } = useMappedDispatch(actions);
   const userRoles = removeEmptyRoles(roles);
 
-  const initialValues: CreateSessionFormData = {
+  const initialValues: SessionFormData = {
     name: user?.name || '',
     role: user?.role || '',
     isObserver: user?.isObserver || false,
-    useRoles,
+    useRoles: true,
   };
 
   return (
     <div>
-      <CreateSessionForm
+      <SessionForm
         initialValues={initialValues}
         onSubmit={startSession}
         validationSchema={startSessionValidationSchema}

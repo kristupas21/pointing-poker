@@ -1,7 +1,7 @@
 import React from 'react';
 import { User } from 'types/global';
 import Avatar, { AvatarId } from 'components/Avatar';
-import Button from 'components/Button';
+import Button, { ButtonVariant } from 'components/Button';
 import { useText } from 'utils/customHooks';
 
 type Props = {
@@ -23,6 +23,7 @@ const AvatarSelector: React.FC<Props> = (props) => {
           style={getStyle(avatarId)}
           key={avatarId}
           onClick={() => onSelect({ avatarId })}
+          variant={ButtonVariant.None}
         >
           <Avatar id={avatarId} />
         </Button>

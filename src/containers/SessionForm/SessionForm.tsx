@@ -7,23 +7,24 @@ import Button from 'components/Button';
 import { UserRole } from 'utils/userRoles/types';
 import { useText } from 'utils/customHooks';
 import { CustomFormError, CustomFormErrors } from 'types/global';
-import { CreateSessionFormData } from './types';
+import { _flexContainer } from '_develop/_constants';
+import { SessionFormData } from './types';
 import AvatarField from './AvatarField';
 
 type Props = {
   isJoinType?: boolean;
-  initialValues: CreateSessionFormData;
-  onSubmit: (values: CreateSessionFormData, ...args: any) => void;
+  initialValues: SessionFormData;
+  onSubmit: (values: SessionFormData, ...args: any) => void;
   roles: UserRole[];
-  validationSchema: SchemaOf<CreateSessionFormData>;
+  validationSchema: SchemaOf<SessionFormData>;
 };
 
-const CreateSessionForm: React.FC<Props> = (props) => {
+const SessionForm: React.FC<Props> = (props) => {
   const { isJoinType = false, initialValues, onSubmit, validationSchema, roles } = props;
   const text = useText();
   const getErrorText = (e: CustomFormError) => e?.id && text(e.id, e.values);
 
-  const handleSubmit: SubmitHandler<CreateSessionFormData> = (
+  const handleSubmit: SubmitHandler<SessionFormData> = (
     values,
     { setFieldError, setSubmitting }
   ) => {
@@ -46,7 +47,7 @@ const CreateSessionForm: React.FC<Props> = (props) => {
         setFieldValue,
         submitForm
       }) => {
-        const errors = err as unknown as CustomFormErrors<CreateSessionFormData>;
+        const errors = err as unknown as CustomFormErrors<SessionFormData>;
         const submitDisabled = isSubmitting || !isEmpty(errors);
 
         const handleSessionFieldChange = (e) => {
@@ -85,16 +86,17 @@ const CreateSessionForm: React.FC<Props> = (props) => {
                 isBlock
               />
             )}
-            <FormField
-              name="name"
-              type={FieldType.Input}
-              error={getErrorText(errors.name)}
-              label={text('session.field.name.label')}
-              fieldSize={FieldSize.Large}
-              placeholder={text('session.field.name.placeholder')}
-              isBlock
-            />
-            <AvatarField />
+            <div style={_flexContainer}>
+              <FormField
+                name="name"
+                type={FieldType.Input}
+                error={getErrorText(errors.name)}
+                label={text('session.field.name.label')}
+                fieldSize={FieldSize.Large}
+                placeholder={text('session.field.name.placeholder')}
+              />
+              <AvatarField />
+            </div>
             {isJoinType || (
               <FormField
                 name="useRoles"
@@ -103,21 +105,19 @@ const CreateSessionForm: React.FC<Props> = (props) => {
                 isBlock
               />
             )}
-            {values.useRoles && (
-              <FormField
-                name="role"
-                type={FieldType.Select}
-                label={text('session.field.role.label')}
-                placeholder={text('session.field.role.placeholder')}
-                error={getErrorText(errors.role)}
-                options={roles}
-                disabled={values.isObserver}
-                isBlock
-                value={values.role}
-                fieldSize={FieldSize.Large}
-                setFieldValue={setFieldValue}
-              />
-            )}
+            <FormField
+              name="role"
+              type={FieldType.Select}
+              label={text('session.field.role.label')}
+              placeholder={text('session.field.role.placeholder')}
+              error={getErrorText(errors.role)}
+              options={roles}
+              disabled={values.isObserver}
+              isBlock
+              value={values.role}
+              fieldSize={FieldSize.Large}
+              setFieldValue={setFieldValue}
+            />
             <FormField
               name="isObserver"
               type={FieldType.Checkbox}
@@ -134,4 +134,4 @@ const CreateSessionForm: React.FC<Props> = (props) => {
   );
 };
 
-export default CreateSessionForm;
+export default SessionForm;

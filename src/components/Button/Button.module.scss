@@ -9,16 +9,12 @@
   height: max-content;
   padding: 6px 9px;
   transform: scale(1);
-  transition: all 150ms;
+  transition: transform 150ms;
   width: max-content;
 
   &:hover {
     background: #ddd;
   }
-
-  //&:focus {
-  //  outline: none;
-  //}
 
   &--block {
     display: block;
@@ -30,5 +26,15 @@
 
   &:active {
     transform: scale(.9);
+  }
+
+  &--none {
+    background: none;
+    border: 0;
+    padding: 0;
+
+    &:active {
+      transform: scale(1);
+    }
   }
 }

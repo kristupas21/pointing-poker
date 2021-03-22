@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RouteChildrenProps } from 'react-router';
-import CreateSessionForm from 'containers/CreateSessionForm';
-import { joinSessionValidationSchema } from 'containers/CreateSessionForm/validationSchema';
+import SessionForm from 'containers/SessionForm';
+import { joinSessionValidationSchema } from 'containers/SessionForm/validationSchema';
 import {
   joinSession as joinSessionAction,
   setSessionParams as setSessionParamsAction
@@ -10,7 +10,7 @@ import {
 import { useMappedDispatch, useSessionId } from 'utils/customHooks';
 import { removeEmptyRoles } from 'state/session/sessionUtils';
 import { getSessionState } from 'state/session/sessionStateGetters';
-import { CreateSessionFormData } from 'containers/CreateSessionForm/types';
+import { SessionFormData } from 'containers/SessionForm/types';
 
 const actions = {
   joinSession: joinSessionAction,
@@ -25,7 +25,7 @@ const JoinSessionPage: React.FC<Props> = () => {
   const sessionIdFromLocationState = useSessionId();
   const userRoles = removeEmptyRoles(roles);
 
-  const initialValues: CreateSessionFormData = {
+  const initialValues: SessionFormData = {
     sessionId: currentSessionId || sessionIdFromLocationState || '',
     name: user?.name || '',
     role: useRoles ? (user?.role || '') : '',
@@ -36,7 +36,7 @@ const JoinSessionPage: React.FC<Props> = () => {
   useEffect(() => () => setSessionParams({ currentSessionId: null }), []);
 
   return (
-    <CreateSessionForm
+    <SessionForm
       isJoinType
       initialValues={initialValues}
       onSubmit={joinSession}

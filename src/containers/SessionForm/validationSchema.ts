@@ -7,7 +7,7 @@ import {
   FORM_ERR_MIN,
   FORM_ERR_REQUIRED,
 } from 'constants/formValidation';
-import { CreateSessionFormData } from './types';
+import { SessionFormData } from './types';
 
 const defaultSchemaProps = () => ({
   name: Yup.string()
@@ -30,13 +30,13 @@ const defaultSchemaProps = () => ({
   useRoles: Yup.boolean(),
 });
 
-export const joinSessionValidationSchema: SchemaOf<CreateSessionFormData> =
+export const joinSessionValidationSchema: SchemaOf<SessionFormData> =
     Yup.object().shape({
       ...defaultSchemaProps(),
       sessionId: Yup.string().required({ id: FORM_ERR_REQUIRED }),
     });
 
-export const startSessionValidationSchema: SchemaOf<CreateSessionFormData> =
+export const startSessionValidationSchema: SchemaOf<SessionFormData> =
     Yup.object().shape({
       ...defaultSchemaProps(),
       sessionId: undefined,

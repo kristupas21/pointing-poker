@@ -5,13 +5,13 @@ import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';
 
 export function createUser(props?: Partial<User>): User {
-  const { id, ...other } = props;
+  const { id, name = undefined, role = undefined, isObserver = false, ...other } = props;
 
   return {
     id: id || uuidv4(),
-    name: undefined,
-    role: undefined,
-    isObserver: false,
+    name,
+    role,
+    isObserver,
     ...other,
   };
 }

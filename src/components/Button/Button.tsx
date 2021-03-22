@@ -18,6 +18,7 @@ export enum ButtonVariant {
   Primary = 'primary',
   Secondary = 'secondary',
   Danger = 'danger',
+  Default = 'default',
 }
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -31,7 +32,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<Props> = (props) => {
   const {
-    variant = ButtonVariant.None,
+    variant = ButtonVariant.Default,
     className,
     children,
     type = 'button',

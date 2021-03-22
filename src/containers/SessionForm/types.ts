@@ -1,4 +1,4 @@
-export interface CreateSessionFormData {
+export interface SessionFormData {
   isObserver: boolean;
   name: string;
   role?: string;

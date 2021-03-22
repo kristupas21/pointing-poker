@@ -9,7 +9,7 @@ export function filterAndMapVotes(users: User[]): number[] {
 
 export function divideUsersByRole(users: User[], roles: UserRole[]): { [role: string]: User[] } {
   const findRole = (id: string) =>
-    roles.find((r) => r.id === id).name;
+    roles.find((r) => r.id === id)?.name;
 
   return users.reduce((acc, user) => {
     if (user.isObserver) {

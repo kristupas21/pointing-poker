@@ -4,7 +4,7 @@ import { getSessionUserAvatarId } from 'state/session/sessionStateGetters';
 import { modifySessionUser } from 'state/session/sessionActions';
 import { useMappedDispatch } from 'utils/customHooks';
 import Avatar from 'components/Avatar';
-import Button from 'components/Button';
+import Button, { ButtonVariant } from 'components/Button';
 import Popover from 'components/Popover';
 import AvatarSelector from 'containers/AvatarSelector';
 
@@ -23,8 +23,11 @@ const AvatarField: React.FC = () => {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
-      <Button onClick={() => setPopoverOpen(!isPopoverOpen)}>
+    <div style={{ position: 'relative', display: 'inline-flex' }}>
+      <Button
+        onClick={() => setPopoverOpen(!isPopoverOpen)}
+        variant={ButtonVariant.None}
+      >
         <Avatar id={avatarId} />
       </Button>
       {isPopoverOpen && (

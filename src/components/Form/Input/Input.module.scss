@@ -7,7 +7,7 @@
   $_error-height: 20px;
 
   display: block;
-  height: $_input-height + 10px + $_error-height;
+  height: $_input-height + ($_error-height * 2);
   position: relative;
 
   &--small {
@@ -73,7 +73,7 @@
     line-height: 1.4;
     padding: 0 $_label-padding;
     position: absolute;
-    top: 0;
+    top: 10px;
     z-index: 1;
   }
 

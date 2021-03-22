@@ -2,13 +2,14 @@ import React from 'react';
 import { User } from 'types/global';
 import Avatar from 'components/Avatar';
 import { POINT_VALUE_INFINITY, POINT_VALUE_UNKNOWN } from 'utils/pointValues/constants';
+import { _flexContainer } from '_develop/_constants';
 
 interface Props extends User {
   showVote: boolean;
 }
 
 const VoteRoundUser: React.FC<Props> = (props) => {
-  const { avatarId, name, voteValue, showVote, isObserver } = props;
+  const { avatarId, name, voteValue, showVote, isObserver, role } = props;
   const hasVoted = voteValue != null;
 
   const renderValue = () => (hasVoted
@@ -22,9 +23,12 @@ const VoteRoundUser: React.FC<Props> = (props) => {
   );
 
   return (
-    <div>
+    <div style={_flexContainer}>
       <Avatar id={avatarId} />
-      <span>{name}</span>
+      <span style={{ display: 'inline-flex', flexDirection: 'column' }}>
+        {name}
+        <span style={{ fontSize: 12, color: '#808080' }}>{role}</span>
+      </span>
       {isObserver || (
         <span>
           {showVote ? renderValue() : renderHiddenValue()}

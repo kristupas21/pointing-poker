@@ -1,8 +1,11 @@
 .avatar {
+  background: #fff;
+  border: 1px solid #999;
   border-radius: 50%;
   color: inherit;
   display: inline-flex;
   overflow: hidden;
+  padding: 4px;
 
   &--invalid {
     color: #ccc;

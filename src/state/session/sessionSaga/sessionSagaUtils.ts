@@ -1,14 +1,18 @@
 import { select, call, put } from 'redux-saga/effects';
+import mergeWith from 'lodash/mergeWith';
 import storageService, { StorageKey } from 'utils/storageService';
 import { User } from 'types/global';
 import { setSessionUser } from '../sessionActions';
 import { createUser } from '../sessionUtils';
 import { getSessionUser } from '../sessionStateGetters';
 
+function mergeTruthy(x: any, y: any) {
+  return y || x;
+}
+
 export function* acquireCurrentUser(userProps?: Partial<User>): Generator<unknown, User> {
   const user = yield select(getSessionUser);
-  const { id, avatarId } = user as User || { id: undefined, avatarId: undefined };
-  const props = { ...userProps, id: id || undefined, avatarId } as User;
+  const props = mergeWith(user, userProps, mergeTruthy);
   const newUser = createUser(props);
 
   yield call(storageService.set, StorageKey.User, newUser, true);

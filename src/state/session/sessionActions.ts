@@ -2,7 +2,7 @@ import { action } from 'typesafe-actions';
 import { CustomFormError, User } from 'types/global';
 import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';
-import { CreateSessionFormData } from 'containers/CreateSessionForm/types';
+import { SessionFormData } from 'containers/SessionForm/types';
 import { SessionState } from './sessionModel';
 import {
   START_SESSION,
@@ -22,11 +22,11 @@ export const initSession = (params: Partial<SessionState>) =>
 
 export const setSessionUser = (user: User) => action(SET_SESSION_USER, user);
 
-export const startSession = (formData: CreateSessionFormData) =>
+export const startSession = (formData: SessionFormData) =>
   action(START_SESSION, formData);
 
 export const joinSession = (
-  formData: CreateSessionFormData,
+  formData: SessionFormData,
   setFieldError: (name: string, error: CustomFormError) => void,
   setSubmitting: (value: boolean) => void,
 ) =>
