@@ -1,6 +1,7 @@
 import store from 'state/store';
 import { MessageId } from 'lang';
 import { AvatarId } from 'components/Avatar';
+import { UserRole } from 'utils/userRoles/types';
 
 export enum Breakpoint {
   Desktop = 'Desktop',
@@ -13,7 +14,7 @@ export interface User {
   id: string;
   isObserver?: boolean;
   name: string;
-  role?: string;
+  role?: UserRole;
   registeredSessionId?: string;
   voteValue?: string;
 }

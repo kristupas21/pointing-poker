@@ -1,10 +1,10 @@
 import { put, select, takeLeading } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'connected-react-router';
-import { getSidebarOpenValue } from './appStateGetters';
+import { getAppSidebarOpen } from './appStateGetters';
 import { setAppSidebarOpen } from './appActions';
 
 function* closeSidebar() {
-  if (yield select(getSidebarOpenValue)) {
+  if (yield select(getAppSidebarOpen)) {
     yield put(setAppSidebarOpen(false));
   }
 }

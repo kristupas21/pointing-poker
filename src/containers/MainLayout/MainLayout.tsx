@@ -11,6 +11,7 @@ import UserSettingsOpener from 'containers/UserSettings/UserSettingsOpener';
 import { useSelector } from 'react-redux';
 import { getSessionUserId } from 'state/session/sessionStateGetters';
 import AppFooter from 'components/AppFooter';
+import { getAppLoading } from 'state/app/appStateGetters';
 import ClearStorageButton from '_develop/ClearStorageButton';
 import styles from './MainLayout.module.scss';
 
@@ -25,6 +26,7 @@ type Props = {
 const MainLayout: React.FC<Props> = (props) => {
   const { children, route, withSettings = false } = props;
   const userId = useSelector(getSessionUserId);
+  const isLoading = useSelector(getAppLoading);
   const showSettings = withSettings && !!userId;
 
   return (
@@ -37,7 +39,9 @@ const MainLayout: React.FC<Props> = (props) => {
           {showSettings && <UserSettingsOpener />}
         </div>
         <motion.div
-          className={cx('layout__children')}
+          className={cx('layout__route', {
+            'layout__route--loading': isLoading
+          })}
           key={route}
           {...animations.simpleOpacity}
         >

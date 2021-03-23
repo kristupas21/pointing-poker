@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import omit from 'lodash/omit';
 import { RouteChildrenProps } from 'react-router';
 import SessionForm from 'containers/SessionForm';
 import { joinSessionValidationSchema } from 'containers/SessionForm/validationSchema';
@@ -25,10 +26,13 @@ const JoinSessionPage: React.FC<Props> = () => {
   const sessionIdFromLocationState = useSessionId();
   const userRoles = removeEmptyRoles(roles);
 
+  const handleSubmit: typeof joinSessionAction = (values, sfe, ss) =>
+    joinSession(omit(values, 'useRoles'), sfe, ss);
+
   const initialValues: SessionFormData = {
     sessionId: currentSessionId || sessionIdFromLocationState || '',
     name: user?.name || '',
-    role: useRoles ? (user?.role || '') : '',
+    role: user?.role?.id || '',
     isObserver: user?.isObserver || false,
     useRoles,
   };
@@ -39,7 +43,7 @@ const JoinSessionPage: React.FC<Props> = () => {
     <SessionForm
       isJoinType
       initialValues={initialValues}
-      onSubmit={joinSession}
+      onSubmit={handleSubmit}
       validationSchema={joinSessionValidationSchema}
       roles={userRoles}
     />

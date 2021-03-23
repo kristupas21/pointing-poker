@@ -27,7 +27,7 @@ const VoteRoundUser: React.FC<Props> = (props) => {
       <Avatar id={avatarId} />
       <span style={{ display: 'inline-flex', flexDirection: 'column' }}>
         {name}
-        <span style={{ fontSize: 12, color: '#808080' }}>{role}</span>
+        <span style={{ fontSize: 12, color: '#808080' }}>{role.name}</span>
       </span>
       {isObserver || (
         <span>

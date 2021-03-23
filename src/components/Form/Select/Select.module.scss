@@ -27,6 +27,8 @@
     }
 
     &--up {
+      right: 11px;
+
       &::after {
         transform: rotate(-135deg);
         left: 7px;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import omit from 'lodash/omit';
 import { RouteChildrenProps } from 'react-router';
 import SessionForm from 'containers/SessionForm';
 import { startSessionValidationSchema } from 'containers/SessionForm/validationSchema';
@@ -22,9 +23,12 @@ const StartSessionPage: React.FC<Props> = () => {
   const { startSession } = useMappedDispatch(actions);
   const userRoles = removeEmptyRoles(roles);
 
+  const handleSubmit: typeof startSessionAction = (values) =>
+    startSession(omit(values, 'sessionId'));
+
   const initialValues: SessionFormData = {
     name: user?.name || '',
-    role: user?.role || '',
+    role: user?.role?.id || '',
     isObserver: user?.isObserver || false,
     useRoles: true,
   };
@@ -33,7 +37,7 @@ const StartSessionPage: React.FC<Props> = () => {
     <div>
       <SessionForm
         initialValues={initialValues}
-        onSubmit={startSession}
+        onSubmit={handleSubmit}
         validationSchema={startSessionValidationSchema}
         roles={userRoles}
       />

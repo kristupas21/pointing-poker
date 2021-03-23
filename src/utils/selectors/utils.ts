@@ -1,5 +1,6 @@
 import { User } from 'types/global';
 import { UserRole } from 'utils/userRoles/types';
+import { findRoleById } from '../userRoles/utils';
 
 export function filterAndMapVotes(users: User[]): number[] {
   return users
@@ -8,22 +9,18 @@ export function filterAndMapVotes(users: User[]): number[] {
 }
 
 export function divideUsersByRole(users: User[], roles: UserRole[]): { [role: string]: User[] } {
-  const findRole = (id: string) =>
-    roles.find((r) => r.id === id)?.name;
-
   return users.reduce((acc, user) => {
     if (user.isObserver) {
       return acc;
     }
 
-    const roleName = findRole(user.role);
+    const { name } = findRoleById(roles, user.role.id) || {};
 
     return ({
       ...acc,
-      [roleName]: [
-        ...(acc[roleName] || []),
-        user,
-      ],
+      ...(name && {
+        [name]: [...(acc[name] || []), user],
+      })
     });
   }, {});
 }

@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 import Button from 'components/Button';
-import { getSidebarOpenValue } from 'state/app/appStateGetters';
+import { getAppSidebarOpen } from 'state/app/appStateGetters';
 import { useMappedDispatch, useOutsideClose } from 'utils/customHooks';
 import { setAppSidebarOpen } from 'state/app/appActions';
 import styles from './Sidebar.module.scss';
@@ -20,7 +20,7 @@ interface Props {
 const Sidebar: React.FC<Props> = (props) => {
   const { onCloseClick, children } = props;
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const isOpen = useSelector(getSidebarOpenValue);
+  const isOpen = useSelector(getAppSidebarOpen);
   const { setSidebarOpen } = useMappedDispatch(actions);
 
   const handleClose = () => {

@@ -52,8 +52,16 @@ const Select: React.FC<SelectProps> = (props) => {
   };
 
   const handleOutsideClick = (e) => {
-    inputRef.current?.contains(e.target) && e.preventDefault();
+    if (inputRef.current?.contains(e.target)) {
+      e.preventDefault();
+    }
+
     closeDropdown();
+  };
+
+  const handleArrowMouseDown = (e) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -75,7 +83,7 @@ const Select: React.FC<SelectProps> = (props) => {
       >
         <span
           className={cx('select__arrow', { 'select__arrow--up': isOpen })}
-          onMouseDown={openDropdown}
+          onMouseDown={handleArrowMouseDown}
           role="presentation"
         />
       </Input>

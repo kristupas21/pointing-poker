@@ -42,6 +42,8 @@ export const messages = {
   'voteRound.action.hideVotes': 'Hide votes',
   'voteRound.action.showVotes': 'Show votes',
   'voteRound.action.choosePoints': 'Choose points',
+  'voteRound.average': 'Average',
+  'voteRound.storyPoints': 'Story Points',
 
   'notifications.sessionIdCopied': 'Session ID copied!',
   'notifications.userLeft': 'has left the session.',

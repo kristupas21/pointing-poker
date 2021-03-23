@@ -25,7 +25,7 @@ const UserSettings: React.FC = () => {
   const { name, role, isObserver, avatarId } = useSelector(getSessionUser);
   const useRoles = useSelector(getSessionUseRoles);
   const text = useText();
-  const initialValues = { name, role: useRoles ? role : '' };
+  const initialValues = { name, role: useRoles ? role?.id : '' };
 
   return (
     <div>

@@ -5,6 +5,7 @@ import { AppRoute } from 'constants/routes';
 import { ERROR_CODES } from 'constants/errorCodes';
 import { throwAppError } from 'state/error/errorActions';
 import { initVoteRound } from 'state/voteRound/voteRoundActions';
+import { setAppLoading } from 'state/app/appActions';
 import { LOAD_SESSION } from '../sessionConstants';
 import { initSession, loadSession } from '../sessionActions';
 import sessionApi from '../sessionApi';
@@ -55,6 +56,8 @@ function* loadSaga(action: ActionType<typeof loadSession>) {
     }
 
     yield put(throwAppError(code || ERROR_CODES.UNEXPECTED));
+  } finally {
+    yield put(setAppLoading(false));
   }
 }
 
