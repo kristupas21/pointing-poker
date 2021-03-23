@@ -1,6 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getSessionUser, getSessionUseRoles } from 'state/session/sessionStateGetters';
+import {
+  getSessionUserAvatarId,
+  getSessionUserIsObserver,
+  getSessionUserName,
+  getSessionUseRoles,
+  getSessionUserRole
+} from 'state/session/sessionStateGetters';
 import { modifySessionUser } from 'state/session/sessionActions';
 import { wsModifySessionUser } from 'state/ws/wsActions';
 import { useMappedDispatch, useText } from 'utils/customHooks';
@@ -26,7 +32,10 @@ type Props = {
 
 const UserSettings: React.FC<Props> = ({ withForm }) => {
   const { modifyUser, setSidebarOpen } = useMappedDispatch<A>(actions as unknown as A);
-  const { name, role, isObserver, avatarId } = useSelector(getSessionUser);
+  const name = useSelector(getSessionUserName);
+  const role = useSelector(getSessionUserRole);
+  const isObserver = useSelector(getSessionUserIsObserver);
+  const avatarId = useSelector(getSessionUserAvatarId);
   const useRoles = useSelector(getSessionUseRoles);
   const text = useText();
   const initialValues = { name, role: useRoles ? role?.id : '' };

@@ -2,11 +2,6 @@ import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import { StorageKey } from './types';
 
-/**
- * user: User,
- * [sessionId: string]: { useRoles: boolean },
- */
-
 class StorageService {
   private readonly appKey = 'pointing-poker-app';
 

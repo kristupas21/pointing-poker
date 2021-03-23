@@ -3,6 +3,7 @@ import { MessageId, MESSAGES } from 'lang';
 import { getAppLocale } from 'state/app/appStateGetters';
 
 type Args = Record<string, string | number>;
+
 type TextFn = (id: MessageId, args?: Args) => string;
 
 function replaceValues(message: string, prop: string, value: string): string {

@@ -17,10 +17,15 @@ import styles from './App.module.scss';
 const cx = classNames.bind(styles);
 
 const LandingPage = withMainLayout(LandingPageComponent);
+
 const SessionNotFoundPage = withMainLayout(SessionNotFoundPageComponent);
+
 const ErrorPage = withMainLayout(ErrorPageComponent);
+
 const StartSessionPage = withMainLayout(StartSessionPageComponent);
+
 const JoinSessionPage = withMainLayout(JoinSessionPageComponent);
+
 const SessionPage = withMainLayout(SessionPageComponent, true);
 
 const App: React.FC = () => {

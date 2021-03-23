@@ -17,15 +17,28 @@ import {
 import { modifyUserEmitter, userEmitter } from './wsEmitters';
 import { MODIFY_SESSION_USER } from '../session/sessionConstants';
 
-const withWS = (name: string): string => `@@ws/${name}`;
+function withWS(name: string): string {
+  return `@@ws/${name}`;
+}
 
-export const WS_USER_JOINED = withWS('USER_JOINED');
-export const WS_USER_LEFT = withWS('USER_LEFT');
+const USER_JOINED = 'USER_JOINED';
+
+const USER_LEFT = 'USER_LEFT';
+
+export const WS_USER_JOINED = withWS(USER_JOINED);
+
+export const WS_USER_LEFT = withWS(USER_LEFT);
+
 export const WS_SHOW_VOTES = withWS(SHOW_VOTES);
+
 export const WS_HIDE_VOTES = withWS(HIDE_VOTES);
+
 export const WS_RESET_VOTE_ROUND = withWS(RESET_VOTE_ROUND);
+
 export const WS_SET_USER_VOTE_VALUE = withWS(SET_USER_VOTE_VALUE);
+
 export const WS_SET_VOTE_ROUND_TOPIC = withWS(SET_VOTE_ROUND_TOPIC);
+
 export const WS_MODIFY_SESSION_USER = withWS(MODIFY_SESSION_USER);
 
 export const WS_EVENT_MAP: WSEventMapItem[] = [

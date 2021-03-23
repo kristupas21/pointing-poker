@@ -2,10 +2,14 @@ import { AppVariables } from 'types/global';
 import { Theme } from './types';
 
 const _white = '#ffffff';
+
 const _darkGrey = '#333333';
+
 const _violet = '#7E41FF';
 
-const withPrefix = (name: string): string => `--app-${name}`;
+function withPrefix(name: string): string {
+  return `--app-${name}`;
+}
 
 const THEME_VARIABLES: Record<Theme, AppVariables> = {
   [Theme.Light]: {

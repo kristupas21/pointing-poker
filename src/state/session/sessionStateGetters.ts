@@ -14,6 +14,8 @@ export const getSessionUserName = (state: State): string => state.session.user?.
 
 export const getSessionUserAvatarId = (state: State): AvatarId => state.session.user?.avatarId;
 
+export const getSessionUserRole = (state: State): UserRole => state.session.user?.role;
+
 export const getSessionUserIsObserver = (state: State): boolean => state.session.user?.isObserver || false;
 
 export const getSessionPointValues = (state: State): PointValue[] => state.session.pointValues;

@@ -18,6 +18,7 @@ const _resultStyle = {
 };
 
 const resultSelector = makeResultSelector();
+
 const resultByRoleSelector = makeResultByRoleSelector();
 
 const VoteRoundResult: React.FC = () => {

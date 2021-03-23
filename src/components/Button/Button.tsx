@@ -5,12 +5,17 @@ import withForwardRef from 'utils/withForwardRef';
 import styles from './Button.module.scss';
 
 /* eslint-disable react/button-has-type */
+
 const cx = classNames.bind(styles);
+
 const wiggleClass = '-wiggle';
+
 const wiggleTime = 300;
+
 const clickDelay = 70;
 
 let wiggleTimeout: ReturnType<typeof setTimeout>;
+
 let clickTimeout: ReturnType<typeof setTimeout>;
 
 export enum ButtonVariant {

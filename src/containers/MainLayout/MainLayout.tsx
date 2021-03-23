@@ -9,7 +9,6 @@ import Sidebar from 'components/Sidebar';
 import UserSettings from 'containers/UserSettings';
 import UserSettingsOpener from 'containers/UserSettings/UserSettingsOpener';
 import { useSelector } from 'react-redux';
-import { getSessionUserId } from 'state/session/sessionStateGetters';
 import AppFooter from 'components/AppFooter';
 import { getAppLoading } from 'state/app/appStateGetters';
 import ClearStorageButton from '_develop/ClearStorageButton';
@@ -25,7 +24,6 @@ type Props = {
 
 const MainLayout: React.FC<Props> = (props) => {
   const { children, route, withUserSettings = false } = props;
-  const userId = useSelector(getSessionUserId);
   const isLoading = useSelector(getAppLoading);
 
   return (
@@ -48,7 +46,7 @@ const MainLayout: React.FC<Props> = (props) => {
         </motion.div>
       </div>
       <Sidebar>
-        <UserSettings withForm={!!userId && withUserSettings} />
+        <UserSettings withForm={withUserSettings} />
       </Sidebar>
       <AppFooter>
         <ClearStorageButton />

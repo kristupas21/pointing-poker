@@ -1,6 +1,7 @@
 import { PointValue } from './types';
 
 export const POINT_VALUE_INFINITY = '∞';
+
 export const POINT_VALUE_UNKNOWN = '?';
 
 export const DEFAULT_POINT_VALUES: PointValue[] = [
