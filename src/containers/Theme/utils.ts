@@ -3,22 +3,25 @@ import { Theme } from './types';
 
 const _white = '#ffffff';
 const _darkGrey = '#333333';
-const _rose = '#ec3669';
+const _violet = '#7E41FF';
 
 const withPrefix = (name: string): string => `--app-${name}`;
 
 const THEME_VARIABLES: Record<Theme, AppVariables> = {
   [Theme.Light]: {
     mainColor: _white,
-    secondaryColor: _darkGrey,
+    textColor: _darkGrey,
+    backgroundColor: _white,
   },
   [Theme.Dark]: {
     mainColor: _darkGrey,
-    secondaryColor: _white,
+    textColor: _white,
+    backgroundColor: _darkGrey,
   },
-  [Theme.Rose]: {
-    mainColor: _rose,
-    secondaryColor: _white,
+  [Theme.Violet]: {
+    mainColor: _violet,
+    textColor: _darkGrey,
+    backgroundColor: _white,
   },
 };
 

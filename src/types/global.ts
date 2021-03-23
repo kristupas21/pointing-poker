@@ -36,7 +36,8 @@ export type CustomFormErrors<T> = Record<keyof T, CustomFormError>;
 
 export interface AppVariables {
   mainColor: string;
-  secondaryColor: string;
+  backgroundColor: string;
+  textColor: string;
 }
 
 export enum AlignType {

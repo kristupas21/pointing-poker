@@ -1,8 +1,8 @@
 import React from 'react';
 import { User } from 'types/global';
 import Avatar from 'components/Avatar';
+import { useText } from 'utils/customHooks';
 import { POINT_VALUE_INFINITY, POINT_VALUE_UNKNOWN } from 'utils/pointValues/constants';
-import { _flexContainer } from '_develop/_constants';
 
 interface Props extends User {
   showVote: boolean;
@@ -10,6 +10,7 @@ interface Props extends User {
 
 const VoteRoundUser: React.FC<Props> = (props) => {
   const { avatarId, name, voteValue, showVote, isObserver, role } = props;
+  const text = useText();
   const hasVoted = voteValue != null;
 
   const renderValue = () => (hasVoted
@@ -19,15 +20,15 @@ const VoteRoundUser: React.FC<Props> = (props) => {
 
   const renderHiddenValue = () => (hasVoted
     ? <span role="img" aria-labelledby="">✅</span>
-    : <span role="img" aria-labelledby="">❌</span>
+    : <span style={{ fontSize: 12 }}>{text('voteRound.waiting')}</span>
   );
 
   return (
-    <div style={_flexContainer}>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
       <Avatar id={avatarId} />
       <span style={{ display: 'inline-flex', flexDirection: 'column' }}>
-        {name}
-        <span style={{ fontSize: 12, color: '#808080' }}>{role.name}</span>
+        <span style={{ fontWeight: 500 }}>{name}</span>
+        <span style={{ fontSize: 10, color: '#808080' }}>{role.name}</span>
       </span>
       {isObserver || (
         <span>

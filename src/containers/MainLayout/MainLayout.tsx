@@ -20,14 +20,13 @@ const cx = classNames.bind(styles);
 type Props = {
   children?: ReactNode;
   route: string;
-  withSettings?: boolean;
+  withUserSettings?: boolean;
 };
 
 const MainLayout: React.FC<Props> = (props) => {
-  const { children, route, withSettings = false } = props;
+  const { children, route, withUserSettings = false } = props;
   const userId = useSelector(getSessionUserId);
   const isLoading = useSelector(getAppLoading);
-  const showSettings = withSettings && !!userId;
 
   return (
     <div className={cx('layout')}>
@@ -36,7 +35,7 @@ const MainLayout: React.FC<Props> = (props) => {
           <Link to={AppRoute.Base}>
             <Logo />
           </Link>
-          {showSettings && <UserSettingsOpener />}
+          <UserSettingsOpener />
         </div>
         <motion.div
           className={cx('layout__route', {
@@ -48,11 +47,9 @@ const MainLayout: React.FC<Props> = (props) => {
           {children}
         </motion.div>
       </div>
-      {showSettings && (
-        <Sidebar>
-          <UserSettings />
-        </Sidebar>
-      )}
+      <Sidebar>
+        <UserSettings withForm={!!userId && withUserSettings} />
+      </Sidebar>
       <AppFooter>
         <ClearStorageButton />
       </AppFooter>

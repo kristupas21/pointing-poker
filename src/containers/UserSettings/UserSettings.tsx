@@ -20,7 +20,11 @@ type A = {
   setSidebarOpen: typeof setAppSidebarOpen;
 }
 
-const UserSettings: React.FC = () => {
+type Props = {
+  withForm?: boolean;
+}
+
+const UserSettings: React.FC<Props> = ({ withForm }) => {
   const { modifyUser, setSidebarOpen } = useMappedDispatch<A>(actions as unknown as A);
   const { name, role, isObserver, avatarId } = useSelector(getSessionUser);
   const useRoles = useSelector(getSessionUseRoles);
@@ -29,12 +33,14 @@ const UserSettings: React.FC = () => {
 
   return (
     <div>
-      <UserSettingsForm
-        initialValues={initialValues}
-        isObserver={isObserver}
-        useRoles={useRoles}
-        submitField={modifyUser}
-      />
+      {withForm && (
+        <UserSettingsForm
+          initialValues={initialValues}
+          isObserver={isObserver}
+          useRoles={useRoles}
+          submitField={modifyUser}
+        />
+      )}
       <AvatarSelector onSelect={modifyUser} value={avatarId} />
       <ThemeSelector />
       <Button onClick={() => setSidebarOpen(false)}>{text('global.done')}</Button>

@@ -44,6 +44,7 @@ export const messages = {
   'voteRound.action.choosePoints': 'Choose points',
   'voteRound.average': 'Average',
   'voteRound.storyPoints': 'Story Points',
+  'voteRound.waiting': 'Waiting...',
 
   'notifications.sessionIdCopied': 'Session ID copied!',
   'notifications.userLeft': 'has left the session.',
@@ -61,5 +62,5 @@ export const messages = {
 
   'theme.variant.light': 'Light',
   'theme.variant.dark': 'Dark',
-  'theme.variant.rose': 'Rose'
+  'theme.variant.violet': 'Violet'
 };

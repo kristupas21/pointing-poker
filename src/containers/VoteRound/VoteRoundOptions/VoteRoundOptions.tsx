@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import sortBy from 'lodash/sortBy';
 import Button from 'components/Button';
@@ -7,6 +7,10 @@ import { wsSetUserVoteValue } from 'state/ws/wsActions';
 import { makeCurrentUserVoteSelector } from 'utils/selectors';
 import { getSessionPointValues, getSessionUserId } from 'state/session/sessionStateGetters';
 import { useMappedDispatch } from 'utils/customHooks';
+import classNames from 'classnames/bind';
+import styles from './VoteRoundOptions.module.scss';
+
+const cx = classNames.bind(styles);
 
 const actions = {
   setVoteValue: [setUserVoteValue, wsSetUserVoteValue],
@@ -22,14 +26,13 @@ const VoteRoundOptions: React.FC = () => {
   const currentUserVote = useSelector(currentUserVoteSelector);
   const { setVoteValue } = useMappedDispatch<A>(actions as unknown as A);
 
-  const getTempStyle = (value: string): CSSProperties => ({
-    ...(value === currentUserVote) && { border: '2px solid' }
-  });
-
   return (
     <ul>
       {sortBy(pointValues, 'pos').map(({ value }) => (
-        <li key={value} style={getTempStyle(value)}>
+        <li
+          key={value}
+          className={cx('item', { 'item--selected': value === currentUserVote })}
+        >
           <Button onClick={() => setVoteValue(userId, value)}>
             {value}
           </Button>

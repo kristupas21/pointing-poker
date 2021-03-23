@@ -1,0 +1,13 @@
+.item {
+  background: none;
+
+  &--selected {
+    & > button {
+      background: var(--app-mainColor);
+
+      &:hover {
+        background: var(--app-mainColor);
+      }
+    }
+  }
+}

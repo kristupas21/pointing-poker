@@ -7,9 +7,7 @@ import Button from 'components/Button';
 import { UserRole } from 'utils/userRoles/types';
 import { useText } from 'utils/customHooks';
 import { CustomFormError, CustomFormErrors } from 'types/global';
-import { _flexContainer } from '_develop/_constants';
 import { SessionFormData } from './types';
-import AvatarField from './AvatarField';
 
 type Props = {
   isJoinType?: boolean;
@@ -86,17 +84,15 @@ const SessionForm: React.FC<Props> = (props) => {
                 isBlock
               />
             )}
-            <div style={_flexContainer}>
-              <FormField
-                name="name"
-                type={FieldType.Input}
-                error={getErrorText(errors.name)}
-                label={text('session.field.name.label')}
-                fieldSize={FieldSize.Large}
-                placeholder={text('session.field.name.placeholder')}
-              />
-              <AvatarField />
-            </div>
+            <FormField
+              name="name"
+              type={FieldType.Input}
+              error={getErrorText(errors.name)}
+              label={text('session.field.name.label')}
+              fieldSize={FieldSize.Large}
+              placeholder={text('session.field.name.placeholder')}
+              isBlock
+            />
             {isJoinType || (
               <FormField
                 name="useRoles"

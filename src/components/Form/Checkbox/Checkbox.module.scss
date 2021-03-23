@@ -1,6 +1,7 @@
 .checkbox {
   $this: &;
-  $_color: var(--app-secondaryColor);
+  $_background-color: var(--app-mainColor);
+  $_checkmark-color: var(--app-textColor);
 
   display: flex;
 
@@ -14,7 +15,7 @@
 
     &:checked {
       & ~ #{$this}__ui {
-        background: $_color;
+        background: $_background-color;
 
         &::after {
           opacity: 1;
@@ -39,7 +40,7 @@
     height: 19px;
     width: 19px;
     border-radius: 4px;
-    border: 2px solid $_color;
+    border: 2px solid $_background-color;
     position: relative;
     display: inline-flex;
     transition: all .15s;
@@ -49,7 +50,7 @@
       top: 2px;
       width: 4px;
       height: 7px;
-      border: solid var(--app-mainColor);
+      border: solid $_checkmark-color;
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
       content: '';

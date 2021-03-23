@@ -1,11 +1,12 @@
 @import 'css-vars';
+@import 'fonts';
 
 * {
   box-sizing: border-box;
 }
 
 a:visited {
-  color: var(--app-secondaryColor);
+  color: var(--app-textColor);
 }
 
 ul {
@@ -18,11 +19,11 @@ li {
 }
 
 html {
-  background: var(--app-mainColor);
+  background: var(--app-backgroundColor);
 }
 
 body, input, select, button {
-  font-family: 'Avenir Next', sans-serif;
+  font-family: Baloo2, sans-serif;
 }
 
 body, html {

@@ -6,5 +6,5 @@ export interface WithTheme {
 export enum Theme {
   Dark = 'dark',
   Light = 'light',
-  Rose = 'rose',
+  Violet = 'violet',
 }

@@ -4,6 +4,7 @@
   width: 100%;
 
   &--selected {
-    background: #00A3FF;
+    background: var(--app-mainColor);
+    color: var(--app-textColor);
   }
 }
