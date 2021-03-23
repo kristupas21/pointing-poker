@@ -3,9 +3,10 @@ import uniqBy from 'lodash/uniqBy';
 import { User } from 'types/global';
 import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';
+import { EMPTY_USER_ROLE } from './sessionConstants';
 
 export function createUser(props?: Partial<User>): User {
-  const { id, name = undefined, role = undefined, isObserver = false, ...other } = props;
+  const { id, name = undefined, role = EMPTY_USER_ROLE, isObserver = false, ...other } = props;
 
   return {
     id: id || uuidv4(),

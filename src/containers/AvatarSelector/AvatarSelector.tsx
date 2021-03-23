@@ -12,15 +12,15 @@ type Props = {
 const AvatarSelector: React.FC<Props> = (props) => {
   const { onSelect, value } = props;
   const text = useText();
-  const getStyle = (id: AvatarId) =>
-    ({ ...(value === id && { border: '2px solid rosybrown' }) });
+  const _getStyle = (id: AvatarId) =>
+    ({ ...(value === id && { border: '2px solid var(--app-mainColor)' }) });
 
   return (
     <div>
       <h4>{text('settings.avatar.title')}</h4>
       {Object.values(AvatarId).map((avatarId) => (
         <Button
-          style={getStyle(avatarId)}
+          style={_getStyle(avatarId)}
           key={avatarId}
           onClick={() => onSelect({ avatarId })}
           variant={ButtonVariant.None}

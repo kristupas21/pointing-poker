@@ -14,7 +14,7 @@ export function divideUsersByRole(users: User[], roles: UserRole[]): { [role: st
       return acc;
     }
 
-    const { name } = findRoleById(roles, user.role.id) || {};
+    const { name } = findRoleById(roles, user.role?.id) || {};
 
     return ({
       ...acc,

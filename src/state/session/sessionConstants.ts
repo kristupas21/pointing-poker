@@ -1,3 +1,5 @@
+import { UserRole } from '../../utils/userRoles/types';
+
 export const START_SESSION = '@session/START';
 
 export const JOIN_SESSION = '@session/JOIN';
@@ -25,3 +27,5 @@ export const SAVE_SESSION_ROLE = '@session/SAVE_ROLE';
 export const SET_SESSION_USER = '@session/SET_USER';
 
 export const MODIFY_SESSION_USER = '@session/MODIFY_USER';
+
+export const EMPTY_USER_ROLE: UserRole = { name: undefined, id: undefined };

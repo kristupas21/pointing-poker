@@ -3,6 +3,7 @@ import { PointValue } from 'utils/pointValues/types';
 import { AvatarId } from 'components/Avatar';
 import { UserRole } from 'utils/userRoles/types';
 import { SessionState } from './sessionModel';
+import { EMPTY_USER_ROLE } from './sessionConstants';
 
 export const getSessionState = (state: State): SessionState => state.session;
 
@@ -14,7 +15,8 @@ export const getSessionUserName = (state: State): string => state.session.user?.
 
 export const getSessionUserAvatarId = (state: State): AvatarId => state.session.user?.avatarId;
 
-export const getSessionUserRole = (state: State): UserRole => state.session.user?.role;
+export const getSessionUserRole = (state: State): UserRole =>
+  state.session.user?.role || EMPTY_USER_ROLE;
 
 export const getSessionUserIsObserver = (state: State): boolean => state.session.user?.isObserver || false;
 
