@@ -3,12 +3,6 @@ import { MessageId } from 'lang';
 import { AvatarId } from 'components/Avatar';
 import { UserRole } from 'utils/userRoles/types';
 
-export enum Breakpoint {
-  Desktop = 'Desktop',
-  Tablet = 'Tablet',
-  Mobile = 'Mobile',
-}
-
 export interface User {
   avatarId?: AvatarId;
   id: string;

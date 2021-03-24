@@ -4,6 +4,7 @@ import { UserRole } from 'utils/userRoles/types';
 
 export interface SessionState {
   currentSessionId: string;
+  expiresAt: Date;
   useRoles: boolean;
   user: User;
   pointValues: PointValue[];

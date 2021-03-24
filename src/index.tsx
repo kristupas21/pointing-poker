@@ -6,15 +6,18 @@ import App from 'containers/App';
 import store from 'state/store';
 import history from 'state/history';
 import { ThemeContextProvider } from 'containers/Theme';
+import { BreakpointsContextProvider } from './containers/Breakpoints';
 import 'styles/index.scss';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <ThemeContextProvider>
-          <App />
-        </ThemeContextProvider>
+        <BreakpointsContextProvider>
+          <ThemeContextProvider>
+            <App />
+          </ThemeContextProvider>
+        </BreakpointsContextProvider>
       </ConnectedRouter>
     </Provider>
   </React.StrictMode>,

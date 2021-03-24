@@ -5,6 +5,7 @@ import { JoinSessionParams, LoadSessionParams, StartSessionParams } from './sess
 interface StartSessionResponse {
   data: {
     sessionId: string;
+    expiresAt: Date;
   };
 }
 

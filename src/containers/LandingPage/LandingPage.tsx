@@ -1,14 +1,14 @@
 import React from 'react';
 import { RouteChildrenProps } from 'react-router';
 import Button, { ButtonVariant } from 'components/Button';
-import { useBreakpoint, useText } from 'utils/customHooks';
+import { useText } from 'utils/customHooks';
 import { AppRoute } from 'constants/routes';
+import { WithBreakpoint, withBreakpointsContext } from 'containers/Breakpoints';
 
-type Props = RouteChildrenProps;
+type Props = RouteChildrenProps & WithBreakpoint;
 
 const LandingPage: React.FC<Props> = (props) => {
-  const { history } = props;
-  const breakpoint = useBreakpoint();
+  const { history, breakpoint } = props;
   const text = useText();
 
   const handleStartClick = () =>
@@ -32,4 +32,4 @@ const LandingPage: React.FC<Props> = (props) => {
   );
 };
 
-export default LandingPage;
+export default withBreakpointsContext(LandingPage);
