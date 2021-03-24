@@ -14,7 +14,7 @@ import { acquireCurrentUser } from './sessionSagaUtils';
 import { getSessionPointValues, getSessionRoles } from '../sessionStateGetters';
 import { normalizePointValues, removeEmptyRoles } from '../sessionUtils';
 
-function* startSaga(action: ActionType<typeof startSession>) {
+export function* startSessionSaga(action: ActionType<typeof startSession>) {
   const { useRoles, role, ...rest } = action.payload;
   const stateRoles = yield select(getSessionRoles);
 
@@ -45,5 +45,5 @@ function* startSaga(action: ActionType<typeof startSession>) {
 }
 
 export default function* sessionSagaStart() {
-  yield takeLatest(START_SESSION, startSaga);
+  yield takeLatest(START_SESSION, startSessionSaga);
 }

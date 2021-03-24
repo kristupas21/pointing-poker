@@ -7,9 +7,7 @@ import { setErrorState, throwAppError } from './errorActions';
 import { THROW_APP_ERROR } from './errorConstants';
 import { getCurrentErrorId } from './errorStateGetters';
 
-type ThrowAction = ActionType<typeof throwAppError>;
-
-function* throwErrorSaga(action: ThrowAction) {
+export function* throwErrorSaga(action: ActionType<typeof throwAppError>) {
   const redirectPath = yield select(getCurrentRoutePath);
   const { payload: errorId } = action;
 
@@ -17,7 +15,7 @@ function* throwErrorSaga(action: ThrowAction) {
   yield put(push(AppRoute.Error));
 }
 
-function* clearErrorSaga(action: LocationChangeAction) {
+export function* clearErrorSaga(action: LocationChangeAction) {
   if (action.payload.location.pathname === AppRoute.Error) {
     return;
   }

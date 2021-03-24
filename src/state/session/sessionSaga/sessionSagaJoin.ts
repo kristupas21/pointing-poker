@@ -12,7 +12,7 @@ import { JOIN_SESSION } from '../sessionConstants';
 import { acquireCurrentUser } from './sessionSagaUtils';
 import { getSessionRoles } from '../sessionStateGetters';
 
-function* joinSaga(action: ActionType<typeof joinSession>) {
+export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
   const {
     formData: {
       sessionId,
@@ -65,5 +65,5 @@ function* joinSaga(action: ActionType<typeof joinSession>) {
 }
 
 export default function* sessionSagaJoin() {
-  yield takeLatest(JOIN_SESSION, joinSaga);
+  yield takeLatest(JOIN_SESSION, joinSessionSaga);
 }

@@ -7,7 +7,7 @@ import { createUser } from '../sessionUtils';
 import { getSessionUser } from '../sessionStateGetters';
 
 function mergeTruthy(x: any, y: any) {
-  return y || x;
+  return y != null && y !== '' ? y : x;
 }
 
 export function* acquireCurrentUser(userProps?: Partial<User>): Generator<unknown, User> {

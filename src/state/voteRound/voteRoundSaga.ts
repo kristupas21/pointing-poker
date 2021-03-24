@@ -1,11 +1,11 @@
 import { select, put, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { getSessionUser } from 'state/session/sessionStateGetters';
+import { MODIFY_SESSION_USER } from 'state/session/sessionConstants';
+import { modifySessionUser } from 'state/session/sessionActions';
 import { addUserToVoteRound } from './voteRoundActions';
-import { MODIFY_SESSION_USER } from '../session/sessionConstants';
-import { modifySessionUser } from '../session/sessionActions';
 
-function* updateVoteRoundUser(action: ActionType<typeof modifySessionUser>) {
+export function* modifyVoteRoundUserSaga(action: ActionType<typeof modifySessionUser>) {
   const user = yield select(getSessionUser);
   const updatedUser = { ...user, ...action.payload };
 
@@ -13,5 +13,5 @@ function* updateVoteRoundUser(action: ActionType<typeof modifySessionUser>) {
 }
 
 export default function* voteRoundSaga() {
-  yield takeLatest(MODIFY_SESSION_USER, updateVoteRoundUser);
+  yield takeLatest(MODIFY_SESSION_USER, modifyVoteRoundUserSaga);
 }
