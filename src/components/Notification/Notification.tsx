@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
 import Button from 'components/Button';
 import ProgressBar from 'components/ProgressBar';
+import { Timeout } from 'types/global';
 import { AppNotification } from 'state/notifications/notificationsModel';
 import animations from 'utils/animations';
 import { LIFESPAN_TO_INTERVAL_MAP } from './constants';
@@ -17,7 +18,7 @@ export interface NotificationProps extends AppNotification {
 const Notification: React.FC<NotificationProps> = (props) => {
   const { lifespan, children, onCloseClick, id } = props;
   const interval = lifespan ? LIFESPAN_TO_INTERVAL_MAP[lifespan] : 0;
-  const timeout = useRef<ReturnType<typeof setTimeout>>();
+  const timeout = useRef<Timeout>();
 
   useEffect(() => {
     if (onCloseClick && lifespan) {

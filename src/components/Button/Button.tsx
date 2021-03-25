@@ -2,6 +2,7 @@ import React, { ButtonHTMLAttributes, RefObject, useRef } from 'react';
 import classNames from 'classnames/bind';
 import Icon, { IconId } from 'components/Icon';
 import withForwardRef from 'utils/withForwardRef';
+import { Timeout } from 'types/global';
 import styles from './Button.module.scss';
 
 /* eslint-disable react/button-has-type */
@@ -13,10 +14,6 @@ const wiggleClass = '-wiggle';
 const wiggleTime = 300;
 
 const clickDelay = 70;
-
-let wiggleTimeout: ReturnType<typeof setTimeout>;
-
-let clickTimeout: ReturnType<typeof setTimeout>;
 
 export enum ButtonVariant {
   None = 'none',
@@ -53,6 +50,8 @@ const Button: React.FC<Props> = (props) => {
   } = props;
 
   const btnRef = useRef<HTMLButtonElement>(innerRef?.current || null);
+  const wiggleTimeout = useRef<Timeout>();
+  const clickTimeout = useRef<Timeout>();
 
   const classes = cx('button', `button--${variant}`,
     {
@@ -64,17 +63,13 @@ const Button: React.FC<Props> = (props) => {
     className);
 
   const handleClick = (e) => {
-    if (disabled) {
+    if (disabled || !onClick) {
       return;
     }
 
-    if (!onClick) {
-      return;
-    }
-
-    clickTimeout = setTimeout(() => {
+    clickTimeout.current = setTimeout(() => {
       onClick(e);
-      clearTimeout(clickTimeout);
+      clearTimeout(clickTimeout.current);
     }, clickDelay);
   };
 
@@ -92,9 +87,9 @@ const Button: React.FC<Props> = (props) => {
 
     btn.classList.add(wiggleClass);
 
-    wiggleTimeout = setTimeout(() => {
+    wiggleTimeout.current = setTimeout(() => {
       btn.classList.remove(wiggleClass);
-      clearTimeout(wiggleTimeout);
+      clearTimeout(wiggleTimeout.current);
     }, wiggleTime);
   };
 

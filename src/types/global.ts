@@ -39,3 +39,5 @@ export enum AlignType {
   Right = 'right',
   Center = 'center',
 }
+
+export type Timeout = ReturnType<typeof setTimeout>;
