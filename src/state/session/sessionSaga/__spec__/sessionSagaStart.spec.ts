@@ -13,7 +13,7 @@ import { ERROR_CODES } from 'constants/errorCodes';
 import { setAppLoading } from 'state/app/appActions';
 import { startSessionSaga } from '../sessionSagaStart';
 import { setSessionParams, startSession } from '../../sessionActions';
-import { StartSessionParams } from '../../sessionModel';
+import { StartSessionParams, StartSessionResponse } from '../../sessionModel';
 import sessionApi from '../../sessionApi';
 
 describe('startSessionSaga', () => {
@@ -49,13 +49,17 @@ describe('startSessionSaga', () => {
   };
 
   it('calls endpoint, navigates to session route & stores values', async () => {
+    const response: StartSessionResponse = {
+      data: {
+        sessionId: 'gen-id',
+        expiresAt: null
+      },
+    };
+
     await expectSaga(startSessionSaga, startSession(formData))
       .withState(mockState)
       .provide([
-        [
-          call(sessionApi.start, expectedParams),
-          { data: { sessionId: 'gen-id', expiresAt: null } }
-        ]
+        [call(sessionApi.start, expectedParams), response]
       ])
       .put(setAppLoading(true))
       .call(sessionApi.start, expectedParams)

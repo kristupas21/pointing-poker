@@ -1,27 +1,17 @@
 import api from 'utils/api';
-import { User } from 'types/global';
-import { JoinSessionParams, LoadSessionParams, StartSessionParams } from './sessionModel';
-
-interface StartSessionResponse {
-  data: {
-    sessionId: string;
-    expiresAt: Date;
-  };
-}
-
-interface GetSessionResponse {
-  data: {
-    session: {
-      id: string;
-      users: User[];
-    }
-  }
-}
+import {
+  JoinSessionParams,
+  JoinSessionResponse,
+  LoadSessionParams,
+  LoadSessionResponse,
+  StartSessionParams,
+  StartSessionResponse
+} from './sessionModel';
 
 interface Api {
   start(params: StartSessionParams): Promise<StartSessionResponse>;
-  join(params: JoinSessionParams): Promise<GetSessionResponse>;
-  load(params: LoadSessionParams): Promise<GetSessionResponse>;
+  join(params: JoinSessionParams): Promise<JoinSessionResponse>;
+  load(params: LoadSessionParams): Promise<LoadSessionResponse>;
 }
 
 export default <Api>{

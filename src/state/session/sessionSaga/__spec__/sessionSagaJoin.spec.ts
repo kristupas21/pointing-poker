@@ -8,7 +8,7 @@ import { ERROR_CODES } from 'constants/errorCodes';
 import { throwAppError } from 'state/error/errorActions';
 import { joinSession, setSessionParams } from '../../sessionActions';
 import { joinSessionSaga } from '../sessionSagaJoin';
-import { JoinSessionParams } from '../../sessionModel';
+import { JoinSessionParams, JoinSessionResponse } from '../../sessionModel';
 import sessionApi from '../../sessionApi';
 
 describe('joinSessionSaga', () => {
@@ -48,10 +48,16 @@ describe('joinSessionSaga', () => {
   });
 
   it('acquires params, calls endpoint & navigates to session route', async () => {
+    const response: JoinSessionResponse = {
+      data: {
+        sessionId: 's-id'
+      },
+    };
+
     await expectSaga(joinSessionSaga, joinSession(...getActionParams()))
       .withState(mockState)
       .provide([
-        [call(sessionApi.join, expectedParams), { data: { sessionId: 's-id' } }]
+        [call(sessionApi.join, expectedParams), response]
       ])
       .put(setAppLoading(true))
       .call(sessionApi.join, expectedParams)

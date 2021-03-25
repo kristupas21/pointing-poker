@@ -28,3 +28,29 @@ export interface StartSessionParams {
   useRoles: boolean;
   roles: UserRole[];
 }
+
+export interface StartSessionResponse {
+  data: {
+    sessionId: string;
+    expiresAt: Date;
+  };
+}
+
+export interface JoinSessionResponse {
+  data: {
+    sessionId: string,
+  }
+}
+
+export interface LoadSessionResponse {
+  data: {
+    session: {
+      useRoles: boolean,
+      users: User[],
+      showVotes: boolean,
+      currentTopic: string,
+      pointValues: PointValue[],
+      roles: UserRole[],
+    }
+  }
+}

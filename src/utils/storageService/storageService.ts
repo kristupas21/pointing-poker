@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import { StorageKey } from './types';
 
-class StorageService {
+export class StorageService {
   private readonly appKey = 'pointing-poker-app';
 
   private storage = process.env.NODE_ENV === 'production'

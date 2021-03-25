@@ -11,7 +11,7 @@ import { initSession, loadSession } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { getSessionUserId } from '../sessionStateGetters';
 
-function* loadSaga(action: ActionType<typeof loadSession>) {
+export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
   const userId = yield select(getSessionUserId);
   const { payload: sessionId } = action;
 
@@ -62,5 +62,5 @@ function* loadSaga(action: ActionType<typeof loadSession>) {
 }
 
 export default function* sessionSagaLoad() {
-  yield takeLatest(LOAD_SESSION, loadSaga);
+  yield takeLatest(LOAD_SESSION, loadSessionSaga);
 }
