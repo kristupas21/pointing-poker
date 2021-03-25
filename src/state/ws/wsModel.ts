@@ -6,6 +6,6 @@ export interface WSMessage<T = never> {
 export type WSEventMapItem = {
   event: string;
   listener: (...args: any) => Generator;
-  emitter?: (...args: any) => Generator;
+  emitterData?: (...args: any) => Generator;
   debounced?: boolean;
 };

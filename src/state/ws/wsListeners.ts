@@ -29,8 +29,12 @@ export function* userLeftListener(message: WSMessage<{ user: User }>) {
   yield put(pushNotification(notification));
 }
 
-export function* showVotesListener() {
+export function* showVotesListener(message: WSMessage<{ user: User }>) {
+  const { user } = message.body;
+  const notification = renderNotification(NotificationContent.UserShowVotes, user);
+
   yield put(showVotes());
+  yield put(pushNotification(notification));
 }
 
 export function* hideVotesListener() {

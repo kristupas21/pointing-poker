@@ -7,13 +7,13 @@ import { getSessionUser, getSessionUserId } from 'state/session/sessionStateGett
  * Return value is message.body
  */
 
-export function* userEmitter(sessionId: string) {
+export function* userDataEmitter(sessionId: string) {
   const user = yield select(getSessionUser);
 
   return { user, sessionId };
 }
 
-export function* modifyUserEmitter(params: Partial<User>) {
+export function* userParamsEmitter(params: Partial<User>) {
   const userId = yield select(getSessionUserId);
 
   return { userId, params };

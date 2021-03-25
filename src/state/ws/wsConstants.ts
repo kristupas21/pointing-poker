@@ -14,8 +14,8 @@ import {
   userJoinedListener,
   userLeftListener, setVoteRoundTopicListener, modifySessionUserListener
 } from './wsListeners';
-import { modifyUserEmitter, userEmitter } from './wsEmitters';
 import { MODIFY_SESSION_USER } from '../session/sessionConstants';
+import { userDataEmitter, userParamsEmitter } from './wsEmitterData';
 
 function withWS(name: string): string {
   return `@@ws/${name}`;
@@ -42,12 +42,12 @@ export const WS_SET_VOTE_ROUND_TOPIC = withWS(SET_VOTE_ROUND_TOPIC);
 export const WS_MODIFY_SESSION_USER = withWS(MODIFY_SESSION_USER);
 
 export const WS_EVENT_MAP: WSEventMapItem[] = [
-  { event: WS_USER_JOINED, listener: userJoinedListener, emitter: userEmitter },
-  { event: WS_USER_LEFT, listener: userLeftListener, emitter: userEmitter },
-  { event: WS_SHOW_VOTES, listener: showVotesListener },
+  { event: WS_USER_JOINED, listener: userJoinedListener, emitterData: userDataEmitter },
+  { event: WS_USER_LEFT, listener: userLeftListener, emitterData: userDataEmitter },
+  { event: WS_SHOW_VOTES, listener: showVotesListener, emitterData: userDataEmitter },
   { event: WS_HIDE_VOTES, listener: hideVotesListener },
   { event: WS_RESET_VOTE_ROUND, listener: resetVoteRoundListener },
   { event: WS_SET_USER_VOTE_VALUE, listener: setVoteValueListener },
   { event: WS_SET_VOTE_ROUND_TOPIC, listener: setVoteRoundTopicListener, debounced: true },
-  { event: WS_MODIFY_SESSION_USER, listener: modifySessionUserListener, emitter: modifyUserEmitter },
+  { event: WS_MODIFY_SESSION_USER, listener: modifySessionUserListener, emitterData: userParamsEmitter },
 ];

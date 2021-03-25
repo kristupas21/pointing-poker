@@ -2,13 +2,14 @@ import React from 'react';
 import { AppNotification, NotificationLifespan } from 'state/notifications/notificationsModel';
 import { User } from 'types/global';
 import SessionCopy from './contents/SessionCopy';
-import UserPresence from './contents/UserPresence';
+import UserMessage from './contents/UserMessage';
 import { NotificationContent } from './types';
 
 interface Renderer {
   render(id: NotificationContent.SessionCopy): AppNotification,
   render(id: NotificationContent.UserLeft, params: User): AppNotification,
   render(id: NotificationContent.UserJoined, params: User): AppNotification,
+  render(id: NotificationContent.UserShowVotes, params: User): AppNotification,
   render(id: NotificationContent._StorageClear): AppNotification,
 }
 
@@ -25,13 +26,19 @@ const renderer: Renderer = {
         return {
           id: `${params.id}-joined`,
           lifespan: NotificationLifespan.Short,
-          content: <UserPresence name={params.name} />
+          content: <UserMessage name={params.name} message="notifications.userJoined" />
         };
       case NotificationContent.UserLeft:
         return {
           id: `${params.id}-left`,
           lifespan: NotificationLifespan.Short,
-          content: <UserPresence name={params.name} hasLeft />
+          content: <UserMessage name={params.name} message="notifications.userLeft" />
+        };
+      case NotificationContent.UserShowVotes:
+        return {
+          id: `${params.id}-show-votes`,
+          lifespan: NotificationLifespan.Short,
+          content: <UserMessage name={params.name} message="notifications.userShowVotes" />
         };
       case NotificationContent._StorageClear:
         return {

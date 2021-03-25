@@ -12,7 +12,7 @@ import { throwAppError } from 'state/error/errorActions';
 import { ERROR_CODES } from 'constants/errorCodes';
 import { setAppLoading } from 'state/app/appActions';
 import { startSessionSaga } from '../sessionSagaStart';
-import { setSessionParams, startSession } from '../../sessionActions';
+import { startSession } from '../../sessionActions';
 import { StartSessionParams, StartSessionResponse } from '../../sessionModel';
 import sessionApi from '../../sessionApi';
 
@@ -52,7 +52,6 @@ describe('startSessionSaga', () => {
     const response: StartSessionResponse = {
       data: {
         sessionId: 'gen-id',
-        expiresAt: null
       },
     };
 
@@ -63,7 +62,6 @@ describe('startSessionSaga', () => {
       ])
       .put(setAppLoading(true))
       .call(sessionApi.start, expectedParams)
-      .put(setSessionParams({ expiresAt: null }))
       .put(push('/session/gen-id'))
       .call(storageService.set, StorageKey.PointValues, expectedParams.pointValues)
       .call(storageService.set, StorageKey.Roles, expectedParams.roles)

@@ -35,7 +35,6 @@ const initialRoles = (): UserRole[] =>
 
 const initialState: State = {
   currentSessionId: null,
-  expiresAt: null,
   user: initialUser(),
   useRoles: false,
   pointValues: initialPointValues(),

@@ -4,7 +4,6 @@ import { UserRole } from 'utils/userRoles/types';
 
 export interface SessionState {
   currentSessionId: string;
-  expiresAt: Date;
   useRoles: boolean;
   user: User;
   pointValues: PointValue[];
@@ -32,7 +31,6 @@ export interface StartSessionParams {
 export interface StartSessionResponse {
   data: {
     sessionId: string;
-    expiresAt: Date;
   };
 }
 

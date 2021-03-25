@@ -7,7 +7,7 @@ import { ERROR_CODES } from 'constants/errorCodes';
 import { throwAppError } from 'state/error/errorActions';
 import { findRoleById } from 'utils/userRoles/utils';
 import { setAppLoading } from 'state/app/appActions';
-import { setSessionParams, startSession } from '../sessionActions';
+import { startSession } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { START_SESSION } from '../sessionConstants';
 import { acquireCurrentUser } from './sessionSagaUtils';
@@ -31,10 +31,9 @@ export function* startSessionSaga(action: ActionType<typeof startSession>) {
   yield put(setAppLoading(true));
 
   try {
-    const { data: { sessionId, expiresAt } } = yield call(sessionApi.start, params);
+    const { data: { sessionId } } = yield call(sessionApi.start, params);
     const route = getMatchParamRoute(AppRoute.Session, { sessionId });
 
-    yield put(setSessionParams({ expiresAt }));
     yield put(push(route));
     yield call(storageService.set, StorageKey.PointValues, params.pointValues);
     yield call(storageService.set, StorageKey.Roles, params.roles);
