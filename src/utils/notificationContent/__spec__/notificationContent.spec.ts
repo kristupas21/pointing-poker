@@ -1,7 +1,7 @@
+import { NotificationLifespan } from 'state/notifications/notificationsModel';
+import { User } from 'types/global';
 import renderNotification from '../notificationContent';
 import { NotificationContent } from '../types';
-import { NotificationLifespan } from '../../../state/notifications/notificationsModel';
-import { User } from '../../../types/global';
 
 describe('notificationContent', () => {
   const notificationsMap = [

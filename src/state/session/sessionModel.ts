@@ -1,4 +1,5 @@
 import { User } from 'types/global';
+import { AxiosResponse } from 'axios';
 import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';
 
@@ -28,27 +29,21 @@ export interface StartSessionParams {
   roles: UserRole[];
 }
 
-export interface StartSessionResponse {
-  data: {
-    sessionId: string;
-  };
-}
+export type StartSessionResponse = AxiosResponse<{
+  sessionId: string;
+}>
 
-export interface JoinSessionResponse {
-  data: {
-    sessionId: string,
-  }
-}
+export type JoinSessionResponse = AxiosResponse<{
+  sessionId: string,
+}>
 
-export interface LoadSessionResponse {
-  data: {
-    session: {
-      useRoles: boolean,
-      users: User[],
-      showVotes: boolean,
-      currentTopic: string,
-      pointValues: PointValue[],
-      roles: UserRole[],
-    }
+export type LoadSessionResponse = AxiosResponse<{
+  session: {
+    useRoles: boolean,
+    users: User[],
+    showVotes: boolean,
+    currentTopic: string,
+    pointValues: PointValue[],
+    roles: UserRole[],
   }
-}
+}>

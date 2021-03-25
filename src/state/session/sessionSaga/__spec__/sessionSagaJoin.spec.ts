@@ -1,11 +1,12 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { call } from 'redux-saga-test-plan/matchers';
-import { MockState } from 'utils/test/types';
+import { MockResponse, MockState } from 'utils/test/types';
 import { throwApiError } from 'utils/test/testUtils';
 import { push } from 'connected-react-router';
 import { setAppLoading } from 'state/app/appActions';
 import { ERROR_CODES } from 'constants/errorCodes';
 import { throwAppError } from 'state/error/errorActions';
+import errorParser from 'utils/errorParser';
 import { joinSession, setSessionParams } from '../../sessionActions';
 import { joinSessionSaga } from '../sessionSagaJoin';
 import { JoinSessionParams, JoinSessionResponse } from '../../sessionModel';
@@ -48,7 +49,7 @@ describe('joinSessionSaga', () => {
   });
 
   it('acquires params, calls endpoint & navigates to session route', async () => {
-    const response: JoinSessionResponse = {
+    const response: MockResponse<JoinSessionResponse> = {
       data: {
         sessionId: 's-id'
       },
@@ -105,6 +106,7 @@ describe('joinSessionSaga', () => {
       ])
       .put(setAppLoading(true))
       .call(sessionApi.join, expectedParams)
+      .call(errorParser.parse, error)
       .put(setAppLoading(false))
       .put(setSessionParams({
         currentSessionId: 's-id',

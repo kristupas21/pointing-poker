@@ -1,7 +1,7 @@
-import { User } from '../../../types/global';
+import { User } from 'types/global';
+import { PointValue } from 'utils/pointValues/types';
 import { createUser, normalizePointValues } from '../sessionUtils';
 import { EMPTY_USER_ROLE } from '../sessionConstants';
-import { PointValue } from '../../../utils/pointValues/types';
 
 describe('sessionUtils', () => {
   describe('createUser', () => {

@@ -3,7 +3,7 @@ import { shallow, ShallowWrapper } from 'enzyme';
 import { LOCATION_CHANGE, LocationChangeAction } from 'connected-react-router';
 import { throwError } from 'redux-saga-test-plan/providers';
 import { Provider } from 'react-redux';
-import store from '../../state/store';
+import store from 'state/store';
 
 export function shallowWrapperCreator<P, S = any>(
   Component: ComponentType<P>,

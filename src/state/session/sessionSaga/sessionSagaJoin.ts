@@ -6,11 +6,14 @@ import { ERROR_CODES } from 'constants/errorCodes';
 import { throwAppError } from 'state/error/errorActions';
 import { findRoleById } from 'utils/userRoles/utils';
 import { setAppLoading } from 'state/app/appActions';
+import errorParser from 'utils/errorParser';
+import { UserRole } from 'utils/userRoles/types';
 import { joinSession, setSessionParams } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { JOIN_SESSION } from '../sessionConstants';
 import { acquireCurrentUser } from './sessionSagaUtils';
 import { getSessionRoles } from '../sessionStateGetters';
+import { JoinSessionResponse } from '../sessionModel';
 
 export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
   const {
@@ -34,12 +37,12 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
   yield put(setAppLoading(true));
 
   try {
-    const { data: { sessionId: id } } = yield call(sessionApi.join, params);
+    const { data: { sessionId: id } }: JoinSessionResponse = yield call(sessionApi.join, params);
     const route = getMatchParamRoute(AppRoute.Session, { sessionId: id });
 
     yield put(push(route));
   } catch (e) {
-    const { code, payload } = e?.response?.data || {};
+    const { code, payload } = yield call(errorParser.parse, e);
 
     yield put(setAppLoading(false));
 
@@ -52,13 +55,13 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
       yield put(setSessionParams({
         currentSessionId: sessionId,
         useRoles: true,
-        roles: payload,
+        roles: payload as UserRole[],
       }));
 
       return;
     }
 
-    yield put(throwAppError(ERROR_CODES.UNEXPECTED));
+    yield put(throwAppError(code));
   } finally {
     yield call(setSubmitting, false);
   }

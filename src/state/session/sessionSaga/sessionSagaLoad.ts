@@ -6,10 +6,12 @@ import { ERROR_CODES } from 'constants/errorCodes';
 import { throwAppError } from 'state/error/errorActions';
 import { initVoteRound } from 'state/voteRound/voteRoundActions';
 import { setAppLoading } from 'state/app/appActions';
+import errorParser from 'utils/errorParser';
 import { LOAD_SESSION } from '../sessionConstants';
 import { initSession, loadSession } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { getSessionUserId } from '../sessionStateGetters';
+import { LoadSessionResponse } from '../sessionModel';
 
 export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
   const userId = yield select(getSessionUserId);
@@ -32,7 +34,7 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
           roles,
         }
       }
-    } = yield call(sessionApi.load, { sessionId, userId });
+    }: LoadSessionResponse = yield call(sessionApi.load, { sessionId, userId });
 
     yield put(initSession({
       currentSessionId: sessionId,
@@ -43,7 +45,7 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
 
     yield put(initVoteRound({ users, votesShown, currentTopic }));
   } catch (e) {
-    const { code } = e?.response?.data || {};
+    const { code } = yield call(errorParser.parse, e);
 
     if (code === ERROR_CODES.NOT_FOUND) {
       yield put(replace(AppRoute.SessionNotFound, { sessionId }));
@@ -55,7 +57,7 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
       return;
     }
 
-    yield put(throwAppError(code || ERROR_CODES.UNEXPECTED));
+    yield put(throwAppError(code));
   } finally {
     yield put(setAppLoading(false));
   }

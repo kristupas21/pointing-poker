@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
 import Button from 'components/Button';
@@ -14,18 +14,17 @@ export interface NotificationProps extends AppNotification {
   onCloseClick?: () => void;
 }
 
-let timeout: ReturnType<typeof setTimeout>;
-
 const Notification: React.FC<NotificationProps> = (props) => {
   const { lifespan, children, onCloseClick, id } = props;
   const interval = lifespan ? LIFESPAN_TO_INTERVAL_MAP[lifespan] : 0;
+  const timeout = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     if (onCloseClick && lifespan) {
-      timeout = setTimeout(onCloseClick, interval);
+      timeout.current = setTimeout(onCloseClick, interval);
     }
 
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(timeout.current);
   }, []);
 
   return (

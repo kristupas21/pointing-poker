@@ -1,6 +1,6 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { call } from 'redux-saga-test-plan/matchers';
-import { MockState } from 'utils/test/types';
+import { MockResponse, MockState } from 'utils/test/types';
 import { throwApiError } from 'utils/test/testUtils';
 import { replace } from 'connected-react-router';
 import { AppRoute } from 'constants/routes';
@@ -8,6 +8,7 @@ import { ERROR_CODES } from 'constants/errorCodes';
 import { initVoteRound } from 'state/voteRound/voteRoundActions';
 import { setAppLoading } from 'state/app/appActions';
 import { throwAppError } from 'state/error/errorActions';
+import errorParser from 'utils/errorParser';
 import { LoadSessionResponse } from '../../sessionModel';
 import { loadSessionSaga } from '../sessionSagaLoad';
 import { initSession, loadSession } from '../../sessionActions';
@@ -38,7 +39,7 @@ describe('loadSessionSaga', () => {
   });
 
   it('calls endpoint, inits session & vote round', async () => {
-    const response: LoadSessionResponse = {
+    const response: MockResponse<LoadSessionResponse> = {
       data: {
         session: {
           useRoles: true,
@@ -87,6 +88,7 @@ describe('loadSessionSaga', () => {
         [call(sessionApi.load, { sessionId, userId }), throwApiError(error)]
       ])
       .call(sessionApi.load, { sessionId, userId })
+      .call(errorParser.parse, error)
       .put(replace(AppRoute.SessionNotFound, { sessionId }))
       .put(setAppLoading(false))
       .run();
@@ -107,6 +109,7 @@ describe('loadSessionSaga', () => {
         [call(sessionApi.load, { sessionId, userId }), throwApiError(error)]
       ])
       .call(sessionApi.load, { sessionId, userId })
+      .call(errorParser.parse, error)
       .put(replace(AppRoute.JoinSession, { sessionId }))
       .put(setAppLoading(false))
       .run();

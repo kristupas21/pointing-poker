@@ -1,6 +1,6 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { call } from 'redux-saga-test-plan/matchers';
-import { MockState } from 'utils/test/types';
+import { MockResponse, MockState } from 'utils/test/types';
 import { throwApiError } from 'utils/test/testUtils';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles/constants';
 import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
@@ -11,6 +11,7 @@ import { StorageKey } from 'utils/storageService';
 import { throwAppError } from 'state/error/errorActions';
 import { ERROR_CODES } from 'constants/errorCodes';
 import { setAppLoading } from 'state/app/appActions';
+import errorParser from 'utils/errorParser';
 import { startSessionSaga } from '../sessionSagaStart';
 import { startSession } from '../../sessionActions';
 import { StartSessionParams, StartSessionResponse } from '../../sessionModel';
@@ -49,7 +50,7 @@ describe('startSessionSaga', () => {
   };
 
   it('calls endpoint, navigates to session route & stores values', async () => {
-    const response: StartSessionResponse = {
+    const response: MockResponse<StartSessionResponse> = {
       data: {
         sessionId: 'gen-id',
       },
@@ -79,6 +80,7 @@ describe('startSessionSaga', () => {
       ])
       .put(setAppLoading(true))
       .call(sessionApi.start, expectedParams)
+      .call(errorParser.parse, undefined)
       .put(throwAppError(ERROR_CODES.UNEXPECTED))
       .put(setAppLoading(false))
       .run();
