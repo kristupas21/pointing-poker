@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import { useText } from 'utils/customHooks';
+import { MessageId } from 'lang';
 import styles from './UserMessage.module.scss';
-import { MessageId } from '../../../../lang';
 
 const cx = classNames.bind(styles);
 

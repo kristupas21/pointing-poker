@@ -17,7 +17,7 @@ export class StorageService {
     }
   }
 
-  public set = (key: StorageKey, value: any, mergeProps = false): void => {
+  public set = <T = any>(key: StorageKey, value: any, mergeProps = false): T => {
     const currentState = this.getState();
     const item = { [key]: value };
 
@@ -29,6 +29,8 @@ export class StorageService {
       ...currentState,
       ...item,
     }));
+
+    return this.get(key);
   }
 
   public remove = (key: StorageKey): void => {

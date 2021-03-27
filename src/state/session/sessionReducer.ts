@@ -5,6 +5,7 @@ import { PointValue } from 'utils/pointValues/types';
 import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
 import { UserRole } from 'utils/userRoles/types';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles/constants';
+import { getRandomAvatar } from 'components/Avatar';
 import { SessionState } from './sessionModel';
 import { createPointValue, createRole } from './sessionUtils';
 import {
@@ -24,14 +25,6 @@ import {
 type Action = ActionType<typeof import('./sessionActions')>;
 
 type State = Readonly<SessionState>;
-
-const initialUser = (): User => storageService.get(StorageKey.User);
-
-const initialPointValues = (): PointValue[] =>
-  storageService.get(StorageKey.PointValues) || DEFAULT_POINT_VALUES;
-
-const initialRoles = (): UserRole[] =>
-  storageService.get(StorageKey.Roles) || DEFAULT_USER_ROLES;
 
 const initialState: State = {
   currentSessionId: null,
@@ -143,5 +136,31 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
       return state;
   }
 };
+
+function initialUser(): User {
+  const user = storageService.get<User>(StorageKey.User);
+
+  if (user?.avatarId) {
+    return user;
+  }
+
+  return storageService.set<User>(
+    StorageKey.User,
+    { avatarId: getRandomAvatar() },
+    true
+  );
+}
+
+function initialPointValues(): PointValue[] {
+  return (
+    storageService.get(StorageKey.PointValues) || DEFAULT_POINT_VALUES
+  );
+}
+
+function initialRoles(): UserRole[] {
+  return (
+    storageService.get(StorageKey.Roles) || DEFAULT_USER_ROLES
+  );
+}
 
 export default sessionReducer;

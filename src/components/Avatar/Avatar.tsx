@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import classNames from 'classnames/bind';
 import Icon from 'components/Icon';
 import { AvatarId } from './types';
-import { getAvatar } from './avatarMap';
+import { getAvatarIcon } from './utils';
 import styles from './Avatar.module.scss';
 
 const cx = classNames.bind(styles);
@@ -13,15 +13,11 @@ interface Props {
 
 const Avatar: React.FC<Props> = (props) => {
   const { id } = props;
-  const { iconId, exists } = getAvatar(id);
-
-  const avatarClasses = cx('avatar', {
-    'avatar--invalid': !exists,
-  });
+  const icon = getAvatarIcon(id);
 
   return (
-    <span className={avatarClasses}>
-      <Icon id={iconId} />
+    <span className={cx('avatar')}>
+      <Icon id={icon} />
     </span>
   );
 };

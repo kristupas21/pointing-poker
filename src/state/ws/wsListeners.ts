@@ -41,8 +41,12 @@ export function* hideVotesListener() {
   yield put(hideVotes());
 }
 
-export function* resetVoteRoundListener() {
+export function* resetVoteRoundListener(message: WSMessage<{ user: User }>) {
+  const { user } = message.body;
+  const notification = renderNotification(NotificationContent.UserResetRound, user);
+
   yield put(resetVoteRound());
+  yield put(pushNotification(notification));
 }
 
 export function* setVoteValueListener(message: WSMessage<{ userId: string, voteValue: string }>) {
