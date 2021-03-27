@@ -6,7 +6,7 @@ import {
   FORM_ERR_MAX,
   FORM_ERR_MIN,
   FORM_ERR_REQUIRED,
-} from 'constants/formValidation';
+} from 'utils/form/constants';
 import { SessionFormData } from './types';
 
 const defaultSchemaProps = () => ({

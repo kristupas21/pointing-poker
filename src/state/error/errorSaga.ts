@@ -2,7 +2,7 @@ import { put, takeLatest, select } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { LOCATION_CHANGE, push, LocationChangeAction } from 'connected-react-router';
 import { getCurrentRoutePath } from 'state/router/routerStateGetters';
-import { AppRoute } from 'constants/routes';
+import { AppRoute } from 'utils/routes';
 import { setErrorState, throwAppError } from './errorActions';
 import { THROW_APP_ERROR } from './errorConstants';
 import { getCurrentErrorId } from './errorStateGetters';

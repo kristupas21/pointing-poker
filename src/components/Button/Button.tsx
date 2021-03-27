@@ -2,7 +2,7 @@ import React, { ButtonHTMLAttributes, RefObject, useRef } from 'react';
 import classNames from 'classnames/bind';
 import Icon, { IconId } from 'components/Icon';
 import withForwardRef from 'utils/withForwardRef';
-import { Timeout } from 'types/global';
+import { Timeout } from 'globalTypes';
 import styles from './Button.module.scss';
 
 /* eslint-disable react/button-has-type */

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppNotification, NotificationLifespan } from 'state/notifications/notificationsModel';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import SessionCopy from './contents/SessionCopy';
 import UserMessage from './contents/UserMessage';
 import { NotificationContent } from './types';

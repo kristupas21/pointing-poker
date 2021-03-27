@@ -9,9 +9,9 @@ import { SessionFormData } from 'containers/SessionForm/types';
 import storageService from 'utils/storageService/storageService';
 import { StorageKey } from 'utils/storageService';
 import { throwAppError } from 'state/error/errorActions';
-import { ERROR_CODES } from 'constants/errorCodes';
+import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { setAppLoading } from 'state/app/appActions';
-import errorParser from 'utils/errorParser';
+
 import { startSessionSaga } from '../sessionSagaStart';
 import { startSession } from '../../sessionActions';
 import { StartSessionParams, StartSessionResponse } from '../../sessionModel';

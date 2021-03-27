@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import Avatar, { AvatarId } from 'components/Avatar';
 import Button, { ButtonVariant } from 'components/Button';
 import { useText } from 'utils/customHooks';

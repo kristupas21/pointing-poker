@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import {
   ADD_USER_TO_VOTE_ROUND,
   RESET_VOTE_ROUND,

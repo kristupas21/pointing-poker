@@ -4,9 +4,9 @@ import { MockResponse, MockState } from 'utils/test/types';
 import { throwApiError } from 'utils/test/testUtils';
 import { push } from 'connected-react-router';
 import { setAppLoading } from 'state/app/appActions';
-import { ERROR_CODES } from 'constants/errorCodes';
+import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { throwAppError } from 'state/error/errorActions';
-import errorParser from 'utils/errorParser';
+
 import { joinSession, setSessionParams } from '../../sessionActions';
 import { joinSessionSaga } from '../sessionSagaJoin';
 import { JoinSessionParams, JoinSessionResponse } from '../../sessionModel';

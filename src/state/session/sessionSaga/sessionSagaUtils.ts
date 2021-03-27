@@ -1,7 +1,7 @@
 import { select, call, put } from 'redux-saga/effects';
 import mergeWith from 'lodash/mergeWith';
 import storageService, { StorageKey } from 'utils/storageService';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import { setSessionUser } from '../sessionActions';
 import { createUser } from '../sessionUtils';
 import { getSessionUser } from '../sessionStateGetters';

@@ -2,7 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { push } from 'connected-react-router';
 import storageService, { StorageKey } from 'utils/storageService';
-import { AppRoute, getMatchParamRoute } from 'constants/routes';
+import { AppRoute, getMatchParamRoute } from 'utils/routes';
 import { throwAppError } from 'state/error/errorActions';
 import { findRoleById } from 'utils/userRoles/utils';
 import { setAppLoading } from 'state/app/appActions';

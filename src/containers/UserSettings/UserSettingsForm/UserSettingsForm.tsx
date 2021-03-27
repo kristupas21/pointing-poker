@@ -5,7 +5,7 @@ import { useText } from 'utils/customHooks';
 import { findRoleById } from 'utils/userRoles/utils';
 import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { FieldType, FormField, FieldSize } from 'components/Form';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import { UserSettingsFormData } from './types';
 
 type Props = {

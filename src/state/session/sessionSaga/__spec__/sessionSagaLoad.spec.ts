@@ -3,12 +3,12 @@ import { call } from 'redux-saga-test-plan/matchers';
 import { MockResponse, MockState } from 'utils/test/types';
 import { throwApiError } from 'utils/test/testUtils';
 import { replace } from 'connected-react-router';
-import { AppRoute } from 'constants/routes';
-import { ERROR_CODES } from 'constants/errorCodes';
+import { AppRoute } from 'utils/routes';
+import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { initVoteRound } from 'state/voteRound/voteRoundActions';
 import { setAppLoading } from 'state/app/appActions';
 import { throwAppError } from 'state/error/errorActions';
-import errorParser from 'utils/errorParser';
+
 import { LoadSessionResponse } from '../../sessionModel';
 import { loadSessionSaga } from '../sessionSagaLoad';
 import { initSession, loadSession } from '../../sessionActions';

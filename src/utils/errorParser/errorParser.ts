@@ -1,4 +1,4 @@
-import { ERROR_CODES } from 'constants/errorCodes';
+import { ERROR_CODES } from './constants';
 import { ApiError, AppError } from './types';
 
 interface ErrorParser {

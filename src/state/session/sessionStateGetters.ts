@@ -1,4 +1,4 @@
-import { State, User } from 'types/global';
+import { State, User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
 import { AvatarId } from 'components/Avatar';
 import { UserRole } from 'utils/userRoles/types';

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import debounce from 'lodash/debounce';
-import { getBreakPoint } from './utils';
+import { getBreakpoint, getBreakpointsContextProps } from './utils';
 import BreakpointsContext from './BreakpointsContext';
 
 const BreakpointsContextProvider: React.FC = ({ children }) => {
-  const [breakpoint, setBreakpoint] = useState(getBreakPoint(window.innerWidth));
+  const [breakpoint, setBreakpoint] = useState(getBreakpoint(window.innerWidth));
 
   useEffect(() => {
     function setWidth() {
-      setBreakpoint(getBreakPoint(window.innerWidth));
+      setBreakpoint(getBreakpoint(window.innerWidth));
     }
 
     const handleResize = debounce(setWidth, 50);
@@ -22,7 +22,7 @@ const BreakpointsContextProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <BreakpointsContext.Provider value={{ breakpoint }}>
+    <BreakpointsContext.Provider value={getBreakpointsContextProps(breakpoint)}>
       {children}
     </BreakpointsContext.Provider>
   );

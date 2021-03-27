@@ -8,7 +8,7 @@ import {
   setVoteRoundTopic,
   showVotes
 } from 'state/voteRound/voteRoundActions';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import { pushNotification } from 'state/notifications/notificationsActions';
 import renderNotification, { NotificationContent } from 'utils/notificationContent';
 import { WSMessage } from './wsModel';

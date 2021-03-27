@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react';
-import { Identifier } from 'types/global';
+import { Identifier } from 'globalTypes';
 import classNames from 'classnames/bind';
 import Popover from 'components/Popover';
 import SelectOption from '../SelectOption';

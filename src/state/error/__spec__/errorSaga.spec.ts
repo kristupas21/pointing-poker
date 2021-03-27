@@ -2,7 +2,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { MockState } from 'utils/test/types';
 import { push } from 'connected-react-router';
 import { MessageId } from 'lang';
-import { AppRoute } from 'constants/routes';
+import { AppRoute } from 'utils/routes';
 import { mockLocationChange } from 'utils/test/testUtils';
 import { clearErrorSaga, throwErrorSaga } from '../errorSaga';
 import { setErrorState, throwAppError } from '../errorActions';

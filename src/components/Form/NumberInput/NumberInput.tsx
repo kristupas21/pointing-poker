@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes } from 'react';
 import { Field, FieldAttributes } from 'formik';
 import classNames from 'classnames/bind';
 import withForwardRef from 'utils/withForwardRef';
-import { NUMBER_INPUT_MAX, NUMBER_INPUT_MIN } from 'constants/formValidation';
+import { NUMBER_INPUT_MAX, NUMBER_INPUT_MIN } from 'utils/form/constants';
 import { SharedFieldProps, FieldSize, SharedFieldState } from '../types';
 import styles from '../Input/Input.module.scss';
 import FieldError from '../FieldError';

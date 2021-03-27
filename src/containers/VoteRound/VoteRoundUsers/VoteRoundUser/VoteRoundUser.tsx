@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import Avatar from 'components/Avatar';
 import { useText } from 'utils/customHooks';
 import { POINT_VALUE_INFINITY, POINT_VALUE_UNKNOWN } from 'utils/pointValues/constants';

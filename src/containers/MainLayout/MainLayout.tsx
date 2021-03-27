@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
-import { AppRoute } from 'constants/routes';
+import { AppRoute } from 'utils/routes';
 import animations from 'utils/animations';
 import Logo from 'components/Logo';
 import Sidebar from 'components/Sidebar';

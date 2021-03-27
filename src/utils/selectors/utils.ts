@@ -1,4 +1,4 @@
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import { UserRole } from 'utils/userRoles/types';
 import { findRoleById } from '../userRoles/utils';
 

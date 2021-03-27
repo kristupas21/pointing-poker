@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import { AppRoute } from 'constants/routes';
+import { AppRoute } from 'utils/routes';
 import { useSessionId, useText } from 'utils/customHooks';
 
 const SessionNotFoundPage: React.FC = () => {

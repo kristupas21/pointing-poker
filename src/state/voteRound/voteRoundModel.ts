@@ -1,4 +1,4 @@
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 
 export interface VoteRoundState {
   currentTopic: string;

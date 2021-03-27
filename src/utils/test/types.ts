@@ -1,4 +1,4 @@
-import { State } from 'types/global';
+import { State } from 'globalTypes';
 import { AxiosResponse } from 'axios';
 
 export type MockState<T = State> = {

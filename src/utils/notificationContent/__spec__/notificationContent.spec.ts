@@ -1,5 +1,5 @@
 import { NotificationLifespan } from 'state/notifications/notificationsModel';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import renderNotification from '../notificationContent';
 import { NotificationContent } from '../types';
 

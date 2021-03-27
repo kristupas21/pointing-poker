@@ -6,7 +6,7 @@ import { FieldType, FormField, SubmitHandler, FieldSize } from 'components/Form'
 import Button from 'components/Button';
 import { UserRole } from 'utils/userRoles/types';
 import { useText } from 'utils/customHooks';
-import { CustomFormError, CustomFormErrors } from 'types/global';
+import { CustomFormError, CustomFormErrors } from 'globalTypes';
 import { SessionFormData } from './types';
 
 type Props = {

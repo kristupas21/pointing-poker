@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import {
   WS_RESET_VOTE_ROUND,
   WS_HIDE_VOTES,

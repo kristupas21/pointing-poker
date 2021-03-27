@@ -1,12 +1,12 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'typesafe-actions';
 import { replace } from 'connected-react-router';
-import { AppRoute } from 'constants/routes';
-import { ERROR_CODES } from 'constants/errorCodes';
+import { AppRoute } from 'utils/routes';
+import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { throwAppError } from 'state/error/errorActions';
 import { initVoteRound } from 'state/voteRound/voteRoundActions';
 import { setAppLoading } from 'state/app/appActions';
-import errorParser from 'utils/errorParser';
+
 import { LOAD_SESSION } from '../sessionConstants';
 import { initSession, loadSession } from '../sessionActions';
 import sessionApi from '../sessionApi';

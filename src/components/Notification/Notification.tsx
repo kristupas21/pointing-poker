@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
 import Button from 'components/Button';
-import ProgressBar from 'components/ProgressBar';
-import { Timeout } from 'types/global';
+import { Timeout } from 'globalTypes';
 import { AppNotification } from 'state/notifications/notificationsModel';
 import animations from 'utils/animations';
 import { LIFESPAN_TO_INTERVAL_MAP } from './constants';
@@ -37,7 +36,6 @@ const Notification: React.FC<NotificationProps> = (props) => {
       <div className={cx('notification__content')}>
         {children}
       </div>
-      {interval && <ProgressBar interval={interval} />}
       <Button
         onClick={onCloseClick}
         className={cx('notification__close-btn')}

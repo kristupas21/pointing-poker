@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import uniqBy from 'lodash/uniqBy';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';
 import { EMPTY_USER_ROLE } from './sessionConstants';

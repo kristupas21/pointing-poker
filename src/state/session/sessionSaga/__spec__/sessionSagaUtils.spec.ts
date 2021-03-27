@@ -1,6 +1,6 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { MockState } from 'utils/test/types';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import storageService, { StorageKey } from 'utils/storageService';
 import { acquireCurrentUser } from '../sessionSagaUtils';
 import { setSessionUser } from '../../sessionActions';

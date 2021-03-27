@@ -1,4 +1,4 @@
-import { State, User } from 'types/global';
+import { State, User } from 'globalTypes';
 import { VoteRoundState } from './voteRoundModel';
 
 export const getVoteRoundUsers = (state: State): User[] => state.voteRound.users;

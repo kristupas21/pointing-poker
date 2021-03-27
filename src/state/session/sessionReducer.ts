@@ -1,6 +1,6 @@
 import { ActionType, Reducer } from 'typesafe-actions';
 import storageService, { StorageKey } from 'utils/storageService';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
 import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
 import { UserRole } from 'utils/userRoles/types';

@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useOutsideClose } from 'utils/customHooks';
 import classNames from 'classnames/bind';
-import { AlignType } from 'types/global';
+import { AlignType } from 'globalTypes';
 import withFocusLock from 'utils/withFocusLock';
 import styles from './Popover.module.scss';
 

@@ -1,13 +1,5 @@
 import { MessageId } from 'lang';
-
-export enum AppRoute {
-  Base = '/',
-  StartSession = '/start',
-  Error = '/error',
-  JoinSession = '/join',
-  Session = '/session/:sessionId',
-  SessionNotFound = '/session-not-found',
-}
+import { AppRoute } from './types';
 
 const ROUTE_NAMES: Record<AppRoute, MessageId> = {
   [AppRoute.Base]: 'routes.base',
@@ -18,18 +10,18 @@ const ROUTE_NAMES: Record<AppRoute, MessageId> = {
   [AppRoute.Error]: 'routes.error',
 };
 
-export const getRouteName = (route: AppRoute): MessageId => {
+export function getRouteName(route: AppRoute): MessageId {
   const r = route.includes('/session/')
     ? AppRoute.Session
     : route;
 
   return ROUTE_NAMES[r];
-};
+}
 
-export const getMatchParamRoute = (
+export function getMatchParamRoute(
   route: AppRoute,
   match: Record<string, any>
-): string => {
+): string {
   let value = route as string;
 
   Object.keys(match).forEach((k) => {
@@ -37,4 +29,4 @@ export const getMatchParamRoute = (
   });
 
   return value;
-};
+}

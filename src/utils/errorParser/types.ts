@@ -1,5 +1,5 @@
-import { ValueOf } from 'types/global';
-import { ERROR_CODES } from 'constants/errorCodes';
+import { ValueOf } from 'globalTypes';
+import { ERROR_CODES } from './constants';
 
 export interface ApiError<T = any> {
   response?: {

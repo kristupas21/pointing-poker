@@ -2,8 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router';
 import classNames from 'classnames/bind';
 import { AnimatePresence } from 'framer-motion';
-import { AppRoute } from 'constants/routes';
-import Modal from 'components/Modal';
+import { AppRoute } from 'utils/routes';
 import { withMainLayout } from 'containers/MainLayout';
 import LandingPageComponent from 'containers/LandingPage';
 import StartSessionPageComponent from 'containers/StartSessionPage';
@@ -68,7 +67,6 @@ const App: React.FC = () => {
           <Redirect to={AppRoute.Base} />
         </Switch>
       </AnimatePresence>
-      <Modal />
       <Notifications />
     </div>
   );

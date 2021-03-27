@@ -1,4 +1,4 @@
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import { AxiosResponse } from 'axios';
 import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';

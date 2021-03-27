@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Form, Formik } from 'formik';
-import { Theme, WithTheme, withThemeContext } from 'containers/Theme';
+import ThemeContext, { Theme } from 'context/Theme';
+import { getThemeColor } from 'context/Theme/utils';
 import { useText } from 'utils/customHooks';
 import classNames from 'classnames/bind';
 import { MessageId } from 'lang';
 import { FieldType, FormField } from 'components/Form';
 import styles from './ThemeSelector.module.scss';
-import { getThemeColor } from '../Theme/utils';
 
 const cx = classNames.bind(styles);
 
-type Props = WithTheme;
-
-const ThemeSelector: React.FC<Props> = (props) => {
-  const { theme, setAppTheme } = props;
+const ThemeSelector: React.FC = () => {
+  const { theme, setAppTheme } = useContext(ThemeContext);
   const text = useText();
 
   return (
@@ -39,4 +37,4 @@ const ThemeSelector: React.FC<Props> = (props) => {
   );
 };
 
-export default withThemeContext(ThemeSelector);
+export default ThemeSelector;

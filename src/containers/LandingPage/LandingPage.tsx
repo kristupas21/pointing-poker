@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { RouteChildrenProps } from 'react-router';
 import Button, { ButtonVariant } from 'components/Button';
 import { useText } from 'utils/customHooks';
-import { AppRoute } from 'constants/routes';
-import { WithBreakpoint, withBreakpointsContext } from 'containers/Breakpoints';
+import { AppRoute } from 'utils/routes';
+import BreakpointsContext from 'context/Breakpoints';
 
-type Props = RouteChildrenProps & WithBreakpoint;
+type Props = RouteChildrenProps;
 
 const LandingPage: React.FC<Props> = (props) => {
-  const { history, breakpoint } = props;
+  const { history } = props;
+  const { isMobile, isTablet, isDesktop } = useContext(BreakpointsContext);
   const text = useText();
 
   const handleStartClick = () =>
@@ -20,7 +21,11 @@ const LandingPage: React.FC<Props> = (props) => {
   return (
     <div>
       <p>
-        {breakpoint}
+        {
+          (isMobile && 'MOBILE') ||
+            (isTablet && 'TABLET') ||
+            (isDesktop && 'DESKTOP')
+        }
       </p>
       <Button variant={ButtonVariant.Primary} onClick={handleStartClick} role="link">
         {text('session.start')}
@@ -32,4 +37,4 @@ const LandingPage: React.FC<Props> = (props) => {
   );
 };
 
-export default withBreakpointsContext(LandingPage);
+export default LandingPage;

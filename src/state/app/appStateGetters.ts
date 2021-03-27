@@ -1,4 +1,4 @@
-import { State } from 'types/global';
+import { State } from 'globalTypes';
 
 export const getAppSidebarOpen = (state: State): boolean => state.app.isSidebarOpen;
 

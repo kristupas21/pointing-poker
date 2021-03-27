@@ -1,6 +1,6 @@
 import React, { useRef, SelectHTMLAttributes, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { Identifier } from 'types/global';
+import { Identifier } from 'globalTypes';
 import classNames from 'classnames/bind';
 import { FieldAttributes } from 'formik';
 import withForwardRef from 'utils/withForwardRef';

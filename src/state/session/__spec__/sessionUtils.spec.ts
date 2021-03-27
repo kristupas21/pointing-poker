@@ -1,4 +1,4 @@
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
 import { createUser, normalizePointValues } from '../sessionUtils';
 import { EMPTY_USER_ROLE } from '../sessionConstants';

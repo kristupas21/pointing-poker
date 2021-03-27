@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { State, User } from 'types/global';
+import { State, User } from 'globalTypes';
 import { getVoteRoundUsers } from 'state/voteRound/voteRoundStateGetters';
 import { getSessionUserId } from 'state/session/sessionStateGetters';
 

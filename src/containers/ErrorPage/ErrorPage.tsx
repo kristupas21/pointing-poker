@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, RouteChildrenProps } from 'react-router';
 import Button, { ButtonVariant } from 'components/Button';
-import { AppRoute } from 'constants/routes';
+import { AppRoute } from 'utils/routes';
 import { getErrorState } from 'state/error/errorStateGetters';
 import { useText } from 'utils/customHooks';
 

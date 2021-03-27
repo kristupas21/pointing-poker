@@ -1,6 +1,6 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { MockState } from 'utils/test/types';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import { modifySessionUser } from 'state/session/sessionActions';
 import { addUserToVoteRound } from '../voteRoundActions';
 import { modifyVoteRoundUserSaga } from '../voteRoundSaga';

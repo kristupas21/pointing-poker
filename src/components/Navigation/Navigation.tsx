@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import { NavLink } from 'react-router-dom';
-import { AppRoute, getRouteName } from 'constants/routes';
+import { AppRoute, getRouteName } from 'utils/routes';
 import { useText } from 'utils/customHooks';
 import styles from './Navigation.module.scss';
 

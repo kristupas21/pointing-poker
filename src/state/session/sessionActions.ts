@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { CustomFormError, User } from 'types/global';
+import { CustomFormError, User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';
 import { SessionFormData } from 'containers/SessionForm/types';

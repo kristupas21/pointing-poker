@@ -1,5 +1,5 @@
 import { select } from 'redux-saga/effects';
-import { User } from 'types/global';
+import { User } from 'globalTypes';
 import { getSessionUser, getSessionUserId } from 'state/session/sessionStateGetters';
 
 /**

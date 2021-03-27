@@ -1,4 +1,4 @@
-import { AppVariables } from 'types/global';
+import { AppVariables } from 'globalTypes';
 import { Theme } from './types';
 
 const _white = '#ffffff';
