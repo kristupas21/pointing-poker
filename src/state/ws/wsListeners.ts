@@ -14,11 +14,7 @@ import renderNotification, { NotificationContent } from 'utils/notificationConte
 import { WSMessage } from './wsModel';
 
 export function* userJoinedListener(message: WSMessage<{ user: User }>) {
-  const { user } = message.body;
-  const notification = renderNotification(NotificationContent.UserJoined, user);
-
-  yield put(addUserToVoteRound(user));
-  yield put(pushNotification(notification));
+  yield put(addUserToVoteRound(message.body.user));
 }
 
 export function* userLeftListener(message: WSMessage<{ user: User }>) {

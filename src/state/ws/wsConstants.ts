@@ -12,7 +12,9 @@ import {
   setVoteValueListener,
   showVotesListener,
   userJoinedListener,
-  userLeftListener, setVoteRoundTopicListener, modifySessionUserListener
+  userLeftListener,
+  setVoteRoundTopicListener,
+  modifySessionUserListener
 } from './wsListeners';
 import { MODIFY_SESSION_USER } from '../session/sessionConstants';
 import { userDataEmitter, userParamsEmitter } from './wsEmitterData';

@@ -48,7 +48,6 @@ export const messages = {
 
   'notifications.sessionIdCopied': 'Session ID copied!',
   'notifications.userLeft': 'has left the session.',
-  'notifications.userJoined': 'has joined the session.',
   'notifications.userShowVotes': 'has shown the votes!',
   'notifications.userResetRound': 'has started new round!',
 

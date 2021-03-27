@@ -8,7 +8,6 @@ import { NotificationContent } from './types';
 interface Renderer {
   render(id: NotificationContent.SessionCopy): AppNotification,
   render(id: NotificationContent.UserLeft, params: User): AppNotification,
-  render(id: NotificationContent.UserJoined, params: User): AppNotification,
   render(id: NotificationContent.UserShowVotes, params: User): AppNotification,
   render(id: NotificationContent.UserResetRound, params: User): AppNotification,
   render(id: NotificationContent._StorageClear): AppNotification,
@@ -22,12 +21,6 @@ const renderer: Renderer = {
           id: 'session-copy',
           lifespan: NotificationLifespan.Short,
           content: <SessionCopy />,
-        };
-      case NotificationContent.UserJoined:
-        return {
-          id: `${params.id}-joined`,
-          lifespan: NotificationLifespan.Short,
-          content: <UserMessage name={params.name} message="notifications.userJoined" />
         };
       case NotificationContent.UserLeft:
         return {
@@ -43,7 +36,7 @@ const renderer: Renderer = {
         };
       case NotificationContent.UserResetRound:
         return {
-          id: `${params.id}-show-votes`,
+          id: `${params.id}-reset-round`,
           lifespan: NotificationLifespan.Medium,
           content: <UserMessage name={params.name} message="notifications.userResetRound" />
         };

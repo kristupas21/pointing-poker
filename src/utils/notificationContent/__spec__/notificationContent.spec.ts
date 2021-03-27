@@ -6,8 +6,9 @@ import { NotificationContent } from '../types';
 describe('notificationContent', () => {
   const notificationsMap = [
     { id: NotificationContent.SessionCopy },
-    { id: NotificationContent.UserJoined, params: { name: 'Jack', id: 'u-id' } as User },
     { id: NotificationContent.UserLeft, params: { name: 'Jack', id: 'u-id' } as User },
+    { id: NotificationContent.UserShowVotes, params: { name: 'Jack', id: 'u-id' } as User },
+    { id: NotificationContent.UserResetRound, params: { name: 'Jack', id: 'u-id' } as User },
   ];
 
   it('renders notifications', () => {
@@ -21,15 +22,20 @@ describe('notificationContent', () => {
         content: notifications[0].content,
       },
       {
-        id: 'u-id-joined',
+        id: 'u-id-left',
         lifespan: NotificationLifespan.Short,
         content: notifications[1].content,
       },
       {
-        id: 'u-id-left',
-        lifespan: NotificationLifespan.Short,
+        id: 'u-id-show-votes',
+        lifespan: NotificationLifespan.Medium,
         content: notifications[2].content,
-      }
+      },
+      {
+        id: 'u-id-reset-round',
+        lifespan: NotificationLifespan.Medium,
+        content: notifications[3].content,
+      },
     ]);
   });
 });
