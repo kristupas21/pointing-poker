@@ -1,4 +1,3 @@
-import store from 'state/store';
 import { MessageId } from 'lang';
 import { AvatarId } from 'components/Avatar';
 import { UserRole } from 'utils/userRoles/types';
@@ -13,9 +12,7 @@ export interface User {
   voteValue?: string;
 }
 
-const state = store.getState();
-
-export type State = typeof state;
+export type State = ReturnType<typeof import('state/store').getState>;
 
 export type ValueOf<T> = T[keyof T];
 

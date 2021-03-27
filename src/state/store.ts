@@ -18,4 +18,6 @@ const store = createStore(
 
 sagaMiddleware.run(saga);
 
+export const { getState } = store;
+
 export default store;
