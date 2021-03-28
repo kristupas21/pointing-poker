@@ -6,6 +6,7 @@ export const messages = {
   'error.sessionNotFound': 'Session does not exist',
   'error.unexpected': 'Unexpected Error',
   'error.userNotFound': 'User does not exist',
+  'error.userNameExists': 'User with this name already joined',
 
   'nav.home': 'Home',
   'nav.joinSession': 'Join Session',

@@ -14,6 +14,7 @@ import { SessionFormData } from 'containers/SessionForms/types';
 import storageService from 'utils/storageService/storageService';
 import { StorageKey } from 'utils/storageService';
 import JoinSessionForm from 'containers/SessionForms/JoinSessionForm';
+import { SubmitHandler } from 'components/Form';
 
 const actions = {
   joinSession: joinSessionAction,
@@ -29,8 +30,9 @@ const JoinSessionPage: React.FC<Props> = () => {
   const sessionIdFromLocationState = useSessionId();
   const userRoles = removeEmptyRoles(roles);
 
-  const handleSubmit: typeof joinSessionAction = (values, setSubmitting) =>
+  const handleSubmit: SubmitHandler<SessionFormData> = (values, { setSubmitting }) => {
     joinSession(omit(values, 'useRoles'), setSubmitting);
+  };
 
   const storageValues = storageService.get<SessionFormData>(StorageKey.FormValues);
 

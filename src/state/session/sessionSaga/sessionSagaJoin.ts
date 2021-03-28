@@ -65,6 +65,16 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
       return;
     }
 
+    if (code === ERROR_CODES.USER_NAME_EXISTS) {
+      yield call(
+        storageService.set,
+        StorageKey.FormErrors,
+        { name: { id: 'error.userNameExists' } },
+        true,
+      );
+      return;
+    }
+
     yield put(throwAppError(code));
   } finally {
     yield call(setSubmitting, false);

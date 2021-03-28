@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, FocusEvent, FormEvent } from 'react';
 import { Form, Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import { FieldSize, FieldType, FormField, SubmitHandler } from 'components/Form';
@@ -8,7 +8,7 @@ import { useMappedDispatch, useText } from 'utils/customHooks';
 import { CustomFormError, CustomFormErrors } from 'globalTypes';
 import { getSessionInfo } from 'state/session/sessionActions';
 import storageService, { StorageKey } from 'utils/storageService';
-import { SessionFormData, SessionFormSubmitHandler } from '../types';
+import { SessionFormData } from '../types';
 import { joinSessionValidationSchema } from '../validationSchema';
 
 const actions = {
@@ -17,7 +17,7 @@ const actions = {
 
 type Props = {
   initialValues: SessionFormData;
-  onSubmit: SessionFormSubmitHandler;
+  onSubmit: SubmitHandler<SessionFormData>;
   roles: UserRole[];
 };
 
@@ -27,16 +27,11 @@ const JoinSessionForm: React.FC<Props> = (props) => {
   const text = useText();
   const getErrorText = (e: CustomFormError) => e?.id && text(e.id, e.values);
 
-  const handleSubmit: SubmitHandler<SessionFormData> = (
-    values,
-    { setSubmitting }
-  ) => onSubmit(values, setSubmitting);
-
   return (
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       validationSchema={joinSessionValidationSchema}
       id="join-session-form"
     >
@@ -59,32 +54,40 @@ const JoinSessionForm: React.FC<Props> = (props) => {
 
         const submitDisabled = isSubmitting || !isEmpty(errors);
 
-        const handleSessionFieldChange = (e) => {
-          storageService.removeNested(StorageKey.FormErrors, 'sessionId');
+        const handleSessionFieldChange = (e: ChangeEvent<HTMLInputElement>): void => {
+          storageService.remove(StorageKey.FormErrors);
           handleChange(e);
         };
 
-        const handleSessionFieldBlur = (e) => {
-          if (e.target.value) {
-            storageService.set(StorageKey.FormValues, values);
-            setSubmitting(true);
+        const handleNameFieldChange = (e: ChangeEvent<HTMLInputElement>): void => {
+          storageService.removeNested(StorageKey.FormErrors, 'name');
+          handleChange(e);
+        };
 
-            const callback = () => {
-              setSubmitting(false);
-              handleBlur(e);
-            };
+        const handleSessionFieldBlur = (e: FocusEvent<HTMLInputElement>): void => {
+          const { value } = e.target;
 
-            getInfo(e.target.value, callback);
-          } else {
+          if (!value) {
             handleBlur(e);
+            return;
           }
+
+          storageService.set(StorageKey.FormValues, values);
+          setSubmitting(true);
+
+          const callback = () => {
+            setSubmitting(false);
+            handleBlur(e);
+          };
+
+          getInfo(e.target.value, callback);
         };
 
         if (values.role && !roles.some((r) => r.id === values.role)) {
           setFieldValue('role', '');
         }
 
-        const onFormSubmit = (e) => {
+        const onFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
           e.preventDefault();
           submitDisabled || submitForm();
         };
@@ -110,6 +113,7 @@ const JoinSessionForm: React.FC<Props> = (props) => {
               fieldSize={FieldSize.Large}
               placeholder={text('session.field.name.placeholder')}
               isBlock
+              onChange={handleNameFieldChange}
             />
             <FormField
               name="role"

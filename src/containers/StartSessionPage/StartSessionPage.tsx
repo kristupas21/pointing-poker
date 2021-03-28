@@ -5,6 +5,7 @@ import { RouteChildrenProps } from 'react-router';
 import { startSession as startSessionAction } from 'state/session/sessionActions';
 import PointValuesForm from 'containers/PointValuesForm';
 import RolesForm from 'containers/RolesForm';
+import { SubmitHandler } from 'components/Form';
 import { removeEmptyRoles } from 'state/session/sessionUtils';
 import { getSessionState } from 'state/session/sessionStateGetters';
 import { useMappedDispatch } from 'utils/customHooks';
@@ -22,8 +23,9 @@ const StartSessionPage: React.FC<Props> = () => {
   const { startSession } = useMappedDispatch(actions);
   const userRoles = removeEmptyRoles(roles);
 
-  const handleSubmit: typeof startSessionAction = (values) =>
+  const handleSubmit: SubmitHandler<SessionFormData> = (values) => {
     startSession(omit(values, 'sessionId'));
+  };
 
   const initialValues: SessionFormData = {
     name: user?.name || '',

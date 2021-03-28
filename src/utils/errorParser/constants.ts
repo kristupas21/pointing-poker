@@ -6,4 +6,5 @@ export const ERROR_CODES = {
   SESSION_NOT_FOUND: 'error.sessionNotFound',
   UNEXPECTED: 'error.unexpected',
   USER_NOT_FOUND: 'error.userNotFound',
+  USER_NAME_EXISTS: 'error.userNameExists',
 };

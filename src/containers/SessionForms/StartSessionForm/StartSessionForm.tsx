@@ -6,12 +6,12 @@ import Button from 'components/Button';
 import { UserRole } from 'utils/userRoles/types';
 import { useText } from 'utils/customHooks';
 import { CustomFormError, CustomFormErrors } from 'globalTypes';
-import { SessionFormSubmitHandler, SessionFormData } from '../types';
+import { SessionFormData } from '../types';
 import { startSessionValidationSchema } from '../validationSchema';
 
 type Props = {
   initialValues: SessionFormData;
-  onSubmit: SessionFormSubmitHandler;
+  onSubmit: SubmitHandler<SessionFormData>;
   roles: UserRole[];
 };
 
@@ -20,16 +20,11 @@ const StartSessionForm: React.FC<Props> = (props) => {
   const text = useText();
   const getErrorText = (e: CustomFormError) => e?.id && text(e.id, e.values);
 
-  const handleSubmit: SubmitHandler<SessionFormData> = (
-    values,
-    { setSubmitting }
-  ) => onSubmit(values, setSubmitting);
-
   return (
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       validationSchema={startSessionValidationSchema}
       id="start-session-form"
     >
