@@ -25,11 +25,9 @@ describe('joinSessionSaga', () => {
     }
   };
   const setSubmitting = jest.fn();
-  const setFieldError = jest.fn();
 
   const getActionParams = (): Parameters<typeof joinSession> => ([
     { name: 'J.Lo', role: 'r', isObserver: false, sessionId: 's-id' },
-    setFieldError,
     setSubmitting,
   ]);
 
@@ -45,7 +43,6 @@ describe('joinSessionSaga', () => {
 
   beforeEach(() => {
     setSubmitting.mockReset();
-    setFieldError.mockReset();
   });
 
   it('acquires params, calls endpoint & navigates to session route', async () => {
@@ -84,7 +81,6 @@ describe('joinSessionSaga', () => {
       .put(setAppLoading(true))
       .call(sessionApi.join, expectedParams)
       .put(setAppLoading(false))
-      .call(setFieldError, 'sessionId', { id: 'error.sessionNotFound' })
       .call(setSubmitting, false)
       .run();
   });

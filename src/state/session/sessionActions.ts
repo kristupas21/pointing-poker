@@ -1,8 +1,8 @@
 import { action } from 'typesafe-actions';
-import { CustomFormError, User } from 'globalTypes';
+import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';
-import { SessionFormData } from 'containers/SessionForm/types';
+import { SessionFormData } from 'containers/SessionForms/types';
 import { SessionState } from './sessionModel';
 import {
   START_SESSION,
@@ -19,6 +19,7 @@ import {
   REMOVE_SESSION_ROLE,
   SAVE_SESSION_ROLE,
   MODIFY_SESSION_USER,
+  GET_SESSION_INFO, RESET_SESSION_STATE,
 } from './sessionConstants';
 
 export const initSession = (params: Partial<SessionState>) =>
@@ -31,14 +32,15 @@ export const startSession = (formData: SessionFormData) =>
 
 export const joinSession = (
   formData: SessionFormData,
-  setFieldError: (name: string, error: CustomFormError) => void,
   setSubmitting: (value: boolean) => void,
 ) =>
-  action(JOIN_SESSION, { formData, setFieldError, setSubmitting });
+  action(JOIN_SESSION, { formData, setSubmitting });
 
 export const loadSession = (id: string) => action(LOAD_SESSION, id);
 
 export const closeSession = (id?: string) => action(CLOSE_SESSION, id);
+
+export const resetSessionState = () => action(RESET_SESSION_STATE);
 
 export const setSessionParams = (params: Partial<SessionState>) =>
   action(SET_SESSION_PARAMS, params);
@@ -60,3 +62,8 @@ export const saveSessionRole = (role: UserRole) =>
   action(SAVE_SESSION_ROLE, role);
 
 export const modifySessionUser = (params: Partial<User>) => action(MODIFY_SESSION_USER, params);
+
+export const getSessionInfo = (
+  sessionId: string,
+  callback: () => void,
+) => action(GET_SESSION_INFO, { sessionId, callback });

@@ -6,7 +6,6 @@ import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { throwAppError } from 'state/error/errorActions';
 import { initVoteRound } from 'state/voteRound/voteRoundActions';
 import { setAppLoading } from 'state/app/appActions';
-
 import { LOAD_SESSION } from '../sessionConstants';
 import { initSession, loadSession } from '../sessionActions';
 import sessionApi from '../sessionApi';
@@ -47,7 +46,7 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
   } catch (e) {
     const { code } = yield call(errorParser.parse, e);
 
-    if (code === ERROR_CODES.NOT_FOUND) {
+    if (code === ERROR_CODES.SESSION_NOT_FOUND) {
       yield put(replace(AppRoute.SessionNotFound, { sessionId }));
       return;
     }

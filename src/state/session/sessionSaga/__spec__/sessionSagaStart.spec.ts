@@ -5,7 +5,7 @@ import { throwApiError } from 'utils/test/testUtils';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles/constants';
 import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
 import { push } from 'connected-react-router';
-import { SessionFormData } from 'containers/SessionForm/types';
+import { SessionFormData } from 'containers/SessionForms/types';
 import storageService from 'utils/storageService/storageService';
 import { StorageKey } from 'utils/storageService';
 import { throwAppError } from 'state/error/errorActions';

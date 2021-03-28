@@ -5,3 +5,7 @@ export interface SessionFormData {
   sessionId?: string;
   useRoles?: boolean;
 }
+
+export type SessionFormSubmitHandler = (
+  values: SessionFormData, setSubmitting: (status: boolean) => void
+) => void;

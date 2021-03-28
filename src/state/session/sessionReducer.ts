@@ -16,6 +16,7 @@ import {
   MODIFY_SESSION_USER,
   REMOVE_SESSION_POINT_VALUE,
   REMOVE_SESSION_ROLE,
+  RESET_SESSION_STATE,
   SAVE_SESSION_POINT_VALUE,
   SAVE_SESSION_ROLE,
   SET_SESSION_PARAMS,
@@ -125,6 +126,7 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
         roles,
       };
     }
+    case RESET_SESSION_STATE:
     case CLOSE_SESSION:
       return {
         ...initialState,

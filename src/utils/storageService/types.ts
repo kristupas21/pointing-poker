@@ -3,4 +3,6 @@ export enum StorageKey {
   Theme = 'theme',
   User = 'user',
   Roles = 'roles',
+  FormValues = 'formValues',
+  FormErrors = 'formErrors',
 }

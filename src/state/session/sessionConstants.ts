@@ -1,5 +1,7 @@
 import { UserRole } from 'utils/userRoles/types';
 
+export const GET_SESSION_INFO = '@session/GET_INFO';
+
 export const START_SESSION = '@session/START';
 
 export const JOIN_SESSION = '@session/JOIN';
@@ -9,6 +11,8 @@ export const LOAD_SESSION = '@session/LOAD';
 export const INIT_SESSION = '@session/INIT';
 
 export const CLOSE_SESSION = '@session/CLOSE';
+
+export const RESET_SESSION_STATE = '@session/RESET_STATE';
 
 export const SET_SESSION_PARAMS = '@session/SET_PARAMS';
 

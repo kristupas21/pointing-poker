@@ -3,6 +3,15 @@ import { AxiosResponse } from 'axios';
 import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';
 
+export interface Session {
+  useRoles: boolean,
+  users: User[],
+  showVotes: boolean,
+  currentTopic: string,
+  pointValues: PointValue[],
+  roles: UserRole[],
+}
+
 export interface SessionState {
   currentSessionId: string;
   useRoles: boolean;
@@ -38,12 +47,9 @@ export type JoinSessionResponse = AxiosResponse<{
 }>
 
 export type LoadSessionResponse = AxiosResponse<{
-  session: {
-    useRoles: boolean,
-    users: User[],
-    showVotes: boolean,
-    currentTopic: string,
-    pointValues: PointValue[],
-    roles: UserRole[],
-  }
+  session: Session;
+}>
+
+export type SessionInfoResponse = AxiosResponse<{
+  session: Session;
 }>

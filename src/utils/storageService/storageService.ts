@@ -33,6 +33,21 @@ export class StorageService {
     return this.get(key);
   }
 
+  public removeNested = (key: StorageKey, prop: string): void => {
+    const obj = this.get(key);
+
+    if (!obj) {
+      return;
+    }
+
+    const newState = {
+      ...this.getState(),
+      [key]: omit(obj, prop),
+    };
+
+    this.storage.setItem(this.appKey, JSON.stringify(newState));
+  }
+
   public remove = (key: StorageKey): void => {
     if (!this.get(key)) {
       return;

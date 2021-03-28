@@ -7,6 +7,8 @@ import { throwAppError } from 'state/error/errorActions';
 import { findRoleById } from 'utils/userRoles/utils';
 import { setAppLoading } from 'state/app/appActions';
 import { UserRole } from 'utils/userRoles/types';
+import storageService from 'utils/storageService/storageService';
+import { StorageKey } from 'utils/storageService';
 import { joinSession, setSessionParams } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { JOIN_SESSION } from '../sessionConstants';
@@ -21,7 +23,6 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
       role,
       ...rest
     },
-    setFieldError,
     setSubmitting
   } = action.payload;
 
@@ -46,13 +47,17 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
     yield put(setAppLoading(false));
 
     if (code === ERROR_CODES.SESSION_NOT_FOUND) {
-      yield call(setFieldError, 'sessionId', { id: 'error.sessionNotFound' });
+      yield call(
+        storageService.set,
+        StorageKey.FormErrors,
+        { sessionId: { id: 'error.sessionNotFound' } },
+        true,
+      );
       return;
     }
 
     if (code === ERROR_CODES.MUST_CHOOSE_ROLE) {
       yield put(setSessionParams({
-        currentSessionId: sessionId,
         useRoles: true,
         roles: payload as UserRole[],
       }));
