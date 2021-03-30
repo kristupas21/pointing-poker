@@ -8,9 +8,9 @@ import { CustomFormError, CustomFormErrors } from 'globalTypes';
 import { getSessionInfo } from 'state/session/sessionActions';
 import storageService, { StorageKey } from 'utils/storageService';
 import { useSelector } from 'react-redux';
+import { getSessionFormLoading } from 'state/session/sessionStateGetters';
 import { SessionFormData } from '../types';
 import { joinSessionValidationSchema } from '../validationSchema';
-import { getSessionFormLoading } from '../../../state/session/sessionStateGetters';
 
 const actions = {
   getInfo: getSessionInfo,

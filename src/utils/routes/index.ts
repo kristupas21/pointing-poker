@@ -1,3 +1,3 @@
 export { AppRoute } from './types';
 
-export { getRouteName, getMatchParamRoute, getRouteMessageId } from './routes';
+export { getMatchParamRoute, getRouteMessageId } from './routes';

@@ -2,14 +2,14 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { call } from 'redux-saga-test-plan/matchers';
 import { MockResponse } from 'utils/test/types';
 import { throwApiError } from 'utils/test/testUtils';
+import errorParser, { ERROR_CODES } from 'utils/errorParser';
+import storageService from 'utils/storageService/storageService';
+import { StorageKey } from 'utils/storageService';
+import { throwAppError } from 'state/error/errorActions';
 import { getSessionInfoSaga } from '../sessionSagaGetInfo';
 import { getSessionInfo, setSessionParams } from '../../sessionActions';
 import sessionApi from '../../sessionApi';
 import { SessionInfoResponse } from '../../sessionModel';
-import errorParser, { ERROR_CODES } from '../../../../utils/errorParser';
-import storageService from '../../../../utils/storageService/storageService';
-import { StorageKey } from '../../../../utils/storageService';
-import { throwAppError } from '../../../error/errorActions';
 
 describe('getSessionInfoSaga', () => {
   const callback = jest.fn();

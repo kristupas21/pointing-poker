@@ -16,13 +16,13 @@ const cx = classNames.bind(styles);
 
 type Props = {
   children?: ReactNode;
+  renderMenu: boolean;
   route: string;
 };
 
 const MainLayout: React.FC<Props> = (props) => {
-  const { children, route } = props;
+  const { children, route, renderMenu } = props;
   const isLoading = useSelector(getAppLoading);
-  const isSessionRoute = route === AppRoute.Session;
 
   return (
     <div className={cx('layout')}>
@@ -31,7 +31,7 @@ const MainLayout: React.FC<Props> = (props) => {
           <Link to={AppRoute.Base}>
             <Logo />
           </Link>
-          {isSessionRoute && <UserSettings />}
+          {renderMenu && <UserSettings />}
         </div>
         <motion.div
           className={cx('layout__route', {

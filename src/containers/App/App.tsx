@@ -25,7 +25,7 @@ const StartSessionPage = withMainLayout(StartSessionPageComponent);
 
 const JoinSessionPage = withMainLayout(JoinSessionPageComponent);
 
-const SessionPage = withMainLayout(SessionPageComponent);
+const SessionPage = withMainLayout(SessionPageComponent, true);
 
 const App: React.FC = () => {
   const location = useLocation();

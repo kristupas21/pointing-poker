@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
-import { FIELD_ID_PLACEHOLDER, FIELD_VALUE_PLACEHOLDER } from '../../utils/form/constants';
+import { FIELD_ID_PLACEHOLDER, FIELD_VALUE_PLACEHOLDER } from 'utils/form/constants';
 
 export function createUser(props?: Partial<User>): User {
   const { id, name, role = '', isObserver = false, ...other } = props;

@@ -18,16 +18,6 @@ export function getRouteMessageId(route: AppRoute): MessageId {
   return ROUTE_NAMES[r];
 }
 
-export function getRouteName(route: string): AppRoute {
-  if (!route) {
-    return AppRoute.Base;
-  }
-
-  return route.includes('/session/')
-    ? AppRoute.Session
-    : route as AppRoute;
-}
-
 export function getMatchParamRoute(
   route: AppRoute,
   match: Record<string, any>

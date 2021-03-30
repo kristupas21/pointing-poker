@@ -4,10 +4,10 @@ import { IconId } from 'components/Icon';
 import { motion } from 'framer-motion';
 import animations from 'utils/animations';
 import classNames from 'classnames/bind';
+import { FIELD_VALUE_PLACEHOLDER } from 'utils/form/constants';
 import { FieldType, FormField } from '..';
 import styles from './DynamicFormField.module.scss';
 import { InputProps } from '../Input';
-import { FIELD_VALUE_PLACEHOLDER } from '../../../utils/form/constants';
 
 const cx = classNames.bind(styles);
 
