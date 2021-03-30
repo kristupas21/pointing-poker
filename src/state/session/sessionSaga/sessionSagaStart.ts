@@ -4,7 +4,6 @@ import { push } from 'connected-react-router';
 import storageService, { StorageKey } from 'utils/storageService';
 import { AppRoute, getMatchParamRoute } from 'utils/routes';
 import { throwAppError } from 'state/error/errorActions';
-import { findRoleById } from 'utils/userRoles/utils';
 import { setAppLoading } from 'state/app/appActions';
 import errorParser from 'utils/errorParser';
 import { startSession } from '../sessionActions';
@@ -16,7 +15,7 @@ import { normalizePointValues } from '../sessionUtils';
 import { StartSessionResponse } from '../sessionModel';
 
 export function* startSessionSaga(action: ActionType<typeof startSession>) {
-  const { useRoles, role, ...rest } = action.payload;
+  const { useRoles, ...rest } = action.payload;
   const roles = yield select(getNormalizedSessionRoles);
 
   const params = {
@@ -25,7 +24,6 @@ export function* startSessionSaga(action: ActionType<typeof startSession>) {
     roles,
     user: yield* acquireCurrentUser({
       ...rest,
-      role: findRoleById(roles, role)
     }),
   };
 

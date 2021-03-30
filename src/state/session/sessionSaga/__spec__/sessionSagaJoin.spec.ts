@@ -17,8 +17,8 @@ describe('joinSessionSaga', () => {
   const mockState: MockState = {
     session: {
       roles: [
-        { id: 'r', name: 'r' },
-        { id: 'f', name: 'f' }
+        'r',
+        'f',
       ],
       user: {
         id: 'u-id',
@@ -36,7 +36,7 @@ describe('joinSessionSaga', () => {
     sessionId: 's-id',
     user: {
       name: 'J.Lo',
-      role: { id: 'r', name: 'r' },
+      role: 'r',
       isObserver: false,
       id: 'u-id',
     }

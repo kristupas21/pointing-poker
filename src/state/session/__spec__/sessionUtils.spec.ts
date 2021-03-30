@@ -1,7 +1,6 @@
 import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
 import { createUser, normalizePointValues } from '../sessionUtils';
-import { EMPTY_USER_ROLE } from '../sessionConstants';
 
 describe('sessionUtils', () => {
   describe('createUser', () => {
@@ -14,7 +13,7 @@ describe('sessionUtils', () => {
       expect(createUser(props)).toEqual({
         id: 'u-id',
         name: 'UserName',
-        role: EMPTY_USER_ROLE,
+        role: '',
         isObserver: false,
       });
     });

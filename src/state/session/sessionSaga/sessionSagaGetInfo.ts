@@ -4,13 +4,15 @@ import storageService from 'utils/storageService/storageService';
 import { StorageKey } from 'utils/storageService';
 import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { throwAppError } from 'state/error/errorActions';
-import { getSessionInfo, setSessionParams } from '../sessionActions';
+import { getSessionInfo, setSessionFormLoading, setSessionParams } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { SessionInfoResponse } from '../sessionModel';
 import { GET_SESSION_INFO } from '../sessionConstants';
 
 export function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
   const { sessionId, callback } = action.payload;
+
+  yield put(setSessionFormLoading(true));
 
   try {
     const {
@@ -41,7 +43,8 @@ export function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
 
     yield put(throwAppError(code));
   } finally {
-    yield call(callback);
+    yield put(setSessionFormLoading(false));
+    yield callback && call(callback);
   }
 }
 

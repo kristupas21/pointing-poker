@@ -3,7 +3,6 @@ import { Form, Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import { FieldSize, FieldType, FormField, SubmitHandler } from 'components/Form';
 import Button from 'components/Button';
-import { UserRole } from 'utils/userRoles/types';
 import { useText } from 'utils/customHooks';
 import { CustomFormError, CustomFormErrors } from 'globalTypes';
 import { SessionFormData } from '../types';
@@ -12,7 +11,7 @@ import { startSessionValidationSchema } from '../validationSchema';
 type Props = {
   initialValues: SessionFormData;
   onSubmit: SubmitHandler<SessionFormData>;
-  roles: UserRole[];
+  roles: string[];
 };
 
 const StartSessionForm: React.FC<Props> = (props) => {
@@ -39,7 +38,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
         const errors = formikErrors as unknown as CustomFormErrors<SessionFormData>;
         const submitDisabled = isSubmitting || !isEmpty(errors);
 
-        if (values.role && !roles.some((r) => r.id === values.role)) {
+        if (values.role && !roles.some((r) => r === values.role)) {
           setValues({
             ...values,
             role: '',

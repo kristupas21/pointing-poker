@@ -18,7 +18,7 @@ describe('startSessionSaga', () => {
   const mockState: MockState = {
     session: {
       roles: [
-        { id: 'Frontend', name: 'Frontend' }
+        'Frontend',
       ],
       pointValues: [],
       user: {
@@ -38,14 +38,12 @@ describe('startSessionSaga', () => {
     useRoles: true,
     pointValues: [],
     roles: [
-      { id: 'Frontend', name: 'Frontend' }
+      'Frontend'
     ],
     user: {
       id: 'u-id',
       name: 'Gatsby',
-      role: {
-        id: 'Frontend', name: 'Frontend',
-      },
+      role: 'Frontend',
       isObserver: false,
     },
   };

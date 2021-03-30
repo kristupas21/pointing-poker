@@ -9,10 +9,9 @@ import {
 } from 'state/session/sessionActions';
 import { useMappedDispatch, useSessionId } from 'utils/customHooks';
 import { getNormalizedSessionRoles, getSessionState } from 'state/session/sessionStateGetters';
-import { SessionFormData, StorageFormData } from 'containers/SessionForms/types';
+import { SessionFormData } from 'containers/SessionForms/types';
 import storageService from 'utils/storageService/storageService';
 import { StorageKey } from 'utils/storageService';
-import { findRoleMatchOnlyByName } from 'utils/userRoles/utils';
 import JoinSessionForm from 'containers/SessionForms/JoinSessionForm';
 import { SubmitHandler } from 'components/Form';
 
@@ -34,22 +33,12 @@ const JoinSessionPage: React.FC<Props> = () => {
     joinSession(omit(values, 'useRoles'), setSubmitting);
   };
 
-  const storageValues = storageService.get<StorageFormData>(StorageKey.FormValues);
+  const storageValues = storageService.get<SessionFormData>(StorageKey.FormValues);
 
   const initialSessionId =
       storageValues?.sessionId ||
       currentSessionId ||
       sessionIdFromLocationState || '';
-
-  const initialRoleId = () => {
-    const id = storageValues?.role || user?.role?.id;
-    const name = storageValues?.roleName;
-
-    if (!id) return '';
-    if (!name) return id;
-
-    return findRoleMatchOnlyByName(roles, { id, name })?.id || id;
-  };
 
   const initialIsObserver = () => (storageValues?.isObserver != null
     ? storageValues.isObserver
@@ -57,7 +46,7 @@ const JoinSessionPage: React.FC<Props> = () => {
 
   const initialValues: SessionFormData = {
     sessionId: initialSessionId,
-    role: initialRoleId(),
+    role: storageValues?.role || user?.role || '',
     isObserver: initialIsObserver(),
     name: storageValues?.name || user?.name || '',
     useRoles,

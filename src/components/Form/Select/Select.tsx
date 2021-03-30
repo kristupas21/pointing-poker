@@ -12,7 +12,8 @@ import SelectDropdown from './SelectDropdown';
 const cx = classNames.bind(styles);
 
 type CustomProps = {
-  options: Identifier[],
+  options?: string[],
+  uniqOptions?: Identifier[];
   setFieldValue: (field: string, value: string) => void;
 };
 
@@ -27,7 +28,8 @@ const Select: React.FC<SelectProps> = (props) => {
     label,
     disabled,
     error,
-    options = [],
+    options,
+    uniqOptions,
     placeholder,
     fieldSize,
     setFieldValue
@@ -67,10 +69,14 @@ const Select: React.FC<SelectProps> = (props) => {
     setIsOpen(!isOpen);
   };
 
+  const getInputValue = () => (uniqOptions
+    ? uniqOptions.find((o) => value === o.id).name || ''
+    : value);
+
   return (
     <span className={cx('select')}>
       <Input
-        value={options.find((o) => value === o.id)?.name || ''}
+        value={getInputValue()}
         id={id}
         name={name}
         label={label}
@@ -94,10 +100,11 @@ const Select: React.FC<SelectProps> = (props) => {
         {isOpen && (
           <SelectDropdown
             options={options}
+            uniqOptions={uniqOptions}
             onSelect={handleOptionSelect}
             onOutsideClick={handleOutsideClick}
             fieldSize={fieldSize}
-            selectedOptionId={value}
+            selectedOption={value}
             key="dropdown"
           />
         )}

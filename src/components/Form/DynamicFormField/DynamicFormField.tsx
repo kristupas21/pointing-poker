@@ -7,6 +7,7 @@ import classNames from 'classnames/bind';
 import { FieldType, FormField } from '..';
 import styles from './DynamicFormField.module.scss';
 import { InputProps } from '../Input';
+import { FIELD_VALUE_PLACEHOLDER } from '../../../utils/form/constants';
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +15,7 @@ type Props = Omit<InputProps, 'onBlur'> & {
   onRemoveClick: (id: string) => void;
   isRemoveDisabled?: boolean;
   isEditDisabled?: boolean;
-  onBlur: (e: FocusEvent<HTMLInputElement>, id: string, name: string) => void;
+  onBlur: (e: FocusEvent<HTMLInputElement>, id: string, name?: string) => void;
   currentValue: string;
   fieldType?: FieldType.Input | FieldType.Number;
 }
@@ -40,6 +41,9 @@ const DynamicFormField: React.FC<Props> = (props) => {
 
   const handleBlur = (e) => onBlur(e, id, name);
 
+  const getFieldValue = () =>
+    ((currentValue && currentValue !== FIELD_VALUE_PLACEHOLDER) ? currentValue : '');
+
   return (
     <motion.span key={id} {...animations.simpleOpacity} className={cx('field')}>
       <FormField
@@ -48,7 +52,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
         type={fieldType}
         setRef={inputRef}
         onBlur={handleBlur}
-        value={currentValue || ''}
+        value={getFieldValue()}
         disabled={isEditDisabled}
         id={id}
         isReadonly={isReadonly}

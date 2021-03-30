@@ -28,7 +28,7 @@ const StartSessionPage: React.FC<Props> = () => {
 
   const initialValues: SessionFormData = {
     name: user?.name || '',
-    role: user?.role?.id || '',
+    role: user?.role || '',
     isObserver: user?.isObserver || false,
     useRoles: true,
   };

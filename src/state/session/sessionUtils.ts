@@ -1,12 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import uniqBy from 'lodash/uniqBy';
 import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
-import { UserRole } from 'utils/userRoles/types';
-import { EMPTY_USER_ROLE } from './sessionConstants';
+import { FIELD_ID_PLACEHOLDER, FIELD_VALUE_PLACEHOLDER } from '../../utils/form/constants';
 
 export function createUser(props?: Partial<User>): User {
-  const { id, name, role = { ...EMPTY_USER_ROLE }, isObserver = false, ...other } = props;
+  const { id, name, role = '', isObserver = false, ...other } = props;
 
   return {
     id: id || uuidv4(),
@@ -21,17 +19,10 @@ export function createPointValue(props: Partial<PointValue>): PointValue {
   const { id, value, pos, ...other } = props;
 
   return {
-    id: id || uuidv4(),
+    id: id || FIELD_ID_PLACEHOLDER,
     value: value || '',
     pos,
     ...other,
-  };
-}
-
-export function createRole(): UserRole {
-  return {
-    id: uuidv4(),
-    name: '',
   };
 }
 
@@ -62,6 +53,6 @@ export function normalizePointValues(points: PointValue[]): PointValue[] {
   }));
 }
 
-export function removeEmptyRoles(roles: UserRole[]): UserRole[] {
-  return uniqBy((roles || []).filter((r) => r.name), 'id');
+export function removeEmptyRoles(roles: string[]): string[] {
+  return (roles || []).filter((r) => r && r !== FIELD_VALUE_PLACEHOLDER);
 }

@@ -2,7 +2,6 @@ import React, { FocusEvent } from 'react';
 import { Formik, Form } from 'formik';
 import { useSelector } from 'react-redux';
 import { useText } from 'utils/customHooks';
-import { findRoleById } from 'utils/userRoles/utils';
 import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { FieldType, FormField, FieldSize } from 'components/Form';
 import { User } from 'globalTypes';
@@ -40,7 +39,7 @@ const UserSettingsForm: React.FC<Props> = (props) => {
 
         const submitRole = (fieldName: string, value: string) => {
           setFieldValue(fieldName, value);
-          submitField({ role: findRoleById(roles, value) });
+          submitField({ role: value });
         };
 
         return (

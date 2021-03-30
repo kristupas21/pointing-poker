@@ -1,5 +1,3 @@
-import { UserRole } from 'utils/userRoles/types';
-
 export const GET_SESSION_INFO = '@session/GET_INFO';
 
 export const START_SESSION = '@session/START';
@@ -26,7 +24,7 @@ export const ADD_SESSION_ROLE = '@session/ADD_ROLE';
 
 export const REMOVE_SESSION_ROLE = '@session/REMOVE_ROLE';
 
-export const SAVE_SESSION_ROLE = '@session/SAVE_ROLE';
+export const SAVE_SESSION_ROLES = '@session/SAVE_ROLES';
 
 export const SET_SESSION_USER = '@session/SET_USER';
 
@@ -36,4 +34,4 @@ export const RESET_SESSION_ROLES = '@session/RESET_ROLES';
 
 export const RESET_SESSION_POINT_VALUES = '@session/RESET_POINT_VALUES';
 
-export const EMPTY_USER_ROLE: UserRole = { name: null, id: null };
+export const SET_SESSION_FORM_LOADING = '@session/SET_FORM_LOADING';

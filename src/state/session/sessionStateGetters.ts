@@ -1,9 +1,7 @@
 import { State, User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
 import { AvatarId } from 'components/Avatar';
-import { UserRole } from 'utils/userRoles/types';
 import { SessionState } from './sessionModel';
-import { EMPTY_USER_ROLE } from './sessionConstants';
 import { removeEmptyRoles } from './sessionUtils';
 
 export const getSessionState = (state: State): SessionState => state.session;
@@ -16,19 +14,20 @@ export const getSessionUserName = (state: State): string => state.session.user?.
 
 export const getSessionUserAvatarId = (state: State): AvatarId => state.session.user?.avatarId;
 
-export const getSessionUserRole = (state: State): UserRole =>
-  state.session.user?.role || { ...EMPTY_USER_ROLE };
+export const getSessionUserRole = (state: State): string => state.session.user?.role || '';
 
 export const getSessionUserIsObserver = (state: State): boolean =>
   state.session.user?.isObserver || false;
 
 export const getSessionPointValues = (state: State): PointValue[] => state.session.pointValues;
 
-export const getSessionRoles = (state: State): UserRole[] => state.session.roles;
+export const getSessionRoles = (state: State): string[] => state.session.roles;
 
-export const getNormalizedSessionRoles = (state: State): UserRole[] =>
+export const getNormalizedSessionRoles = (state: State): string[] =>
   removeEmptyRoles(state.session.roles);
 
 export const getSessionUseRoles = (state: State): boolean => state.session.useRoles;
 
 export const getSessionCurrentId = (state: State): string => state.session.currentSessionId;
+
+export const getSessionFormLoading = (state: State): boolean => state.session.isFormLoading;

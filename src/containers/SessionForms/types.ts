@@ -5,7 +5,3 @@ export interface SessionFormData {
   sessionId?: string;
   useRoles?: boolean;
 }
-
-export interface StorageFormData extends SessionFormData {
-  roleName?: string;
-}

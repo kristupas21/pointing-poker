@@ -3,11 +3,11 @@ import storageService, { StorageKey } from 'utils/storageService';
 import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
 import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
-import { UserRole } from 'utils/userRoles/types';
-import { DEFAULT_USER_ROLES } from 'utils/userRoles/constants';
+import { DEFAULT_USER_ROLES } from 'utils/userRoles';
 import { getRandomAvatar } from 'components/Avatar';
+import { FIELD_ID_PLACEHOLDER, FIELD_VALUE_PLACEHOLDER } from 'utils/form/constants';
 import { SessionState } from './sessionModel';
-import { createPointValue, createRole } from './sessionUtils';
+import { createPointValue } from './sessionUtils';
 import {
   ADD_SESSION_POINT_VALUE,
   ADD_SESSION_ROLE,
@@ -17,10 +17,11 @@ import {
   REMOVE_SESSION_POINT_VALUE,
   REMOVE_SESSION_ROLE,
   RESET_SESSION_POINT_VALUES,
+  RESET_SESSION_ROLES,
   RESET_SESSION_STATE,
   SAVE_SESSION_POINT_VALUE,
-  SAVE_SESSION_ROLE,
-  RESET_SESSION_ROLES,
+  SAVE_SESSION_ROLES,
+  SET_SESSION_FORM_LOADING,
   SET_SESSION_PARAMS,
   SET_SESSION_USER
 } from './sessionConstants';
@@ -31,6 +32,7 @@ type State = Readonly<SessionState>;
 
 const initialState: State = {
   currentSessionId: null,
+  isFormLoading: false,
   user: initialUser(),
   useRoles: false,
   pointValues: initialPointValues(),
@@ -63,46 +65,12 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
         }
       };
     }
-    case SAVE_SESSION_POINT_VALUE: {
-      const pointValues = state.pointValues.map((p) => ({
-        ...p,
-        ...(p.id === action.payload.id && action.payload)
-      }));
-
-      storageService.set(StorageKey.PointValues, pointValues);
-
-      return {
-        ...state,
-        pointValues,
-      };
-    }
-    case SAVE_SESSION_ROLE: {
-      const roles = state.roles.map((p) => ({
-        ...p,
-        ...(p.id === action.payload.id && action.payload)
-      }));
-
-      storageService.set(StorageKey.Roles, roles);
-
-      return {
-        ...state,
-        roles,
-      };
-    }
     case ADD_SESSION_POINT_VALUE:
       return {
         ...state,
         pointValues: [
-          ...state.pointValues,
+          ...state.pointValues.filter((p) => p.id !== FIELD_ID_PLACEHOLDER),
           createPointValue({ pos: state.pointValues.length }),
-        ],
-      };
-    case ADD_SESSION_ROLE:
-      return {
-        ...state,
-        roles: [
-          ...state.roles,
-          createRole(),
         ],
       };
     case REMOVE_SESSION_POINT_VALUE: {
@@ -117,23 +85,17 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
         pointValues,
       };
     }
-    case REMOVE_SESSION_ROLE: {
-      const roles = state.roles
-        .filter((p) => p.id !== action.payload);
+    case SAVE_SESSION_POINT_VALUE: {
+      const pointValues = state.pointValues.map((p) => ({
+        ...p,
+        ...(p.id === action.payload.id && action.payload)
+      }));
 
-      storageService.set(StorageKey.Roles, roles);
-
-      return {
-        ...state,
-        roles,
-      };
-    }
-    case RESET_SESSION_ROLES: {
-      storageService.remove(StorageKey.Roles);
+      storageService.set(StorageKey.PointValues, pointValues);
 
       return {
         ...state,
-        roles: DEFAULT_USER_ROLES,
+        pointValues,
       };
     }
     case RESET_SESSION_POINT_VALUES: {
@@ -144,6 +106,45 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
         pointValues: DEFAULT_POINT_VALUES
       };
     }
+    case ADD_SESSION_ROLE:
+      return {
+        ...state,
+        roles: [
+          ...new Set([...state.roles, FIELD_VALUE_PLACEHOLDER])
+        ],
+      };
+    case REMOVE_SESSION_ROLE: {
+      const roles = state.roles
+        .filter((r) => r !== action.payload);
+
+      storageService.set(StorageKey.Roles, roles);
+
+      return {
+        ...state,
+        roles,
+      };
+    }
+    case SAVE_SESSION_ROLES: {
+      storageService.set(StorageKey.Roles, action.payload);
+
+      return {
+        ...state,
+        roles: action.payload,
+      };
+    }
+    case RESET_SESSION_ROLES: {
+      storageService.remove(StorageKey.Roles);
+
+      return {
+        ...state,
+        roles: DEFAULT_USER_ROLES,
+      };
+    }
+    case SET_SESSION_FORM_LOADING:
+      return {
+        ...state,
+        isFormLoading: action.payload,
+      };
     case RESET_SESSION_STATE:
     case CLOSE_SESSION:
       return {
@@ -177,7 +178,7 @@ function initialPointValues(): PointValue[] {
   );
 }
 
-function initialRoles(): UserRole[] {
+function initialRoles(): string[] {
   return (
     storageService.get(StorageKey.Roles) || DEFAULT_USER_ROLES
   );

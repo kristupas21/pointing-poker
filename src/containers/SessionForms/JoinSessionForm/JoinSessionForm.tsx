@@ -1,16 +1,16 @@
-import React, { ChangeEvent, FocusEvent, FormEvent } from 'react';
+import React, { ChangeEvent, FocusEvent, FormEvent, useEffect } from 'react';
 import { Form, Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import { FieldSize, FieldType, FormField, SubmitHandler } from 'components/Form';
 import Button from 'components/Button';
-import { UserRole } from 'utils/userRoles/types';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { CustomFormError, CustomFormErrors } from 'globalTypes';
 import { getSessionInfo } from 'state/session/sessionActions';
 import storageService, { StorageKey } from 'utils/storageService';
-import { SessionFormData, StorageFormData } from '../types';
+import { useSelector } from 'react-redux';
+import { SessionFormData } from '../types';
 import { joinSessionValidationSchema } from '../validationSchema';
-import { findRoleById } from '../../../utils/userRoles/utils';
+import { getSessionFormLoading } from '../../../state/session/sessionStateGetters';
 
 const actions = {
   getInfo: getSessionInfo,
@@ -19,14 +19,21 @@ const actions = {
 type Props = {
   initialValues: SessionFormData;
   onSubmit: SubmitHandler<SessionFormData>;
-  roles: UserRole[];
+  roles: string[];
 };
 
 const JoinSessionForm: React.FC<Props> = (props) => {
   const { initialValues, onSubmit, roles } = props;
+  const isLoading = useSelector(getSessionFormLoading);
   const { getInfo } = useMappedDispatch(actions);
   const text = useText();
   const getErrorText = (e: CustomFormError) => e?.id && text(e.id, e.values);
+
+  useEffect(() => {
+    if (initialValues.sessionId) {
+      getInfo(initialValues.sessionId);
+    }
+  }, []);
 
   return (
     <Formik
@@ -42,18 +49,15 @@ const JoinSessionForm: React.FC<Props> = (props) => {
         values,
         setFieldValue,
         handleBlur,
-        setSubmitting,
         submitForm,
         handleChange
       }) => {
-        const storageErrors = storageService.get(StorageKey.FormErrors) || {};
-
         const errors = {
           ...formikErrors,
-          ...storageErrors,
+          ...(storageService.get(StorageKey.FormErrors) || {}),
         } as CustomFormErrors<SessionFormData>;
 
-        const submitDisabled = isSubmitting || !isEmpty(errors);
+        const submitDisabled = isLoading || isSubmitting || !isEmpty(errors);
 
         const handleSessionFieldChange = (e: ChangeEvent<HTMLInputElement>): void => {
           storageService.remove(StorageKey.FormErrors);
@@ -73,22 +77,11 @@ const JoinSessionForm: React.FC<Props> = (props) => {
             return;
           }
 
-          storageService.set<StorageFormData>(StorageKey.FormValues, {
-            ...values,
-            ...(values.role && { roleName: findRoleById(roles, values.role)?.name }),
-          });
-
-          setSubmitting(true);
-
-          const callback = () => {
-            setSubmitting(false);
-            handleBlur(e);
-          };
-
-          getInfo(e.target.value, callback);
+          storageService.set<SessionFormData>(StorageKey.FormValues, values);
+          getInfo(e.target.value, () => handleBlur(e));
         };
 
-        if (values.role && !roles.some((r) => r.id === values.role)) {
+        if (values.role && !roles.some((r) => r === values.role)) {
           setFieldValue('role', '');
         }
 

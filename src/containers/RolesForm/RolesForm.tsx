@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import {
   addSessionRole,
   removeSessionRole,
-  saveSessionRole,
+  saveSessionRoles,
   resetSessionRoles,
 } from 'state/session/sessionActions';
 import Button from 'components/Button';
@@ -12,26 +12,24 @@ import { IconId } from 'components/Icon';
 import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
-import { AnimatePresence } from 'framer-motion';
-import { findRoleMatchOnlyByName } from 'utils/userRoles/utils';
 import { mapRolesToFormData, withURF } from './utils';
 import { MAX_ROLES_COUNT, MIN_ROLES_COUNT } from './constants';
 
 const actions = {
   removeRole: removeSessionRole,
-  saveRole: saveSessionRole,
+  saveRoles: saveSessionRoles,
   addRole: addSessionRole,
   resetRoles: resetSessionRoles,
 };
 
 const RolesForm: React.FC = () => {
   const roles = useSelector(getSessionRoles);
-  const { removeRole, saveRole, addRole, resetRoles } = useMappedDispatch(actions);
+  const { removeRole, saveRoles, addRole, resetRoles } = useMappedDispatch(actions);
   const [isEditOn, setEditOn] = useState(false);
-  const text = useText();
   const initialValues = mapRolesToFormData(roles);
+  const text = useText();
   const isRemoveDisabled = roles.length <= MIN_ROLES_COUNT;
-  const isAddDisabled = roles.length >= MAX_ROLES_COUNT;
+  const isAddDisabled = !isEditOn || roles.length >= MAX_ROLES_COUNT;
 
   return (
     <>
@@ -43,39 +41,38 @@ const RolesForm: React.FC = () => {
         onSubmit={undefined}
       >
         {({ handleBlur, values, resetForm }) => {
-          const submitValues = (e: FocusEvent<HTMLInputElement>, id: string, name: string) => {
-            const value = values[name];
-            const duplicateOrEmpty = !value || findRoleMatchOnlyByName(roles, { id, name });
+          const submitValues = (e: FocusEvent<HTMLInputElement>, id: string) => {
+            const value = values[id];
+            const duplicateOrEmpty = !value || roles.some((r) => r === value);
 
             handleBlur(e);
 
             if (duplicateOrEmpty) {
               resetForm();
             } else {
-              saveRole({ id, name: value });
+              saveRoles(Object.values(values));
             }
           };
 
           return (
             <Form name={withURF('form')} noValidate>
-              <AnimatePresence>
-                {roles.map((role) => {
-                  const name = withURF(role.id);
+              {roles.map((role) => {
+                const name = withURF(role);
+                const handleRemoveClick = () => removeRole(role);
 
-                  return (
-                    <DynamicFormField
-                      key={role.id}
-                      id={role.id}
-                      isRemoveDisabled={isRemoveDisabled}
-                      onRemoveClick={removeRole}
-                      onBlur={submitValues}
-                      name={name}
-                      currentValue={values[name]}
-                      isReadonly={!isEditOn}
-                    />
-                  );
-                })}
-              </AnimatePresence>
+                return (
+                  <DynamicFormField
+                    key={name}
+                    id={name}
+                    isRemoveDisabled={isRemoveDisabled}
+                    onRemoveClick={handleRemoveClick}
+                    onBlur={submitValues}
+                    name={name}
+                    currentValue={values[name]}
+                    isReadonly={!isEditOn}
+                  />
+                );
+              })}
             </Form>
           );
         }}

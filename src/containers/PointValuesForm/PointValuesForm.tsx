@@ -12,7 +12,6 @@ import { IconId } from 'components/Icon';
 import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionPointValues } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
-import { AnimatePresence } from 'framer-motion';
 import { FieldSize, FieldType } from 'components/Form';
 import { mapPointValuesToFormData, normalizePoint, withPVF } from './utils';
 import { MAX_POINT_VALUES_COUNT, MIN_POINT_VALUES_COUNT } from './constants';
@@ -37,7 +36,7 @@ const PointValuesForm: React.FC = () => {
   const text = useText();
   const initialValues = mapPointValuesToFormData(pointValues);
   const isRemoveDisabled = pointValues.length <= MIN_POINT_VALUES_COUNT;
-  const isAddDisabled = pointValues.length >= MAX_POINT_VALUES_COUNT;
+  const isAddDisabled = !isEditOn || pointValues.length >= MAX_POINT_VALUES_COUNT;
 
   return (
     <>
@@ -73,28 +72,26 @@ const PointValuesForm: React.FC = () => {
 
           return (
             <Form name={withPVF('form')} noValidate>
-              <AnimatePresence>
-                {pointValues.map((point) => {
-                  const { id, mandatoryId, pos } = point;
-                  const name = withPVF(mandatoryId || pos);
+              {pointValues.map((point) => {
+                const { id, mandatoryId, pos } = point;
+                const name = withPVF(mandatoryId || pos);
 
-                  return (
-                    <DynamicFormField
-                      key={id}
-                      id={id}
-                      isRemoveDisabled={isRemoveDisabled || !!mandatoryId}
-                      onRemoveClick={removePointValue}
-                      onBlur={submitValues}
-                      name={name}
-                      currentValue={values[name]}
-                      isEditDisabled={!!mandatoryId}
-                      fieldSize={FieldSize.Small}
-                      fieldType={mandatoryId ? FieldType.Input : FieldType.Number}
-                      isReadonly={!isEditOn}
-                    />
-                  );
-                })}
-              </AnimatePresence>
+                return (
+                  <DynamicFormField
+                    key={id}
+                    id={id}
+                    isRemoveDisabled={isRemoveDisabled || !!mandatoryId}
+                    onRemoveClick={removePointValue}
+                    onBlur={submitValues}
+                    name={name}
+                    currentValue={values[name]}
+                    isEditDisabled={!!mandatoryId}
+                    fieldSize={FieldSize.Small}
+                    fieldType={mandatoryId ? FieldType.Input : FieldType.Number}
+                    isReadonly={!isEditOn}
+                  />
+                );
+              })}
             </Form>
           );
         }}

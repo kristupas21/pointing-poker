@@ -1,13 +1,12 @@
 import { MessageId } from 'lang';
 import { AvatarId } from 'components/Avatar';
-import { UserRole } from 'utils/userRoles/types';
 
 export interface User {
   avatarId?: AvatarId;
   id: string;
   isObserver?: boolean;
   name: string;
-  role?: UserRole;
+  role?: string;
   registeredSessionId?: string;
   voteValue?: string;
 }

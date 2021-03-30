@@ -35,7 +35,7 @@ const UserSettings: React.FC<Props> = ({ withForm }) => {
   const isObserver = useSelector(getSessionUserIsObserver);
   const useRoles = useSelector(getSessionUseRoles);
   const text = useText();
-  const initialValues = { name, role: useRoles ? role?.id : '' };
+  const initialValues = { name, role: useRoles ? role : '' };
 
   return (
     <div>
