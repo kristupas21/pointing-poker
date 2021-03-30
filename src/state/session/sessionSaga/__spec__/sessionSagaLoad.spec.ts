@@ -8,7 +8,6 @@ import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { initVoteRound } from 'state/voteRound/voteRoundActions';
 import { setAppLoading } from 'state/app/appActions';
 import { throwAppError } from 'state/error/errorActions';
-
 import { LoadSessionResponse } from '../../sessionModel';
 import { loadSessionSaga } from '../sessionSagaLoad';
 import { initSession, loadSession } from '../../sessionActions';
@@ -77,7 +76,7 @@ describe('loadSessionSaga', () => {
     const error = {
       response: {
         data: {
-          code: ERROR_CODES.NOT_FOUND,
+          code: ERROR_CODES.SESSION_NOT_FOUND,
         }
       }
     };
@@ -124,6 +123,7 @@ describe('loadSessionSaga', () => {
         [call(sessionApi.load, { sessionId, userId }), throwApiError(error)]
       ])
       .call(sessionApi.load, { sessionId, userId })
+      .call(errorParser.parse, error)
       .put(throwAppError(ERROR_CODES.UNEXPECTED))
       .put(setAppLoading(false))
       .run();

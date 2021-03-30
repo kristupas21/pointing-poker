@@ -1,60 +1,47 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-  getSessionUserAvatarId,
-  getSessionUserIsObserver,
-  getSessionUserName,
-  getSessionUseRoles,
-  getSessionUserRole
-} from 'state/session/sessionStateGetters';
-import { modifySessionUser } from 'state/session/sessionActions';
-import { wsModifySessionUser } from 'state/ws/wsActions';
+import { getSessionCurrentId } from 'state/session/sessionStateGetters';
+import { pushNotification as pushNotificationAction } from 'state/notifications/notificationsActions';
+import classNames from 'classnames/bind';
 import { useMappedDispatch, useText } from 'utils/customHooks';
-import ThemeSelector from 'containers/ThemeSelector';
-import AvatarSelector from 'containers/AvatarSelector';
-import Button from 'components/Button';
-import { setAppSidebarOpen } from 'state/app/appActions';
-import UserSettingsForm from './UserSettingsForm';
+import renderNotification, { NotificationContent } from 'utils/notificationContent';
+import { copyToClipboard } from 'utils/commands';
+import styles from './UserSettings.module.scss';
+import AvatarSelector from '../AvatarSelector';
+
+const cx = classNames.bind(styles);
 
 const actions = {
-  modifyUser: [modifySessionUser, wsModifySessionUser],
-  setSidebarOpen: setAppSidebarOpen,
+  pushNotification: pushNotificationAction,
 };
 
-type A = {
-  modifyUser: typeof modifySessionUser;
-  setSidebarOpen: typeof setAppSidebarOpen;
-}
-
-type Props = {
-  withForm?: boolean;
-}
-
-const UserSettings: React.FC<Props> = ({ withForm }) => {
-  const { modifyUser, setSidebarOpen } = useMappedDispatch<A>(actions as unknown as A);
-  const name = useSelector(getSessionUserName);
-  const role = useSelector(getSessionUserRole);
-  const isObserver = useSelector(getSessionUserIsObserver);
-  const avatarId = useSelector(getSessionUserAvatarId);
-  const useRoles = useSelector(getSessionUseRoles);
+const UserSettingsOpener: React.FC = () => {
+  const { pushNotification } = useMappedDispatch(actions);
   const text = useText();
-  const initialValues = { name, role: useRoles ? role?.id : '' };
+  const currentSessionId = useSelector(getSessionCurrentId);
+
+  const handleCopyClick = () => {
+    copyToClipboard(currentSessionId);
+    pushNotification(renderNotification(NotificationContent.SessionCopy));
+  };
 
   return (
-    <div>
-      {withForm && (
-        <UserSettingsForm
-          initialValues={initialValues}
-          isObserver={isObserver}
-          useRoles={useRoles}
-          submitField={modifyUser}
-        />
+    <div className={cx('settings')}>
+      {currentSessionId && (
+        <div
+          className={cx('settings__session-info')}
+          onClick={handleCopyClick}
+          role="button"
+          onKeyDown={undefined}
+          tabIndex={-1}
+        >
+          <div className={cx('settings__session-text')}>{text('global.session')}</div>
+          <div className={cx('settings__session-id')}>{currentSessionId}</div>
+        </div>
       )}
-      <AvatarSelector onSelect={modifyUser} value={avatarId} />
-      <ThemeSelector />
-      <Button onClick={() => setSidebarOpen(false)}>{text('global.done')}</Button>
+      <AvatarSelector />
     </div>
   );
 };
 
-export default UserSettings;
+export default UserSettingsOpener;

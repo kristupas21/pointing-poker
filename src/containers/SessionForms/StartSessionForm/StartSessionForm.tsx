@@ -75,7 +75,6 @@ const StartSessionForm: React.FC<Props> = (props) => {
               placeholder={text('session.field.role.placeholder')}
               error={getErrorText(errors.role)}
               options={roles}
-              disabled={values.isObserver}
               isBlock
               value={values.role}
               fieldSize={FieldSize.Large}

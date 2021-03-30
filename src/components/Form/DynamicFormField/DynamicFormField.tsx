@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, FocusEvent } from 'react';
+import React, { useRef, FocusEvent } from 'react';
 import Button from 'components/Button';
 import { IconId } from 'components/Icon';
 import { motion } from 'framer-motion';
@@ -29,22 +29,16 @@ const DynamicFormField: React.FC<Props> = (props) => {
     currentValue,
     isEditDisabled,
     fieldType = FieldType.Input,
+    isReadonly,
     ...fieldProps
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleEditClick = () =>
-    inputRef.current && inputRef.current.focus();
-
   const handleRemoveClick = () =>
     isRemoveDisabled || onRemoveClick(id);
 
   const handleBlur = (e) => onBlur(e, id, name);
-
-  useEffect(() => {
-    currentValue === undefined && handleEditClick();
-  }, []);
 
   return (
     <motion.span key={id} {...animations.simpleOpacity} className={cx('field')}>
@@ -57,9 +51,15 @@ const DynamicFormField: React.FC<Props> = (props) => {
         value={currentValue || ''}
         disabled={isEditDisabled}
         id={id}
+        isReadonly={isReadonly}
       />
-      <Button icon={IconId.Edit} onClick={handleEditClick} disabled={isEditDisabled} />
-      <Button icon={IconId.Delete} onClick={handleRemoveClick} disabled={isRemoveDisabled} />
+      {isReadonly || (
+        <Button
+          icon={IconId.Delete}
+          onClick={handleRemoveClick}
+          disabled={isRemoveDisabled}
+        />
+      )}
     </motion.span>
   );
 };

@@ -16,9 +16,11 @@ import {
   MODIFY_SESSION_USER,
   REMOVE_SESSION_POINT_VALUE,
   REMOVE_SESSION_ROLE,
+  RESET_SESSION_POINT_VALUES,
   RESET_SESSION_STATE,
   SAVE_SESSION_POINT_VALUE,
   SAVE_SESSION_ROLE,
+  RESET_SESSION_ROLES,
   SET_SESSION_PARAMS,
   SET_SESSION_USER
 } from './sessionConstants';
@@ -124,6 +126,22 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
       return {
         ...state,
         roles,
+      };
+    }
+    case RESET_SESSION_ROLES: {
+      storageService.remove(StorageKey.Roles);
+
+      return {
+        ...state,
+        roles: DEFAULT_USER_ROLES,
+      };
+    }
+    case RESET_SESSION_POINT_VALUES: {
+      storageService.remove(StorageKey.PointValues);
+
+      return {
+        ...state,
+        pointValues: DEFAULT_POINT_VALUES
       };
     }
     case RESET_SESSION_STATE:

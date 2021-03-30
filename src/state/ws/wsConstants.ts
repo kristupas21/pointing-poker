@@ -51,5 +51,9 @@ export const WS_EVENT_MAP: WSEventMapItem[] = [
   { event: WS_RESET_VOTE_ROUND, listener: resetVoteRoundListener, emitterData: userDataEmitter },
   { event: WS_SET_USER_VOTE_VALUE, listener: setVoteValueListener },
   { event: WS_SET_VOTE_ROUND_TOPIC, listener: setVoteRoundTopicListener, debounced: true },
-  { event: WS_MODIFY_SESSION_USER, listener: modifySessionUserListener, emitterData: userParamsEmitter },
+  {
+    event: WS_MODIFY_SESSION_USER,
+    listener: modifySessionUserListener,
+    emitterData: userParamsEmitter
+  },
 ];

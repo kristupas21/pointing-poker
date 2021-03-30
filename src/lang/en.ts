@@ -16,6 +16,8 @@ export const messages = {
   'global.copy': 'Copy',
   'global.done': 'Done',
   'global.session': 'Session',
+  'global.reset': 'Reset',
+  'global.edit': 'Edit',
 
   'form.validation.required': 'Required',
   'form.validation.min': 'Min {chars} characters',
@@ -25,6 +27,8 @@ export const messages = {
   'session.not-found': 'Session with ID {id} not found',
   'session.start': 'Start Session',
   'session.join': 'Join session',
+  'session.roles': 'Roles',
+  'session.pointValues': 'Point Values',
 
   'session.field.id.label': 'Session ID',
   'session.field.id.placeholder': 'Enter Session ID',

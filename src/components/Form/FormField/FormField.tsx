@@ -1,4 +1,4 @@
-import React, { RefObject, useState } from 'react';
+import React, { RefObject } from 'react';
 import classNames from 'classnames/bind';
 import { FieldAttributes } from 'formik';
 import { FieldType, SharedFieldProps } from '../types';
@@ -17,37 +17,22 @@ type Props = FieldAttributes<any> & SharedFieldProps & {
 }
 
 const FormField: React.FC<Props> = (props) => {
-  const { type, isBlock, setRef, renderTextWhenInactive, onFocus, onBlur, ...fieldProps } = props;
-
-  const [isText, setIsText] = useState(renderTextWhenInactive);
-
-  const handleFocus = (e) => {
-    renderTextWhenInactive && setIsText(false);
-    onFocus && onFocus(e);
-  };
-  const handleBlur = (e) => {
-    renderTextWhenInactive && setIsText(true);
-    onBlur && onBlur(e);
-  };
+  const { type, isBlock, setRef, isReadonly, ...fieldProps } = props;
 
   const renderContent = () => {
     switch (type) {
       case FieldType.Input:
         return (
           <Input
-            onFocus={handleFocus}
-            onBlur={handleBlur}
             {...fieldProps as InputProps}
             ref={setRef}
             autoComplete="off"
-            isText={isText}
+            isText={isReadonly}
           />
         );
       case FieldType.Select:
         return (
           <Select
-            onFocus={onFocus}
-            onBlur={onBlur}
             {...fieldProps as SelectProps}
             ref={setRef}
             autoComplete="off"
@@ -56,19 +41,15 @@ const FormField: React.FC<Props> = (props) => {
       case FieldType.Number:
         return (
           <NumberInput
-            onFocus={handleFocus}
-            onBlur={handleBlur}
             {...fieldProps as NumberInputProps}
             ref={setRef}
             autoComplete="off"
-            isText={isText}
+            isText={isReadonly}
           />
         );
       case FieldType.Checkbox:
         return (
           <Checkbox
-            onFocus={onFocus}
-            onBlur={onBlur}
             {...fieldProps as CheckboxProps}
             ref={setRef}
           />

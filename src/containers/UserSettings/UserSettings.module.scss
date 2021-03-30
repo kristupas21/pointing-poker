@@ -1,0 +1,22 @@
+.settings {
+  align-items: center;
+  display: flex;
+
+  &__session-info {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 10px;
+    user-select: none;
+  }
+
+  &__session-text {
+    font-size: 12px;
+  }
+
+  &__session-id {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}

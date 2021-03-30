@@ -11,10 +11,13 @@ import SelectDropdown from './SelectDropdown';
 
 const cx = classNames.bind(styles);
 
-export type SelectProps = FieldAttributes<SelectHTMLAttributes<HTMLSelectElement>> & SharedFieldProps & {
+type CustomProps = {
   options: Identifier[],
   setFieldValue: (field: string, value: string) => void;
 };
+
+export type SelectProps =
+    FieldAttributes<SelectHTMLAttributes<HTMLSelectElement>> & SharedFieldProps & CustomProps;
 
 const Select: React.FC<SelectProps> = (props) => {
   const {

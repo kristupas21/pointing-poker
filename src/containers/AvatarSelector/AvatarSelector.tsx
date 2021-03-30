@@ -1,33 +1,41 @@
-import React from 'react';
-import { User } from 'globalTypes';
-import Avatar, { AvatarId } from 'components/Avatar';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getSessionUserAvatarId } from 'state/session/sessionStateGetters';
+import { modifySessionUser } from 'state/session/sessionActions';
+import { useMappedDispatch } from 'utils/customHooks';
+import Avatar from 'components/Avatar';
 import Button, { ButtonVariant } from 'components/Button';
-import { useText } from 'utils/customHooks';
+import Popover from 'components/Popover';
+import { AlignType } from 'globalTypes';
+import AvatarOptions from './AvatarOptions';
 
-type Props = {
-  onSelect: (params: Partial<User>) => void;
-  value: AvatarId;
-}
+const actions = {
+  modifyUser: modifySessionUser,
+};
 
-const AvatarSelector: React.FC<Props> = (props) => {
-  const { onSelect, value } = props;
-  const text = useText();
-  const _getStyle = (id: AvatarId) =>
-    ({ ...(value === id && { border: '2px solid var(--app-mainColor)' }) });
+const AvatarSelector: React.FC = () => {
+  const avatarId = useSelector(getSessionUserAvatarId);
+  const { modifyUser } = useMappedDispatch(actions);
+  const [isPopoverOpen, setPopoverOpen] = useState(false);
+
+  const handleAvatarSelect = (params) => {
+    modifyUser(params);
+    setPopoverOpen(false);
+  };
 
   return (
-    <div>
-      <h4>{text('settings.avatar.title')}</h4>
-      {Object.values(AvatarId).map((avatarId) => (
-        <Button
-          style={_getStyle(avatarId)}
-          key={avatarId}
-          onClick={() => onSelect({ avatarId })}
-          variant={ButtonVariant.None}
-        >
-          <Avatar id={avatarId} />
-        </Button>
-      ))}
+    <div style={{ position: 'relative', display: 'inline-flex' }}>
+      <Button
+        onClick={() => setPopoverOpen(!isPopoverOpen)}
+        variant={ButtonVariant.None}
+      >
+        <Avatar id={avatarId} />
+      </Button>
+      {isPopoverOpen && (
+        <Popover onClose={() => setPopoverOpen(false)} align={AlignType.Right}>
+          <AvatarOptions onSelect={handleAvatarSelect} value={avatarId} />
+        </Popover>
+      )}
     </div>
   );
 };

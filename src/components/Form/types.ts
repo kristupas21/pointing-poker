@@ -22,7 +22,7 @@ export interface SharedFieldProps {
   fieldSize?: FieldSize;
   name: string;
   id: string;
-  renderTextWhenInactive?: boolean;
+  isReadonly?: boolean;
 }
 
 export interface SharedFieldState {

@@ -17,7 +17,7 @@ export class StorageService {
     }
   }
 
-  public set = <T = any>(key: StorageKey, value: any, mergeProps = false): T => {
+  public set = <T = any>(key: StorageKey, value: Partial<T>, mergeProps = false): T => {
     const currentState = this.getState();
     const item = { [key]: value };
 

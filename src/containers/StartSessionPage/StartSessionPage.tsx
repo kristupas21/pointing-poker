@@ -6,8 +6,7 @@ import { startSession as startSessionAction } from 'state/session/sessionActions
 import PointValuesForm from 'containers/PointValuesForm';
 import RolesForm from 'containers/RolesForm';
 import { SubmitHandler } from 'components/Form';
-import { removeEmptyRoles } from 'state/session/sessionUtils';
-import { getSessionState } from 'state/session/sessionStateGetters';
+import { getNormalizedSessionRoles, getSessionUser } from 'state/session/sessionStateGetters';
 import { useMappedDispatch } from 'utils/customHooks';
 import { SessionFormData } from '../SessionForms/types';
 import StartSessionForm from '../SessionForms/StartSessionForm';
@@ -19,9 +18,9 @@ const actions = {
 type Props = RouteChildrenProps
 
 const StartSessionPage: React.FC<Props> = () => {
-  const { user, roles } = useSelector(getSessionState);
+  const user = useSelector(getSessionUser);
+  const roles = useSelector(getNormalizedSessionRoles);
   const { startSession } = useMappedDispatch(actions);
-  const userRoles = removeEmptyRoles(roles);
 
   const handleSubmit: SubmitHandler<SessionFormData> = (values) => {
     startSession(omit(values, 'sessionId'));
@@ -39,7 +38,7 @@ const StartSessionPage: React.FC<Props> = () => {
       <StartSessionForm
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        roles={userRoles}
+        roles={roles}
       />
       <PointValuesForm />
       <RolesForm />

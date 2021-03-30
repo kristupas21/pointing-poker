@@ -9,15 +9,21 @@ import sessionApi from '../sessionApi';
 import { SessionInfoResponse } from '../sessionModel';
 import { GET_SESSION_INFO } from '../sessionConstants';
 
-function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
+export function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
   const { sessionId, callback } = action.payload;
 
   try {
-    const { data: { session } }: SessionInfoResponse =
-        yield call(sessionApi.getInfo, sessionId);
+    const {
+      data: {
+        session: {
+          roles,
+          useRoles
+        }
+      }
+    }: SessionInfoResponse = yield call(sessionApi.getInfo, sessionId);
 
-    if (session.useRoles) {
-      yield put(setSessionParams({ roles: session.roles, useRoles: true }));
+    if (useRoles) {
+      yield put(setSessionParams({ roles, useRoles }));
     }
   } catch (e) {
     const { code } = yield call(errorParser.parse, e);

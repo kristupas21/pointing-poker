@@ -2,8 +2,6 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { call } from 'redux-saga-test-plan/matchers';
 import { MockResponse, MockState } from 'utils/test/types';
 import { throwApiError } from 'utils/test/testUtils';
-import { DEFAULT_USER_ROLES } from 'utils/userRoles/constants';
-import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
 import { push } from 'connected-react-router';
 import { SessionFormData } from 'containers/SessionForms/types';
 import storageService from 'utils/storageService/storageService';
@@ -11,7 +9,6 @@ import { StorageKey } from 'utils/storageService';
 import { throwAppError } from 'state/error/errorActions';
 import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { setAppLoading } from 'state/app/appActions';
-
 import { startSessionSaga } from '../sessionSagaStart';
 import { startSession } from '../../sessionActions';
 import { StartSessionParams, StartSessionResponse } from '../../sessionModel';
@@ -20,8 +17,10 @@ import sessionApi from '../../sessionApi';
 describe('startSessionSaga', () => {
   const mockState: MockState = {
     session: {
-      roles: DEFAULT_USER_ROLES,
-      pointValues: DEFAULT_POINT_VALUES,
+      roles: [
+        { id: 'Frontend', name: 'Frontend' }
+      ],
+      pointValues: [],
       user: {
         id: 'u-id',
       },
@@ -37,8 +36,10 @@ describe('startSessionSaga', () => {
 
   const expectedParams: StartSessionParams = {
     useRoles: true,
-    pointValues: DEFAULT_POINT_VALUES,
-    roles: DEFAULT_USER_ROLES,
+    pointValues: [],
+    roles: [
+      { id: 'Frontend', name: 'Frontend' }
+    ],
     user: {
       id: 'u-id',
       name: 'Gatsby',

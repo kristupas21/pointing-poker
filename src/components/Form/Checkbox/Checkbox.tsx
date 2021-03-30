@@ -7,7 +7,8 @@ import styles from './Checkbox.module.scss';
 
 const cx = classNames.bind(styles);
 
-export type CheckboxProps = FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & SharedFieldProps;
+export type CheckboxProps =
+    FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & SharedFieldProps;
 
 const Checkbox: React.FC<CheckboxProps> = (props) => {
   const { name, label = '', ...fieldProps } = props;

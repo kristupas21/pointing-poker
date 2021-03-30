@@ -9,7 +9,8 @@ import FieldError from '../FieldError';
 
 const cx = classNames.bind(styles);
 
-export type NumberInputProps = FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & SharedFieldProps & SharedFieldState;
+export type NumberInputProps =
+    FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & SharedFieldProps & SharedFieldState;
 
 const NumberInput: React.FC<NumberInputProps> = (props) => {
   const {

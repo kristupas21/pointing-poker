@@ -5,12 +5,10 @@ import { motion } from 'framer-motion';
 import { AppRoute } from 'utils/routes';
 import animations from 'utils/animations';
 import Logo from 'components/Logo';
-import Sidebar from 'components/Sidebar';
-import UserSettings from 'containers/UserSettings';
-import UserSettingsOpener from 'containers/UserSettings/UserSettingsOpener';
 import { useSelector } from 'react-redux';
 import AppFooter from 'components/AppFooter';
 import { getAppLoading } from 'state/app/appStateGetters';
+import UserSettings from 'containers/UserSettings';
 import ClearStorageButton from '_develop/ClearStorageButton';
 import styles from './MainLayout.module.scss';
 
@@ -19,12 +17,12 @@ const cx = classNames.bind(styles);
 type Props = {
   children?: ReactNode;
   route: string;
-  withUserSettings?: boolean;
 };
 
 const MainLayout: React.FC<Props> = (props) => {
-  const { children, route, withUserSettings = false } = props;
+  const { children, route } = props;
   const isLoading = useSelector(getAppLoading);
+  const isSessionRoute = route === AppRoute.Session;
 
   return (
     <div className={cx('layout')}>
@@ -33,7 +31,7 @@ const MainLayout: React.FC<Props> = (props) => {
           <Link to={AppRoute.Base}>
             <Logo />
           </Link>
-          <UserSettingsOpener />
+          {isSessionRoute && <UserSettings />}
         </div>
         <motion.div
           className={cx('layout__route', {
@@ -45,9 +43,6 @@ const MainLayout: React.FC<Props> = (props) => {
           {children}
         </motion.div>
       </div>
-      <Sidebar>
-        <UserSettings withForm={withUserSettings} />
-      </Sidebar>
       <AppFooter>
         <ClearStorageButton />
       </AppFooter>

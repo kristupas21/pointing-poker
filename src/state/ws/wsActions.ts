@@ -27,4 +27,5 @@ export const wsUserJoined = (sessionId: string) => action(WS_USER_JOINED, sessio
 
 export const wsSetVoteRoundTopic = (topic: string) => action(WS_SET_VOTE_ROUND_TOPIC, { topic });
 
-export const wsModifySessionUser = (params: Partial<User>) => action(WS_MODIFY_SESSION_USER, params);
+export const wsModifySessionUser = (params: Partial<User>) =>
+  action(WS_MODIFY_SESSION_USER, params);

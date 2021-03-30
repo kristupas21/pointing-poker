@@ -6,7 +6,7 @@ import { UserRole } from 'utils/userRoles/types';
 import { EMPTY_USER_ROLE } from './sessionConstants';
 
 export function createUser(props?: Partial<User>): User {
-  const { id, name, role = EMPTY_USER_ROLE, isObserver = false, ...other } = props;
+  const { id, name, role = { ...EMPTY_USER_ROLE }, isObserver = false, ...other } = props;
 
   return {
     id: id || uuidv4(),

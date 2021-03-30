@@ -11,21 +11,21 @@ import { startSession } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { START_SESSION } from '../sessionConstants';
 import { acquireCurrentUser } from './sessionSagaUtils';
-import { getSessionPointValues, getSessionRoles } from '../sessionStateGetters';
-import { normalizePointValues, removeEmptyRoles } from '../sessionUtils';
+import { getNormalizedSessionRoles, getSessionPointValues } from '../sessionStateGetters';
+import { normalizePointValues } from '../sessionUtils';
 import { StartSessionResponse } from '../sessionModel';
 
 export function* startSessionSaga(action: ActionType<typeof startSession>) {
   const { useRoles, role, ...rest } = action.payload;
-  const stateRoles = yield select(getSessionRoles);
+  const roles = yield select(getNormalizedSessionRoles);
 
   const params = {
     useRoles,
     pointValues: normalizePointValues(yield select(getSessionPointValues)),
-    roles: removeEmptyRoles(stateRoles),
+    roles,
     user: yield* acquireCurrentUser({
       ...rest,
-      role: findRoleById(stateRoles, role)
+      role: findRoleById(roles, role)
     }),
   };
 

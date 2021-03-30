@@ -45,7 +45,6 @@
     "import/prefer-default-export": "off",
     "jsx-a11y/label-has-associated-control": ["error"],
     "jsx-a11y/label-has-for": "off",
-    "max-len": "off",
     "no-restricted-imports": ["error", {
       "paths":  [{
         "name": "lodash",

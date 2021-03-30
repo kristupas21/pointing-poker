@@ -8,7 +8,8 @@ import FieldError from '../FieldError';
 
 const cx = classNames.bind(styles);
 
-export type InputProps = FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & SharedFieldProps & SharedFieldState;
+export type InputProps =
+    FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & SharedFieldProps & SharedFieldState;
 
 const Input: React.FC<InputProps> = (props) => {
   const {

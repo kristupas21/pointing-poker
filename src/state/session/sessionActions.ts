@@ -19,7 +19,10 @@ import {
   REMOVE_SESSION_ROLE,
   SAVE_SESSION_ROLE,
   MODIFY_SESSION_USER,
-  GET_SESSION_INFO, RESET_SESSION_STATE,
+  GET_SESSION_INFO,
+  RESET_SESSION_STATE,
+  RESET_SESSION_ROLES,
+  RESET_SESSION_POINT_VALUES,
 } from './sessionConstants';
 
 export const initSession = (params: Partial<SessionState>) =>
@@ -67,3 +70,7 @@ export const getSessionInfo = (
   sessionId: string,
   callback: () => void,
 ) => action(GET_SESSION_INFO, { sessionId, callback });
+
+export const resetSessionRoles = () => action(RESET_SESSION_ROLES);
+
+export const resetSessionPointValues = () => action(RESET_SESSION_POINT_VALUES);

@@ -6,8 +6,9 @@ import { push } from 'connected-react-router';
 import { setAppLoading } from 'state/app/appActions';
 import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { throwAppError } from 'state/error/errorActions';
-
-import { joinSession, setSessionParams } from '../../sessionActions';
+import storageService from 'utils/storageService/storageService';
+import { StorageKey } from 'utils/storageService';
+import { joinSession } from '../../sessionActions';
 import { joinSessionSaga } from '../sessionSagaJoin';
 import { JoinSessionParams, JoinSessionResponse } from '../../sessionModel';
 import sessionApi from '../../sessionApi';
@@ -80,17 +81,23 @@ describe('joinSessionSaga', () => {
       ])
       .put(setAppLoading(true))
       .call(sessionApi.join, expectedParams)
+      .call(errorParser.parse, error)
+      .call(
+        storageService.set,
+        StorageKey.FormErrors,
+        { sessionId: { id: 'error.sessionNotFound' } },
+        true,
+      )
       .put(setAppLoading(false))
       .call(setSubmitting, false)
       .run();
   });
 
-  it('handles must choose role error', async () => {
+  it('handles user name exists error', async () => {
     const error = {
       response: {
         data: {
-          code: ERROR_CODES.MUST_CHOOSE_ROLE,
-          payload: [],
+          code: ERROR_CODES.USER_NAME_EXISTS
         }
       }
     };
@@ -103,12 +110,13 @@ describe('joinSessionSaga', () => {
       .put(setAppLoading(true))
       .call(sessionApi.join, expectedParams)
       .call(errorParser.parse, error)
+      .call(
+        storageService.set,
+        StorageKey.FormErrors,
+        { name: { id: 'error.userNameExists' } },
+        true,
+      )
       .put(setAppLoading(false))
-      .put(setSessionParams({
-        currentSessionId: 's-id',
-        useRoles: true,
-        roles: error.response.data.payload,
-      }))
       .call(setSubmitting, false)
       .run();
   });
@@ -124,6 +132,7 @@ describe('joinSessionSaga', () => {
       .put(setAppLoading(true))
       .call(sessionApi.join, expectedParams)
       .put(setAppLoading(false))
+      .call(errorParser.parse, error)
       .put(throwAppError(ERROR_CODES.UNEXPECTED))
       .call(setSubmitting, false)
       .run();

@@ -4,12 +4,12 @@ import { PointValue } from 'utils/pointValues/types';
 import { UserRole } from 'utils/userRoles/types';
 
 export interface Session {
-  useRoles: boolean,
-  users: User[],
-  showVotes: boolean,
-  currentTopic: string,
-  pointValues: PointValue[],
-  roles: UserRole[],
+  useRoles: boolean;
+  users: User[];
+  showVotes: boolean;
+  currentTopic?: string;
+  pointValues: PointValue[];
+  roles: UserRole[];
 }
 
 export interface SessionState {

@@ -8,8 +8,9 @@ import { useMappedDispatch, useText } from 'utils/customHooks';
 import { CustomFormError, CustomFormErrors } from 'globalTypes';
 import { getSessionInfo } from 'state/session/sessionActions';
 import storageService, { StorageKey } from 'utils/storageService';
-import { SessionFormData } from '../types';
+import { SessionFormData, StorageFormData } from '../types';
 import { joinSessionValidationSchema } from '../validationSchema';
+import { findRoleById } from '../../../utils/userRoles/utils';
 
 const actions = {
   getInfo: getSessionInfo,
@@ -43,7 +44,7 @@ const JoinSessionForm: React.FC<Props> = (props) => {
         handleBlur,
         setSubmitting,
         submitForm,
-        handleChange,
+        handleChange
       }) => {
         const storageErrors = storageService.get(StorageKey.FormErrors) || {};
 
@@ -72,7 +73,11 @@ const JoinSessionForm: React.FC<Props> = (props) => {
             return;
           }
 
-          storageService.set(StorageKey.FormValues, values);
+          storageService.set<StorageFormData>(StorageKey.FormValues, {
+            ...values,
+            ...(values.role && { roleName: findRoleById(roles, values.role)?.name }),
+          });
+
           setSubmitting(true);
 
           const callback = () => {
@@ -122,7 +127,6 @@ const JoinSessionForm: React.FC<Props> = (props) => {
               placeholder={text('session.field.role.placeholder')}
               error={getErrorText(errors.role)}
               options={roles}
-              disabled={values.isObserver}
               isBlock
               value={values.role}
               fieldSize={FieldSize.Large}

@@ -32,4 +32,8 @@ export const SET_SESSION_USER = '@session/SET_USER';
 
 export const MODIFY_SESSION_USER = '@session/MODIFY_USER';
 
+export const RESET_SESSION_ROLES = '@session/RESET_ROLES';
+
+export const RESET_SESSION_POINT_VALUES = '@session/RESET_POINT_VALUES';
+
 export const EMPTY_USER_ROLE: UserRole = { name: null, id: null };

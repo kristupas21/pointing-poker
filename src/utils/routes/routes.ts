@@ -10,12 +10,22 @@ const ROUTE_NAMES: Record<AppRoute, MessageId> = {
   [AppRoute.Error]: 'routes.error',
 };
 
-export function getRouteName(route: AppRoute): MessageId {
+export function getRouteMessageId(route: AppRoute): MessageId {
   const r = route.includes('/session/')
     ? AppRoute.Session
     : route;
 
   return ROUTE_NAMES[r];
+}
+
+export function getRouteName(route: string): AppRoute {
+  if (!route) {
+    return AppRoute.Base;
+  }
+
+  return route.includes('/session/')
+    ? AppRoute.Session
+    : route as AppRoute;
 }
 
 export function getMatchParamRoute(

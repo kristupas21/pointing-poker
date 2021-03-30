@@ -1,12 +1,17 @@
-import React, { FocusEvent } from 'react';
+import React, { FocusEvent, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
-import { addSessionPointValue, removeSessionPointValue, saveSessionPointValue } from 'state/session/sessionActions';
+import {
+  addSessionPointValue,
+  removeSessionPointValue,
+  saveSessionPointValue,
+  resetSessionPointValues,
+} from 'state/session/sessionActions';
 import Button from 'components/Button';
 import { IconId } from 'components/Icon';
 import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionPointValues } from 'state/session/sessionStateGetters';
-import { useMappedDispatch } from 'utils/customHooks';
+import { useMappedDispatch, useText } from 'utils/customHooks';
 import { AnimatePresence } from 'framer-motion';
 import { FieldSize, FieldType } from 'components/Form';
 import { mapPointValuesToFormData, normalizePoint, withPVF } from './utils';
@@ -17,24 +22,40 @@ const actions = {
   removePointValue: removeSessionPointValue,
   savePointValue: saveSessionPointValue,
   addPointValue: addSessionPointValue,
+  resetPointValues: resetSessionPointValues,
 };
 
 const PointValuesForm: React.FC = () => {
-  const { removePointValue, savePointValue, addPointValue } = useMappedDispatch(actions);
+  const {
+    removePointValue,
+    savePointValue,
+    addPointValue,
+    resetPointValues,
+  } = useMappedDispatch(actions);
   const pointValues = useSelector(getSessionPointValues);
+  const [isEditOn, setEditOn] = useState(false);
+  const text = useText();
   const initialValues = mapPointValuesToFormData(pointValues);
   const isRemoveDisabled = pointValues.length <= MIN_POINT_VALUES_COUNT;
   const isAddDisabled = pointValues.length >= MAX_POINT_VALUES_COUNT;
 
   return (
     <>
+      <h4>{text('session.pointValues')}</h4>
+      <Button onClick={() => setEditOn(!isEditOn)}>EDIT</Button>
       <Formik
         enableReinitialize
         initialValues={initialValues}
         onSubmit={undefined}
         validationSchema={getPointValuesFormSchema(pointValues)}
       >
-        {({ handleBlur, setFieldValue, values, resetForm, errors }) => {
+        {({
+          handleBlur,
+          setFieldValue,
+          values,
+          resetForm,
+          errors
+        }) => {
           const submitValues = (e: FocusEvent<HTMLInputElement>, id: string, name: string) => {
             const inputValue = values[name];
 
@@ -51,7 +72,7 @@ const PointValuesForm: React.FC = () => {
           };
 
           return (
-            <Form name={withPVF('form')}>
+            <Form name={withPVF('form')} noValidate>
               <AnimatePresence>
                 {pointValues.map((point) => {
                   const { id, mandatoryId, pos } = point;
@@ -69,6 +90,7 @@ const PointValuesForm: React.FC = () => {
                       isEditDisabled={!!mandatoryId}
                       fieldSize={FieldSize.Small}
                       fieldType={mandatoryId ? FieldType.Input : FieldType.Number}
+                      isReadonly={!isEditOn}
                     />
                   );
                 })}
@@ -78,6 +100,9 @@ const PointValuesForm: React.FC = () => {
         }}
       </Formik>
       <Button icon={IconId.Add} onClick={addPointValue} disabled={isAddDisabled} />
+      <Button onClick={resetPointValues}>
+        {text('global.reset')}
+      </Button>
     </>
   );
 };
