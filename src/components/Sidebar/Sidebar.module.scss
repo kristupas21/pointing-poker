@@ -2,7 +2,7 @@
   $this: &;
   $_transition-ms: 300ms;
 
-  right: 0;
+  left: 0;
   position: fixed;
   top: 0;
   z-index: 1;
@@ -11,9 +11,9 @@
   &__drawer {
     height: 100vh;
     position: absolute;
-    right: 0;
+    left: 0;
     top: 0;
-    transform: translateX(100%);
+    transform: translateX(-100%);
   }
 
   &__shade {

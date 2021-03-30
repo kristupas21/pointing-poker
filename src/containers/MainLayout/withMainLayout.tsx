@@ -6,15 +6,12 @@ function withMainLayout <T extends RouteComponentProps>(
   Component: ComponentType<T>,
   renderMenu: boolean = false,
 ): React.FC<T> {
-  return (props) => {
-    const { location } = props;
-
-    return (
-      <MainLayout route={location?.pathname} renderMenu={renderMenu}>
+  return (props) =>
+    (
+      <MainLayout renderMenu={renderMenu} {...props}>
         <Component {...props as T} />
       </MainLayout>
     );
-  };
 }
 
 export default withMainLayout;

@@ -27,6 +27,7 @@ export const messages = {
   'session.not-found': 'Session with ID {id} not found',
   'session.start': 'Start Session',
   'session.join': 'Join session',
+  'session.leave': 'Leave session',
   'session.roles': 'Roles',
   'session.pointValues': 'Point Values',
 
