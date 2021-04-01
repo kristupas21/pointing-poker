@@ -1,6 +1,7 @@
 import React, { FocusEvent, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
+import isEqual from 'lodash/isEqual';
 import {
   addSessionRole,
   removeSessionRole,
@@ -14,6 +15,7 @@ import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { mapRolesToFormData, withURF } from './utils';
 import { MAX_ROLES_COUNT, MIN_ROLES_COUNT } from './constants';
+import { DEFAULT_USER_ROLES } from '../../utils/userRoles';
 
 const actions = {
   removeRole: removeSessionRole,
@@ -78,7 +80,7 @@ const RolesForm: React.FC = () => {
         }}
       </Formik>
       <Button icon={IconId.Add} onClick={addRole} disabled={isAddDisabled} />
-      <Button onClick={resetRoles}>
+      <Button onClick={resetRoles} disabled={isEqual(roles, DEFAULT_USER_ROLES)}>
         {text('global.reset')}
       </Button>
     </>

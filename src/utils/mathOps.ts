@@ -23,3 +23,19 @@ export function calcClosestPoint(avg: string, points: PointValue[]): string {
 export function calcRandomInteger(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export const calcFixedNumber = {
+  ofTypeNumber(numberValue: number, digits = 1): number {
+    return Number.isInteger(numberValue)
+      ? parseFloat(`${numberValue}`)
+      : Number(numberValue.toFixed(digits));
+  },
+
+  ofTypeString(stringValue: string, digits = 1): string {
+    const numberValue = Number(stringValue);
+
+    return Number.isInteger(numberValue)
+      ? `${parseFloat(stringValue)}`
+      : numberValue.toFixed(digits);
+  },
+};

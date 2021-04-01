@@ -13,6 +13,7 @@ import {
 import Button from 'components/Button';
 import { getVoteRoundState } from 'state/voteRound/voteRoundStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
+import { makeVotePercentageSelector } from 'utils/selectors';
 
 const actions = {
   resetVoteRound: [resetVoteRoundAction, wsResetVoteRound],
@@ -26,9 +27,12 @@ type A = {
   showVotes: typeof showVotesAction,
 }
 
+const votePercentageSelector = makeVotePercentageSelector();
+
 const VoteRoundActions: React.FC = () => {
   const text = useText();
   const { votesShown } = useSelector(getVoteRoundState);
+  const percentage = useSelector(votePercentageSelector);
 
   const { resetVoteRound, hideVotes, showVotes } =
       useMappedDispatch<A>(actions as unknown as A);
@@ -40,6 +44,9 @@ const VoteRoundActions: React.FC = () => {
       showVotes();
     }
   };
+
+  // eslint-disable-next-line
+  console.log(`${percentage}%`);
 
   const showHideTextId = votesShown
     ? 'voteRound.action.hideVotes'

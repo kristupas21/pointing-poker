@@ -1,6 +1,7 @@
 import React, { FocusEvent, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
+import isEqual from 'lodash/isEqual';
 import {
   addSessionPointValue,
   removeSessionPointValue,
@@ -13,7 +14,9 @@ import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionPointValues } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { FieldSize, FieldType } from 'components/Form';
-import { mapPointValuesToFormData, normalizePoint, withPVF } from './utils';
+import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
+import { calcFixedNumber } from 'utils/mathOps';
+import { mapPointValuesToFormData, withPVF } from './utils';
 import { MAX_POINT_VALUES_COUNT, MIN_POINT_VALUES_COUNT } from './constants';
 import { getPointValuesFormSchema } from './validationSchema';
 
@@ -61,7 +64,7 @@ const PointValuesForm: React.FC = () => {
             handleBlur(e);
 
             if (inputValue && !errors[name]) {
-              const value = normalizePoint(inputValue);
+              const value = calcFixedNumber.ofTypeString(inputValue);
 
               setFieldValue(name, value);
               savePointValue({ id, value });
@@ -97,7 +100,7 @@ const PointValuesForm: React.FC = () => {
         }}
       </Formik>
       <Button icon={IconId.Add} onClick={addPointValue} disabled={isAddDisabled} />
-      <Button onClick={resetPointValues}>
+      <Button onClick={resetPointValues} disabled={isEqual(pointValues, DEFAULT_POINT_VALUES)}>
         {text('global.reset')}
       </Button>
     </>

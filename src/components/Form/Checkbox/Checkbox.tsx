@@ -11,7 +11,7 @@ export type CheckboxProps =
     FieldAttributes<InputHTMLAttributes<HTMLInputElement>> & SharedFieldProps;
 
 const Checkbox: React.FC<CheckboxProps> = (props) => {
-  const { name, label = '', ...fieldProps } = props;
+  const { name, label = '', className, ...fieldProps } = props;
 
   return (
     <span className={cx('checkbox')}>
@@ -21,7 +21,7 @@ const Checkbox: React.FC<CheckboxProps> = (props) => {
           name={name}
           id={name}
           type="checkbox"
-          className={cx('checkbox__field')}
+          className={cx('checkbox__field', className)}
         />
         <span className={cx('checkbox__ui')} />
         <span className={cx('checkbox__label')}>

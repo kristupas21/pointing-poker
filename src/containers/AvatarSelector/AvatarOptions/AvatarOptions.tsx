@@ -11,7 +11,7 @@ type Props = {
 const AvatarOptions: React.FC<Props> = (props) => {
   const { onSelect, value } = props;
   const _getStyle = (id: AvatarId) =>
-    ({ ...(value === id && { border: '2px solid var(--app-mainColor)' }) });
+    ({ ...(value === id && { background: 'rgba(0, 0, 0, .3)' }) });
 
   return (
     <div>

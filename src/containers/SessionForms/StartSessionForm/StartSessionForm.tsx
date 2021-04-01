@@ -4,9 +4,14 @@ import isEmpty from 'lodash/isEmpty';
 import { FieldSize, FieldType, FormField, SubmitHandler } from 'components/Form';
 import Button from 'components/Button';
 import { useText } from 'utils/customHooks';
+import classNames from 'classnames/bind';
 import { CustomFormError, CustomFormErrors } from 'globalTypes';
+import AvatarSelector from 'containers/AvatarSelector';
 import { SessionFormData } from '../types';
 import { startSessionValidationSchema } from '../validationSchema';
+import styles from '../SessionForms.module.scss';
+
+const cx = classNames.bind(styles);
 
 type Props = {
   initialValues: SessionFormData;
@@ -60,7 +65,10 @@ const StartSessionForm: React.FC<Props> = (props) => {
               fieldSize={FieldSize.Large}
               placeholder={text('session.field.name.placeholder')}
               isBlock
-            />
+              className={cx('input')}
+            >
+              <AvatarSelector className={cx('avatar-selector')} />
+            </FormField>
             <FormField
               name="useRoles"
               type={FieldType.Checkbox}

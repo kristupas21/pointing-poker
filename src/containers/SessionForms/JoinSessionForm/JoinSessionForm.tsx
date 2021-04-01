@@ -8,9 +8,14 @@ import { CustomFormError, CustomFormErrors } from 'globalTypes';
 import { getSessionInfo } from 'state/session/sessionActions';
 import storageService, { StorageKey } from 'utils/storageService';
 import { useSelector } from 'react-redux';
+import classNames from 'classnames/bind';
+import AvatarSelector from 'containers/AvatarSelector';
 import { getSessionFormLoading } from 'state/session/sessionStateGetters';
 import { SessionFormData } from '../types';
 import { joinSessionValidationSchema } from '../validationSchema';
+import styles from '../SessionForms.module.scss';
+
+const cx = classNames.bind(styles);
 
 const actions = {
   getInfo: getSessionInfo,
@@ -112,7 +117,10 @@ const JoinSessionForm: React.FC<Props> = (props) => {
               placeholder={text('session.field.name.placeholder')}
               isBlock
               onChange={handleNameFieldChange}
-            />
+              className={cx('input')}
+            >
+              <AvatarSelector className={cx('avatar-selector')} />
+            </FormField>
             <FormField
               name="role"
               type={FieldType.Select}

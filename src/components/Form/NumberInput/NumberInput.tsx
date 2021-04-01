@@ -23,13 +23,14 @@ const NumberInput: React.FC<NumberInputProps> = (props) => {
     max = NUMBER_INPUT_MAX,
     isText,
     value,
+    className,
     ...fieldProps
   } = props;
 
   const inputClasses = cx('input__field', {
     'input__field--error': !!error,
     'input__field--hidden': isText,
-  });
+  }, className);
 
   const getValueProps = () => (value != null ? { value } : {});
 

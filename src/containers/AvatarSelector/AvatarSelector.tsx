@@ -4,18 +4,32 @@ import { getSessionUserAvatarId } from 'state/session/sessionStateGetters';
 import { modifySessionUser } from 'state/session/sessionActions';
 import { useMappedDispatch } from 'utils/customHooks';
 import Avatar from 'components/Avatar';
+import classNames from 'classnames/bind';
 import Button, { ButtonVariant } from 'components/Button';
 import Popover from 'components/Popover';
 import { AlignType } from 'globalTypes';
+import { wsModifySessionUser } from 'state/ws/wsActions';
 import AvatarOptions from './AvatarOptions';
+import styles from './AvatarSelector.module.scss';
+
+const cx = classNames.bind(styles);
 
 const actions = {
-  modifyUser: modifySessionUser,
+  modifyUser: [modifySessionUser, wsModifySessionUser],
 };
 
-const AvatarSelector: React.FC = () => {
+type A = {
+  modifyUser: typeof modifySessionUser;
+}
+
+type Props = {
+  className?: string;
+}
+
+const AvatarSelector: React.FC<Props> = (props) => {
+  const { className } = props;
   const avatarId = useSelector(getSessionUserAvatarId);
-  const { modifyUser } = useMappedDispatch(actions);
+  const { modifyUser } = useMappedDispatch<A>(actions as unknown as A);
   const [isPopoverOpen, setPopoverOpen] = useState(false);
 
   const handleAvatarSelect = (params) => {
@@ -24,7 +38,7 @@ const AvatarSelector: React.FC = () => {
   };
 
   return (
-    <div style={{ position: 'relative', display: 'inline-flex' }}>
+    <div className={cx('selector', className)}>
       <Button
         onClick={() => setPopoverOpen(!isPopoverOpen)}
         variant={ButtonVariant.None}

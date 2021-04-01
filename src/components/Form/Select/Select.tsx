@@ -32,7 +32,8 @@ const Select: React.FC<SelectProps> = (props) => {
     uniqOptions,
     placeholder,
     fieldSize,
-    setFieldValue
+    setFieldValue,
+    className,
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
@@ -89,6 +90,7 @@ const Select: React.FC<SelectProps> = (props) => {
         ref={inputRef}
         placeholder={placeholder}
         disabled={disabled}
+        className={className}
       >
         <span
           className={cx('select__arrow', { 'select__arrow--up': isOpen })}
