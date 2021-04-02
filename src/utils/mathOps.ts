@@ -1,4 +1,5 @@
 import sum from 'lodash/sum';
+import random from 'lodash/random';
 import { PointValue } from 'utils/pointValues/types';
 
 export function calcAverage(values: number[]): string {
@@ -20,8 +21,8 @@ export function calcClosestPoint(avg: string, points: PointValue[]): string {
   }, points[0]?.value || '0');
 }
 
-export function calcRandomInteger(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+export function calcRandomInteger(min: number, max: number): number {
+  return random(min, max);
 }
 
 export const calcFixedNumber = {

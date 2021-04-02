@@ -56,6 +56,7 @@ export const messages = {
   'notifications.userLeft': 'has left the session.',
   'notifications.userShowVotes': 'has shown the votes!',
   'notifications.userResetRound': 'has started new round!',
+  'notifications.userChangeVote': 'has changed his/her vote!',
 
   'routes.base': 'Home Page',
   'routes.joinSession': 'Join Session Page',

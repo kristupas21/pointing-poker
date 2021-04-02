@@ -13,9 +13,9 @@ import { IconId } from 'components/Icon';
 import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
+import { DEFAULT_USER_ROLES } from 'utils/userRoles';
 import { mapRolesToFormData, withURF } from './utils';
 import { MAX_ROLES_COUNT, MIN_ROLES_COUNT } from './constants';
-import { DEFAULT_USER_ROLES } from '../../utils/userRoles';
 
 const actions = {
   removeRole: removeSessionRole,

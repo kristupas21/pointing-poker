@@ -20,8 +20,8 @@ export const wsHideVotes = () => action(WS_HIDE_VOTES);
 
 export const wsResetVoteRound = () => action(WS_RESET_VOTE_ROUND);
 
-export const wsSetUserVoteValue = (userId: string, voteValue: string) =>
-  action(WS_SET_USER_VOTE_VALUE, { userId, voteValue });
+export const wsSetUserVoteValue = (user: User, voteValue: string) =>
+  action(WS_SET_USER_VOTE_VALUE, { user, voteValue });
 
 export const wsUserJoined = (sessionId: string) => action(WS_USER_JOINED, sessionId);
 

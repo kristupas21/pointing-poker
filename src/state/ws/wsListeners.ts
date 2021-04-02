@@ -1,4 +1,4 @@
-import { put } from 'redux-saga/effects';
+import { put, select } from 'redux-saga/effects';
 import {
   addUserToVoteRound,
   hideVotes,
@@ -12,6 +12,7 @@ import { User } from 'globalTypes';
 import { pushNotification } from 'state/notifications/notificationsActions';
 import renderNotification, { NotificationContent } from 'utils/notificationContent';
 import { WSMessage } from './wsModel';
+import { getVotesShownValue, getVoteValueByIdStateGetter } from '../voteRound/voteRoundStateGetters';
 
 export function* userJoinedListener(message: WSMessage<{ user: User }>) {
   yield put(addUserToVoteRound(message.body.user));
@@ -45,8 +46,20 @@ export function* resetVoteRoundListener(message: WSMessage<{ user: User }>) {
   yield put(pushNotification(notification));
 }
 
-export function* setVoteValueListener(message: WSMessage<{ userId: string, voteValue: string }>) {
-  yield put(setUserVoteValue(message.body.userId, message.body.voteValue));
+export function* setVoteValueListener(message: WSMessage<{ user: User, voteValue: string }>) {
+  const { user, voteValue } = message.body;
+  const votesShown = yield select(getVotesShownValue);
+  const userCurrentVote = yield select(getVoteValueByIdStateGetter(user.id));
+
+  yield put(setUserVoteValue(user, voteValue));
+
+  if (votesShown && userCurrentVote != null) {
+    yield put(
+      pushNotification(
+        renderNotification(NotificationContent.UserChangeVote, user)
+      )
+    );
+  }
 }
 
 export function* setVoteRoundTopicListener(message: WSMessage<{ topic: string }>) {

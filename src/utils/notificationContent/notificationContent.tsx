@@ -10,6 +10,7 @@ interface Renderer {
   render(id: NotificationContent.UserLeft, params: User): AppNotification,
   render(id: NotificationContent.UserShowVotes, params: User): AppNotification,
   render(id: NotificationContent.UserResetRound, params: User): AppNotification,
+  render(id: NotificationContent.UserChangeVote, params: User): AppNotification,
   render(id: NotificationContent._StorageClear): AppNotification,
 }
 
@@ -39,6 +40,12 @@ const renderer: Renderer = {
           id: `${params.id}-reset-round`,
           lifespan: NotificationLifespan.Medium,
           content: <UserMessage name={params.name} message="notifications.userResetRound" />
+        };
+      case NotificationContent.UserChangeVote:
+        return {
+          id: `${params.id}-change-vote`,
+          lifespan: NotificationLifespan.Short,
+          content: <UserMessage name={params.name} message="notifications.userChangeVote" />
         };
       case NotificationContent._StorageClear:
         return {

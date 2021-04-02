@@ -16,8 +16,8 @@ export const addUserToVoteRound = (user: User) =>
 export const removeUserFromVoteRound = (userId: string) =>
   action(REMOVE_USER_FROM_VOTE_ROUND, userId);
 
-export const setUserVoteValue = (userId: string, voteValue: string) =>
-  action(SET_USER_VOTE_VALUE, { userId, voteValue });
+export const setUserVoteValue = (user: User, voteValue: string) =>
+  action(SET_USER_VOTE_VALUE, { user, voteValue });
 
 export const resetVoteRound = () => action(RESET_VOTE_ROUND);
 

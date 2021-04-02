@@ -43,14 +43,14 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
         users: state.users.filter((u) => u.id !== action.payload),
       };
     case SET_USER_VOTE_VALUE: {
-      const { userId, voteValue } = action.payload;
+      const { user, voteValue } = action.payload;
 
       return {
         ...state,
-        users: state.users.map((user) =>
+        users: state.users.map((u) =>
           ({
-            ...user,
-            ...(userId === user.id && { voteValue }) }))
+            ...u,
+            ...(u.id === user.id && { voteValue }) }))
       };
     }
     case RESET_VOTE_ROUND:
