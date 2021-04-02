@@ -18,6 +18,7 @@ type State = Readonly<VoteRoundState>;
 
 const initialState: State = {
   currentTopic: '',
+  isPristine: true,
   users: [],
   votesShown: false,
 };
@@ -47,6 +48,7 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
 
       return {
         ...state,
+        isPristine: false,
         users: state.users.map((u) =>
           ({
             ...u,
@@ -56,8 +58,7 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
     case RESET_VOTE_ROUND:
       return {
         ...state,
-        currentTopic: '',
-        votesShown: false,
+        ...initialState,
         users: state.users.map((user) =>
           ({ ...user, voteValue: null })),
       };
@@ -65,10 +66,12 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
       return {
         ...state,
         currentTopic: action.payload,
+        isPristine: false,
       };
     case SHOW_VOTES:
       return {
         ...state,
+        isPristine: false,
         votesShown: true,
       };
     case HIDE_VOTES:

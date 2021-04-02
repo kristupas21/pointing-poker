@@ -48,10 +48,11 @@ export function* resetVoteRoundListener(message: WSMessage<{ user: User }>) {
 
 export function* setVoteValueListener(message: WSMessage<{ user: User, voteValue: string }>) {
   const { user, voteValue } = message.body;
-  const votesShown = yield select(getVotesShownValue);
-  const userCurrentVote = yield select(getVoteValueByIdStateGetter(user.id));
 
   yield put(setUserVoteValue(user, voteValue));
+
+  const votesShown = yield select(getVotesShownValue);
+  const userCurrentVote = yield select(getVoteValueByIdStateGetter(user.id));
 
   if (votesShown && userCurrentVote != null) {
     yield put(

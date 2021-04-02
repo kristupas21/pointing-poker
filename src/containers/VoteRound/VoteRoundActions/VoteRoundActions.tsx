@@ -11,7 +11,7 @@ import {
   wsResetVoteRound,
 } from 'state/ws/wsActions';
 import Button from 'components/Button';
-import { getVoteRoundState } from 'state/voteRound/voteRoundStateGetters';
+import { getVoteRoundPristine, getVotesShownValue } from 'state/voteRound/voteRoundStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { makeVotePercentageSelector } from 'utils/selectors';
 
@@ -31,11 +31,11 @@ const votePercentageSelector = makeVotePercentageSelector();
 
 const VoteRoundActions: React.FC = () => {
   const text = useText();
-  const { votesShown } = useSelector(getVoteRoundState);
+  const votesShown = useSelector(getVotesShownValue);
+  const isPristine = useSelector(getVoteRoundPristine);
   const percentage = useSelector(votePercentageSelector);
 
-  const { resetVoteRound, hideVotes, showVotes } =
-      useMappedDispatch<A>(actions as unknown as A);
+  const { resetVoteRound, hideVotes, showVotes } = useMappedDispatch<A>(actions as unknown as A);
 
   const handleShowHideClick = () => {
     if (votesShown) {
@@ -57,7 +57,7 @@ const VoteRoundActions: React.FC = () => {
       <Button onClick={handleShowHideClick}>
         {text(showHideTextId)}
       </Button>
-      <Button onClick={resetVoteRound}>
+      <Button onClick={resetVoteRound} disabled={isPristine}>
         {text('voteRound.action.newRound')}
       </Button>
     </div>

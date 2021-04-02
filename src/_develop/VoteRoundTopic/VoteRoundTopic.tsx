@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { Form, Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import { FieldSize, FieldType, FormField } from 'components/Form';
-import { getVoteRoundState } from 'state/voteRound/voteRoundStateGetters';
+import { getVoteRoundTopic } from 'state/voteRound/voteRoundStateGetters';
 import { setVoteRoundTopic as setVoteRoundTopicAction } from 'state/voteRound/voteRoundActions';
 import { wsSetVoteRoundTopic } from 'state/ws/wsActions';
 import { useMappedDispatch, useText } from 'utils/customHooks';
@@ -20,7 +20,7 @@ type A = {
 }
 
 const VoteRoundTopic: React.FC = () => {
-  const { currentTopic } = useSelector(getVoteRoundState);
+  const currentTopic = useSelector(getVoteRoundTopic);
   const { setVoteRoundTopic } = useMappedDispatch<A>(actions as unknown as A);
   const text = useText();
 
