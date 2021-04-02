@@ -1,0 +1,52 @@
+.switch {
+  $this: &;
+  $_background-color: var(--app-mainColor);
+  $_circle-color: var(--app-textColor);
+
+  display: flex;
+
+  &__label {
+    font-size: 14px;
+    margin-left: 6px;
+  }
+
+  &__field {
+    @extend %visually-hidden;
+
+    &:checked {
+      & ~ #{$this}__ui {
+        &::after {
+          transform: translateX(18px);
+        }
+      }
+    }
+  }
+
+  &__wrapper {
+    cursor: pointer;
+    display: inline-flex;
+    user-select: none;
+  }
+
+  &__ui {
+    border-radius: 10px;
+    border: 2px solid $_circle-color;
+    display: inline-flex;
+    height: 19px;
+    position: relative;
+    transition: all .15s;
+    width: 36px;
+
+    &::after {
+      top: 1px;
+      width: 13px;
+      height: 13px;
+      content: '';
+      position: absolute;
+      transition: all .15s;
+      border-radius: 50%;
+      background: $_circle-color;
+      transform: translateX(1px);
+    }
+  }
+}

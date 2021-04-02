@@ -71,7 +71,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
             </FormField>
             <FormField
               name="useRoles"
-              type={FieldType.Checkbox}
+              type={FieldType.Switch}
               label={text('session.field.useRoles.label')}
               isBlock
             />

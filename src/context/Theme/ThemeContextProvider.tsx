@@ -5,20 +5,43 @@ import ThemeContext from './ThemeContext';
 import { Theme } from './types';
 import { setThemeVars } from './utils';
 
-const ThemeContextProvider: React.FC = ({ children }) => {
-  const [theme, setTheme] = useStorageState<Theme>(StorageKey.Theme, Theme.Light);
+const ThemeContextProvider: React.FC = (props) => {
+  const { children } = props;
+  const [themeProps, setThemeProps] =
+      useStorageState(StorageKey.Theme, { theme: Theme.Default, isInverted: false });
 
-  const setAppTheme = (newTheme: Theme) => {
-    setTheme(newTheme);
-    setThemeVars(newTheme);
+  const setTheme = (newTheme: Theme) => {
+    const newState = {
+      ...themeProps,
+      theme: newTheme,
+    };
+
+    setThemeProps(newState);
+  };
+
+  const toggleInverted = () => {
+    const newState = {
+      ...themeProps,
+      isInverted: !themeProps.isInverted,
+    };
+
+    setThemeProps(newState);
   };
 
   useEffect(() => {
-    setThemeVars(theme);
+    setThemeVars(themeProps);
+  }, [themeProps]);
+
+  useEffect(() => {
+    if (!Object.values(Theme).includes(themeProps.theme)) {
+      setTheme(Theme.Default);
+    }
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, setAppTheme }}>
+    <ThemeContext.Provider
+      value={{ setTheme, toggleInverted, ...themeProps }}
+    >
       {children}
     </ThemeContext.Provider>
   );

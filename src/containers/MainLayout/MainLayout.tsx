@@ -47,18 +47,24 @@ const MainLayout: React.FC<Props> = (props) => {
     history.push(AppRoute.Base);
   };
 
+  const LogoButton = (
+    <Button variant={ButtonVariant.None} onClick={handleLogoClick}>
+      <Logo />
+    </Button>
+  );
+
   return (
     <div className={cx('layout')}>
       <div className={cx('layout__content')}>
         <div className={cx('layout__controls')}>
-          <Button variant={ButtonVariant.None} onClick={handleLogoClick}>
-            <Logo />
-          </Button>
-          {renderMenu && <UserSettings />}
+          {renderMenu
+            ? <UserSettings />
+            : LogoButton}
         </div>
         <motion.div
           className={cx('layout__route', {
-            'layout__route--loading': isLoading
+            'layout__route--loading': isLoading,
+            'layout__route--with-sidebar': renderMenu,
           })}
           key={location?.pathname}
           {...animations.simpleOpacity}

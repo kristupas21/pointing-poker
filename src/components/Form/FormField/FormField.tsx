@@ -5,6 +5,7 @@ import { FieldType, SharedFieldProps } from '../types';
 import Input, { InputProps } from '../Input';
 import Select, { SelectProps } from '../Select';
 import Checkbox, { CheckboxProps } from '../Checkbox';
+import Switch, { SwitchProps } from '../Switch';
 import NumberInput, { NumberInputProps } from '../NumberInput';
 import styles from './FormField.module.scss';
 
@@ -51,6 +52,13 @@ const FormField: React.FC<Props> = (props) => {
         return (
           <Checkbox
             {...fieldProps as CheckboxProps}
+            ref={setRef}
+          />
+        );
+      case FieldType.Switch:
+        return (
+          <Switch
+            {...fieldProps as SwitchProps}
             ref={setRef}
           />
         );

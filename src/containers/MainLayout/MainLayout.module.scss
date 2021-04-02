@@ -6,12 +6,8 @@
   min-height: 100vh;
 
   &__controls {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    & > *:last-child {
-      justify-self: end;
-    }
+    display: flex;
+    justify-content: center;
   }
 
   &__content {
@@ -21,6 +17,10 @@
   &__route {
     padding: 15px;
     position: relative;
+
+    &--with-sidebar {
+      padding-left: 80px;
+    }
 
     &--loading {
       &::after {

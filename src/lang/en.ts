@@ -67,7 +67,7 @@ export const messages = {
   'settings.avatar.title': 'Choose Avatar',
   'settings.theme.title': 'App Theme',
 
-  'theme.variant.light': 'Light',
-  'theme.variant.dark': 'Dark',
+  'theme.darkMode': 'Dark Mode',
+  'theme.variant.default': 'Default',
   'theme.variant.violet': 'Violet'
 };

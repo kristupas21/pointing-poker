@@ -3,7 +3,10 @@ import noop from 'lodash/noop';
 import { Theme, ThemeContextProps } from './types';
 
 const ThemeContext = createContext<ThemeContextProps>({
-  theme: Theme.Light, setAppTheme: noop,
+  isInverted: false,
+  theme: Theme.Default,
+  setTheme: noop,
+  toggleInverted: noop,
 });
 
 export default ThemeContext;

@@ -1,10 +1,26 @@
-export interface ThemeContextProps {
+export interface ThemeContextState {
+  isInverted: boolean;
   theme: Theme;
-  setAppTheme: (theme: Theme) => void;
+}
+
+export interface ThemeContextProps extends ThemeContextState {
+  setTheme: (theme: Theme) => void;
+  toggleInverted: () => void;
 }
 
 export enum Theme {
-  Dark = 'dark',
-  Light = 'light',
+  Default = 'default',
   Violet = 'violet',
 }
+
+type ThemeVariableProps = {
+  default: string;
+  inverted: string;
+}
+
+type ThemeVariableKey =
+    'mainColor' |
+    'backgroundColor' |
+    'textColor';
+
+export type ThemeVariables = Record<Theme, Record<ThemeVariableKey, ThemeVariableProps>>;

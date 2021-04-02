@@ -13,7 +13,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    transform: translateX(-100%);
+    transform: translateX(calc(-100% + 70px));
   }
 
   &__shade {
@@ -23,11 +23,16 @@
   }
 
   &__drawer {
-    background: #ccc;
+    background: var(--app-backgroundColor);
+    box-shadow: 1px 1px 3px;
     padding: 10px;
     transition: transform $_transition-ms;
     width: 400px;
     z-index: 2;
+  }
+
+  &__content {
+    padding: 70px;
   }
 
   &--open {

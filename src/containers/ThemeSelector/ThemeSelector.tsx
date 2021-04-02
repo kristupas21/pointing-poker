@@ -11,7 +11,7 @@ import styles from './ThemeSelector.module.scss';
 const cx = classNames.bind(styles);
 
 const ThemeSelector: React.FC = () => {
-  const { theme, setAppTheme } = useContext(ThemeContext);
+  const { theme, setTheme, toggleInverted, isInverted } = useContext(ThemeContext);
   const text = useText();
 
   return (
@@ -26,11 +26,18 @@ const ThemeSelector: React.FC = () => {
                 label={text(`theme.variant.${name}` as MessageId)}
                 type={FieldType.Checkbox}
                 checked={name === theme}
-                onChange={() => setAppTheme(name)}
+                onChange={() => setTheme(name)}
               />
               <span className={cx('indicator')} style={{ background: getThemeColor(name) }} />
             </div>
           ))}
+          <FormField
+            name="darkMode"
+            label={text('theme.darkMode')}
+            type={FieldType.Switch}
+            checked={isInverted}
+            onChange={toggleInverted}
+          />
         </Form>
       </Formik>
     </div>

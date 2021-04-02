@@ -24,12 +24,6 @@ export type CustomFormError = { id: MessageId; values?: any };
 
 export type CustomFormErrors<T> = Record<keyof T, CustomFormError>;
 
-export interface AppVariables {
-  mainColor: string;
-  backgroundColor: string;
-  textColor: string;
-}
-
 export enum AlignType {
   Left = 'left',
   Right = 'right',

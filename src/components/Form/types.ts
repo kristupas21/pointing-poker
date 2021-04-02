@@ -4,10 +4,11 @@ import { ReactNode } from 'react';
 export type SubmitHandler<T> = (values: T, helpers: FormikHelpers<T>) => void;
 
 export enum FieldType {
-  Input = 'input',
-  Select = 'select',
   Checkbox = 'checkbox',
+  Input = 'input',
   Number = 'number',
+  Select = 'select',
+  Switch = 'switch',
 }
 
 export enum FieldSize {
