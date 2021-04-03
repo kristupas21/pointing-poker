@@ -6,7 +6,6 @@ const ROUTE_NAMES: Record<AppRoute, MessageId> = {
   [AppRoute.JoinSession]: 'routes.joinSession',
   [AppRoute.StartSession]: 'routes.startSession',
   [AppRoute.Session]: 'routes.session',
-  [AppRoute.SessionNotFound]: 'routes.sessionNotFound',
   [AppRoute.Error]: 'routes.error',
 };
 

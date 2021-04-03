@@ -1,4 +1,4 @@
-export const messages = {
+const messages = {
   'error.internalServer': 'Internal server error',
   'error.missingParam': 'Missing required parameter',
   'error.mustChooseRole': 'Must choose your role',
@@ -62,7 +62,6 @@ export const messages = {
   'routes.joinSession': 'Join Session Page',
   'routes.startSession': 'Start Session Page',
   'routes.session': 'Session Page',
-  'routes.sessionNotFound': 'Session Not Found Page',
   'routes.error': 'Error Page',
 
   'settings.avatar.title': 'Choose Avatar',
@@ -72,3 +71,5 @@ export const messages = {
   'theme.variant.default': 'Default',
   'theme.variant.violet': 'Violet'
 };
+
+export default messages;

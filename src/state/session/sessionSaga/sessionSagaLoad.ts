@@ -46,12 +46,10 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
   } catch (e) {
     const { code } = yield call(errorParser.parse, e);
 
-    if (code === ERROR_CODES.SESSION_NOT_FOUND) {
-      yield put(replace(AppRoute.SessionNotFound, { sessionId }));
-      return;
-    }
-
-    if (code === ERROR_CODES.USER_NOT_FOUND) {
+    if (
+      code === ERROR_CODES.SESSION_NOT_FOUND ||
+      code === ERROR_CODES.USER_NOT_FOUND
+    ) {
       yield put(replace(AppRoute.JoinSession, { sessionId }));
       return;
     }

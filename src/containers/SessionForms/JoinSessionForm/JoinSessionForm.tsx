@@ -23,7 +23,7 @@ const actions = {
 
 type Props = {
   initialValues: SessionFormData;
-  onSubmit: SubmitHandler<SessionFormData>;
+  onSubmit: SubmitHandler<SessionFormData>
   roles: string[];
 };
 
@@ -33,6 +33,10 @@ const JoinSessionForm: React.FC<Props> = (props) => {
   const { getInfo } = useMappedDispatch(actions);
   const text = useText();
   const getErrorText = (e: CustomFormError) => e?.id && text(e.id, e.values);
+
+  const handleSubmit: SubmitHandler<SessionFormData> = (values, helpers) => {
+    onSubmit(joinSessionValidationSchema.cast(values), helpers);
+  };
 
   useEffect(() => {
     if (initialValues.sessionId) {
@@ -44,7 +48,7 @@ const JoinSessionForm: React.FC<Props> = (props) => {
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       validationSchema={joinSessionValidationSchema}
       id="join-session-form"
     >
@@ -55,7 +59,6 @@ const JoinSessionForm: React.FC<Props> = (props) => {
         setFieldValue,
         handleBlur,
         submitForm,
-        handleChange
       }) => {
         const errors = {
           ...formikErrors,
@@ -66,12 +69,12 @@ const JoinSessionForm: React.FC<Props> = (props) => {
 
         const handleSessionFieldChange = (e: ChangeEvent<HTMLInputElement>): void => {
           storageService.remove(StorageKey.FormErrors);
-          handleChange(e);
+          setFieldValue('sessionId', e.target.value.trimStart());
         };
 
         const handleNameFieldChange = (e: ChangeEvent<HTMLInputElement>): void => {
           storageService.removeNested(StorageKey.FormErrors, 'name');
-          handleChange(e);
+          setFieldValue('name', e.target.value.trimStart());
         };
 
         const handleSessionFieldBlur = (e: FocusEvent<HTMLInputElement>): void => {

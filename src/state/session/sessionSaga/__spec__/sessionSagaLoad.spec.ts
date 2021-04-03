@@ -88,7 +88,7 @@ describe('loadSessionSaga', () => {
       ])
       .call(sessionApi.load, { sessionId, userId })
       .call(errorParser.parse, error)
-      .put(replace(AppRoute.SessionNotFound, { sessionId }))
+      .put(replace(AppRoute.JoinSession, { sessionId }))
       .put(setAppLoading(false))
       .run();
   });

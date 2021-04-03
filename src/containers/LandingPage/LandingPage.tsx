@@ -4,6 +4,7 @@ import Button, { ButtonVariant } from 'components/Button';
 import { useText } from 'utils/customHooks';
 import { AppRoute } from 'utils/routes';
 import BreakpointsContext from 'context/Breakpoints';
+import { isTouchDevice } from '../../utils/navigator';
 
 type Props = RouteChildrenProps;
 
@@ -21,11 +22,11 @@ const LandingPage: React.FC<Props> = (props) => {
   return (
     <div>
       <p>
-        {
-          (isMobile && 'MOBILE') ||
-            (isTablet && 'TABLET') ||
-            (isDesktop && 'DESKTOP')
-        }
+        {isMobile && 'MOBILE'}
+        {isTablet && 'TABLET'}
+        {isDesktop && 'DESKTOP'}
+        <br />
+        {`TOUCH: ${isTouchDevice()}`}
       </p>
       <Button variant={ButtonVariant.Primary} onClick={handleStartClick} role="link">
         {text('session.start')}

@@ -1,5 +1,7 @@
+import { LocaleKey } from 'lang';
+
 export interface AppState {
-  locale: string;
+  locale: LocaleKey;
   isSidebarOpen: boolean;
   isLoading: boolean;
 }

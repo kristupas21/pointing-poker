@@ -65,3 +65,9 @@ export function getBrowser(): BrowserType {
 
   return BrowserType.Chrome;
 }
+
+export function isTouchDevice(): boolean {
+  return ('ontouchstart' in window) ||
+      (navigator.maxTouchPoints > 0) ||
+      (navigator.msMaxTouchPoints > 0);
+}

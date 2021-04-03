@@ -10,7 +10,7 @@ import {
 import { SessionFormData } from './types';
 
 const defaultSchemaProps = () => ({
-  name: Yup.string()
+  name: Yup.string().trim()
     .min(INPUT_MIN_CHARS, { id: FORM_ERR_MIN, values: { chars: INPUT_MIN_CHARS } })
     .max(INPUT_MAX_CHARS, { id: FORM_ERR_MAX, values: { chars: INPUT_MAX_CHARS } })
     .required({ id: FORM_ERR_REQUIRED }),

@@ -8,7 +8,6 @@ import LandingPageComponent from 'containers/LandingPage';
 import StartSessionPageComponent from 'containers/StartSessionPage';
 import JoinSessionPageComponent from 'containers/JoinSessionPage';
 import SessionPageComponent from 'containers/SessionPage';
-import SessionNotFoundPageComponent from 'containers/SessionNotFoundPage';
 import ErrorPageComponent from 'containers/ErrorPage';
 import Notifications from 'containers/Notifications';
 import styles from './App.module.scss';
@@ -16,8 +15,6 @@ import styles from './App.module.scss';
 const cx = classNames.bind(styles);
 
 const LandingPage = withMainLayout(LandingPageComponent);
-
-const SessionNotFoundPage = withMainLayout(SessionNotFoundPageComponent);
 
 const ErrorPage = withMainLayout(ErrorPageComponent);
 
@@ -53,11 +50,6 @@ const App: React.FC = () => {
             exact
             path={AppRoute.Session}
             component={SessionPage}
-          />
-          <Route
-            exact
-            path={AppRoute.SessionNotFound}
-            component={SessionNotFoundPage}
           />
           <Route
             exact

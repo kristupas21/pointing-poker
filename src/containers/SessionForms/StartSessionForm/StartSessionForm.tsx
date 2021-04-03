@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { Form, Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import { FieldSize, FieldType, FormField, SubmitHandler } from 'components/Form';
@@ -15,7 +15,7 @@ const cx = classNames.bind(styles);
 
 type Props = {
   initialValues: SessionFormData;
-  onSubmit: SubmitHandler<SessionFormData>;
+  onSubmit: (values: SessionFormData) => void;
   roles: string[];
 };
 
@@ -24,11 +24,15 @@ const StartSessionForm: React.FC<Props> = (props) => {
   const text = useText();
   const getErrorText = (e: CustomFormError) => e?.id && text(e.id, e.values);
 
+  const handleSubmit: SubmitHandler<SessionFormData> = (values) => {
+    onSubmit(startSessionValidationSchema.cast(values));
+  };
+
   return (
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       validationSchema={startSessionValidationSchema}
       id="start-session-form"
     >
@@ -42,6 +46,10 @@ const StartSessionForm: React.FC<Props> = (props) => {
       }) => {
         const errors = formikErrors as unknown as CustomFormErrors<SessionFormData>;
         const submitDisabled = isSubmitting || !isEmpty(errors);
+
+        const handleNameFieldChange = (e: ChangeEvent<HTMLInputElement>): void => {
+          setFieldValue('name', e.target.value.trimStart());
+        };
 
         if (values.role && !roles.some((r) => r === values.role)) {
           setValues({
@@ -66,6 +74,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
               placeholder={text('session.field.name.placeholder')}
               isBlock
               className={cx('input')}
+              onChange={handleNameFieldChange}
             >
               <AvatarSelector className={cx('avatar-selector')} />
             </FormField>

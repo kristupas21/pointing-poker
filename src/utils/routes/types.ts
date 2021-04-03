@@ -4,5 +4,4 @@ export enum AppRoute {
   Error = '/error',
   JoinSession = '/join',
   Session = '/session/:sessionId',
-  SessionNotFound = '/session-not-found',
 }

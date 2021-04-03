@@ -6,4 +6,5 @@ export enum StorageKey {
   Roles = 'roles',
   FormValues = 'formValues',
   FormErrors = 'formErrors',
+  Locale = 'locale',
 }

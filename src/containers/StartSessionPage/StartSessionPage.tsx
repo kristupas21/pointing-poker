@@ -5,7 +5,6 @@ import { RouteChildrenProps } from 'react-router';
 import { startSession as startSessionAction } from 'state/session/sessionActions';
 import PointValuesForm from 'containers/PointValuesForm';
 import RolesForm from 'containers/RolesForm';
-import { SubmitHandler } from 'components/Form';
 import { getNormalizedSessionRoles, getSessionUser } from 'state/session/sessionStateGetters';
 import { useMappedDispatch } from 'utils/customHooks';
 import { SessionFormData } from '../SessionForms/types';
@@ -22,7 +21,7 @@ const StartSessionPage: React.FC<Props> = () => {
   const roles = useSelector(getNormalizedSessionRoles);
   const { startSession } = useMappedDispatch(actions);
 
-  const handleSubmit: SubmitHandler<SessionFormData> = (values) => {
+  const handleSubmit = (values: SessionFormData) => {
     startSession(omit(values, 'sessionId'));
   };
 
