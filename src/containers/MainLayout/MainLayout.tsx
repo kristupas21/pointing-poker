@@ -15,8 +15,9 @@ import { AppRoute } from 'utils/routes';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import ThemeSelector from 'containers/ThemeSelector';
 import Sidebar from 'components/Sidebar';
+import { getSessionCurrentId } from 'state/session/sessionStateGetters';
+import ChangeLocaleButton from '_develop/ChangeLocaleButton';
 import styles from './MainLayout.module.scss';
-import ChangeLocaleButton from '../../_develop/ChangeLocaleButton';
 
 const cx = classNames.bind(styles);
 
@@ -31,9 +32,11 @@ type Props = RouteChildrenProps & {
 
 const MainLayout: React.FC<Props> = (props) => {
   const { children, location, renderMenu, history } = props;
+  const currentSessionId = useSelector(getSessionCurrentId);
   const isLoading = useSelector(getAppLoading);
   const { setSidebarOpen } = useMappedDispatch(actions);
   const text = useText();
+  const withSidebar = renderMenu && !!currentSessionId;
 
   const handleLogoClick = () => {
     if (renderMenu) {
@@ -58,14 +61,14 @@ const MainLayout: React.FC<Props> = (props) => {
     <div className={cx('layout')}>
       <div className={cx('layout__content')}>
         <div className={cx('layout__controls')}>
-          {renderMenu
+          {withSidebar
             ? <UserSettings />
             : LogoButton}
         </div>
         <motion.div
           className={cx('layout__route', {
             'layout__route--loading': isLoading,
-            'layout__route--with-sidebar': renderMenu,
+            'layout__route--with-sidebar': withSidebar,
           })}
           key={location?.pathname}
           {...animations.simpleOpacity}
@@ -73,7 +76,7 @@ const MainLayout: React.FC<Props> = (props) => {
           {children}
         </motion.div>
       </div>
-      {renderMenu && (
+      {withSidebar && (
         <Sidebar>
           <ThemeSelector />
           <Button onClick={handleLeaveClick}>
