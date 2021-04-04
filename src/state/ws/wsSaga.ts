@@ -1,4 +1,4 @@
-import { all, call, fork, put, select, take } from 'redux-saga/effects';
+import { all, call, fork, put, select, take, cancel } from 'redux-saga/effects';
 import { getSessionUserId } from 'state/session/sessionStateGetters';
 import { CLOSE_SESSION, INIT_SESSION } from 'state/session/sessionConstants';
 import { baseWsEmitter, createSocket } from './wsUtils';
@@ -17,13 +17,16 @@ function* wsSaga() {
     const channels = yield all(WS_EVENT_MAP.map((item) =>
       call(initWSChannel, socket, item)));
 
-    yield all(WS_EVENT_MAP.map((item) =>
+    const tasks = yield all(WS_EVENT_MAP.map((item) =>
       fork(baseWsEmitter, item, socket)));
 
     yield put(wsUserJoined(sessionId));
     yield take(CLOSE_SESSION);
 
     channels.forEach((channel) => channel.close());
+
+    yield cancel([...tasks]);
+
     socket.disconnect();
   }
 }
