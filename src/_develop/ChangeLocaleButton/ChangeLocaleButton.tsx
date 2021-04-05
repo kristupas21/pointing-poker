@@ -3,7 +3,7 @@ import Button from 'components/Button/Button';
 import { setAppLocale } from 'state/app/appActions';
 import { useMappedDispatch } from 'utils/customHooks';
 import { useSelector } from 'react-redux';
-import { getAppLocale } from '../../state/app/appStateGetters';
+import { getAppLocale } from 'state/app/appStateGetters';
 
 const actions = {
   setLocale: setAppLocale,

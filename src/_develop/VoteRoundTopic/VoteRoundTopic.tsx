@@ -7,21 +7,21 @@ import { setVoteRoundTopic as setVoteRoundTopicAction } from 'state/voteRound/vo
 import { wsSetVoteRoundTopic } from 'state/ws/wsActions';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 
+type Actions = {
+  setVoteRoundTopic: typeof setVoteRoundTopicAction,
+}
+
 const actions = {
   setVoteRoundTopic: [setVoteRoundTopicAction, wsSetVoteRoundTopic],
-};
+} as unknown as Actions;
 
 interface VoteRoundFormData {
   topic: string;
 }
 
-type A = {
-  setVoteRoundTopic: typeof setVoteRoundTopicAction,
-}
-
 const VoteRoundTopic: React.FC = () => {
   const currentTopic = useSelector(getVoteRoundTopic);
-  const { setVoteRoundTopic } = useMappedDispatch<A>(actions as unknown as A);
+  const { setVoteRoundTopic } = useMappedDispatch(actions);
   const text = useText();
 
   const initialValues: VoteRoundFormData = {

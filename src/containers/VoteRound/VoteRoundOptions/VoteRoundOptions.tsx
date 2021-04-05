@@ -13,11 +13,13 @@ import styles from './VoteRoundOptions.module.scss';
 
 const cx = classNames.bind(styles);
 
-const actions = {
-  setVoteValue: [setUserVoteValue, wsSetUserVoteValue],
+type Actions = {
+  setVoteValue: typeof setUserVoteValue
 };
 
-type A = { setVoteValue: typeof setUserVoteValue };
+const actions = {
+  setVoteValue: [setUserVoteValue, wsSetUserVoteValue],
+} as unknown as Actions;
 
 const currentUserVoteSelector = makeCurrentUserVoteSelector();
 
@@ -25,7 +27,7 @@ const VoteRoundOptions: React.FC = () => {
   const user = useSelector(getSessionUser);
   const pointValues = useSelector(getSessionPointValues);
   const currentUserVote = useSelector(currentUserVoteSelector);
-  const { setVoteValue } = useMappedDispatch<A>(actions as unknown as A);
+  const { setVoteValue } = useMappedDispatch(actions);
 
   const renderButton = ({ value }: PointValue) => {
     const isSelected = value === currentUserVote;

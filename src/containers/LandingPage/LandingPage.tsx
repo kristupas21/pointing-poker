@@ -3,8 +3,8 @@ import { RouteChildrenProps } from 'react-router';
 import Button, { ButtonVariant } from 'components/Button';
 import { useText } from 'utils/customHooks';
 import { AppRoute } from 'utils/routes';
+import { isTouchDevice } from 'utils/navigator';
 import BreakpointsContext from 'context/Breakpoints';
-import { isTouchDevice } from '../../utils/navigator';
 
 type Props = RouteChildrenProps;
 

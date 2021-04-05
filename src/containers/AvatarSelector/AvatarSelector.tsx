@@ -14,13 +14,13 @@ import styles from './AvatarSelector.module.scss';
 
 const cx = classNames.bind(styles);
 
-const actions = {
-  modifyUser: [modifySessionUser, wsModifySessionUser],
-};
-
-type A = {
+type Actions = {
   modifyUser: typeof modifySessionUser;
 }
+
+const actions = {
+  modifyUser: [modifySessionUser, wsModifySessionUser],
+} as unknown as Actions;
 
 type Props = {
   className?: string;
@@ -29,7 +29,7 @@ type Props = {
 const AvatarSelector: React.FC<Props> = (props) => {
   const { className } = props;
   const avatarId = useSelector(getSessionUserAvatarId);
-  const { modifyUser } = useMappedDispatch<A>(actions as unknown as A);
+  const { modifyUser } = useMappedDispatch(actions);
   const [isPopoverOpen, setPopoverOpen] = useState(false);
 
   const handleAvatarSelect = (params) => {

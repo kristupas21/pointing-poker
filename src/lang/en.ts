@@ -7,6 +7,7 @@ const messages = {
   'error.unexpected': 'Unexpected Error',
   'error.userNotFound': 'User does not exist',
   'error.userNameExists': 'User with this name already joined',
+  'error.invalidParams': 'Invalid parameters',
 
   'nav.home': 'Home',
   'nav.joinSession': 'Join Session',

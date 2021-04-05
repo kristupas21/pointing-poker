@@ -7,6 +7,7 @@ const messages = {
   'error.unexpected': 'Klaida',
   'error.userNotFound': 'Vartotojas neegzistuoja',
   'error.userNameExists': 'Vartotojas šiuo vardu jau prisijungęs',
+  'error.invalidParams': 'Blogi parametrai',
 
   'nav.home': 'Pagrindinis',
   'nav.joinSession': 'Prisijungti prie sesijos',

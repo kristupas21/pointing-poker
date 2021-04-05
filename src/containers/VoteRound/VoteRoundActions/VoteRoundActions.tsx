@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   resetVoteRound as resetVoteRoundAction,
@@ -15,29 +15,41 @@ import { getVoteRoundPristine, getVotesShownValue } from 'state/voteRound/voteRo
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { makeVotePercentageSelector } from 'utils/selectors';
 
-const actions = {
-  resetVoteRound: [resetVoteRoundAction, wsResetVoteRound],
-  hideVotes: [hideVotesAction, wsHideVotes],
-  showVotes: [showVotesAction, wsShowVotes],
-};
-
-type A = {
+type Actions = {
   resetVoteRound: typeof resetVoteRoundAction,
   hideVotes: typeof hideVotesAction,
   showVotes: typeof showVotesAction,
 }
 
+const actions = {
+  resetVoteRound: [resetVoteRoundAction, wsResetVoteRound],
+  hideVotes: [hideVotesAction, wsHideVotes],
+  showVotes: [showVotesAction, wsShowVotes],
+} as unknown as Actions;
+
 const votePercentageSelector = makeVotePercentageSelector();
 
 const VoteRoundActions: React.FC = () => {
-  const text = useText();
   const votesShown = useSelector(getVotesShownValue);
   const isPristine = useSelector(getVoteRoundPristine);
   const percentage = useSelector(votePercentageSelector);
+  const { resetVoteRound, hideVotes, showVotes } = useMappedDispatch(actions);
+  const text = useText();
+  const hideVotesText = text('voteRound.action.hideVotes');
+  const showVotesText = text('voteRound.action.showVotes');
+  const percentageText = `${percentage}%`;
+  const allVoted = percentage === 100;
 
-  const { resetVoteRound, hideVotes, showVotes } = useMappedDispatch<A>(actions as unknown as A);
+  const evaluateBubbleText = (): string => {
+    if (votesShown) return hideVotesText;
+    if (allVoted) return showVotesText;
 
-  const handleShowHideClick = () => {
+    return percentageText;
+  };
+
+  const [bubbleText, setBubbleText] = useState(evaluateBubbleText());
+
+  const handleBubbleClick = () => {
     if (votesShown) {
       hideVotes();
     } else {
@@ -45,17 +57,22 @@ const VoteRoundActions: React.FC = () => {
     }
   };
 
-  // eslint-disable-next-line
-  console.log(`${percentage}%`);
+  const getMouseHandler = (newText: string) =>
+    () => votesShown || allVoted || setBubbleText(newText);
 
-  const showHideTextId = votesShown
-    ? 'voteRound.action.hideVotes'
-    : 'voteRound.action.showVotes';
+  useEffect(() => {
+    setBubbleText(evaluateBubbleText());
+  }, [percentage, votesShown]);
 
   return (
     <div>
-      <Button onClick={handleShowHideClick}>
-        {text(showHideTextId)}
+      <Button
+        id="bubble-button"
+        onClick={handleBubbleClick}
+        onMouseEnter={getMouseHandler(showVotesText)}
+        onMouseLeave={getMouseHandler(percentageText)}
+      >
+        {bubbleText}
       </Button>
       <Button onClick={resetVoteRound} disabled={isPristine}>
         {text('voteRound.action.newRound')}

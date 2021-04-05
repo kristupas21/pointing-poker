@@ -14,22 +14,22 @@ import Button from 'components/Button';
 import { setAppSidebarOpen } from 'state/app/appActions';
 import UserSettingsForm from './UserSettingsForm';
 
-const actions = {
-  modifyUser: [modifySessionUser, wsModifySessionUser],
-  setSidebarOpen: setAppSidebarOpen,
-};
-
-type A = {
+type Actions = {
   modifyUser: typeof modifySessionUser;
   setSidebarOpen: typeof setAppSidebarOpen;
 }
+
+const actions = {
+  modifyUser: [modifySessionUser, wsModifySessionUser],
+  setSidebarOpen: setAppSidebarOpen,
+} as unknown as Actions;
 
 type Props = {
   withForm?: boolean;
 }
 
 const UserSettings: React.FC<Props> = ({ withForm }) => {
-  const { modifyUser, setSidebarOpen } = useMappedDispatch<A>(actions as unknown as A);
+  const { modifyUser, setSidebarOpen } = useMappedDispatch(actions);
   const name = useSelector(getSessionUserName);
   const role = useSelector(getSessionUserRole);
   const isObserver = useSelector(getSessionUserIsObserver);
