@@ -49,7 +49,7 @@ export class StorageService {
   }
 
   public remove = (key: StorageKey): void => {
-    if (!this.get(key)) {
+    if (this.get(key) == null) {
       return;
     }
 
@@ -58,8 +58,15 @@ export class StorageService {
     this.storage.setItem(this.appKey, JSON.stringify(newState));
   }
 
-  public get = <T = any>(key: StorageKey): T | null =>
-    this.getState()?.[key] || null;
+  public get = <T = any>(key: StorageKey): T | null => {
+    const value = this.getState()?.[key];
+
+    if (value === undefined) {
+      return null;
+    }
+
+    return value;
+  }
 
   public clearState = (): void =>
     this.storage.removeItem(this.appKey);

@@ -4,4 +4,5 @@ export interface SessionFormData {
   role?: string;
   sessionId?: string;
   useRoles?: boolean;
+  usePermissions?: boolean;
 }

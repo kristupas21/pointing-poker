@@ -15,11 +15,12 @@ import { normalizePointValues } from '../sessionUtils';
 import { StartSessionResponse } from '../sessionModel';
 
 export function* startSessionSaga(action: ActionType<typeof startSession>) {
-  const { useRoles, ...rest } = action.payload;
+  const { useRoles, usePermissions, ...rest } = action.payload;
   const roles = yield select(getNormalizedSessionRoles);
 
   const params = {
     useRoles,
+    usePermissions,
     pointValues: normalizePointValues(yield select(getSessionPointValues)),
     roles,
     user: yield* acquireCurrentUser({

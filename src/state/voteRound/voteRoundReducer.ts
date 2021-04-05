@@ -9,7 +9,8 @@ import {
   RESET_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
   SET_VOTE_ROUND_TOPIC,
-  SHOW_VOTES
+  SHOW_VOTES,
+  UPDATE_VOTE_ROUND_USER_PERMISSIONS
 } from './voteRoundConstants';
 
 type Action = ActionType<typeof import('./voteRoundActions')>;
@@ -53,6 +54,17 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
           ({
             ...u,
             ...(u.id === user.id && { voteValue }) }))
+      };
+    }
+    case UPDATE_VOTE_ROUND_USER_PERMISSIONS: {
+      const { userId, sessionControlPermission } = action.payload;
+
+      return {
+        ...state,
+        users: state.users.map((u) => ({
+          ...u,
+          ...(u.id === userId && { sessionControlPermission })
+        }))
       };
     }
     case RESET_VOTE_ROUND:

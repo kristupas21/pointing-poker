@@ -6,7 +6,7 @@ import {
   HIDE_VOTES,
   INIT_VOTE_ROUND, REMOVE_USER_FROM_VOTE_ROUND,
   SET_USER_VOTE_VALUE,
-  SHOW_VOTES, SET_VOTE_ROUND_TOPIC, CLEAR_VOTE_ROUND_STATE
+  SHOW_VOTES, SET_VOTE_ROUND_TOPIC, CLEAR_VOTE_ROUND_STATE, UPDATE_VOTE_ROUND_USER_PERMISSIONS
 } from './voteRoundConstants';
 import { VoteRoundState } from './voteRoundModel';
 
@@ -31,3 +31,6 @@ export const initVoteRound = (params: VoteRoundState) =>
 export const setVoteRoundTopic = (topic: string) => action(SET_VOTE_ROUND_TOPIC, topic);
 
 export const clearVoteRoundState = () => action(CLEAR_VOTE_ROUND_STATE);
+
+export const updateVoteRoundUserPermissions = (userId: string, sessionControlPermission: boolean) =>
+  action(UPDATE_VOTE_ROUND_USER_PERMISSIONS, { sessionControlPermission, userId });

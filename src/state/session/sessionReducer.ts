@@ -34,9 +34,10 @@ const initialState: State = {
   currentSessionId: null,
   isFormLoading: false,
   user: initialUser(),
-  useRoles: false,
+  useRoles: initialUseRoles(),
   pointValues: initialPointValues(),
   roles: initialRoles(),
+  usePermissions: initialUsePermissions(),
 };
 
 const sessionReducer: Reducer<State, Action> = (state = initialState, action) => {
@@ -152,6 +153,8 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
         user: initialUser(),
         pointValues: initialPointValues(),
         roles: initialRoles(),
+        useRoles: initialUseRoles(),
+        usePermissions: initialUsePermissions(),
       };
     default:
       return state;
@@ -182,6 +185,18 @@ function initialRoles(): string[] {
   return (
     storageService.get(StorageKey.Roles) || DEFAULT_USER_ROLES
   );
+}
+
+function initialUseRoles(): boolean {
+  const useRoles = storageService.get(StorageKey.UseRoles);
+
+  return typeof useRoles === 'boolean' ? useRoles : true;
+}
+
+function initialUsePermissions(): boolean {
+  const usePermissions = storageService.get(StorageKey.UsePermissions);
+
+  return typeof usePermissions === 'boolean' ? usePermissions : false;
 }
 
 export default sessionReducer;

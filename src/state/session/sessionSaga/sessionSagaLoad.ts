@@ -31,6 +31,7 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
           currentTopic,
           pointValues,
           roles,
+          usePermissions,
         }
       }
     }: LoadSessionResponse = yield call(sessionApi.load, { sessionId, userId });
@@ -40,9 +41,14 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
       useRoles,
       pointValues,
       roles,
+      usePermissions,
     }));
 
-    yield put(initVoteRound({ users, votesShown, currentTopic }));
+    yield put(initVoteRound({
+      users,
+      votesShown,
+      currentTopic,
+    }));
   } catch (e) {
     const { code } = yield call(errorParser.parse, e);
 

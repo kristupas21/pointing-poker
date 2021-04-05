@@ -6,13 +6,15 @@ import {
   resetVoteRound,
   setUserVoteValue,
   setVoteRoundTopic,
-  showVotes
+  showVotes, updateVoteRoundUserPermissions
 } from 'state/voteRound/voteRoundActions';
 import { User } from 'globalTypes';
 import { pushNotification } from 'state/notifications/notificationsActions';
 import renderNotification, { NotificationContent } from 'utils/notificationContent';
 import { WSMessage } from './wsModel';
 import { getVotesShownValue, getVoteValueByIdStateGetter } from '../voteRound/voteRoundStateGetters';
+import { setSessionParams } from '../session/sessionActions';
+import { getSessionUserId } from '../session/sessionStateGetters';
 
 export function* userJoinedListener(message: WSMessage<{ user: User }>) {
   yield put(addUserToVoteRound(message.body.user));
@@ -69,4 +71,16 @@ export function* setVoteRoundTopicListener(message: WSMessage<{ topic: string }>
 
 export function* modifySessionUserListener(message: WSMessage<{ user: User }>) {
   yield put(addUserToVoteRound(message.body.user));
+}
+
+export function* updateSessionPermissionsListener(message: WSMessage<{ usePermissions: boolean }>) {
+  yield put(setSessionParams({ usePermissions: message.body.usePermissions }));
+}
+
+export function* updateVoteRoundUserPermissionsListener(
+  message: WSMessage<{ sessionControlPermission: boolean }>
+) {
+  const userId = yield select(getSessionUserId);
+
+  yield put(updateVoteRoundUserPermissions(userId, message.body.sessionControlPermission));
 }

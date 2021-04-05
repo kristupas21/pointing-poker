@@ -7,7 +7,7 @@ import { throwAppError } from 'state/error/errorActions';
 import { setAppLoading } from 'state/app/appActions';
 import storageService from 'utils/storageService/storageService';
 import { StorageKey } from 'utils/storageService';
-import { joinSession, setSessionParams } from '../sessionActions';
+import { joinSession, modifySessionUser, setSessionParams } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { JOIN_SESSION } from '../sessionConstants';
 import { acquireCurrentUser } from './sessionSagaUtils';
@@ -32,9 +32,14 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
   yield put(setAppLoading(true));
 
   try {
-    const { data: { sessionId: id } }: JoinSessionResponse = yield call(sessionApi.join, params);
+    const {
+      data: {
+        sessionId: id,
+        user: { sessionControlPermission } }
+    }: JoinSessionResponse = yield call(sessionApi.join, params);
     const route = getMatchParamRoute(AppRoute.Session, { sessionId: id });
 
+    yield put(modifySessionUser({ sessionControlPermission }));
     yield put(push(route));
   } catch (e) {
     const { code, payload } = yield call(errorParser.parse, e);

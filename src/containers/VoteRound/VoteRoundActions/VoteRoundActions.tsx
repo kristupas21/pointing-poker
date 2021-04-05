@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import noop from 'lodash/noop';
 import {
   resetVoteRound as resetVoteRoundAction,
   hideVotes as hideVotesAction,
@@ -11,9 +12,12 @@ import {
   wsResetVoteRound,
 } from 'state/ws/wsActions';
 import Button from 'components/Button';
-import { getVoteRoundPristine, getVotesShownValue } from 'state/voteRound/voteRoundStateGetters';
+import {
+  getVoteRoundPristine,
+  getVotesShownValue
+} from 'state/voteRound/voteRoundStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
-import { makeVotePercentageSelector } from 'utils/selectors';
+import { makeSessionControlPermissionSelector, makeVotePercentageSelector } from 'utils/selectors';
 
 type Actions = {
   resetVoteRound: typeof resetVoteRoundAction,
@@ -28,10 +32,12 @@ const actions = {
 } as unknown as Actions;
 
 const votePercentageSelector = makeVotePercentageSelector();
+const controlPermissionSelector = makeSessionControlPermissionSelector();
 
 const VoteRoundActions: React.FC = () => {
   const votesShown = useSelector(getVotesShownValue);
   const isPristine = useSelector(getVoteRoundPristine);
+  const hasControlPermission = useSelector(controlPermissionSelector);
   const percentage = useSelector(votePercentageSelector);
   const { resetVoteRound, hideVotes, showVotes } = useMappedDispatch(actions);
   const text = useText();
@@ -41,6 +47,7 @@ const VoteRoundActions: React.FC = () => {
   const allVoted = percentage === 100;
 
   const evaluateBubbleText = (): string => {
+    if (!hasControlPermission) return percentageText;
     if (votesShown) return hideVotesText;
     if (allVoted) return showVotesText;
 
@@ -50,19 +57,21 @@ const VoteRoundActions: React.FC = () => {
   const [bubbleText, setBubbleText] = useState(evaluateBubbleText());
 
   const handleBubbleClick = () => {
-    if (votesShown) {
-      hideVotes();
-    } else {
-      showVotes();
-    }
+    if (!hasControlPermission) return;
+    if (votesShown) hideVotes();
+    else showVotes();
   };
 
-  const getMouseHandler = (newText: string) =>
-    () => votesShown || allVoted || setBubbleText(newText);
+  const getMouseHandler = (newText: string) => {
+    const handler = () =>
+      votesShown || allVoted || setBubbleText(newText);
+
+    return hasControlPermission ? handler : noop;
+  };
 
   useEffect(() => {
     setBubbleText(evaluateBubbleText());
-  }, [percentage, votesShown]);
+  }, [percentage, votesShown, hasControlPermission]);
 
   return (
     <div>
@@ -74,9 +83,11 @@ const VoteRoundActions: React.FC = () => {
       >
         {bubbleText}
       </Button>
-      <Button onClick={resetVoteRound} disabled={isPristine}>
-        {text('voteRound.action.newRound')}
-      </Button>
+      {hasControlPermission && (
+        <Button onClick={resetVoteRound} disabled={isPristine}>
+          {text('voteRound.action.newRound')}
+        </Button>
+      )}
     </div>
   );
 };

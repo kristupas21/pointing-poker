@@ -15,3 +15,5 @@ export const INIT_VOTE_ROUND = '@voteRound/INIT';
 export const SET_VOTE_ROUND_TOPIC = '@voteRound/SET_TOPIC';
 
 export const CLEAR_VOTE_ROUND_STATE = '@voteRound/CLEAR_STATE';
+
+export const UPDATE_VOTE_ROUND_USER_PERMISSIONS = '@voteRound/UPDATE_USER_PERMISSIONS';

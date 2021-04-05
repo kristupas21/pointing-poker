@@ -10,6 +10,8 @@ import {
 import { SessionFormData } from './types';
 
 const defaultSchemaProps = () => ({
+  sessionId: Yup.string().required({ id: FORM_ERR_REQUIRED }),
+
   name: Yup.string().trim()
     .min(INPUT_MIN_CHARS, { id: FORM_ERR_MIN, values: { chars: INPUT_MIN_CHARS } })
     .max(INPUT_MAX_CHARS, { id: FORM_ERR_MAX, values: { chars: INPUT_MAX_CHARS } })
@@ -28,12 +30,14 @@ const defaultSchemaProps = () => ({
   isObserver: Yup.boolean(),
 
   useRoles: Yup.boolean(),
+
+  usePermissions: Yup.boolean(),
 });
 
 export const joinSessionValidationSchema: SchemaOf<SessionFormData> =
     Yup.object().shape({
       ...defaultSchemaProps(),
-      sessionId: Yup.string().required({ id: FORM_ERR_REQUIRED }),
+      usePermissions: undefined,
     });
 
 export const startSessionValidationSchema: SchemaOf<SessionFormData> =

@@ -5,3 +5,5 @@ export { default as makeResultByRoleSelector } from './resultByRoleSelector';
 export { default as makeCurrentUserVoteSelector } from './currentUserVoteSelector';
 
 export { default as makeVotePercentageSelector } from './votePercentageSelector';
+
+export { default as makeSessionControlPermissionSelector } from './sessionControlPermissionSelector';

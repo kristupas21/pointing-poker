@@ -23,6 +23,14 @@ export function divideUsersByRole(users: User[], roles: string[]): { [role: stri
   }, {});
 }
 
+function findUserById(users: User[], userId: string): User {
+  return users.find((u) => u.id === userId);
+}
+
 export function findVoteValueById(users: User[], userId: string): string {
-  return (users.find((u) => u.id === userId) || {}).voteValue;
+  return findUserById(users, userId)?.voteValue;
+}
+
+export function findSessionControlPermissionById(users: User[], userId: string): boolean {
+  return findUserById(users, userId)?.sessionControlPermission;
 }

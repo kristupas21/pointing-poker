@@ -10,6 +10,7 @@ import AvatarSelector from 'containers/AvatarSelector';
 import { SessionFormData } from '../types';
 import { startSessionValidationSchema } from '../validationSchema';
 import styles from '../SessionForms.module.scss';
+import storageService, { StorageKey } from '../../../utils/storageService';
 
 const cx = classNames.bind(styles);
 
@@ -42,7 +43,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
         values,
         setValues,
         setFieldValue,
-        submitForm
+        submitForm,
       }) => {
         const errors = formikErrors as unknown as CustomFormErrors<SessionFormData>;
         const submitDisabled = isSubmitting || !isEmpty(errors);
@@ -57,6 +58,16 @@ const StartSessionForm: React.FC<Props> = (props) => {
             role: '',
           });
         }
+
+        const handleUseRolesChange = (e: ChangeEvent<HTMLInputElement>): void => {
+          setFieldValue('useRoles', e.target.checked);
+          storageService.set(StorageKey.UseRoles, e.target.checked);
+        };
+
+        const handleUsePermissionsChange = (e: ChangeEvent<HTMLInputElement>): void => {
+          setFieldValue('usePermissions', e.target.checked);
+          storageService.set(StorageKey.UsePermissions, e.target.checked);
+        };
 
         const onFormSubmit = (e) => {
           e.preventDefault();
@@ -82,6 +93,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
               name="useRoles"
               type={FieldType.Switch}
               label={text('session.field.useRoles.label')}
+              onChange={handleUseRolesChange}
               isBlock
             />
             <FormField
@@ -100,6 +112,13 @@ const StartSessionForm: React.FC<Props> = (props) => {
               name="isObserver"
               type={FieldType.Checkbox}
               label={text('session.field.observer.label')}
+              isBlock
+            />
+            <FormField
+              name="usePermissions"
+              type={FieldType.Switch}
+              label={text('session.field.usePermissions.label')}
+              onChange={handleUsePermissionsChange}
               isBlock
             />
             <Button type="submit" disabled={submitDisabled}>

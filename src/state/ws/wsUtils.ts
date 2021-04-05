@@ -36,7 +36,7 @@ export function* baseWsEmitter(item: WSEventMapItem, socket: Socket) {
   }
 }
 
-function* getBody(payload: any, item: WSEventMapItem): Generator<unknown, any> {
+function* getBody(payload: any, item: WSEventMapItem): Generator {
   return yield item.emitterData
     ? call(item.emitterData, payload)
     : payload || null;

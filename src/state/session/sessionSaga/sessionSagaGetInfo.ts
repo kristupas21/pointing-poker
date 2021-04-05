@@ -24,9 +24,12 @@ export function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
       }
     }: SessionInfoResponse = yield call(sessionApi.getInfo, sessionId);
 
-    if (useRoles) {
-      yield put(setSessionParams({ roles, useRoles }));
-    }
+    const params = {
+      useRoles,
+      ...(useRoles && { roles })
+    };
+
+    yield put(setSessionParams(params));
   } catch (e) {
     const { code } = yield call(errorParser.parse, e);
 
