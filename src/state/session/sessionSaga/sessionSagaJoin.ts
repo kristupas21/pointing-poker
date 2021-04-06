@@ -35,11 +35,11 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
     const {
       data: {
         sessionId: id,
-        user: { sessionControlPermission } }
+        user: { hasPermission } }
     }: JoinSessionResponse = yield call(sessionApi.join, params);
     const route = getMatchParamRoute(AppRoute.Session, { sessionId: id });
 
-    yield put(modifySessionUser({ sessionControlPermission }));
+    yield put(modifySessionUser({ hasPermission }));
     yield put(push(route));
   } catch (e) {
     const { code, payload } = yield call(errorParser.parse, e);

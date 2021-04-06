@@ -6,7 +6,7 @@ import {
   WS_SET_USER_VOTE_VALUE,
   WS_SHOW_VOTES, WS_USER_JOINED,
   WS_SET_VOTE_ROUND_TOPIC,
-  WS_MODIFY_SESSION_USER,
+  WS_MODIFY_SESSION_USER, WS_UPDATE_SESSION_PERMISSIONS,
 } from './wsConstants';
 
 /**
@@ -29,3 +29,6 @@ export const wsSetVoteRoundTopic = (topic: string) => action(WS_SET_VOTE_ROUND_T
 
 export const wsModifySessionUser = (params: Partial<User>) =>
   action(WS_MODIFY_SESSION_USER, params);
+
+export const wsUpdateSessionPermissions = (usePermissions: boolean) =>
+  action(WS_UPDATE_SESSION_PERMISSIONS, { usePermissions });

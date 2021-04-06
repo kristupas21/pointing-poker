@@ -32,5 +32,5 @@ export const setVoteRoundTopic = (topic: string) => action(SET_VOTE_ROUND_TOPIC,
 
 export const clearVoteRoundState = () => action(CLEAR_VOTE_ROUND_STATE);
 
-export const updateVoteRoundUserPermissions = (userId: string, sessionControlPermission: boolean) =>
-  action(UPDATE_VOTE_ROUND_USER_PERMISSIONS, { sessionControlPermission, userId });
+export const updateVoteRoundUserPermissions = (userId: string, hasPermission: boolean) =>
+  action(UPDATE_VOTE_ROUND_USER_PERMISSIONS, { userId, hasPermission });

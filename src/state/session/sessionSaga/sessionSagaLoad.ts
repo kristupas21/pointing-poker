@@ -32,6 +32,7 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
           pointValues,
           roles,
           usePermissions,
+          createdBy,
         }
       }
     }: LoadSessionResponse = yield call(sessionApi.load, { sessionId, userId });
@@ -42,6 +43,7 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
       pointValues,
       roles,
       usePermissions,
+      isCreatedByMe: createdBy === userId,
     }));
 
     yield put(initVoteRound({

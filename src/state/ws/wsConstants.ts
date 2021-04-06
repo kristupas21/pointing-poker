@@ -52,9 +52,20 @@ export const WS_SET_VOTE_ROUND_TOPIC = withWS(SET_VOTE_ROUND_TOPIC);
 export const WS_MODIFY_SESSION_USER = withWS(MODIFY_SESSION_USER);
 
 export const WS_EVENT_MAP: WSEventMapItem[] = [
-  { event: WS_USER_JOINED, listener: userJoinedListener, emitterData: userDataEmitter },
-  { event: WS_USER_LEFT, listener: userLeftListener, emitterData: userDataEmitter },
-  { event: WS_SET_USER_VOTE_VALUE, listener: setVoteValueListener },
+  {
+    event: WS_USER_JOINED,
+    listener: userJoinedListener,
+    emitterData: userDataEmitter
+  },
+  {
+    event: WS_USER_LEFT,
+    listener: userLeftListener,
+    emitterData: userDataEmitter
+  },
+  {
+    event: WS_SET_USER_VOTE_VALUE,
+    listener: setVoteValueListener
+  },
   {
     event: WS_SHOW_VOTES,
     listener: showVotesListener,

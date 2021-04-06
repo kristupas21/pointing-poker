@@ -40,7 +40,7 @@ const messages = {
   'session.field.role.placeholder': 'Choose Your Role',
   'session.field.observer.label': 'Join as observer',
   'session.field.useRoles.label': 'Use roles',
-  'session.field.usePermissions.label': 'Only I can control session',
+  'session.field.usePermissions.label': 'Session actions available for me only',
 
   'session.action.useRoles': 'Use roles',
   'session.action.pointValues': 'Point values',

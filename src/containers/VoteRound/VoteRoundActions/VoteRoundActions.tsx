@@ -17,7 +17,7 @@ import {
   getVotesShownValue
 } from 'state/voteRound/voteRoundStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
-import { makeSessionControlPermissionSelector, makeVotePercentageSelector } from 'utils/selectors';
+import { makeHasPermissionSelector, makeVotePercentageSelector } from 'utils/selectors';
 
 type Actions = {
   resetVoteRound: typeof resetVoteRoundAction,
@@ -32,12 +32,12 @@ const actions = {
 } as unknown as Actions;
 
 const votePercentageSelector = makeVotePercentageSelector();
-const controlPermissionSelector = makeSessionControlPermissionSelector();
+const hasPermissionSelector = makeHasPermissionSelector();
 
 const VoteRoundActions: React.FC = () => {
   const votesShown = useSelector(getVotesShownValue);
   const isPristine = useSelector(getVoteRoundPristine);
-  const hasControlPermission = useSelector(controlPermissionSelector);
+  const hasPermission = useSelector(hasPermissionSelector);
   const percentage = useSelector(votePercentageSelector);
   const { resetVoteRound, hideVotes, showVotes } = useMappedDispatch(actions);
   const text = useText();
@@ -47,7 +47,7 @@ const VoteRoundActions: React.FC = () => {
   const allVoted = percentage === 100;
 
   const evaluateBubbleText = (): string => {
-    if (!hasControlPermission) return percentageText;
+    if (!hasPermission) return percentageText;
     if (votesShown) return hideVotesText;
     if (allVoted) return showVotesText;
 
@@ -57,7 +57,7 @@ const VoteRoundActions: React.FC = () => {
   const [bubbleText, setBubbleText] = useState(evaluateBubbleText());
 
   const handleBubbleClick = () => {
-    if (!hasControlPermission) return;
+    if (!hasPermission) return;
     if (votesShown) hideVotes();
     else showVotes();
   };
@@ -66,12 +66,12 @@ const VoteRoundActions: React.FC = () => {
     const handler = () =>
       votesShown || allVoted || setBubbleText(newText);
 
-    return hasControlPermission ? handler : noop;
+    return hasPermission ? handler : noop;
   };
 
   useEffect(() => {
     setBubbleText(evaluateBubbleText());
-  }, [percentage, votesShown, hasControlPermission]);
+  }, [percentage, votesShown, hasPermission]);
 
   return (
     <div>
@@ -83,7 +83,7 @@ const VoteRoundActions: React.FC = () => {
       >
         {bubbleText}
       </Button>
-      {hasControlPermission && (
+      {hasPermission && (
         <Button onClick={resetVoteRound} disabled={isPristine}>
           {text('voteRound.action.newRound')}
         </Button>

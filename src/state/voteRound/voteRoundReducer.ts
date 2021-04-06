@@ -57,13 +57,13 @@ const voteRoundReducer: Reducer<State, Action> = (state = initialState, action) 
       };
     }
     case UPDATE_VOTE_ROUND_USER_PERMISSIONS: {
-      const { userId, sessionControlPermission } = action.payload;
+      const { userId, hasPermission } = action.payload;
 
       return {
         ...state,
         users: state.users.map((u) => ({
           ...u,
-          ...(u.id === userId && { sessionControlPermission })
+          ...(u.id === userId && { hasPermission })
         }))
       };
     }

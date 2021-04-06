@@ -8,7 +8,7 @@ export interface User {
   name: string;
   role?: string;
   registeredSessionId?: string;
-  sessionControlPermission?: boolean;
+  hasPermission?: boolean;
   voteValue?: string;
 }
 

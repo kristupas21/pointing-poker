@@ -8,5 +8,4 @@ export type WSEventMapItem = {
   listener: (...args: any) => Generator;
   emitterData?: (...args: any) => Generator;
   debounced?: boolean;
-  evaluatePermission?: (...args: any) => Generator;
 };

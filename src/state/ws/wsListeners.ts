@@ -78,9 +78,9 @@ export function* updateSessionPermissionsListener(message: WSMessage<{ usePermis
 }
 
 export function* updateVoteRoundUserPermissionsListener(
-  message: WSMessage<{ sessionControlPermission: boolean }>
+  message: WSMessage<{ hasPermission: boolean }>
 ) {
   const userId = yield select(getSessionUserId);
 
-  yield put(updateVoteRoundUserPermissions(userId, message.body.sessionControlPermission));
+  yield put(updateVoteRoundUserPermissions(userId, message.body.hasPermission));
 }

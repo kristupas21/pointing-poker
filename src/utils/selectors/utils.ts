@@ -31,6 +31,6 @@ export function findVoteValueById(users: User[], userId: string): string {
   return findUserById(users, userId)?.voteValue;
 }
 
-export function findSessionControlPermissionById(users: User[], userId: string): boolean {
-  return findUserById(users, userId)?.sessionControlPermission;
+export function findHasPermissionById(users: User[], userId: string): boolean {
+  return findUserById(users, userId)?.hasPermission;
 }

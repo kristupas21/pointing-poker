@@ -33,6 +33,7 @@ type State = Readonly<SessionState>;
 const initialState: State = {
   currentSessionId: null,
   isFormLoading: false,
+  isCreatedByMe: false,
   user: initialUser(),
   useRoles: initialUseRoles(),
   pointValues: initialPointValues(),

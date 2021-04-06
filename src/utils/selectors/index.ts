@@ -6,4 +6,4 @@ export { default as makeCurrentUserVoteSelector } from './currentUserVoteSelecto
 
 export { default as makeVotePercentageSelector } from './votePercentageSelector';
 
-export { default as makeSessionControlPermissionSelector } from './sessionControlPermissionSelector';
+export { default as makeHasPermissionSelector } from './hasPermissionSelector';
