@@ -1,3 +1,4 @@
+import { MessageId } from 'lang';
 import { ERROR_CODES } from './constants';
 import { ApiError, AppError } from './types';
 
@@ -7,8 +8,8 @@ interface ErrorParser {
 
 const errorParser: ErrorParser = {
   parse(e) {
-    const code = e?.response?.data?.code || ERROR_CODES.UNEXPECTED;
-    const payload = e?.response?.data?.payload || null;
+    const code = (e?.response?.data?.code || ERROR_CODES.UNEXPECTED) as MessageId;
+    const payload = e?.response?.data?.payload;
 
     return {
       code,

@@ -17,7 +17,7 @@ import {
   setVoteRoundTopicListener,
   modifySessionUserListener,
   updateSessionPermissionsListener,
-  updateVoteRoundUserPermissionsListener,
+  updateVoteRoundUserPermissionsListener, socketErrorListener,
 } from './wsListeners';
 import { userDataEmitter, userParamsEmitter } from './wsEmitterData';
 
@@ -30,6 +30,10 @@ const USER_JOINED = 'USER_JOINED';
 const USER_LEFT = 'USER_LEFT';
 
 const UPDATE_SESSION_PERMISSIONS = 'UPDATE_SESSION_PERMISSIONS';
+
+const SOCKET_ERROR = 'SOCKET_ERROR';
+
+export const WS_SOCKET_ERROR = withWS(SOCKET_ERROR);
 
 export const WS_USER_JOINED = withWS(USER_JOINED);
 
@@ -52,6 +56,10 @@ export const WS_SET_VOTE_ROUND_TOPIC = withWS(SET_VOTE_ROUND_TOPIC);
 export const WS_MODIFY_SESSION_USER = withWS(MODIFY_SESSION_USER);
 
 export const WS_EVENT_MAP: WSEventMapItem[] = [
+  {
+    event: WS_SOCKET_ERROR,
+    listener: socketErrorListener,
+  },
   {
     event: WS_USER_JOINED,
     listener: userJoinedListener,

@@ -18,7 +18,7 @@ function* wsSaga() {
       call(initWSChannel, socket, item)));
 
     const tasks = yield all(WS_EVENT_MAP.map((item) =>
-      fork(baseWsEmitter, item, socket)));
+      fork(baseWsEmitter, item, socket, sessionId)));
 
     yield put(wsUserJoined(sessionId));
     yield take(CLOSE_SESSION);

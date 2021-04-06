@@ -8,9 +8,9 @@ import { THROW_APP_ERROR } from './errorConstants';
 
 export function* throwErrorSaga(action: ActionType<typeof throwAppError>) {
   const redirectPath = yield select(getCurrentRoutePath);
-  const { payload: errorId } = action;
+  const { errorId, errorPayload } = action.payload;
 
-  yield put(setErrorState({ errorId, redirectPath }));
+  yield put(setErrorState({ errorId, redirectPath, errorPayload }));
   yield put(push(AppRoute.Error));
 }
 

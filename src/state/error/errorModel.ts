@@ -1,6 +1,7 @@
 import { MessageId } from 'lang';
 
 export interface ErrorState {
-  errorId?: MessageId;
+  errorId: MessageId;
   redirectPath?: string;
+  errorPayload: any;
 }

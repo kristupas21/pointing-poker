@@ -8,19 +8,34 @@ import {
   setVoteRoundTopic,
   showVotes, updateVoteRoundUserPermissions
 } from 'state/voteRound/voteRoundActions';
-import { User } from 'globalTypes';
 import { pushNotification } from 'state/notifications/notificationsActions';
 import renderNotification, { NotificationContent } from 'utils/notificationContent';
-import { WSMessage } from './wsModel';
-import { getVotesShownValue, getVoteValueByIdStateGetter } from '../voteRound/voteRoundStateGetters';
-import { setSessionParams } from '../session/sessionActions';
-import { getSessionUserId } from '../session/sessionStateGetters';
+import { getVotesShownValue, getVoteValueByIdStateGetter } from 'state/voteRound/voteRoundStateGetters';
+import { setSessionParams } from 'state/session/sessionActions';
+import { getSessionUserId } from 'state/session/sessionStateGetters';
+import { throwAppError } from 'state/error/errorActions';
+import { AppError } from 'utils/errorParser/types';
+import { ERROR_CODES } from 'utils/errorParser';
+import { MessageId } from 'lang';
+import {
+  WSMessageSessionPermissions,
+  WSMessageSetTopic,
+  WSMessageSetVoteValue,
+  WSMessageUserData,
+  WSMessageUserPermissions
+} from './wsModel';
 
-export function* userJoinedListener(message: WSMessage<{ user: User }>) {
+export function* socketErrorListener(e: AppError) {
+  const code = e?.code || ERROR_CODES.UNEXPECTED as MessageId;
+
+  yield put(throwAppError(code, e?.payload));
+}
+
+export function* userJoinedListener(message: WSMessageUserData) {
   yield put(addUserToVoteRound(message.body.user));
 }
 
-export function* userLeftListener(message: WSMessage<{ user: User }>) {
+export function* userLeftListener(message: WSMessageUserData) {
   const { user } = message.body;
   const notification = renderNotification(NotificationContent.UserLeft, user);
 
@@ -28,7 +43,7 @@ export function* userLeftListener(message: WSMessage<{ user: User }>) {
   yield put(pushNotification(notification));
 }
 
-export function* showVotesListener(message: WSMessage<{ user: User }>) {
+export function* showVotesListener(message: WSMessageUserData) {
   const { user } = message.body;
   const notification = renderNotification(NotificationContent.UserShowVotes, user);
 
@@ -40,7 +55,7 @@ export function* hideVotesListener() {
   yield put(hideVotes());
 }
 
-export function* resetVoteRoundListener(message: WSMessage<{ user: User }>) {
+export function* resetVoteRoundListener(message: WSMessageUserData) {
   const { user } = message.body;
   const notification = renderNotification(NotificationContent.UserResetRound, user);
 
@@ -48,7 +63,7 @@ export function* resetVoteRoundListener(message: WSMessage<{ user: User }>) {
   yield put(pushNotification(notification));
 }
 
-export function* setVoteValueListener(message: WSMessage<{ user: User, voteValue: string }>) {
+export function* setVoteValueListener(message: WSMessageSetVoteValue) {
   const { user, voteValue } = message.body;
 
   yield put(setUserVoteValue(user, voteValue));
@@ -65,21 +80,19 @@ export function* setVoteValueListener(message: WSMessage<{ user: User, voteValue
   }
 }
 
-export function* setVoteRoundTopicListener(message: WSMessage<{ topic: string }>) {
+export function* setVoteRoundTopicListener(message: WSMessageSetTopic) {
   yield put(setVoteRoundTopic(message.body.topic));
 }
 
-export function* modifySessionUserListener(message: WSMessage<{ user: User }>) {
+export function* modifySessionUserListener(message: WSMessageUserData) {
   yield put(addUserToVoteRound(message.body.user));
 }
 
-export function* updateSessionPermissionsListener(message: WSMessage<{ usePermissions: boolean }>) {
+export function* updateSessionPermissionsListener(message: WSMessageSessionPermissions) {
   yield put(setSessionParams({ usePermissions: message.body.usePermissions }));
 }
 
-export function* updateVoteRoundUserPermissionsListener(
-  message: WSMessage<{ hasPermission: boolean }>
-) {
+export function* updateVoteRoundUserPermissionsListener(message: WSMessageUserPermissions) {
   const userId = yield select(getSessionUserId);
 
   yield put(updateVoteRoundUserPermissions(userId, message.body.hasPermission));

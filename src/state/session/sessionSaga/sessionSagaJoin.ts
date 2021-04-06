@@ -42,7 +42,7 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
     yield put(modifySessionUser({ hasPermission }));
     yield put(push(route));
   } catch (e) {
-    const { code, payload } = yield call(errorParser.parse, e);
+    const { code, payload } = errorParser.parse(e);
 
     yield put(setAppLoading(false));
 
@@ -75,7 +75,7 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
       return;
     }
 
-    yield put(throwAppError(code));
+    yield put(throwAppError(code, payload));
   } finally {
     yield call(setSubmitting, false);
   }

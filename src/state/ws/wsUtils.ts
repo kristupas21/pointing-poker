@@ -7,7 +7,7 @@ export const createSocket = (auth: { sessionId: string; userId: string }) => io(
   { autoConnect: false, auth },
 );
 
-export function* baseWsEmitter(item: WSEventMapItem, socket: Socket) {
+export function* baseWsEmitter(item: WSEventMapItem, socket: Socket, sessionId: string) {
   const { debounced } = item;
 
   while (true) {
@@ -21,7 +21,7 @@ export function* baseWsEmitter(item: WSEventMapItem, socket: Socket) {
         });
 
         if (wait) {
-          socket.emit(item.event, { body: yield* getBody(action.payload, item) });
+          socket.emit(item.event, yield* constructWsMessage(action.payload, item, sessionId));
           action = null;
           break;
         }
@@ -31,13 +31,15 @@ export function* baseWsEmitter(item: WSEventMapItem, socket: Socket) {
     }
 
     if (action) {
-      socket.emit(item.event, { body: yield* getBody(action.payload, item) });
+      socket.emit(item.event, yield* constructWsMessage(action.payload, item, sessionId));
     }
   }
 }
 
-function* getBody(payload: any, item: WSEventMapItem): Generator {
-  return yield item.emitterData
+function* constructWsMessage(payload: any, item: WSEventMapItem, sessionId: string) {
+  const body = yield item.emitterData
     ? call(item.emitterData, payload)
     : payload || null;
+
+  return { body, sessionId };
 }

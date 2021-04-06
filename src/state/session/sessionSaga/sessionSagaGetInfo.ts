@@ -31,7 +31,7 @@ export function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
 
     yield put(setSessionParams(params));
   } catch (e) {
-    const { code } = yield call(errorParser.parse, e);
+    const { code, payload } = errorParser.parse(e);
 
     if (code === ERROR_CODES.SESSION_NOT_FOUND) {
       yield call(
@@ -44,7 +44,7 @@ export function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
       return;
     }
 
-    yield put(throwAppError(code));
+    yield put(throwAppError(code, payload));
   } finally {
     yield put(setSessionFormLoading(false));
     yield callback && call(callback);

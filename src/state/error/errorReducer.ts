@@ -9,6 +9,7 @@ type State = Readonly<ErrorState>;
 
 const initialState: State = {
   errorId: null,
+  errorPayload: undefined,
   redirectPath: AppRoute.Base,
 };
 

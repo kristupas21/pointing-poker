@@ -1,5 +1,4 @@
-import { ValueOf } from 'globalTypes';
-import { ERROR_CODES } from './constants';
+import { MessageId } from 'lang';
 
 export interface ApiError<T = any> {
   response?: {
@@ -11,6 +10,6 @@ export interface ApiError<T = any> {
 }
 
 export interface AppError<T = any> {
-  code: ValueOf<typeof ERROR_CODES>;
+  code: MessageId;
   payload?: T;
 }

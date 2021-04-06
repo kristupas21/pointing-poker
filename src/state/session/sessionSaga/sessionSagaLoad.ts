@@ -52,7 +52,7 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
       currentTopic,
     }));
   } catch (e) {
-    const { code } = yield call(errorParser.parse, e);
+    const { code, payload } = errorParser.parse(e);
 
     if (
       code === ERROR_CODES.SESSION_NOT_FOUND ||
@@ -62,7 +62,7 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
       return;
     }
 
-    yield put(throwAppError(code));
+    yield put(throwAppError(code, payload));
   } finally {
     yield put(setAppLoading(false));
   }
