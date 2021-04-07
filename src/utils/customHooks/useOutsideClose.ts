@@ -3,11 +3,11 @@ import { isEscapeKey } from '../keyboardUtils';
 
 export default <T extends HTMLElement>(ref: RefObject<T>, callback: (e?) => void): void => {
   useEffect(() => {
-    const mouseHandler = (e) => {
+    const mouseHandler = (e): void => {
       ref.current?.contains(e.target) || callback(e);
     };
 
-    const keyboardHandler = (e) => {
+    const keyboardHandler = (e): void => {
       isEscapeKey(e) && callback(e);
     };
 
@@ -18,5 +18,5 @@ export default <T extends HTMLElement>(ref: RefObject<T>, callback: (e?) => void
       window.removeEventListener('mousedown', mouseHandler);
       window.removeEventListener('keydown', keyboardHandler);
     };
-  }, []);
+  }, [callback]);
 };

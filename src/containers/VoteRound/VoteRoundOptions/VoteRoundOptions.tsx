@@ -9,6 +9,7 @@ import { getSessionPointValues, getSessionUser } from 'state/session/sessionStat
 import { useMappedDispatch } from 'utils/customHooks';
 import { PointValue } from 'utils/pointValues/types';
 import classNames from 'classnames/bind';
+import useKeyboardVoting from '_develop/useKeyboardVoting';
 import styles from './VoteRoundOptions.module.scss';
 
 const cx = classNames.bind(styles);
@@ -44,6 +45,16 @@ const VoteRoundOptions: React.FC = () => {
       </li>
     );
   };
+
+  const handleKeyboardInput = (value: string): void => {
+    const point = pointValues.find((p) => p.value === value);
+
+    if (point && point.value !== currentUserVote) {
+      setVoteValue(user, point.value);
+    }
+  };
+
+  useKeyboardVoting(handleKeyboardInput);
 
   return (
     <ul>

@@ -5,8 +5,8 @@ import Button, { ButtonVariant } from 'components/Button';
 import { getAppSidebarOpen } from 'state/app/appStateGetters';
 import { useMappedDispatch, useOutsideClose } from 'utils/customHooks';
 import { setAppSidebarOpen } from 'state/app/appActions';
+import Logo from 'components/Logo';
 import styles from './Sidebar.module.scss';
-import Logo from '../Logo';
 
 const cx = classNames.bind(styles);
 
@@ -14,19 +14,14 @@ const actions = {
   setSidebarOpen: setAppSidebarOpen,
 };
 
-interface Props {
-  onCloseClick?: () => void;
-}
-
-const Sidebar: React.FC<Props> = (props) => {
-  const { onCloseClick, children } = props;
+const Sidebar: React.FC = (props) => {
+  const { children } = props;
   const sidebarRef = useRef<HTMLDivElement>(null);
   const isOpen = useSelector(getAppSidebarOpen);
   const { setSidebarOpen } = useMappedDispatch(actions);
 
   const handleClose = () => {
-    onCloseClick && onCloseClick();
-    setSidebarOpen(false);
+    isOpen && setSidebarOpen(false);
   };
 
   const sidebarClasses = cx('sidebar', {
