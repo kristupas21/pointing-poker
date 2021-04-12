@@ -5,7 +5,7 @@ import { Timeout } from 'globalTypes';
 
 declare const document;
 
-const WAIT_TIME_MS = 500;
+const WAIT_TIME_MS = 300;
 
 let timeout: Timeout;
 
