@@ -24,10 +24,14 @@
 <code>npm install</code>
 <br />
 <code>npm run start:dev</code>
+<br />
+
 ---
 ### CLIENT
 
 ---
-#### Install deps: <code>npm i</code>
-#### Run: <code>npm start</code>
-#### Test: <code>npm test</code>
+<code>npm i</code>
+<br />
+<code>npm start</code>
+<br />
+<code>npm test</code>
