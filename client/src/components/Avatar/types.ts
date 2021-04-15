@@ -3,4 +3,7 @@ export enum AvatarId {
   Demo2 = 'demo-2',
   Demo3 = 'demo-3',
   Demo4 = 'demo-4',
+
+  SecretE = '__secret-e',
+  SecretK = '__secret-k',
 }

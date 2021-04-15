@@ -1,4 +1,5 @@
 export enum NotificationContent {
+  HiddenFeats = 'hidden-feats',
   SessionCopy = 'session-copy',
   UserLeft = 'user-left',
   UserShowVotes = 'user-show-votes',

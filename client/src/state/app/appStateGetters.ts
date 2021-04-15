@@ -6,3 +6,5 @@ export const getAppSidebarOpen = (state: State): boolean => state.app.isSidebarO
 export const getAppLocale = (state: State): LocaleKey => state.app.locale;
 
 export const getAppLoading = (state: State): boolean => state.app.isLoading;
+
+export const getAppHiddenFeatsUnlocked = (state: State): boolean => state.app.hiddenFeatsUnlocked;

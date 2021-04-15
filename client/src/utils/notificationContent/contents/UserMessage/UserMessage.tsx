@@ -6,9 +6,13 @@ import styles from './UserMessage.module.scss';
 
 const cx = classNames.bind(styles);
 
-type Props = { name: string; message: MessageId; }
+type Props = {
+  name: string;
+  message: MessageId;
+}
 
-const UserMessage: React.FC<Props> = ({ name, message }) => {
+const UserMessage: React.FC<Props> = (props) => {
+  const { name, message } = props;
   const text = useText();
 
   return (

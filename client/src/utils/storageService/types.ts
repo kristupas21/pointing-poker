@@ -9,4 +9,5 @@ export enum StorageKey {
   Locale = 'locale',
   UseRoles = 'useRoles',
   UsePermissions = 'usePermissions',
+  HiddenFeats = 'hiddenFeats',
 }

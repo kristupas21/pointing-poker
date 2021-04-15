@@ -59,6 +59,8 @@ const messages = {
   'notifications.userShowVotes': 'has shown the votes!',
   'notifications.userResetRound': 'has started new round!',
   'notifications.userChangeVote': 'has changed his/her vote!',
+  'notifications.hiddenFeats': 'Hidden features unlocked!',
+  'notifications.storageCleared': 'Storage cleared!',
 
   'routes.base': 'Home Page',
   'routes.joinSession': 'Join Session Page',

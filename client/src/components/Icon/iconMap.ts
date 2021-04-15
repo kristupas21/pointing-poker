@@ -9,6 +9,8 @@ import { ReactComponent as Demo1 } from 'assets/avatars/demo-avatar-1.svg';
 import { ReactComponent as Demo2 } from 'assets/avatars/demo-avatar-2.svg';
 import { ReactComponent as Demo3 } from 'assets/avatars/demo-avatar-3.svg';
 import { ReactComponent as Demo4 } from 'assets/avatars/demo-avatar-4.svg';
+import { ReactComponent as SecretE } from 'assets/avatars/secret-avatar-e.svg';
+import { ReactComponent as SecretK } from 'assets/avatars/secret-avatar-k.svg';
 import { ReactComponent as Logo1 } from 'assets/icons/logo-1.svg';
 import { ReactComponent as Logo2 } from 'assets/icons/logo-2.svg';
 import { ReactComponent as Logo3 } from 'assets/icons/logo-3.svg';
@@ -29,6 +31,8 @@ const iconMap: Record<IconId, SvgIcon> = {
   [IconId.Logo1]: Logo1,
   [IconId.Logo2]: Logo2,
   [IconId.Logo3]: Logo3,
+  [IconId.SecretE]: SecretE,
+  [IconId.SecretK]: SecretK,
 };
 
 const getIcon = (id: IconId): SvgIcon => iconMap[id];

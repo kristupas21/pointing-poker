@@ -8,8 +8,12 @@ export function getAvatarIcon(id: AvatarId): IconId {
 }
 
 export function getRandomAvatar(): AvatarId {
-  const keys = Object.keys(AVATAR_MAP) as AvatarId[];
+  const keys = Object.keys(AVATAR_MAP).filter(getCommonAvatarValues) as AvatarId[];
   const random = calcRandomInteger(0, keys.length - 1);
 
   return keys[random];
+}
+
+export function getCommonAvatarValues(value: string): boolean {
+  return !value.startsWith('__secret');
 }

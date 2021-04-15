@@ -21,6 +21,8 @@ export enum IconId {
   Demo2 = 'demo-2',
   Demo3 = 'demo-3',
   Demo4 = 'demo-4',
+  SecretE = 'secret-e',
+  SecretK = 'secret-k',
 }
 
 export type SvgIcon = FunctionComponent<SVGProps<SVGSVGElement>>;

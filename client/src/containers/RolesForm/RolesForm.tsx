@@ -14,19 +14,30 @@ import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles';
+import { unlockAppHiddenFeats } from 'state/app/appActions';
+import { getAppHiddenFeatsUnlocked } from 'state/app/appStateGetters';
 import { mapRolesToFormData, withURF } from './utils';
 import { MAX_ROLES_COUNT, MIN_ROLES_COUNT } from './constants';
+import { valueUnlocksHiddenFeats } from '../../utils/hiddenFeats';
 
 const actions = {
   removeRole: removeSessionRole,
   saveRoles: saveSessionRoles,
   addRole: addSessionRole,
   resetRoles: resetSessionRoles,
+  unlockHiddenFeats: unlockAppHiddenFeats,
 };
 
 const RolesForm: React.FC = () => {
   const roles = useSelector(getSessionRoles);
-  const { removeRole, saveRoles, addRole, resetRoles } = useMappedDispatch(actions);
+  const hiddenFeatsUnlocked = useSelector(getAppHiddenFeatsUnlocked);
+  const {
+    removeRole,
+    saveRoles,
+    addRole,
+    resetRoles,
+    unlockHiddenFeats
+  } = useMappedDispatch(actions);
   const [isEditOn, setEditOn] = useState(false);
   const initialValues = mapRolesToFormData(roles);
   const text = useText();
@@ -49,11 +60,16 @@ const RolesForm: React.FC = () => {
 
             handleBlur(e);
 
-            if (duplicateOrEmpty) {
-              resetForm();
-            } else {
-              saveRoles(Object.values(values));
+            if (!hiddenFeatsUnlocked && valueUnlocksHiddenFeats(value)) {
+              unlockHiddenFeats();
+              return resetForm();
             }
+
+            if (duplicateOrEmpty) {
+              return resetForm();
+            }
+
+            return saveRoles(Object.values(values));
           };
 
           return (

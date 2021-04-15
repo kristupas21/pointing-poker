@@ -1,17 +1,21 @@
 import React from 'react';
 import { AppNotification, NotificationLifespan } from 'state/notifications/notificationsModel';
 import { User } from 'globalTypes';
-import SessionCopy from './contents/SessionCopy';
+import BaseMessage from './contents/BaseMessage';
 import UserMessage from './contents/UserMessage';
 import { NotificationContent } from './types';
 
 interface Renderer {
-  render(id: NotificationContent.SessionCopy): AppNotification,
-  render(id: NotificationContent.UserLeft, params: User): AppNotification,
-  render(id: NotificationContent.UserShowVotes, params: User): AppNotification,
-  render(id: NotificationContent.UserResetRound, params: User): AppNotification,
-  render(id: NotificationContent.UserChangeVote, params: User): AppNotification,
-  render(id: NotificationContent._StorageClear): AppNotification,
+  render(id: NotificationContent.SessionCopy |
+             NotificationContent.HiddenFeats |
+             NotificationContent._StorageClear
+  ): AppNotification,
+  render(id: NotificationContent.UserLeft |
+             NotificationContent.UserShowVotes |
+             NotificationContent.UserResetRound |
+             NotificationContent.UserChangeVote,
+    params: User
+  ): AppNotification,
 }
 
 const renderer: Renderer = {
@@ -21,7 +25,13 @@ const renderer: Renderer = {
         return {
           id: 'session-copy',
           lifespan: NotificationLifespan.Short,
-          content: <SessionCopy />,
+          content: <BaseMessage message="notifications.sessionIdCopied" />,
+        };
+      case NotificationContent.HiddenFeats:
+        return {
+          id: 'hidden-feats',
+          lifespan: NotificationLifespan.Medium,
+          content: <BaseMessage message="notifications.hiddenFeats" />
         };
       case NotificationContent.UserLeft:
         return {
@@ -51,7 +61,7 @@ const renderer: Renderer = {
         return {
           id: 'clear-storage',
           lifespan: NotificationLifespan.Short,
-          content: <span>Storage Cleared!</span>
+          content: <BaseMessage message="notifications.storageCleared" />
         };
       default:
         return null;

@@ -16,7 +16,6 @@ import { useMappedDispatch, useText } from 'utils/customHooks';
 import ThemeSelector from 'containers/ThemeSelector';
 import Sidebar from 'components/Sidebar';
 import { getSessionCurrentId } from 'state/session/sessionStateGetters';
-import ChangeLocaleButton from '_develop/ChangeLocaleButton';
 import styles from './MainLayout.module.scss';
 
 const cx = classNames.bind(styles);
@@ -86,7 +85,6 @@ const MainLayout: React.FC<Props> = (props) => {
       )}
       <AppFooter>
         <ClearStorageButton />
-        <ChangeLocaleButton />
       </AppFooter>
     </div>
   );
