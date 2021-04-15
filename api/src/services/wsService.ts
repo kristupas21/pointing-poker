@@ -90,8 +90,8 @@ class WsService {
   }
 
   private async shouldUpdateUserPermission(userId: string): Promise<boolean> {
-    const user = await userService.findUserById(this.sessionId, userId);
-    const session = await sessionService.findSessionById(this.sessionId);
+    const user = await userService.getUserById(this.sessionId, userId);
+    const session = await sessionService.getSessionById(this.sessionId);
 
     return user.id === session.createdBy && session.usePermissions;
   }
@@ -206,7 +206,7 @@ class WsService {
       );
     }
 
-    const user = await userService.findUserById(this.sessionId, userId);
+    const user = await userService.getUserById(this.sessionId, userId);
 
     await userService.removeUser(this.sessionId, userId);
 

@@ -37,19 +37,19 @@ class SessionService {
     return sessionId;
   }
 
-  public async findSessionById(id: string): Promise<SessionSchema> {
+  public async getSessionById(id: string): Promise<SessionSchema> {
     return Session.findOne({ id }).lean();
   }
 
   public async modifySessionParams(id: string, params: Partial<SessionSchema>): Promise<SessionSchema> {
-    return Session.findOneAndUpdate({ id }, params, { useFindAndModify: true });
+    return Session.findOneAndUpdate({ id }, params).lean();
   }
 
   public async joinSession(body: JoinSessionBody): Promise<UserSchema> {
     validationService.validateBySchema(body, VALIDATION_SCHEMA.JOIN_SESSION_BODY);
 
     const { sessionId, user } = body;
-    const session = await this.findSessionById(sessionId);
+    const session = await this.getSessionById(sessionId);
 
     if (!session) {
       throw errorService.generate(StatusCodes.NOT_FOUND, ERROR_CODES.SESSION_NOT_FOUND);
@@ -70,7 +70,7 @@ class SessionService {
       VALIDATION_SCHEMA.LOAD_SESSION_PARAMS
     );
 
-    const session = await this.findSessionById(sessionId);
+    const session = await this.getSessionById(sessionId);
 
     if (!session) {
       throw errorService.generate(
@@ -80,7 +80,7 @@ class SessionService {
       );
     }
 
-    const users = await userService.findAllSessionUsers(sessionId);
+    const users = await userService.getAllSessionUsers(sessionId);
     const userExists = users.some((user) => user.id === userId);
 
     if (!userExists) {
@@ -111,7 +111,7 @@ class SessionService {
   public async getSessionInfo(params: SessionInfoParams): Promise<SessionSchema> {
     validationService.validateBySchema(params, VALIDATION_SCHEMA.SESSION_INFO_PARAMS);
 
-    const session = await this.findSessionById(params.sessionId);
+    const session = await this.getSessionById(params.sessionId);
 
     if (!session) {
       throw errorService.generate(StatusCodes.NOT_FOUND, ERROR_CODES.SESSION_NOT_FOUND);
