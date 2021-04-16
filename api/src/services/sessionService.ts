@@ -1,6 +1,6 @@
 import { IdGenerator, JoinSessionBody, SessionInfoParams, StartSessionBody } from '@models/sessionModel';
 import shortid from 'shortid';
-import Session, { SessionSchema } from '@schemas/sessionSchema';
+import Session, { SessionSchema, SessionSchemaProps } from '@schemas/sessionSchema';
 import { UserSchema } from '@schemas/userSchema';
 import { ID_GEN_ALLOWED_CHARS } from '@global/constants';
 import { ERROR_CODES } from '@shared-with-ui/constants';
@@ -25,7 +25,7 @@ class SessionService {
     return this.idGenerator.generate();
   }
 
-  private async registerNewSession(params: Partial<SessionSchema>): Promise<string> {
+  private async registerNewSession(params: Partial<SessionSchemaProps>): Promise<string> {
     const sessionId = this.generateSectionId();
     const session = new Session({
       id: sessionId,
@@ -41,7 +41,7 @@ class SessionService {
     return Session.findOne({ id }).lean();
   }
 
-  public async modifySessionParams(id: string, params: Partial<SessionSchema>): Promise<SessionSchema> {
+  public async modifySessionParams(id: string, params: Partial<SessionSchemaProps>): Promise<SessionSchema> {
     return Session.findOneAndUpdate({ id }, params).lean();
   }
 
@@ -61,7 +61,7 @@ class SessionService {
 
     const hasPermission = session.createdBy === user.id || !session.usePermissions;
 
-    return await userService.registerUser(sessionId, user, hasPermission);
+    return userService.registerUser(sessionId, user, hasPermission);
   }
 
   public async loadSession(sessionId: string, userId: string): Promise<any> {
@@ -118,6 +118,16 @@ class SessionService {
     }
 
     return session;
+  }
+
+  public async resetSessionParamsIfEmpty(sessionId: string): Promise<void> {
+    const sessionAlive = await userService.anyUserRegisteredToSession(sessionId);
+
+    if (sessionAlive) {
+      return;
+    }
+
+    await this.modifySessionParams(sessionId, { currentTopic: '', showVotes: false });
   }
 }
 

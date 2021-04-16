@@ -7,7 +7,7 @@ import { initIo } from './utils/ioConnection';
 void (async () => {
   await dbConnect();
 
-  const port = Number(process.env.PORT || 9000);
+  const port = Number(process.env.PORT);
   const server = app.listen(port, () => {
     logger.info(`Express server started on port: ${port}`);
   });

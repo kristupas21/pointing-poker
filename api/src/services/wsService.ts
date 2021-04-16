@@ -101,7 +101,9 @@ class WsService {
       return;
     }
 
-    if (await this.shouldUpdateUserPermission(message.body.user.id)) {
+    const updatePermissions = await this.shouldUpdateUserPermission(message.body.user.id);
+
+    if (updatePermissions) {
       this.getBroadcast().emit(
         WS_UPDATE_VOTE_ROUND_USER_PERMISSIONS,
         this.constructWsMessage({ hasPermission: false })
@@ -199,7 +201,9 @@ class WsService {
   }
 
   public async destroy(userId: string): Promise<void> {
-    if (await this.shouldUpdateUserPermission(userId)) {
+    const updatePermissions = await this.shouldUpdateUserPermission(userId);
+
+    if (updatePermissions) {
       this.getBroadcast().emit(
         WS_UPDATE_VOTE_ROUND_USER_PERMISSIONS,
         this.constructWsMessage({ hasPermission: true })
@@ -209,6 +213,7 @@ class WsService {
     const user = await userService.getUserById(this.sessionId, userId);
 
     await userService.removeUser(this.sessionId, userId);
+    await sessionService.resetSessionParamsIfEmpty(this.sessionId);
 
     this.getBroadcast().emit(WS_USER_LEFT, this.constructWsMessage({ user }));
 

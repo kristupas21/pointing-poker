@@ -30,7 +30,7 @@ const User = new Schema({
     default: '',
     required: false
   },
-  registeredSessionId: {
+  sessionId: {
     type: String,
     required: true
   },
@@ -47,7 +47,7 @@ export interface UserSchemaProps {
   isObserver?: boolean;
   name: string;
   role?: string;
-  registeredSessionId?: string;
+  sessionId?: string;
   hasPermission?: boolean;
   voteValue?: string;
 }
