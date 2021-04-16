@@ -23,6 +23,11 @@ export type PartialRecord<K extends keyof any, T> = {
   [P in K]?: T;
 };
 
+export interface WSHandshakeAuth {
+  sessionId: string;
+  userId: string;
+}
+
 export interface WSMessage<T extends object = {}> {
   body: T;
   sessionId: string;
