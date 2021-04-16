@@ -52,7 +52,7 @@ export function* loadSessionSaga(action: ActionType<typeof loadSession>) {
       currentTopic,
     }));
   } catch (e) {
-    const { code, payload } = errorParser.parse(e);
+    const { code, payload } = yield call(errorParser.parse, e);
 
     if (
       code === ERROR_CODES.SESSION_NOT_FOUND ||

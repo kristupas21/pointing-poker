@@ -7,10 +7,10 @@ import { useText } from 'utils/customHooks';
 import classNames from 'classnames/bind';
 import { CustomFormError, CustomFormErrors } from 'globalTypes';
 import AvatarSelector from 'containers/AvatarSelector';
+import storageService, { StorageKey } from 'utils/storageService';
 import { SessionFormData } from '../types';
 import { startSessionValidationSchema } from '../validationSchema';
 import styles from '../SessionForms.module.scss';
-import storageService, { StorageKey } from '../../../utils/storageService';
 
 const cx = classNames.bind(styles);
 

@@ -11,6 +11,7 @@ describe('voteRoundSaga', () => {
       const id = 'u-id';
       const mockState: MockState = {
         session: {
+          currentSessionId: 'id',
           user: {
             id,
           }

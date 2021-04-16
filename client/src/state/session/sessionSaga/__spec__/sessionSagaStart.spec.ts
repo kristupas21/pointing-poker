@@ -9,6 +9,7 @@ import { StorageKey } from 'utils/storageService';
 import { throwAppError } from 'state/error/errorActions';
 import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { setAppLoading } from 'state/app/appActions';
+import { MessageId } from 'lang';
 import { startSessionSaga } from '../sessionSagaStart';
 import { startSession } from '../../sessionActions';
 import { StartSessionParams, StartSessionResponse } from '../../sessionModel';
@@ -32,6 +33,7 @@ describe('startSessionSaga', () => {
     name: 'Gatsby',
     isObserver: false,
     role: 'Frontend',
+    usePermissions: false,
   };
 
   const expectedParams: StartSessionParams = {
@@ -46,6 +48,7 @@ describe('startSessionSaga', () => {
       role: 'Frontend',
       isObserver: false,
     },
+    usePermissions: false,
   };
 
   it('calls endpoint, navigates to session route & stores values', async () => {
@@ -80,7 +83,7 @@ describe('startSessionSaga', () => {
       .put(setAppLoading(true))
       .call(sessionApi.start, expectedParams)
       .call(errorParser.parse, undefined)
-      .put(throwAppError(ERROR_CODES.UNEXPECTED))
+      .put(throwAppError(ERROR_CODES.UNEXPECTED as MessageId))
       .put(setAppLoading(false))
       .run();
   });

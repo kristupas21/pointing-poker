@@ -40,6 +40,7 @@ export interface StartSessionParams {
   user: User;
   useRoles: boolean;
   roles: string[];
+  usePermissions: boolean;
 }
 
 export type StartSessionResponse = AxiosResponse<{

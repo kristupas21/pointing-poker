@@ -21,7 +21,7 @@ describe('errorSaga', () => {
 
       await expectSaga(throwErrorSaga, throwAppError(errorId))
         .withState(mockState)
-        .put(setErrorState({ errorId, redirectPath: pathname }))
+        .put(setErrorState({ errorId, redirectPath: pathname, errorPayload: undefined }))
         .put(push(AppRoute.Error))
         .run();
     });

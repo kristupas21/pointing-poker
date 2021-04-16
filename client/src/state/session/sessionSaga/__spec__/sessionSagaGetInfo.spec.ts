@@ -6,6 +6,7 @@ import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import storageService from 'utils/storageService/storageService';
 import { StorageKey } from 'utils/storageService';
 import { throwAppError } from 'state/error/errorActions';
+import { MessageId } from 'lang';
 import { getSessionInfoSaga } from '../sessionSagaGetInfo';
 import { getSessionInfo, setSessionParams } from '../../sessionActions';
 import sessionApi from '../../sessionApi';
@@ -22,6 +23,8 @@ describe('getSessionInfoSaga', () => {
         pointValues: [],
         users: [],
         showVotes: false,
+        createdBy: '',
+        usePermissions: false,
       }
     }
   };
@@ -59,7 +62,6 @@ describe('getSessionInfoSaga', () => {
         true,
       )
       .put(setSessionParams({ useRoles: false }))
-      .call(callback)
       .run();
   });
 
@@ -70,8 +72,7 @@ describe('getSessionInfoSaga', () => {
       ])
       .call(sessionApi.getInfo, sessionId)
       .call(errorParser.parse, null)
-      .put(throwAppError(ERROR_CODES.UNEXPECTED))
-      .call(callback)
+      .put(throwAppError(ERROR_CODES.UNEXPECTED as MessageId))
       .run();
   });
 });

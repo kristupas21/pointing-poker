@@ -38,7 +38,8 @@ export function* startSessionSaga(action: ActionType<typeof startSession>) {
     yield call(storageService.set, StorageKey.PointValues, params.pointValues);
     yield call(storageService.set, StorageKey.Roles, params.roles);
   } catch (e) {
-    const { code, payload } = errorParser.parse(e);
+    const { code, payload } = yield call(errorParser.parse, e);
+
     yield put(throwAppError(code, payload));
     yield put(setAppLoading(false));
   }

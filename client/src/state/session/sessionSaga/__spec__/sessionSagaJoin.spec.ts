@@ -8,7 +8,8 @@ import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { throwAppError } from 'state/error/errorActions';
 import storageService from 'utils/storageService/storageService';
 import { StorageKey } from 'utils/storageService';
-import { joinSession } from '../../sessionActions';
+import { MessageId } from 'lang';
+import { joinSession, modifySessionUser } from '../../sessionActions';
 import { joinSessionSaga } from '../sessionSagaJoin';
 import { JoinSessionParams, JoinSessionResponse } from '../../sessionModel';
 import sessionApi from '../../sessionApi';
@@ -49,7 +50,12 @@ describe('joinSessionSaga', () => {
   it('acquires params, calls endpoint & navigates to session route', async () => {
     const response: MockResponse<JoinSessionResponse> = {
       data: {
-        sessionId: 's-id'
+        sessionId: 's-id',
+        user: {
+          hasPermission: true,
+          id: 'i',
+          name: 'n',
+        },
       },
     };
 
@@ -60,6 +66,7 @@ describe('joinSessionSaga', () => {
       ])
       .put(setAppLoading(true))
       .call(sessionApi.join, expectedParams)
+      .put(modifySessionUser({ hasPermission: true }))
       .put(push('/session/s-id'))
       .call(setSubmitting, false)
       .run();
@@ -133,7 +140,7 @@ describe('joinSessionSaga', () => {
       .call(sessionApi.join, expectedParams)
       .put(setAppLoading(false))
       .call(errorParser.parse, error)
-      .put(throwAppError(ERROR_CODES.UNEXPECTED))
+      .put(throwAppError(ERROR_CODES.UNEXPECTED as MessageId))
       .call(setSubmitting, false)
       .run();
   });

@@ -8,6 +8,7 @@ import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { initVoteRound } from 'state/voteRound/voteRoundActions';
 import { setAppLoading } from 'state/app/appActions';
 import { throwAppError } from 'state/error/errorActions';
+import { MessageId } from 'lang';
 import { LoadSessionResponse } from '../../sessionModel';
 import { loadSessionSaga } from '../sessionSagaLoad';
 import { initSession, loadSession } from '../../sessionActions';
@@ -47,6 +48,8 @@ describe('loadSessionSaga', () => {
           currentTopic: '',
           showVotes: false,
           users: [],
+          createdBy: '',
+          usePermissions: false,
         }
       }
     };
@@ -62,6 +65,8 @@ describe('loadSessionSaga', () => {
         useRoles: response.data.session.useRoles,
         roles: response.data.session.roles,
         pointValues: response.data.session.pointValues,
+        usePermissions: response.data.session.usePermissions,
+        isCreatedByMe: false,
       }))
       .put(initVoteRound({
         users: response.data.session.users,
@@ -124,7 +129,7 @@ describe('loadSessionSaga', () => {
       ])
       .call(sessionApi.load, { sessionId, userId })
       .call(errorParser.parse, error)
-      .put(throwAppError(ERROR_CODES.UNEXPECTED))
+      .put(throwAppError(ERROR_CODES.UNEXPECTED as MessageId))
       .put(setAppLoading(false))
       .run();
   });

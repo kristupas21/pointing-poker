@@ -16,9 +16,9 @@ import { useMappedDispatch, useText } from 'utils/customHooks';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles';
 import { unlockAppHiddenFeats } from 'state/app/appActions';
 import { getAppHiddenFeatsUnlocked } from 'state/app/appStateGetters';
+import { valueUnlocksHiddenFeats } from 'utils/hiddenFeats';
 import { mapRolesToFormData, withURF } from './utils';
 import { MAX_ROLES_COUNT, MIN_ROLES_COUNT } from './constants';
-import { valueUnlocksHiddenFeats } from '../../utils/hiddenFeats';
 
 const actions = {
   removeRole: removeSessionRole,
