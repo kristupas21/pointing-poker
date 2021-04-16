@@ -1,9 +1,9 @@
 import { io, Socket } from 'socket.io-client';
 import { call, take, delay, race } from 'redux-saga/effects';
-import { WSEventMapItem } from './wsModel';
+import { WSEventMapItem, WSHandshakeAuth } from './wsModel';
 
-export const createSocket = (auth: { sessionId: string; userId: string }) => io(
-  process.env.API_URL || 'http://localhost:9000',
+export const createSocket = (auth: WSHandshakeAuth) => io(
+  process.env.REACT_APP_API_URL,
   { autoConnect: false, auth },
 );
 

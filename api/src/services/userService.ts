@@ -3,8 +3,7 @@ import User, { UserSchema } from '@schemas/userSchema';
 class UserService {
   public async removeUser(sessionId: string, userId: string): Promise<UserSchema> {
     return User.findOneAndDelete(
-      { id: userId, registeredSessionId: sessionId },
-      { useFindAndModify: true }
+      { id: userId, registeredSessionId: sessionId }
     ).lean();
   }
 
@@ -15,8 +14,7 @@ class UserService {
   ): Promise<void> {
     await User.findOneAndUpdate(
       { id: userId, registeredSessionId: sessionId },
-      { voteValue },
-      { useFindAndModify: true }
+      { voteValue }
     );
   }
 
@@ -24,7 +22,7 @@ class UserService {
     return User.findOneAndUpdate(
       { id: userId, registeredSessionId: sessionId },
       { ...params },
-      { useFindAndModify: true, new: true }
+      { new: true }
     ).lean();
   }
 
@@ -36,13 +34,12 @@ class UserService {
     await User.updateMany({ registeredSessionId: sessionId }, { hasPermission });
   }
 
-  public async findUserById(sessionId: string, id: string): Promise<UserSchema> {
-    return User.findOne({ registeredSessionId: sessionId, id });
+  public async getUserById(sessionId: string, id: string): Promise<UserSchema> {
+    return User.findOne({ registeredSessionId: sessionId, id }).lean();
   }
 
   public async userNameExists(sessionId: string, name: string): Promise<boolean> {
-    const user = await User.findOne({ registeredSessionId: sessionId, name });
-    return !!user;
+    return User.exists({ registeredSessionId: sessionId, name });
   }
 
   public async registerUser(sessionId: string, user: UserSchema, hasPermission: boolean): Promise<UserSchema> {
@@ -52,7 +49,7 @@ class UserService {
     return User.updateOne(filter, userParams, { upsert: true, new: true }).lean();
   }
 
-  public async findAllSessionUsers(sessionId: string): Promise<UserSchema[]> {
+  public async getAllSessionUsers(sessionId: string): Promise<UserSchema[]> {
     return User.find({ registeredSessionId: sessionId }).lean();
   }
 }

@@ -4,7 +4,7 @@ import logger from '@global/Logger';
 const uri = process.env.DB_URI || 'mongodb://localhost/pp';
 
 export async function dbConnect(): Promise<void> {
-  await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
   logger.info('Database connected');
 }
 

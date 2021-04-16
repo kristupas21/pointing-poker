@@ -37,10 +37,13 @@ const MainLayout: React.FC<Props> = (props) => {
   const text = useText();
   const withSidebar = renderMenu && !!currentSessionId;
 
-  const handleLogoClick = () => {
+  const handleLogoClick = (): void => {
     if (renderMenu) {
       setSidebarOpen(true);
-    } else {
+      return;
+    }
+
+    if (location.pathname !== AppRoute.Base) {
       history.push(AppRoute.Base);
     }
   };
