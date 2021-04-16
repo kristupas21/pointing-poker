@@ -1,5 +1,10 @@
 import { User } from 'globalTypes';
 
+export interface WSHandshakeAuth {
+  sessionId: string;
+  userId: string;
+}
+
 export interface WSMessage<T extends object = {}> {
   body: T;
   sessionId: string;
