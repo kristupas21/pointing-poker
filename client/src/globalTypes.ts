@@ -7,7 +7,7 @@ export interface User {
   isObserver?: boolean;
   name: string;
   role?: string;
-  registeredSessionId?: string;
+  sessionId?: string;
   hasPermission?: boolean;
   voteValue?: string;
 }
