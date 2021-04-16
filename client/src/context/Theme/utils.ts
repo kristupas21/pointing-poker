@@ -1,26 +1,6 @@
-import Color from 'color';
-import { COLOR_WHITE, COLOR_DARK, COLOR_VIOLET, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_RED } from './constants';
+import { darkColor, darkerColor, generateCssVarName, lightColor, lighterColor } from 'utils/colors';
+import { COLOR_BLUE, COLOR_DARK, COLOR_GREEN, COLOR_PINK, COLOR_RED, COLOR_VIOLET, COLOR_WHITE } from 'utils/colors/constants';
 import { Theme, ThemeContextState, ThemeVariables } from './types';
-
-function generateCssVarName(name: string): string {
-  return `--${name.split(/(?=[A-Z])/).join('-').toLowerCase()}`;
-}
-
-function lightColor(color: string): string {
-  return Color(color).lighten(0.27).hex();
-}
-
-function lighterColor(color: string): string {
-  return Color(color).lighten(0.27).mix(Color('#EEEEEE'), 0.8).hex();
-}
-
-function darkColor(color: string): string {
-  return Color(color).darken(0.2).mix(Color('#706e6e'), 0.3).hex();
-}
-
-function darkerColor(color: string): string {
-  return Color(color).darken(0.15).mix(Color('#5e5e5e'), 0.6).hex();
-}
 
 const themeColors = (color: string): ThemeVariables => ({
   mainColor: { default: COLOR_DARK, inverted: COLOR_WHITE },
