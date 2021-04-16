@@ -22,12 +22,13 @@ type ThemeVariableProps = {
 }
 
 type ThemeVariableKey =
+    'backgroundColor' |
+    'dangerColor' |
+    'mainColor' |
     'themeColor' |
-    'themeColorLight' |
-    'themeColorLighter' |
     'themeColorDark' |
     'themeColorDarker' |
-    'mainColor' |
-    'backgroundColor';
+    'themeColorLight' |
+    'themeColorLighter';
 
-export type ThemeVariables = Record<Theme, Record<ThemeVariableKey, ThemeVariableProps>>;
+export type ThemeVariables = Record<ThemeVariableKey, ThemeVariableProps>;
