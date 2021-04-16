@@ -1,7 +1,7 @@
 .checkbox {
   $this: &;
-  $_background-color: var(--app-mainColor);
-  $_checkmark-color: var(--app-textColor);
+  $_background-color: var(--theme-color);
+  $_checkmark-color: var(--main-color);
 
   display: flex;
 

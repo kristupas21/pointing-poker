@@ -9,3 +9,32 @@
   padding: 0 10px;
   width: 100%;
 }
+
+.wrapper {
+  display: flex;
+
+  div {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+.darker {
+  background-color: var(--theme-color-darker);
+}
+
+.dark {
+  background-color: var(--theme-color-dark);
+}
+
+.color {
+  background-color: var(--theme-color);
+}
+
+.light {
+  background-color: var(--theme-color-light);
+}
+
+.lighter {
+  background-color: var(--theme-color-lighter);
+}

@@ -73,7 +73,11 @@ const messages = {
 
   'theme.darkMode': 'Dark Mode',
   'theme.variant.default': 'Default',
-  'theme.variant.violet': 'Violet'
+  'theme.variant.violet': 'Violet',
+  'theme.variant.blue': 'Blue',
+  'theme.variant.green': 'Green',
+  'theme.variant.pink': 'Pink',
+  'theme.variant.monochrome': 'Monochrome'
 };
 
 export default messages;

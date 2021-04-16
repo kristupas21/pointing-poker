@@ -3,10 +3,10 @@
 
   &--selected {
     & > button {
-      background: var(--app-mainColor);
+      background: var(--theme-color);
 
       &:hover {
-        background: var(--app-mainColor);
+        background: var(--theme-color);
       }
     }
   }

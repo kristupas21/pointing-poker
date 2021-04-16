@@ -8,7 +8,7 @@ import { setThemeVars } from './utils';
 const ThemeContextProvider: React.FC = (props) => {
   const { children } = props;
   const [themeProps, setThemeProps] =
-      useStorageState(StorageKey.Theme, { theme: Theme.Default, isInverted: false });
+      useStorageState(StorageKey.Theme, { theme: Theme.Violet, isInverted: false });
 
   const setTheme = (newTheme: Theme) => {
     const newState = {
@@ -34,7 +34,7 @@ const ThemeContextProvider: React.FC = (props) => {
 
   useEffect(() => {
     if (!Object.values(Theme).includes(themeProps.theme)) {
-      setTheme(Theme.Default);
+      setTheme(Theme.Violet);
     }
   }, []);
 

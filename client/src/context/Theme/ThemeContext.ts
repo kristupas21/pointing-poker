@@ -4,7 +4,7 @@ import { Theme, ThemeContextProps } from './types';
 
 const ThemeContext = createContext<ThemeContextProps>({
   isInverted: false,
-  theme: Theme.Default,
+  theme: Theme.Violet,
   setTheme: noop,
   toggleInverted: noop,
 });

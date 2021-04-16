@@ -9,8 +9,11 @@ export interface ThemeContextProps extends ThemeContextState {
 }
 
 export enum Theme {
-  Default = 'default',
   Violet = 'violet',
+  Blue = 'blue',
+  Green = 'green',
+  Pink = 'pink',
+  Monochrome = 'monochrome',
 }
 
 type ThemeVariableProps = {
@@ -19,8 +22,12 @@ type ThemeVariableProps = {
 }
 
 type ThemeVariableKey =
+    'themeColor' |
+    'themeColorLight' |
+    'themeColorLighter' |
+    'themeColorDark' |
+    'themeColorDarker' |
     'mainColor' |
-    'backgroundColor' |
-    'textColor';
+    'backgroundColor';
 
 export type ThemeVariables = Record<Theme, Record<ThemeVariableKey, ThemeVariableProps>>;

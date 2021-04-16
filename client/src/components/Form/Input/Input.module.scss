@@ -53,7 +53,7 @@
     }
 
     &--error {
-      border-color: $color-red;
+      border-color: var(--danger-color);
     }
 
     &:focus {
@@ -66,8 +66,8 @@
   }
 
   &__label {
-    background: var(--app-backgroundColor);
-    color: var(--app-textColor);
+    background: var(--background-color);
+    color: var(--main-color);
     font-size: 12px;
     left: $_label-offset;
     line-height: 1.4;

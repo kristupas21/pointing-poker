@@ -12,6 +12,13 @@ const AppFooter: React.FC = ({ children }) => {
   return (
     <footer className={cx('footer')}>
       <div>{children}</div>
+      <div className={cx('wrapper')}>
+        <div className={cx('darker')} />
+        <div className={cx('dark')} />
+        <div className={cx('color')} />
+        <div className={cx('light')} />
+        <div className={cx('lighter')} />
+      </div>
       <div>{copyright}</div>
     </footer>
   );
