@@ -2,7 +2,7 @@ import Color from 'color';
 import { COLOR_WHITE, COLOR_DARK, COLOR_VIOLET, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_RED } from './constants';
 import { Theme, ThemeContextState, ThemeVariables } from './types';
 
-function classnameWithPrefix(name: string): string {
+function generateCssVarName(name: string): string {
   return `--${name.split(/(?=[A-Z])/).join('-').toLowerCase()}`;
 }
 
@@ -63,6 +63,6 @@ export const setThemeVars = ({ theme, isInverted }: ThemeContextState): void => 
     document
       .documentElement
       .style
-      .setProperty(classnameWithPrefix(variable), value[prop]);
+      .setProperty(generateCssVarName(variable), value[prop]);
   });
 };
