@@ -1,5 +1,5 @@
 import mongoose, { Mongoose } from 'mongoose';
-import { Mockgoose } from 'mockgoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 import logger from '@global/Logger';
 
 const options = {
@@ -17,26 +17,27 @@ class DB {
 
   private mongoose: Mongoose;
 
-  private mockMongoose: Mockgoose;
+  private memoryServer: MongoMemoryServer;
 
   constructor() {
     this.mongoose = mongoose;
-    this.mockMongoose = new Mockgoose(mongoose);
+    this.memoryServer = new MongoMemoryServer();
   }
 
   public async connect(): Promise<void> {
     if (this.isTestEnv) {
-      await this.mockMongoose.prepareStorage();
+      const mockUri = await this.memoryServer.getUri();
+      await this.mongoose.connect(mockUri, options);
+    } else {
+      await this.mongoose.connect(this.uri, options);
     }
-
-    await this.mongoose.connect(this.uri, options);
 
     logger.info(`${this.prefix}Database connected`);
   }
 
   public async disconnect(): Promise<void> {
     if (this.isTestEnv) {
-      await this.mockMongoose.shutdown();
+      await this.memoryServer.stop();
     }
 
     await this.mongoose.disconnect();
