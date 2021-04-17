@@ -8,25 +8,25 @@ export interface Session {
   pointValues: PointValue[];
   roles: string[];
   showVotes: boolean;
-  useRoles: boolean;
   usePermissions: boolean;
+  useRoles: boolean;
   users: User[];
 }
 
 export interface SessionState {
   currentSessionId: string;
-  isFormLoading: boolean;
   isCreatedByMe: boolean;
+  isFormLoading: boolean;
   pointValues: PointValue[];
   roles: string[];
+  usePermissions: boolean;
   user: User;
   useRoles: boolean;
-  usePermissions: boolean;
 }
 
 export interface JoinSessionParams {
-  sessionId: string;
   isObserver?: boolean;
+  sessionId: string;
   user: User;
 }
 
@@ -37,10 +37,10 @@ export interface LoadSessionParams {
 
 export interface StartSessionParams {
   pointValues: PointValue[];
-  user: User;
-  useRoles: boolean;
   roles: string[];
   usePermissions: boolean;
+  user: User;
+  useRoles: boolean;
 }
 
 export type StartSessionResponse = AxiosResponse<{

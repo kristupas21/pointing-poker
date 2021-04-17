@@ -11,10 +11,10 @@ export interface WSMessage<T extends object = {}> {
 }
 
 export type WSEventMapItem = {
+  debounced?: boolean;
+  emitterData?: (...args: any) => Generator;
   event: string;
   listener: (...args: any) => Generator;
-  emitterData?: (...args: any) => Generator;
-  debounced?: boolean;
 };
 
 export type WSMessageUserData = WSMessage<{ user: User }>;

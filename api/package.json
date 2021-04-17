@@ -27,7 +27,8 @@
     "@services": "dist/services",
     "@models": "dist/models",
     "@routes": "dist/routes",
-    "@schemas": "dist/schemas"
+    "@schemas": "dist/schemas",
+    "@utils": "dist/utils"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -137,6 +138,7 @@
     "http-status-codes": "2.1.4",
     "jet-logger": "1.0.4",
     "jsonfile": "6.1.0",
+    "mockgoose": "8.0.4",
     "module-alias": "2.2.2",
     "mongoose": "5.12.3",
     "morgan": "1.10.0",

@@ -1,11 +1,11 @@
 import './pre-start'; // Must be the first import
 import app from '@server';
 import logger from '@global/Logger';
-import { dbConnect } from './utils/dbConnection';
+import db from './utils/dbConnection';
 import { initIo } from './utils/ioConnection';
 
 void (async () => {
-  await dbConnect();
+  await db.connect();
 
   const port = Number(process.env.PORT);
   const server = app.listen(port, () => {

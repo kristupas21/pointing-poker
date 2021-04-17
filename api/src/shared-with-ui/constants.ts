@@ -1,12 +1,12 @@
 export const ERROR_CODES = {
   INTERNAL_SERVER: 'error.internalServer',
+  INVALID_PARAMS: 'error.invalidParams',
   MISSING_PARAM: 'error.missingParam',
   NOT_FOUND: 'error.notFound',
   SESSION_NOT_FOUND: 'error.sessionNotFound',
   UNEXPECTED: 'error.unexpected',
-  USER_NOT_FOUND: 'error.userNotFound',
   USER_NAME_EXISTS: 'error.userNameExists',
-  INVALID_PARAMS: 'error.invalidParams',
+  USER_NOT_FOUND: 'error.userNotFound',
 };
 
 export const WS_SOCKET_ERROR = '@@ws/SOCKET_ERROR';

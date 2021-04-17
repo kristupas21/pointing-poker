@@ -11,9 +11,9 @@ type State = Readonly<AppState>;
 
 const initialState: State = {
   hiddenFeatsUnlocked: initialHiddenFeats(),
-  locale: initialLocale(),
-  isSidebarOpen: false,
   isLoading: false,
+  isSidebarOpen: false,
+  locale: initialLocale(),
 };
 
 const appReducer: Reducer<State, Action> = (state = initialState, action) => {

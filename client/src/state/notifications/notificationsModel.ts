@@ -1,20 +1,20 @@
 export enum NotificationType {
   Default = 'default',
-  Success = 'success',
   Error ='error',
+  Success = 'success',
   Warning = 'warning',
 }
 
 export enum NotificationLifespan {
-  Short = 'short',
-  Medium = 'medium',
   Long = 'long',
+  Medium = 'medium',
+  Short = 'short',
 }
 
 export interface AppNotification {
+  content: JSX.Element | string | number;
   id: string;
   lifespan?: NotificationLifespan;
-  content: JSX.Element | string | number;
   type?: NotificationType;
   undoCallback?: () => void;
 }
