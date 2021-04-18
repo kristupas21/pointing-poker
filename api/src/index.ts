@@ -1,8 +1,8 @@
 import './pre-start'; // Must be the first import
 import app from '@server';
 import logger from '@global/Logger';
-import db from './utils/dbConnection';
-import { initIo } from './utils/ioConnection';
+import db from '@utils/dbConnection';
+import { initIo } from '@utils/ioConnection';
 
 void (async () => {
   await db.connect();

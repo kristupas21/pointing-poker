@@ -1,7 +1,7 @@
 import { IdGenerator, JoinSessionBody, SessionInfoParams, StartSessionBody } from '@models/sessionModel';
 import shortid from 'shortid';
-import Session, { SessionSchema, SessionSchemaProps } from '@schemas/sessionSchema';
-import { UserSchema } from '@schemas/userSchema';
+import Session, { SessionSchemaProps } from '@schemas/sessionSchema';
+import { UserSchemaProps } from '@schemas/userSchema';
 import { ID_GEN_ALLOWED_CHARS } from '@global/constants';
 import { ERROR_CODES } from '@shared-with-ui/constants';
 import StatusCodes from 'http-status-codes';
@@ -21,12 +21,12 @@ class SessionService {
     this.idGenerator.characters(ID_GEN_ALLOWED_CHARS);
   }
 
-  private generateSectionId(): string {
+  private generateSessionId(): string {
     return this.idGenerator.generate();
   }
 
   private async registerNewSession(params: Partial<SessionSchemaProps>): Promise<string> {
-    const sessionId = this.generateSectionId();
+    const sessionId = this.generateSessionId();
     const session = new Session({
       id: sessionId,
       ...params,
@@ -37,15 +37,15 @@ class SessionService {
     return sessionId;
   }
 
-  public async getSessionById(id: string): Promise<SessionSchema> {
+  public async getSessionById(id: string): Promise<SessionSchemaProps> {
     return Session.findOne({ id }).lean();
   }
 
-  public async modifySessionParams(id: string, params: Partial<SessionSchemaProps>): Promise<SessionSchema> {
+  public async modifySessionParams(id: string, params: Partial<SessionSchemaProps>): Promise<SessionSchemaProps> {
     return Session.findOneAndUpdate({ id }, params).lean();
   }
 
-  public async joinSession(body: JoinSessionBody): Promise<UserSchema> {
+  public async joinSession(body: JoinSessionBody): Promise<UserSchemaProps> {
     validationService.validateBySchema(body, VALIDATION_SCHEMA.JOIN_SESSION_BODY);
 
     const { sessionId, user } = body;
@@ -108,7 +108,7 @@ class SessionService {
     return sessionId;
   }
 
-  public async getSessionInfo(params: SessionInfoParams): Promise<SessionSchema> {
+  public async getSessionInfo(params: SessionInfoParams): Promise<SessionSchemaProps> {
     validationService.validateBySchema(params, VALIDATION_SCHEMA.SESSION_INFO_PARAMS);
 
     const session = await this.getSessionById(params.sessionId);

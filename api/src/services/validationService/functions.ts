@@ -1,4 +1,3 @@
-import _isArray from 'lodash/isArray';
 import _isPlainObject from 'lodash/isPlainObject';
 import { ValidatorFn } from '@services/validationService/types';
 
@@ -58,7 +57,7 @@ export function isObjectArray(value: any[]): boolean {
 }
 
 export function isArray(value: any[]): boolean {
-  return _isArray(value);
+  return Array.isArray(value);
 }
 
 export function isObject(value: any): boolean {

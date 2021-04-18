@@ -1,6 +1,6 @@
 import UserService from '@services/userService';
 import db from '@utils/dbConnection';
-import { UserSchemaProps } from '@schemas/userSchema';
+import { MOCK_USER } from '../mocks';
 
 describe('userService', () => {
   const userService = new UserService();
@@ -59,12 +59,7 @@ describe('userService', () => {
   });
 
   it('executes registerUser method', async () => {
-    const user: UserSchemaProps = {
-      id: 'i',
-      name: 'k',
-      avatarId: null,
-    };
-    const res = await userService.registerUser('s', user, true);
+    const res = await userService.registerUser('s', MOCK_USER, true);
 
     expect(typeof res).toEqual('object');
   });

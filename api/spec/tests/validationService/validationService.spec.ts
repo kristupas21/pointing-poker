@@ -257,6 +257,15 @@ describe('validationService', () => {
     }
   });
 
+  it(`does not throw ${ARRAY_PRIMITIVE} exception if not required`, () => {
+    const payload: MockObject = {
+      ...validSchema,
+      primitiveArray: undefined
+    };
+
+    expect(validationService.validateBySchema(payload, MockSchema)).toEqual(undefined);
+  });
+
   it(`throws ${ARRAY_LENGTH_MIN} exception`, () => {
     const payload: MockObject = {
       ...validSchema,

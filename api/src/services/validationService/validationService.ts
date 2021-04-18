@@ -36,7 +36,7 @@ import {
   isNotNil,
   isString,
   isStringMaxLenValid,
-  isStringMinLenValid,
+  isStringMinLenValid, isNil,
 } from '@services/validationService/functions';
 import { ERROR_CODES } from '@shared-with-ui/constants';
 import StatusCodes from 'http-status-codes';
@@ -83,6 +83,10 @@ class ValidationService {
 
       if (!validationPassed) {
         return params.key;
+      }
+
+      if (isNil(value)) {
+        return result;
       }
 
       if (params.key === OBJECT) {

@@ -1,4 +1,4 @@
-import { UserSchema } from '@schemas/userSchema';
+import { UserSchemaProps } from '@schemas/userSchema';
 import { PointValue } from '@shared-with-ui/types';
 
 export interface IdGenerator {
@@ -8,11 +8,11 @@ export interface IdGenerator {
 
 export interface JoinSessionBody {
   sessionId: string;
-  user: UserSchema;
+  user: UserSchemaProps;
 }
 
 export interface StartSessionBody {
-  user: UserSchema;
+  user: UserSchemaProps;
   useRoles: boolean;
   pointValues: PointValue[];
   roles?: string[];

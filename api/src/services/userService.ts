@@ -29,7 +29,7 @@ class UserService {
     return User.exists({ sessionId, name });
   }
 
-  public async registerUser(sessionId: string, user: UserSchemaProps, hasPermission: boolean): Promise<UserSchema> {
+  public async registerUser(sessionId: string, user: UserSchemaProps, hasPermission: boolean): Promise<UserSchemaProps> {
     const filter = { id: user.id, sessionId };
     const userParams = { ...user, sessionId, hasPermission };
 
