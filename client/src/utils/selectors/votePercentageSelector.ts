@@ -1,20 +1,17 @@
 import { createSelector } from 'reselect';
-import isEmpty from 'lodash/isEmpty';
-import { getVoteRoundUsers } from 'state/voteRound/voteRoundStateGetters';
+import { getVoteRoundValidUsers } from 'state/voteRound/voteRoundStateGetters';
 import { State, User } from 'globalTypes';
-import { calcFixedNumber } from '../mathOps';
+import { calcFixedNumber } from 'utils/mathOps';
 
 export default () => createSelector<State, User[], number>(
-  getVoteRoundUsers,
+  getVoteRoundValidUsers,
   (users) => {
-    const validUsers = (users || []).filter((u) => !u.isObserver);
-
-    if (isEmpty(validUsers)) {
+    if (!users.length) {
       return 0;
     }
 
-    const fraction =
-        validUsers.filter((u) => u.voteValue != null).length / validUsers.length;
+    const fraction = users
+      .filter((u) => u.voteValue != null).length / users.length;
 
     return calcFixedNumber.ofTypeNumber(fraction * 100);
   }

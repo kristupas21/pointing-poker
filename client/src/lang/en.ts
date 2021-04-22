@@ -53,6 +53,7 @@ const messages = {
   'voteRound.average': 'Average',
   'voteRound.storyPoints': 'Story Points',
   'voteRound.waiting': 'Waiting...',
+  'voteRound.consensus': 'Consensus!',
 
   'notifications.sessionIdCopied': 'Session ID copied!',
   'notifications.userLeft': 'has left the session.',

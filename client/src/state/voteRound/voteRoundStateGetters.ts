@@ -11,3 +11,6 @@ export const getVoteRoundPristine = (state: State): boolean => state.voteRound.i
 
 export const getVoteValueByIdStateGetter = (id: string) => (state: State): string =>
   findVoteValueById(getVoteRoundUsers(state), id);
+
+export const getVoteRoundValidUsers = (state: State): User[] =>
+  (state.voteRound.users || []).filter((u) => !u.isObserver);

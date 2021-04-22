@@ -17,7 +17,7 @@ import {
   getVotesShownValue
 } from 'state/voteRound/voteRoundStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
-import { makeHasPermissionSelector, makeVotePercentageSelector } from 'utils/selectors';
+import { makeConsensusSelector, makeHasPermissionSelector, makeVotePercentageSelector } from 'utils/selectors';
 
 type Actions = {
   resetVoteRound: typeof resetVoteRoundAction,
@@ -33,18 +33,21 @@ const actions = {
 
 const votePercentageSelector = makeVotePercentageSelector();
 const hasPermissionSelector = makeHasPermissionSelector();
+const consensusSelector = makeConsensusSelector();
 
 const VoteRoundActions: React.FC = () => {
   const votesShown = useSelector(getVotesShownValue);
   const isPristine = useSelector(getVoteRoundPristine);
   const hasPermission = useSelector(hasPermissionSelector);
   const percentage = useSelector(votePercentageSelector);
+  const consensus = useSelector(consensusSelector);
   const { resetVoteRound, hideVotes, showVotes } = useMappedDispatch(actions);
   const text = useText();
   const hideVotesText = text('voteRound.action.hideVotes');
   const showVotesText = text('voteRound.action.showVotes');
   const percentageText = `${percentage}%`;
   const allVoted = percentage === 100;
+  const hasConsensusClass = votesShown && allVoted && consensus;
 
   const evaluateBubbleText = (): string => {
     if (!hasPermission) return percentageText;
@@ -81,6 +84,7 @@ const VoteRoundActions: React.FC = () => {
         onMouseEnter={getMouseHandler(showVotesText)}
         onMouseLeave={getMouseHandler(percentageText)}
       >
+        {hasConsensusClass && _tempConsensusDiv(text('voteRound.consensus'))}
         {bubbleText}
       </Button>
       {hasPermission && (
@@ -91,5 +95,19 @@ const VoteRoundActions: React.FC = () => {
     </div>
   );
 };
+
+const _tempConsensusDiv = (text: string) => (
+  <div style={{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    color: 'green',
+    fontSize: 10,
+    transform: 'translateY(-100%)'
+  }}
+  >
+    {text}
+  </div>
+);
 
 export default VoteRoundActions;
