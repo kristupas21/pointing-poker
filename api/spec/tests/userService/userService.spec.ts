@@ -63,4 +63,19 @@ describe('userService', () => {
 
     expect(typeof res).toEqual('object');
   });
+
+  it('executes getSessionUsersCount method', async () => {
+    const sessionId = 'o-o';
+    const user1 = { ...MOCK_USER, id: '1' };
+    const user2 = { ...MOCK_USER, id: '2' };
+    const user3 = { ...MOCK_USER, id: '3' };
+
+    await userService.registerUser(sessionId, user1, true);
+    await userService.registerUser(sessionId, user2, true);
+    await userService.registerUser(sessionId, user3, true);
+
+    const res = await userService.getSessionUsersCount(sessionId);
+
+    expect(res).toEqual(3);
+  });
 });

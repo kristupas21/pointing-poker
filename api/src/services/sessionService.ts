@@ -3,7 +3,7 @@ import shortid from 'shortid';
 import Session, { SessionSchemaProps } from '@schemas/sessionSchema';
 import { UserSchemaProps } from '@schemas/userSchema';
 import { ID_GEN_ALLOWED_CHARS } from '@global/constants';
-import { ERROR_CODES } from '@shared-with-ui/constants';
+import { ERROR_CODES, SESSION_USERS_LIMIT } from '@shared-with-ui/constants';
 import StatusCodes from 'http-status-codes';
 import UserService from '@services/userService';
 import ValidationService from '@services/validationService';
@@ -53,6 +53,14 @@ class SessionService {
 
     if (!session) {
       throw errorService.generate(StatusCodes.NOT_FOUND, ERROR_CODES.SESSION_NOT_FOUND);
+    }
+
+    if (await userService.getSessionUsersCount(sessionId) >= SESSION_USERS_LIMIT) {
+      throw errorService.generate(
+        StatusCodes.FORBIDDEN,
+        ERROR_CODES.USER_LIMIT_EXCEEDED,
+        SESSION_USERS_LIMIT,
+      );
     }
 
     if (await userService.userNameExists(sessionId, user.name)) {

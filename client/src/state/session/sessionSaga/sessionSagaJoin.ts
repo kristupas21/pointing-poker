@@ -75,6 +75,16 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
       return;
     }
 
+    if (code === ERROR_CODES.USER_LIMIT_EXCEEDED) {
+      yield call(
+        storageService.set,
+        StorageKey.FormErrors,
+        { sessionId: { id: 'error.userLimitExceeded', values: { count: payload } } },
+        true,
+      );
+      return;
+    }
+
     yield put(throwAppError(code, payload));
   } finally {
     yield call(setSubmitting, false);

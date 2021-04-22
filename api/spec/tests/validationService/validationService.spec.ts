@@ -89,6 +89,7 @@ const MockSchema: ValidationSchema<MockObject> = {
 
 describe('validationService', () => {
   const validationService = new ValidationService();
+  let error;
 
   const validSchema: MockObject = {
     str: 'str',
@@ -106,6 +107,10 @@ describe('validationService', () => {
     withExceptions: 'string',
   };
 
+  beforeEach(() => {
+    error = undefined;
+  });
+
   it('does not throw if schema is valid', () => {
     expect(
       validationService.validateBySchema(validSchema, MockSchema)
@@ -121,8 +126,10 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ str: { type: REQUIRED, value: undefined } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({ str: { type: REQUIRED, value: undefined } }));
   });
 
   it(`throws ${STRING} exception`, () => {
@@ -134,8 +141,10 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ str: { type: STRING, value: 19 } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({ str: { type: STRING, value: 19 } }));
   });
 
   it(`throws ${STRING_LENGTH_MIN} exception`, () => {
@@ -147,8 +156,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ str: { type: STRING_LENGTH_MIN, value: 'A', shouldMatch: [2] } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      str: { type: STRING_LENGTH_MIN, value: 'A', shouldMatch: [2] }
+    }));
   });
 
   it(`throws ${STRING_LENGTH_MAX} exception`, () => {
@@ -160,10 +173,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({
-        str: { type: STRING_LENGTH_MAX, value: 'Atonement', shouldMatch: [8] }
-      }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      str: { type: STRING_LENGTH_MAX, value: 'Atonement', shouldMatch: [8] }
+    }));
   });
 
   it(`throws ${NUMBER} exception`, () => {
@@ -175,8 +190,10 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ num: { type: NUMBER, value: NaN } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({ num: { type: NUMBER, value: NaN } }));
   });
 
   it(`throws ${NUMBER_MAX} exception`, () => {
@@ -188,8 +205,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ num: { type: NUMBER_MAX, value: 5000, shouldMatch: [10] } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      num: { type: NUMBER_MAX, value: 5000, shouldMatch: [10] }
+    }));
   });
 
   it(`throws ${NUMBER_MIN} exception`, () => {
@@ -201,8 +222,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ num: { type: NUMBER_MIN, value: 1, shouldMatch: [2] } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      num: { type: NUMBER_MIN, value: 1, shouldMatch: [2] }
+    }));
   });
 
   it('throws bool exception', () => {
@@ -214,8 +239,10 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ bool: { type: BOOLEAN, value: 'false' } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({ bool: { type: BOOLEAN, value: 'false' } }));
   });
 
   it(`throws ${OBJECT} exception`, () => {
@@ -227,8 +254,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ nestedObj: { type: OBJECT, value: 'string' } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      nestedObj: { type: OBJECT, value: 'string' }
+    }));
   });
 
   it(`throws ${ARRAY_OBJECT} exception`, () => {
@@ -240,8 +271,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ objArray: { type: ARRAY_OBJECT, value: {} } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      objArray: { type: ARRAY_OBJECT, value: {} }
+    }));
   });
 
   it(`throws ${ARRAY_PRIMITIVE} exception`, () => {
@@ -253,8 +288,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ primitiveArray: { type: ARRAY_PRIMITIVE, value: [{}] } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      primitiveArray: { type: ARRAY_PRIMITIVE, value: [{}] }
+    }));
   });
 
   it(`does not throw ${ARRAY_PRIMITIVE} exception if not required`, () => {
@@ -275,10 +314,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({
-        primitiveArray: { type: ARRAY_LENGTH_MIN, value: [false], shouldMatch: [2] }
-      }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      primitiveArray: { type: ARRAY_LENGTH_MIN, value: [false], shouldMatch: [2] }
+    }));
   });
 
   it(`throws ${ARRAY_LENGTH_MAX} exception`, () => {
@@ -290,10 +331,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({
-        primitiveArray: { type: ARRAY_LENGTH_MAX, value: [false, false, false, false], shouldMatch: [3] }
-      }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      primitiveArray: { type: ARRAY_LENGTH_MAX, value: [false, false, false, false], shouldMatch: [3] }
+    }));
   });
 
   it(`throws ${STRING_NUMBER} exception`, () => {
@@ -305,8 +348,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({ stringNum: { type: STRING_NUMBER, value: 'xx' } }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      stringNum: { type: STRING_NUMBER, value: 'xx' }
+    }));
   });
 
   it(`throws ${STRING_NUMBER_MIN} exception`, () => {
@@ -318,10 +365,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({
-        stringNum: { type: STRING_NUMBER_MIN, value: '0', shouldMatch: [2] }
-      }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      stringNum: { type: STRING_NUMBER_MIN, value: '0', shouldMatch: [2] }
+    }));
   });
 
   it(`throws ${STRING_NUMBER_MAX} exception`, () => {
@@ -333,10 +382,12 @@ describe('validationService', () => {
     try {
       validationService.validateBySchema(payload, MockSchema);
     } catch (e) {
-      expect(e).toEqual(getError({
-        stringNum: { type: STRING_NUMBER_MAX, value: '102', shouldMatch: [100] }
-      }));
+      error = e;
     }
+
+    expect(error).toEqual(getError({
+      stringNum: { type: STRING_NUMBER_MAX, value: '102', shouldMatch: [100] }
+    }));
   });
 
   it('does not throw if type is wrong but value added to exceptions', () => {

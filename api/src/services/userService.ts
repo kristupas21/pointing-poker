@@ -40,6 +40,10 @@ class UserService {
     return User.find({ sessionId }).lean();
   }
 
+  public async getSessionUsersCount(sessionId: string): Promise<number> {
+    return User.find({ sessionId }).countDocuments();
+  }
+
   public async anyUserRegisteredToSession(sessionId: string): Promise<boolean> {
     return User.exists({ sessionId });
   }

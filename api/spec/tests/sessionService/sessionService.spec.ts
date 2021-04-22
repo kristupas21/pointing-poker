@@ -12,10 +12,12 @@ import { UserSchemaProps } from '@schemas/userSchema';
 describe('sessionService', () => {
   const sessionService = new SessionService();
   const sessionId = 'random';
+  const thrownError = 'thrown error';
 
   let generateSessionId: Spy;
   let validateBySchema: Spy;
   let generateError: Spy;
+  let error;
 
   beforeAll(async () => {
     await db.connect();
@@ -29,7 +31,7 @@ describe('sessionService', () => {
 
     generateError =
         spyOn<any>(ErrorService.prototype, 'generate')
-          .and.callFake(() => 'thrown error');
+          .and.callFake(() => thrownError);
   });
 
   afterAll(async () => {
@@ -40,6 +42,8 @@ describe('sessionService', () => {
     generateSessionId.calls.reset();
     validateBySchema.calls.reset();
     generateError.calls.reset();
+
+    error = undefined;
   });
 
   it('executes getSessionById method', async () => {
@@ -121,8 +125,10 @@ describe('sessionService', () => {
     try {
       await sessionService.getSessionInfo(params);
     } catch (e) {
-      expect(e).toEqual('thrown error');
+      error = e;
     }
+
+    expect(error).toEqual(thrownError);
   });
 
   it('executes loadSession method & throws if not found', async () => {
@@ -132,8 +138,10 @@ describe('sessionService', () => {
     try {
       await sessionService.loadSession('sx', 'ui');
     } catch (e) {
-      expect(e).toEqual('thrown error');
+      error = e;
     }
+
+    expect(error).toEqual(thrownError);
 
     expect(validateBySchema)
       .toHaveBeenCalledWith(
@@ -152,8 +160,10 @@ describe('sessionService', () => {
     try {
       await sessionService.loadSession('sx', 'ui');
     } catch (e) {
-      expect(e).toEqual('thrown error');
+      error = e;
     }
+
+    expect(error).toEqual(thrownError);
   });
 
   it('executes loadSession & returns value', async () => {
@@ -187,9 +197,10 @@ describe('sessionService', () => {
     try {
       await sessionService.joinSession(body);
     } catch (e) {
-      expect(e).toEqual('thrown error');
+      error = e;
     }
 
+    expect(error).toEqual(thrownError);
     expect(validateBySchema).toHaveBeenCalledWith(body, VALIDATION_SCHEMA.JOIN_SESSION_BODY);
   });
 
@@ -208,8 +219,31 @@ describe('sessionService', () => {
     try {
       await sessionService.joinSession(body);
     } catch (e) {
-      expect(e).toEqual('thrown error');
+      error = e;
     }
+
+    expect(error).toEqual(thrownError);
+  });
+
+  it('executes joinSession & throws user limit exceeded', async () => {
+    const body: JoinSessionBody = {
+      sessionId,
+      user: MOCK_USER
+    };
+
+    spyOn<any>(SessionService.prototype, 'getSessionById')
+      .and.callFake(() => MOCK_SESSION);
+
+    spyOn<any>(UserService.prototype, 'getSessionUsersCount')
+      .and.callFake(() => 100);
+
+    try {
+      await sessionService.joinSession(body);
+    } catch (e) {
+      error = e;
+    }
+
+    expect(error).toEqual(thrownError);
   });
 
   it('executes joinSession & returns registered user', async () => {

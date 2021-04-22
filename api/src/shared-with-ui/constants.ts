@@ -2,9 +2,11 @@ export const ERROR_CODES = {
   INTERNAL_SERVER: 'error.internalServer',
   INVALID_PARAMS: 'error.invalidParams',
   MISSING_PARAM: 'error.missingParam',
+  MUST_CHOOSE_ROLE: 'error.mustChooseRole',
   NOT_FOUND: 'error.notFound',
   SESSION_NOT_FOUND: 'error.sessionNotFound',
   UNEXPECTED: 'error.unexpected',
+  USER_LIMIT_EXCEEDED: 'error.userLimitExceeded',
   USER_NAME_EXISTS: 'error.userNameExists',
   USER_NOT_FOUND: 'error.userNotFound',
 };
@@ -20,6 +22,8 @@ export const WS_SET_VOTE_ROUND_TOPIC = '@@ws/@voteRound/SET_TOPIC';
 export const WS_MODIFY_SESSION_USER = '@@ws/@session/MODIFY_USER';
 export const WS_UPDATE_SESSION_PERMISSIONS ='@@ws/UPDATE_SESSION_PERMISSIONS';
 export const WS_UPDATE_VOTE_ROUND_USER_PERMISSIONS = '@@ws/@voteRound/UPDATE_USER_PERMISSIONS';
+
+export const SESSION_USERS_LIMIT = 30;
 
 export const INPUT_MIN_CHARS = 2;
 export const INPUT_MAX_CHARS = 50;
