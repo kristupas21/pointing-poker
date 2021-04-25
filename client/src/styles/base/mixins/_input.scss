@@ -1,3 +1,24 @@
 @mixin label-transition {
   @include transition(color $transition-time-slower $transition-ease, border-color $transition-time-slower $transition-ease, background-color $transition-time-slower $transition-ease);
 };
+
+@mixin label-back-states($this) {
+  #{$this}--focused & {
+    background: var(--theme-color-dark);
+  }
+
+  #{$this}--disabled & {
+    background: var(--main-color-lighter);
+    border-color: var(--main-color);
+  }
+
+  #{$this}--error & {
+    background: var(--danger-color-lighter);
+    border-color: var(--danger-color);
+  }
+
+  #{$this}--error#{$this}--focused & {
+    background: var(--danger-color-dark);
+    border-color: var(--danger-color-darker);
+  }
+}
