@@ -28,7 +28,7 @@ const LandingPage: React.FC<Props> = (props) => {
         <br />
         {`TOUCH: ${isTouchDevice()}`}
       </p>
-      <Button variant={ButtonVariant.Primary} onClick={handleStartClick} role="link">
+      <Button variant={ButtonVariant.Primary} colored onClick={handleStartClick} role="link">
         {text('session.start')}
       </Button>
       <Button variant={ButtonVariant.Primary} onClick={handleJoinClick} role="link">

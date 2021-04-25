@@ -1,0 +1,3 @@
+@mixin label-transition {
+  @include transition(color $transition-time-slower $transition-ease, border-color $transition-time-slower $transition-ease, background-color $transition-time-slower $transition-ease);
+};

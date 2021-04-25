@@ -24,6 +24,7 @@ export interface SharedFieldProps {
   name: string;
   id: string;
   isReadonly?: boolean;
+  stretch?: boolean;
 }
 
 export interface SharedFieldState {

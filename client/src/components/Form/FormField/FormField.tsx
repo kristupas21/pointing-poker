@@ -13,12 +13,12 @@ const cx = classNames.bind(styles);
 
 type Props = FieldAttributes<any> & SharedFieldProps & {
   setRef?: RefObject<any>;
-  isBlock?: boolean;
+  block?: boolean;
   type: FieldType;
 }
 
 const FormField: React.FC<Props> = (props) => {
-  const { type, isBlock, setRef, isReadonly, ...fieldProps } = props;
+  const { type, block, setRef, isReadonly, ...fieldProps } = props;
 
   const renderContent = () => {
     switch (type) {
@@ -68,7 +68,7 @@ const FormField: React.FC<Props> = (props) => {
   };
 
   return (
-    <span className={cx('field', { 'field--block': isBlock })}>
+    <span className={cx('field', { 'field--block': block })}>
       {renderContent()}
     </span>
   );

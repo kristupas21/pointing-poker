@@ -17,14 +17,19 @@ export enum Theme {
 }
 
 type ThemeVariableProps = {
-  default: string;
-  inverted: string;
+  default: string | any; // TODO type for rgba
+  inverted: string | any;
 }
 
 type ThemeVariableKey =
     'backgroundColor' |
     'dangerColor' |
+    'dangerColorDark' |
+    'dangerColorDarker' |
+    'dangerColorLighter' |
     'mainColor' |
+    'mainColorLighter' |
+    'shadowColor' |
     'themeColor' |
     'themeColorDark' |
     'themeColorDarker' |

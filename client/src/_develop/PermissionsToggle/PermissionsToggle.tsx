@@ -38,7 +38,7 @@ const PermissionsToggle: React.FC = () => {
         label={text('session.field.usePermissions.label')}
         checked={usePermissions}
         onChange={handleChange}
-        isBlock
+        block
       />
     </Formik>
   );

@@ -3,10 +3,13 @@ import { FunctionComponent, SVGProps } from 'react';
 export enum IconId {
   Add = 'Add',
   BlockSign = 'BlockSign',
+  Checkmark = 'checkmark',
   Delete = 'Delete',
   Edit = 'Edit',
   Home = 'Home',
+  Logout = 'logout',
   Menu = 'Menu',
+  Reset = 'refresh',
   Settings = 'Settings',
 
   // logos

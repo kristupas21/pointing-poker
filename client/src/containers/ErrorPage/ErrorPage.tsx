@@ -1,7 +1,7 @@
 import React, { CSSProperties, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, RouteChildrenProps } from 'react-router';
-import Button, { ButtonVariant } from 'components/Button';
+import Button from 'components/Button';
 import { AppRoute } from 'utils/routes';
 import { getErrorState } from 'state/error/errorStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
@@ -38,7 +38,7 @@ const ErrorPage: React.FC<Props> = ({ history }) => {
       <h2>
         {text(errorId)}
       </h2>
-      <Button variant={ButtonVariant.Danger} onClick={handleRedirectClick} role="link">
+      <Button onClick={handleRedirectClick} role="link">
         {text('global.tryAgain')}
       </Button>
     </div>

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
-import Button, { ButtonVariant } from 'components/Button';
+import Button from 'components/Button';
 import { getAppSidebarOpen } from 'state/app/appStateGetters';
 import { useMappedDispatch, useOutsideClose } from 'utils/customHooks';
 import { setAppSidebarOpen } from 'state/app/appActions';
@@ -35,7 +35,7 @@ const Sidebar: React.FC = (props) => {
       <div className={cx('sidebar__drawer')}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button onClick={handleClose}>X</Button>
-          <Button variant={ButtonVariant.None} onClick={() => setSidebarOpen(true)}>
+          <Button onClick={() => setSidebarOpen(true)}>
             <Logo />
           </Button>
         </div>

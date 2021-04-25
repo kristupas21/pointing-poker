@@ -11,7 +11,10 @@ import { ReactComponent as Demo3 } from 'assets/avatars/demo-avatar-3.svg';
 import { ReactComponent as Demo4 } from 'assets/avatars/demo-avatar-4.svg';
 import { ReactComponent as SecretE } from 'assets/avatars/secret-avatar-e.svg';
 import { ReactComponent as SecretK } from 'assets/avatars/secret-avatar-k.svg';
-import { ReactComponent as Logo1 } from 'assets/icons/logo-1.svg';
+import { ReactComponent as Logo1 } from 'assets/icons/logo.svg';
+import { ReactComponent as Reset } from 'assets/icons/refresh.svg';
+import { ReactComponent as Logout } from 'assets/icons/logout.svg';
+import { ReactComponent as Checkmark } from 'assets/icons/checkmark.svg';
 import { IconId, SvgIcon } from './types';
 
 const iconMap: Record<IconId, SvgIcon> = {
@@ -29,6 +32,9 @@ const iconMap: Record<IconId, SvgIcon> = {
   [IconId.Logo1]: Logo1,
   [IconId.SecretE]: SecretE,
   [IconId.SecretK]: SecretK,
+  [IconId.Reset]: Reset,
+  [IconId.Logout]: Logout,
+  [IconId.Checkmark]: Checkmark,
 };
 
 const getIcon = (id: IconId): SvgIcon => iconMap[id];

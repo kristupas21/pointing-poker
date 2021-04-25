@@ -16,36 +16,37 @@ const wiggleTime = 300;
 const clickDelay = 70;
 
 export enum ButtonVariant {
-  None = 'none',
+  Plain = 'plain',
   Primary = 'primary',
-  Secondary = 'secondary',
-  Danger = 'danger',
-  Default = 'default',
 }
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: IconId;
   innerRef?: RefObject<HTMLButtonElement>;
-  isBlock?: boolean;
-  isMinimal?: boolean;
-  isOutline?: boolean;
   variant?: ButtonVariant;
+  block?: boolean;
+  stretch?: boolean;
+  selected?: boolean;
+  round?: boolean;
+  colored?: boolean;
 }
 
 const Button: React.FC<Props> = (props) => {
   const {
-    variant = ButtonVariant.Default,
+    variant = ButtonVariant.Plain,
     className,
     children,
     type = 'button',
     icon,
-    isMinimal,
-    isOutline,
-    isBlock,
+    block,
+    stretch,
     disabled,
     onClick,
     onMouseDown,
     innerRef,
+    selected,
+    round,
+    colored,
     ...other
   } = props;
 
@@ -55,15 +56,17 @@ const Button: React.FC<Props> = (props) => {
 
   const classes = cx('button', `button--${variant}`,
     {
-      'button--minimal': isMinimal,
-      'button--outline': isOutline,
-      'button--block': isBlock,
+      'button--block': block,
+      'button--stretch': stretch,
       'button--disabled': disabled,
+      'button--selected': selected,
+      'button--round': round,
+      'button--colored': colored,
     },
     className);
 
   const handleClick = (e) => {
-    if (disabled || !onClick) {
+    if (disabled || selected || !onClick) {
       return;
     }
 
@@ -103,8 +106,24 @@ const Button: React.FC<Props> = (props) => {
       aria-disabled={disabled}
       {...other}
     >
-      {icon && <Icon id={icon} />}
-      {children}
+      {variant === ButtonVariant.Primary ? (
+        <div className={cx('button__wrap')}>
+          <div className={cx('button__back')} />
+          <div className={cx('button__front')}>
+            <div className={cx('button__content')}>
+              {icon && <Icon id={icon} />}
+              {children}
+            </div>
+          </div>
+        </div>
+      )
+        :
+        (
+          <>
+            {icon && <Icon id={icon} />}
+            {children}
+          </>
+        )}
     </button>
   );
 };

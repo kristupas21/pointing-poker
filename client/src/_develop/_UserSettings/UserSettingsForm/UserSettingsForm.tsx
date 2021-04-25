@@ -51,7 +51,7 @@ const UserSettingsForm: React.FC<Props> = (props) => {
               fieldSize={FieldSize.Large}
               placeholder={text('session.field.name.placeholder')}
               onBlur={submitName}
-              isBlock
+              block
             />
             {useRoles && (
               <FormField
@@ -61,7 +61,7 @@ const UserSettingsForm: React.FC<Props> = (props) => {
                 placeholder={text('session.field.role.placeholder')}
                 options={roles}
                 disabled={isObserver}
-                isBlock
+                block
                 value={values.role}
                 fieldSize={FieldSize.Large}
                 setFieldValue={submitRole}

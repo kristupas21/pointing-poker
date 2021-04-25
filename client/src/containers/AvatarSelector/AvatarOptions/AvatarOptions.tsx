@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { User } from 'globalTypes';
 import Avatar, { AvatarId, getCommonAvatarValues } from 'components/Avatar';
-import Button, { ButtonVariant } from 'components/Button';
+import Button from 'components/Button';
 import { getAppHiddenFeatsUnlocked } from 'state/app/appStateGetters';
 
 const AVATARS = Object.values(AvatarId);
@@ -28,7 +28,6 @@ const AvatarOptions: React.FC<Props> = (props) => {
           style={_getStyle(avatarId)}
           key={avatarId}
           onClick={() => onSelect({ avatarId })}
-          variant={ButtonVariant.None}
         >
           <Avatar id={avatarId} />
         </Button>

@@ -8,7 +8,7 @@ import {
   saveSessionPointValue,
   resetSessionPointValues,
 } from 'state/session/sessionActions';
-import Button from 'components/Button';
+import Button, { ButtonVariant } from 'components/Button';
 import { IconId } from 'components/Icon';
 import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionPointValues } from 'state/session/sessionStateGetters';
@@ -44,7 +44,19 @@ const PointValuesForm: React.FC = () => {
   return (
     <>
       <h4>{text('session.pointValues')}</h4>
-      <Button onClick={() => setEditOn(!isEditOn)}>EDIT</Button>
+      <Button
+        onClick={() => setEditOn(!isEditOn)}
+        icon={isEditOn ? IconId.Checkmark : IconId.Edit}
+        variant={ButtonVariant.Primary}
+        round
+      />
+      <Button
+        onClick={resetPointValues}
+        disabled={isEqual(pointValues, DEFAULT_POINT_VALUES)}
+        icon={IconId.Reset}
+        variant={ButtonVariant.Primary}
+        round
+      />
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -99,10 +111,13 @@ const PointValuesForm: React.FC = () => {
           );
         }}
       </Formik>
-      <Button icon={IconId.Add} onClick={addPointValue} disabled={isAddDisabled} />
-      <Button onClick={resetPointValues} disabled={isEqual(pointValues, DEFAULT_POINT_VALUES)}>
-        {text('global.reset')}
-      </Button>
+      <Button
+        onClick={addPointValue}
+        disabled={isAddDisabled}
+        icon={IconId.Add}
+        variant={ButtonVariant.Primary}
+        round
+      />
     </>
   );
 };

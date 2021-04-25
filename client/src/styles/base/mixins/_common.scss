@@ -1,0 +1,3 @@
+@mixin shadow($horizontal: -3px, $vertical: 2px, $inset: null, $blur: 2px, $spread: 0px, $color: var(--shadow-color)) {
+  box-shadow: $inset $horizontal $vertical $blur $spread $color;
+}

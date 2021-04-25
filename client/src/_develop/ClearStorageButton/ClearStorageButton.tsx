@@ -18,7 +18,7 @@ const ClearStorageButton: React.FC = () => {
   };
 
   return (
-    <Button onClick={handleClick} isOutline>
+    <Button onClick={handleClick}>
       Clear Storage
     </Button>
   );

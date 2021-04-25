@@ -1,49 +1,56 @@
 .input {
   $this: &;
-  $_input-height: 43px;
-  $_label-offset: 15px;
-  $_border-width: 2px;
-  $_label-padding: $_border-width * 2;
-  $_error-height: 20px;
 
   display: block;
-  height: $_input-height + ($_error-height * 2);
+  height: $input-height + ($input-error-height * 2);
   position: relative;
 
   &--small {
-    width: 70px;
+    width: $input-width-small;
   }
 
   &--medium {
-    width: 140px;
+    width: $input-width-medium;
   }
 
   &--large {
-    width: 230px;
+    width: $input-width-large;
+  }
+
+  &--stretch {
+    width: 100%;
+  }
+
+  &--disabled {
+   opacity: $disabled-opacity;
+   pointer-events: none;
   }
 
   &__text {
     align-items: center;
-    bottom: $_error-height;
+    bottom: $input-error-height;
     display: flex;
-    font-weight: 500;
-    font-size: 14px;
-    height: $_input-height;
-    left: $_border-width;
-    padding: 0 ($_label-offset + $_border-width);
+    height: $input-height;
+    left: $border-width;
+    padding: 0 ($input-label-offset + $border-width);
     position: absolute;
     user-select: none;
     width: 100%;
   }
 
   &__field {
-    background: #fff;
-    border: $_border-width solid;
-    border-radius: 7px;
-    bottom: $_error-height;
-    height: $_input-height;
+    @include shadow(-1px, 1px, inset, 4px);
+    @include label-transition;
+
+    background: var(--background-color);
+    border: $border;
+    border-color: var(--main-color);
+    border-radius: $input-border-radius;
+    bottom: $input-error-height;
+    color: var(--main-color);
+    height: $input-height;
     left: 0;
-    padding: 0 ($_label-offset + $_border-width);
+    padding: $input-field-padding;
     position: absolute;
     outline: 0;
     width: 100%;
@@ -52,37 +59,158 @@
       @extend %visually-hidden;
     }
 
-    &--error {
+    #{$this}--focused & {
+      outline: 0;
+      border-color: var(--theme-color);
+      box-shadow: inset -1px 1px 4px 0px var(--shadow-color), 0px 0px 0 1px var(--theme-color);
+    }
+
+    #{$this}--error & {
       border-color: var(--danger-color);
     }
 
-    &:focus {
-      outline: 0;
+    #{$this}--error#{$this}--focused & {
+      border-color: var(--danger-color);
+      box-shadow: inset -1px 1px 4px 0px var(--shadow-color), 0px 0px 0 1px var(--danger-color);
     }
 
     &::placeholder {
-      color: #CCC8DF;
+      color: var(--main-color-lighter);
     }
   }
 
-  &__label {
-    background: var(--background-color);
-    color: var(--main-color);
-    font-size: 12px;
-    left: $_label-offset;
-    line-height: 1.4;
-    padding: 0 $_label-padding;
+  &__label-wrap {
     position: absolute;
-    top: 10px;
+    top: .5rem;
     z-index: 1;
+    left: $input-label-offset;
+  }
+
+  &__label {
+    @include label-transition;
+
+    background: var(--background-color);
+    border: $border;
+    color: var(--theme-color-darker);
+    font-size: $font-size-small;
+    line-height: 1.4;
+    padding: .1rem .6rem;
+
+    #{$this}--disabled & {
+      border-color: var(--main-color);
+      color: var(--main-color);
+    }
+
+    #{$this}--focused & {
+      background: var(--theme-color);
+      color: var(--background-color);
+    }
+
+    #{$this}--error & {
+      border-color: var(--danger-color);
+      color: var(--danger-color);
+    }
+
+    #{$this}--error#{$this}--focused & {
+      background: var(--danger-color);
+      border-color: var(--danger-color-darker);
+      color: var(--background-color);
+    }
+
+    &-back {
+      @include shadow;
+      @include label-transition;
+
+      background: var(--theme-color-lighter);
+      border-left: $border;
+      border-bottom: $border;
+      height: 2.3rem;
+      margin-left: -.3rem;
+      margin-top: -.1rem;
+      position: absolute;
+      width: 100%;
+      z-index: -1;
+
+      @supports (-moz-appearance:none) {
+        margin-top: 0;
+      }
+
+      #{$this}--disabled & {
+        border-color: var(--main-color);
+        background: var(--main-color-lighter);
+      }
+
+      #{$this}--focused & {
+        background: var(--theme-color-dark);
+      }
+
+      #{$this}--error & {
+        background: var(--danger-color-lighter);
+        border-color: var(--danger-color);
+      }
+
+      #{$this}--error#{$this}--focused & {
+        background: var(--danger-color-dark);
+        border-color: var(--danger-color-darker);
+      }
+
+      &:before {
+        border-left: $border;
+        height: .5rem;
+        left: 0;
+        top: -.2rem;
+        width: .4rem;
+
+        @supports (-moz-appearance: none) {
+          top: -.3rem;
+        }
+      }
+
+      &:after {
+        border-right: $border;
+        right: -.2rem;
+        top: 1.7rem;
+        width: .6rem;
+        height: .4rem;
+      }
+
+      &:before, &:after {
+        @include label-transition;
+
+        background: var(--theme-color-lighter);
+        content: '';
+        position: absolute;
+        transform: rotate(45deg);
+
+        #{$this}--focused & {
+          background: var(--theme-color-dark);
+        }
+
+        #{$this}--disabled & {
+          background: var(--main-color-lighter);
+          border-color: var(--color-main);
+        }
+
+        #{$this}--error & {
+          background: var(--danger-color-lighter);
+          border-color: var(--danger-color);
+        }
+
+        #{$this}--error#{$this}--focused & {
+          background: var(--danger-color-dark);
+          border-color: var(--danger-color-darker);
+        }
+      }
+    }
   }
 
   &__error {
     bottom: 0;
+    font-size: $font-size-small;
+    height: $input-error-height;
     left: 0;
     line-height: 2;
-    height: $_error-height;
-    padding: 0 $_label-offset + $_label-padding;
+    padding: 0 $input-label-offset;
     position: absolute;
     width: 100%;
   }

@@ -5,7 +5,7 @@ import { modifySessionUser } from 'state/session/sessionActions';
 import { useMappedDispatch } from 'utils/customHooks';
 import Avatar from 'components/Avatar';
 import classNames from 'classnames/bind';
-import Button, { ButtonVariant } from 'components/Button';
+import Button from 'components/Button';
 import Popover from 'components/Popover';
 import { AlignType } from 'globalTypes';
 import { wsModifySessionUser } from 'state/ws/wsActions';
@@ -41,7 +41,6 @@ const AvatarSelector: React.FC<Props> = (props) => {
     <div className={cx('selector', className)}>
       <Button
         onClick={() => setPopoverOpen(!isPopoverOpen)}
-        variant={ButtonVariant.None}
       >
         <Avatar id={avatarId} />
       </Button>

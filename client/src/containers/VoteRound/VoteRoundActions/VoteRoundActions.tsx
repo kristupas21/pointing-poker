@@ -11,13 +11,14 @@ import {
   wsHideVotes,
   wsResetVoteRound,
 } from 'state/ws/wsActions';
-import Button from 'components/Button';
+import Button, { ButtonVariant } from 'components/Button';
 import {
   getVoteRoundPristine,
   getVotesShownValue
 } from 'state/voteRound/voteRoundStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { makeConsensusSelector, makeHasPermissionSelector, makeVotePercentageSelector } from 'utils/selectors';
+import { IconId } from 'components/Icon';
 
 type Actions = {
   resetVoteRound: typeof resetVoteRoundAction,
@@ -83,14 +84,20 @@ const VoteRoundActions: React.FC = () => {
         onClick={handleBubbleClick}
         onMouseEnter={getMouseHandler(showVotesText)}
         onMouseLeave={getMouseHandler(percentageText)}
+        variant={ButtonVariant.Primary}
+        colored
       >
         {hasConsensusClass && _tempConsensusDiv(text('voteRound.consensus'))}
         {bubbleText}
       </Button>
       {hasPermission && (
-        <Button onClick={resetVoteRound} disabled={isPristine}>
-          {text('voteRound.action.newRound')}
-        </Button>
+        <Button
+          onClick={resetVoteRound}
+          disabled={isPristine}
+          variant={ButtonVariant.Primary}
+          round
+          icon={IconId.Reset}
+        />
       )}
     </div>
   );

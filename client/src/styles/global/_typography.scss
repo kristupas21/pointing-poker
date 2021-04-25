@@ -1,1 +1,16 @@
 $fonts-path: '/assets/fonts';
+
+html {
+  font-size: 62.5%;
+  // stylelint-disable-next-line
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-size: $font-size-base;
+  font-family: $font-family-base;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  line-height: $line-height-base;
+}

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getSessionCurrentId, getSessionUserAvatarId } from 'state/session/sessionStateGetters';
 import { pushNotification as pushNotificationAction } from 'state/notifications/notificationsActions';
 import classNames from 'classnames/bind';
-import Button, { ButtonVariant } from 'components/Button';
+import Button from 'components/Button';
 import { setAppSidebarOpen } from 'state/app/appActions';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import renderNotification, { NotificationContent } from 'utils/notificationContent';
@@ -43,10 +43,7 @@ const UserSettingsOpener: React.FC = () => {
           <div className={cx('opener__session-id')}>{currentSessionId}</div>
         </div>
       )}
-      <Button
-        onClick={() => setSidebarOpen(true)}
-        variant={ButtonVariant.None}
-      >
+      <Button onClick={() => setSidebarOpen(true)}>
         <Avatar id={avatarId} />
       </Button>
     </div>

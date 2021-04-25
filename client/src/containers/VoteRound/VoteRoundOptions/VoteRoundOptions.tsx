@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import sortBy from 'lodash/sortBy';
-import Button from 'components/Button';
+import Button, { ButtonVariant } from 'components/Button';
 import { setUserVoteValue } from 'state/voteRound/voteRoundActions';
 import { wsSetUserVoteValue } from 'state/ws/wsActions';
 import { makeCurrentUserVoteSelector } from 'utils/selectors';
@@ -39,7 +39,7 @@ const VoteRoundOptions: React.FC = () => {
         key={value}
         className={cx('item', { 'item--selected': isSelected })}
       >
-        <Button onClick={handleClick} disabled={isSelected}>
+        <Button variant={ButtonVariant.Primary} round onClick={handleClick} selected={isSelected}>
           {value}
         </Button>
       </li>
@@ -57,7 +57,7 @@ const VoteRoundOptions: React.FC = () => {
   useKeyboardVoting(handleKeyboardInput);
 
   return (
-    <ul>
+    <ul className={cx('votes')}>
       {sortBy(pointValues, 'pos').map(renderButton)}
     </ul>
   );

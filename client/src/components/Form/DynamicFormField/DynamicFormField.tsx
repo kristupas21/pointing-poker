@@ -1,5 +1,5 @@
 import React, { useRef, FocusEvent } from 'react';
-import Button from 'components/Button';
+import Button, { ButtonVariant } from 'components/Button';
 import { IconId } from 'components/Icon';
 import { motion } from 'framer-motion';
 import animations from 'utils/animations';
@@ -59,9 +59,11 @@ const DynamicFormField: React.FC<Props> = (props) => {
       />
       {isReadonly || (
         <Button
-          icon={IconId.Delete}
           onClick={handleRemoveClick}
           disabled={isRemoveDisabled}
+          icon={IconId.Delete}
+          variant={ButtonVariant.Primary}
+          round
         />
       )}
     </motion.span>

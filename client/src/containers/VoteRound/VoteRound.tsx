@@ -11,8 +11,8 @@ const VoteRound: React.FC = () => {
 
   return (
     <div>
-      <VoteRoundActions />
       {isObserver || <VoteRoundOptions />}
+      <VoteRoundActions />
       <VoteRoundResult />
       <VoteRoundUsers />
     </div>

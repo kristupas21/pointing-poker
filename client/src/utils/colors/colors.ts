@@ -19,3 +19,7 @@ export function darkColor(color: string): string {
 export function darkerColor(color: string): string {
   return Color(color).darken(0.15).mix(Color('#5e5e5e'), 0.6).hex();
 }
+
+export function colorWithOpacity(color: string, alpha: number) {
+  return Color(color).alpha(alpha).rgb();
+}

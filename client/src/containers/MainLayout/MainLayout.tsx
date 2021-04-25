@@ -12,10 +12,11 @@ import { RouteChildrenProps } from 'react-router';
 import { setAppSidebarOpen } from 'state/app/appActions';
 import Button, { ButtonVariant } from 'components/Button';
 import { AppRoute } from 'utils/routes';
-import { useMappedDispatch, useText } from 'utils/customHooks';
+import { useMappedDispatch } from 'utils/customHooks';
 import ThemeSelector from 'containers/ThemeSelector';
 import Sidebar from 'components/Sidebar';
 import { getSessionCurrentId } from 'state/session/sessionStateGetters';
+import Icon, { IconId } from 'components/Icon';
 import styles from './MainLayout.module.scss';
 
 const cx = classNames.bind(styles);
@@ -34,7 +35,6 @@ const MainLayout: React.FC<Props> = (props) => {
   const currentSessionId = useSelector(getSessionCurrentId);
   const isLoading = useSelector(getAppLoading);
   const { setSidebarOpen } = useMappedDispatch(actions);
-  const text = useText();
   const withSidebar = renderMenu && !!currentSessionId;
 
   const handleLogoClick = (): void => {
@@ -54,7 +54,7 @@ const MainLayout: React.FC<Props> = (props) => {
   };
 
   const LogoButton = (
-    <Button variant={ButtonVariant.None} onClick={handleLogoClick}>
+    <Button onClick={handleLogoClick}>
       <Logo />
     </Button>
   );
@@ -81,8 +81,8 @@ const MainLayout: React.FC<Props> = (props) => {
       {withSidebar && (
         <Sidebar>
           <ThemeSelector />
-          <Button onClick={handleLeaveClick}>
-            {text('session.leave')}
+          <Button variant={ButtonVariant.Primary} round onClick={handleLeaveClick}>
+            <Icon width={29} height={22} id={IconId.Logout} />
           </Button>
         </Sidebar>
       )}

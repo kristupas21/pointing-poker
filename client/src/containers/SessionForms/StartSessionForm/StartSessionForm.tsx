@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { Form, Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import { FieldSize, FieldType, FormField, SubmitHandler } from 'components/Form';
-import Button from 'components/Button';
+import Button, { ButtonVariant } from 'components/Button';
 import { useText } from 'utils/customHooks';
 import classNames from 'classnames/bind';
 import { CustomFormError, CustomFormErrors } from 'globalTypes';
@@ -83,7 +83,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
               label={text('session.field.name.label')}
               fieldSize={FieldSize.Large}
               placeholder={text('session.field.name.placeholder')}
-              isBlock
+              block
               className={cx('input')}
               onChange={handleNameFieldChange}
             >
@@ -94,7 +94,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
               type={FieldType.Switch}
               label={text('session.field.useRoles.label')}
               onChange={handleUseRolesChange}
-              isBlock
+              block
             />
             <FormField
               name="role"
@@ -103,7 +103,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
               placeholder={text('session.field.role.placeholder')}
               error={getErrorText(errors.role)}
               options={roles}
-              isBlock
+              block
               value={values.role}
               fieldSize={FieldSize.Large}
               setFieldValue={setFieldValue}
@@ -112,16 +112,16 @@ const StartSessionForm: React.FC<Props> = (props) => {
               name="isObserver"
               type={FieldType.Checkbox}
               label={text('session.field.observer.label')}
-              isBlock
+              block
             />
             <FormField
               name="usePermissions"
               type={FieldType.Switch}
               label={text('session.field.usePermissions.label')}
               onChange={handleUsePermissionsChange}
-              isBlock
+              block
             />
-            <Button type="submit" disabled={submitDisabled}>
+            <Button variant={ButtonVariant.Primary} colored type="submit" disabled={submitDisabled}>
               {text('session.start')}
             </Button>
           </Form>

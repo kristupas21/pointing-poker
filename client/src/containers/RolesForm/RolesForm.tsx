@@ -8,7 +8,7 @@ import {
   saveSessionRoles,
   resetSessionRoles,
 } from 'state/session/sessionActions';
-import Button from 'components/Button';
+import Button, { ButtonVariant } from 'components/Button';
 import { IconId } from 'components/Icon';
 import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionRoles } from 'state/session/sessionStateGetters';
@@ -47,7 +47,19 @@ const RolesForm: React.FC = () => {
   return (
     <>
       <h4>{text('session.roles')}</h4>
-      <Button onClick={() => setEditOn(!isEditOn)}>EDIT</Button>
+      <Button
+        onClick={() => setEditOn(!isEditOn)}
+        icon={isEditOn ? IconId.Checkmark : IconId.Edit}
+        variant={ButtonVariant.Primary}
+        round
+      />
+      <Button
+        onClick={resetRoles}
+        disabled={isEqual(roles, DEFAULT_USER_ROLES)}
+        icon={IconId.Reset}
+        variant={ButtonVariant.Primary}
+        round
+      />
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -95,10 +107,13 @@ const RolesForm: React.FC = () => {
           );
         }}
       </Formik>
-      <Button icon={IconId.Add} onClick={addRole} disabled={isAddDisabled} />
-      <Button onClick={resetRoles} disabled={isEqual(roles, DEFAULT_USER_ROLES)}>
-        {text('global.reset')}
-      </Button>
+      <Button
+        variant={ButtonVariant.Primary}
+        icon={IconId.Add}
+        onClick={addRole}
+        disabled={isAddDisabled}
+        round
+      />
     </>
   );
 };
