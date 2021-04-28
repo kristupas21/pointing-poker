@@ -5,13 +5,12 @@ import { AppRoute, getMatchParamRoute } from 'utils/routes';
 import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { throwAppError } from 'state/error/errorActions';
 import { setAppLoading } from 'state/app/appActions';
-import storageService from 'utils/storageService/storageService';
-import { StorageKey } from 'utils/storageService';
 import { joinSession, modifySessionUser, setSessionParams } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { JOIN_SESSION } from '../sessionConstants';
 import { acquireCurrentUser } from './sessionSagaUtils';
 import { JoinSessionResponse } from '../sessionModel';
+import { setFormLoading } from '../../form/formActions';
 
 export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
   const {
@@ -19,7 +18,11 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
       sessionId,
       ...rest
     },
-    setSubmitting
+    helpers: {
+      setSubmitting,
+      setFieldError,
+      setFieldValue,
+    },
   } = action.payload;
 
   const params = {
@@ -30,6 +33,7 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
   };
 
   yield put(setAppLoading(true));
+  yield put(setFormLoading(true));
 
   try {
     const {
@@ -37,6 +41,7 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
         sessionId: id,
         user: { hasPermission } }
     }: JoinSessionResponse = yield call(sessionApi.join, params);
+
     const route = getMatchParamRoute(AppRoute.Session, { sessionId: id });
 
     yield put(modifySessionUser({ hasPermission }));
@@ -47,47 +52,33 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
     yield put(setAppLoading(false));
 
     if (code === ERROR_CODES.SESSION_NOT_FOUND) {
-      yield call(
-        storageService.set,
-        StorageKey.FormErrors,
-        { sessionId: { id: 'error.sessionNotFound' } },
-        true,
-      );
+      yield call(setFieldError('sessionId', { id: 'error.sessionNotFound' }));
       return;
     }
 
     if (code === ERROR_CODES.MUST_CHOOSE_ROLE) {
-      yield put(setSessionParams({
-        useRoles: true,
-        roles: payload as string[],
-      }));
-
+      yield put(setSessionParams({ roles: payload }));
+      yield call(setFieldValue, 'useRoles', true);
       return;
     }
 
     if (code === ERROR_CODES.USER_NAME_EXISTS) {
-      yield call(
-        storageService.set,
-        StorageKey.FormErrors,
-        { name: { id: 'error.userNameExists' } },
-        true,
-      );
+      yield call(setFieldError('name', { id: 'error.userNameExists' }));
       return;
     }
 
     if (code === ERROR_CODES.USER_LIMIT_EXCEEDED) {
-      yield call(
-        storageService.set,
-        StorageKey.FormErrors,
-        { sessionId: { id: 'error.userLimitExceeded', values: { count: payload } } },
-        true,
-      );
+      yield call(setFieldError(
+        'sessionId',
+        { id: 'error.userLimitExceeded', values: { count: payload } }
+      ));
       return;
     }
 
     yield put(throwAppError(code, payload));
   } finally {
     yield call(setSubmitting, false);
+    yield put(setFormLoading(false));
   }
 }
 

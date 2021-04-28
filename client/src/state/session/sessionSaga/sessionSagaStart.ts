@@ -13,6 +13,7 @@ import { acquireCurrentUser } from './sessionSagaUtils';
 import { getNormalizedSessionRoles, getSessionPointValues } from '../sessionStateGetters';
 import { normalizePointValues } from '../sessionUtils';
 import { StartSessionResponse } from '../sessionModel';
+import { setFormLoading } from '../../form/formActions';
 
 export function* startSessionSaga(action: ActionType<typeof startSession>) {
   const { useRoles, usePermissions, ...rest } = action.payload;
@@ -29,6 +30,7 @@ export function* startSessionSaga(action: ActionType<typeof startSession>) {
   };
 
   yield put(setAppLoading(true));
+  yield put(setFormLoading(true));
 
   try {
     const { data: { sessionId } }: StartSessionResponse = yield call(sessionApi.start, params);
@@ -42,6 +44,8 @@ export function* startSessionSaga(action: ActionType<typeof startSession>) {
 
     yield put(throwAppError(code, payload));
     yield put(setAppLoading(false));
+  } finally {
+    yield put(setFormLoading(false));
   }
 }
 

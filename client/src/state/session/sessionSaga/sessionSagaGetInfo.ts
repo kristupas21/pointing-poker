@@ -1,18 +1,18 @@
 import { ActionType } from 'typesafe-actions';
 import { put, call, takeLatest } from 'redux-saga/effects';
-import storageService from 'utils/storageService/storageService';
-import { StorageKey } from 'utils/storageService';
 import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { throwAppError } from 'state/error/errorActions';
-import { getSessionInfo, setSessionFormLoading, setSessionParams } from '../sessionActions';
+import { setFormLoading } from 'state/form/formActions';
+import { getSessionInfo, setSessionParams } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { SessionInfoResponse } from '../sessionModel';
 import { GET_SESSION_INFO } from '../sessionConstants';
 
 export function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
-  const { sessionId, callback } = action.payload;
+  const { sessionId, helpers } = action.payload;
+  const { setFieldValue, setFieldError } = helpers;
 
-  yield put(setSessionFormLoading(true));
+  yield put(setFormLoading(true));
 
   try {
     const {
@@ -24,30 +24,23 @@ export function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
       }
     }: SessionInfoResponse = yield call(sessionApi.getInfo, sessionId);
 
-    const params = {
-      useRoles,
-      ...(useRoles && { roles })
-    };
+    if (useRoles) {
+      yield put(setSessionParams({ roles }));
+    }
 
-    yield put(setSessionParams(params));
+    yield call(setFieldValue, 'useRoles', useRoles);
   } catch (e) {
     const { code, payload } = yield call(errorParser.parse, e);
 
     if (code === ERROR_CODES.SESSION_NOT_FOUND) {
-      yield call(
-        storageService.set,
-        StorageKey.FormErrors,
-        { sessionId: { id: 'error.sessionNotFound' } },
-        true,
-      );
-      yield put(setSessionParams({ useRoles: false }));
+      yield call(setFieldValue, 'useRoles', false);
+      yield call(setFieldError, 'sessionId', { id: 'error.sessionNotFound' });
       return;
     }
 
     yield put(throwAppError(code, payload));
   } finally {
-    yield put(setSessionFormLoading(false));
-    yield callback && call(callback);
+    yield put(setFormLoading(false));
   }
 }
 

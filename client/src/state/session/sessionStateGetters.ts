@@ -30,8 +30,6 @@ export const getSessionUseRoles = (state: State): boolean => state.session.useRo
 
 export const getSessionCurrentId = (state: State): string => state.session.currentSessionId;
 
-export const getSessionFormLoading = (state: State): boolean => state.session.isFormLoading;
-
 export const getSessionUsePermissions = (state: State): boolean => state.session.usePermissions;
 
 export const getSessionIsCreatedByMe = (state: State): boolean => state.session.isCreatedByMe;

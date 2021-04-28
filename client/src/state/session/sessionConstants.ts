@@ -33,5 +33,3 @@ export const MODIFY_SESSION_USER = '@session/MODIFY_USER';
 export const RESET_SESSION_ROLES = '@session/RESET_ROLES';
 
 export const RESET_SESSION_POINT_VALUES = '@session/RESET_POINT_VALUES';
-
-export const SET_SESSION_FORM_LOADING = '@session/SET_FORM_LOADING';

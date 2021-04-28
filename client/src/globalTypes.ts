@@ -1,4 +1,3 @@
-import { MessageId } from 'lang';
 import { AvatarId } from 'components/Avatar';
 
 export interface User {
@@ -20,10 +19,6 @@ export interface Identifier {
   id: string;
   name: string;
 }
-
-export type CustomFormError = { id: MessageId; values?: any };
-
-export type CustomFormErrors<T> = Record<keyof T, CustomFormError>;
 
 export enum AlignType {
   Left = 'left',

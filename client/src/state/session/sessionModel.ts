@@ -16,7 +16,6 @@ export interface Session {
 export interface SessionState {
   currentSessionId: string;
   isCreatedByMe: boolean;
-  isFormLoading: boolean;
   pointValues: PointValue[];
   roles: string[];
   usePermissions: boolean;

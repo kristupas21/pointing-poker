@@ -21,7 +21,6 @@ import {
   RESET_SESSION_STATE,
   SAVE_SESSION_POINT_VALUE,
   SAVE_SESSION_ROLES,
-  SET_SESSION_FORM_LOADING,
   SET_SESSION_PARAMS,
   SET_SESSION_USER
 } from './sessionConstants';
@@ -32,7 +31,6 @@ type State = Readonly<SessionState>;
 
 const initialState: State = {
   currentSessionId: null,
-  isFormLoading: false,
   isCreatedByMe: false,
   user: initialUser(),
   useRoles: initialUseRoles(),
@@ -142,11 +140,6 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
         roles: DEFAULT_USER_ROLES,
       };
     }
-    case SET_SESSION_FORM_LOADING:
-      return {
-        ...state,
-        isFormLoading: action.payload,
-      };
     case RESET_SESSION_STATE:
     case CLOSE_SESSION:
       return {

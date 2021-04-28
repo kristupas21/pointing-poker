@@ -1,1 +1,1 @@
-export { default } from './JoinSessionForm';
+export { default } from './FormWrapper';

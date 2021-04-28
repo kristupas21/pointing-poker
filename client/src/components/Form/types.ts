@@ -1,7 +1,4 @@
-import { FormikHelpers } from 'formik';
 import { ReactNode } from 'react';
-
-export type SubmitHandler<T> = (values: T, helpers: FormikHelpers<T>) => void;
 
 export enum FieldType {
   Checkbox = 'checkbox',

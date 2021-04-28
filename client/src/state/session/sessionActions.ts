@@ -1,5 +1,6 @@
 import { action } from 'typesafe-actions';
 import { User } from 'globalTypes';
+import { FormHelpers } from 'utils/form/types';
 import { PointValue } from 'utils/pointValues/types';
 import { SessionFormData } from 'containers/SessionForms/types';
 import { SessionState } from './sessionModel';
@@ -21,7 +22,7 @@ import {
   GET_SESSION_INFO,
   RESET_SESSION_STATE,
   RESET_SESSION_ROLES,
-  RESET_SESSION_POINT_VALUES, SET_SESSION_FORM_LOADING,
+  RESET_SESSION_POINT_VALUES,
 } from './sessionConstants';
 
 export const initSession = (params: Partial<SessionState>) =>
@@ -34,9 +35,9 @@ export const startSession = (formData: SessionFormData) =>
 
 export const joinSession = (
   formData: SessionFormData,
-  setSubmitting: (value: boolean) => void,
+  helpers: Partial<FormHelpers<SessionFormData>>,
 ) =>
-  action(JOIN_SESSION, { formData, setSubmitting });
+  action(JOIN_SESSION, { formData, helpers });
 
 export const loadSession = (id: string) => action(LOAD_SESSION, id);
 
@@ -67,11 +68,9 @@ export const modifySessionUser = (params: Partial<User>) => action(MODIFY_SESSIO
 
 export const getSessionInfo = (
   sessionId: string,
-  callback?: () => void,
-) => action(GET_SESSION_INFO, { sessionId, callback });
+  helpers: Partial<FormHelpers<SessionFormData>>,
+) => action(GET_SESSION_INFO, { sessionId, helpers });
 
 export const resetSessionRoles = () => action(RESET_SESSION_ROLES);
 
 export const resetSessionPointValues = () => action(RESET_SESSION_POINT_VALUES);
-
-export const setSessionFormLoading = (status: boolean) => action(SET_SESSION_FORM_LOADING, status);
