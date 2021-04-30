@@ -31,12 +31,13 @@ type State = Readonly<SessionState>;
 
 const initialState: State = {
   currentSessionId: null,
+  currentInfoId: null,
   isCreatedByMe: false,
-  user: initialUser(),
-  useRoles: initialUseRoles(),
   pointValues: initialPointValues(),
   roles: initialRoles(),
   usePermissions: initialUsePermissions(),
+  useRoles: initialUseRoles(),
+  user: initialUser(),
 };
 
 const sessionReducer: Reducer<State, Action> = (state = initialState, action) => {

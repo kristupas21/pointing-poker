@@ -13,8 +13,6 @@ const wiggleClass = '-wiggle';
 
 const wiggleTime = 300;
 
-const clickDelay = 70;
-
 export enum ButtonVariant {
   Plain = 'plain',
   Primary = 'primary',
@@ -52,7 +50,6 @@ const Button: React.FC<Props> = (props) => {
 
   const btnRef = useRef<HTMLButtonElement>(innerRef?.current || null);
   const wiggleTimeout = useRef<Timeout>();
-  const clickTimeout = useRef<Timeout>();
 
   const classes = cx('button', `button--${variant}`,
     {
@@ -70,10 +67,7 @@ const Button: React.FC<Props> = (props) => {
       return;
     }
 
-    clickTimeout.current = setTimeout(() => {
-      onClick(e);
-      clearTimeout(clickTimeout.current);
-    }, clickDelay);
+    onClick(e);
   };
 
   const handleMouseDown = (e) => {

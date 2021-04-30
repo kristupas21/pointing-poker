@@ -15,12 +15,13 @@ export interface Session {
 
 export interface SessionState {
   currentSessionId: string;
+  currentInfoId: string;
   isCreatedByMe: boolean;
   pointValues: PointValue[];
   roles: string[];
   usePermissions: boolean;
-  user: User;
   useRoles: boolean;
+  user: User;
 }
 
 export interface JoinSessionParams {

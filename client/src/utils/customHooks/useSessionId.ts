@@ -10,5 +10,5 @@ export default (): string => {
     history.replace({ state: null });
   }, []);
 
-  return id;
+  return id || '';
 };

@@ -9,3 +9,5 @@ export { default as makeVotePercentageSelector } from './votePercentageSelector'
 export { default as makeHasPermissionSelector } from './hasPermissionSelector';
 
 export { default as makeConsensusSelector } from './consensusSelector';
+
+export { default as makeInitialUserRoleSelector } from './initialUserRoleSelector';

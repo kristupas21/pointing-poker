@@ -6,6 +6,7 @@ import { AppRoute, getMatchParamRoute } from 'utils/routes';
 import { throwAppError } from 'state/error/errorActions';
 import { setAppLoading } from 'state/app/appActions';
 import errorParser from 'utils/errorParser';
+import { setFormLoading } from 'state/form/formActions';
 import { startSession } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { START_SESSION } from '../sessionConstants';
@@ -13,10 +14,9 @@ import { acquireCurrentUser } from './sessionSagaUtils';
 import { getNormalizedSessionRoles, getSessionPointValues } from '../sessionStateGetters';
 import { normalizePointValues } from '../sessionUtils';
 import { StartSessionResponse } from '../sessionModel';
-import { setFormLoading } from '../../form/formActions';
 
 export function* startSessionSaga(action: ActionType<typeof startSession>) {
-  const { useRoles, usePermissions, ...rest } = action.payload;
+  const { useRoles, usePermissions, ...userProps } = action.payload;
   const roles = yield select(getNormalizedSessionRoles);
 
   const params = {
@@ -24,9 +24,7 @@ export function* startSessionSaga(action: ActionType<typeof startSession>) {
     usePermissions,
     pointValues: normalizePointValues(yield select(getSessionPointValues)),
     roles,
-    user: yield* acquireCurrentUser({
-      ...rest,
-    }),
+    user: yield* acquireCurrentUser(userProps),
   };
 
   yield put(setAppLoading(true));

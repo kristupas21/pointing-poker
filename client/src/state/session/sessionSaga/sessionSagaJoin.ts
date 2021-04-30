@@ -5,18 +5,20 @@ import { AppRoute, getMatchParamRoute } from 'utils/routes';
 import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { throwAppError } from 'state/error/errorActions';
 import { setAppLoading } from 'state/app/appActions';
+import { setFormLoading } from 'state/form/formActions';
 import { joinSession, modifySessionUser, setSessionParams } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { JOIN_SESSION } from '../sessionConstants';
 import { acquireCurrentUser } from './sessionSagaUtils';
 import { JoinSessionResponse } from '../sessionModel';
-import { setFormLoading } from '../../form/formActions';
 
 export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
   const {
     formData: {
       sessionId,
-      ...rest
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      useRoles,
+      ...sessionFormData
     },
     helpers: {
       setSubmitting,
@@ -28,7 +30,7 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
   const params = {
     sessionId,
     user: yield* acquireCurrentUser({
-      ...rest,
+      ...sessionFormData,
     })
   };
 
@@ -52,7 +54,7 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
     yield put(setAppLoading(false));
 
     if (code === ERROR_CODES.SESSION_NOT_FOUND) {
-      yield call(setFieldError('sessionId', { id: 'error.sessionNotFound' }));
+      yield call(setFieldError, 'sessionId', { id: 'error.sessionNotFound' });
       return;
     }
 
@@ -63,15 +65,14 @@ export function* joinSessionSaga(action: ActionType<typeof joinSession>) {
     }
 
     if (code === ERROR_CODES.USER_NAME_EXISTS) {
-      yield call(setFieldError('name', { id: 'error.userNameExists' }));
+      yield call(setFieldError, 'name', { id: 'error.userNameExists' });
       return;
     }
 
     if (code === ERROR_CODES.USER_LIMIT_EXCEEDED) {
-      yield call(setFieldError(
+      yield call(setFieldError,
         'sessionId',
-        { id: 'error.userLimitExceeded', values: { count: payload } }
-      ));
+        { id: 'error.userLimitExceeded', values: { count: payload } });
       return;
     }
 

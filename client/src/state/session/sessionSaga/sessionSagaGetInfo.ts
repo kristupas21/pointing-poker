@@ -1,5 +1,5 @@
 import { ActionType } from 'typesafe-actions';
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { put, call, takeLatest, select } from 'redux-saga/effects';
 import errorParser, { ERROR_CODES } from 'utils/errorParser';
 import { throwAppError } from 'state/error/errorActions';
 import { setFormLoading } from 'state/form/formActions';
@@ -7,10 +7,16 @@ import { getSessionInfo, setSessionParams } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { SessionInfoResponse } from '../sessionModel';
 import { GET_SESSION_INFO } from '../sessionConstants';
+import { getSessionCurrentInfoId } from '../sessionStateGetters';
 
 export function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
   const { sessionId, helpers } = action.payload;
   const { setFieldValue, setFieldError } = helpers;
+  const currentInfoId = yield select(getSessionCurrentInfoId);
+
+  if (currentInfoId === sessionId) {
+    return;
+  }
 
   yield put(setFormLoading(true));
 
@@ -40,6 +46,7 @@ export function* getSessionInfoSaga(action: ActionType<typeof getSessionInfo>) {
 
     yield put(throwAppError(code, payload));
   } finally {
+    yield put(setSessionParams({ currentInfoId: sessionId }));
     yield put(setFormLoading(false));
   }
 }
