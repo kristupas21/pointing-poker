@@ -12,10 +12,7 @@ describe('sessionSagaUtils', () => {
         session: {
           user: {
             isObserver: true,
-            role: {
-              id: 'r',
-              name: 'r',
-            },
+            role: 'r',
           },
         },
       };
@@ -31,10 +28,7 @@ describe('sessionSagaUtils', () => {
         id: 'u-id',
         name: 'UserName',
         isObserver: false,
-        role: {
-          id: 'r',
-          name: 'r',
-        },
+        role: 'r',
       };
 
       await expectSaga(acquireCurrentUser, userProps)

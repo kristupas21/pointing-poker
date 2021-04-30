@@ -13,8 +13,17 @@ import { joinSession, modifySessionUser } from '../../sessionActions';
 import { joinSessionSaga } from '../sessionSagaJoin';
 import { JoinSessionParams, JoinSessionResponse } from '../../sessionModel';
 import sessionApi from '../../sessionApi';
+import { setFormLoading } from '../../../form/formActions';
 
 describe('joinSessionSaga', () => {
+  const setSubmitting = jest.fn();
+  const setFieldError = jest.fn();
+  const setFieldValue = jest.fn();
+  const helpers = {
+    setFieldError,
+    setFieldValue,
+    setSubmitting,
+  };
   const mockState: MockState = {
     session: {
       roles: [
@@ -26,11 +35,10 @@ describe('joinSessionSaga', () => {
       }
     }
   };
-  const setSubmitting = jest.fn();
 
   const getActionParams = (): Parameters<typeof joinSession> => ([
     { name: 'J.Lo', role: 'r', isObserver: false, sessionId: 's-id' },
-    setSubmitting,
+    helpers,
   ]);
 
   const expectedParams: JoinSessionParams = {
@@ -43,8 +51,8 @@ describe('joinSessionSaga', () => {
     }
   };
 
-  beforeEach(() => {
-    setSubmitting.mockReset();
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it('acquires params, calls endpoint & navigates to session route', async () => {
@@ -65,10 +73,12 @@ describe('joinSessionSaga', () => {
         [call(sessionApi.join, expectedParams), response]
       ])
       .put(setAppLoading(true))
+      .put(setFormLoading(true))
       .call(sessionApi.join, expectedParams)
       .put(modifySessionUser({ hasPermission: true }))
       .put(push('/session/s-id'))
       .call(setSubmitting, false)
+      .put(setFormLoading(false))
       .run();
   });
 
@@ -87,16 +97,13 @@ describe('joinSessionSaga', () => {
         [call(sessionApi.join, expectedParams), throwApiError(error)]
       ])
       .put(setAppLoading(true))
+      .put(setFormLoading(true))
       .call(sessionApi.join, expectedParams)
       .call(errorParser.parse, error)
-      .call(
-        storageService.set,
-        StorageKey.FormErrors,
-        { sessionId: { id: 'error.sessionNotFound' } },
-        true,
-      )
       .put(setAppLoading(false))
+      .call(setFieldError, 'sessionId', { id: 'error.sessionNotFound' })
       .call(setSubmitting, false)
+      .put(setFormLoading(false))
       .run();
   });
 
@@ -115,16 +122,13 @@ describe('joinSessionSaga', () => {
         [call(sessionApi.join, expectedParams), throwApiError(error)]
       ])
       .put(setAppLoading(true))
+      .put(setFormLoading(true))
       .call(sessionApi.join, expectedParams)
       .call(errorParser.parse, error)
-      .call(
-        storageService.set,
-        StorageKey.FormErrors,
-        { name: { id: 'error.userNameExists' } },
-        true,
-      )
       .put(setAppLoading(false))
+      .call(setFieldError, 'name', { id: 'error.userNameExists' })
       .call(setSubmitting, false)
+      .put(setFormLoading(false))
       .run();
   });
 
@@ -137,11 +141,13 @@ describe('joinSessionSaga', () => {
         [call(sessionApi.join, expectedParams), throwApiError(error)]
       ])
       .put(setAppLoading(true))
+      .put(setFormLoading(true))
       .call(sessionApi.join, expectedParams)
-      .put(setAppLoading(false))
       .call(errorParser.parse, error)
+      .put(setAppLoading(false))
       .put(throwAppError(ERROR_CODES.UNEXPECTED as MessageId))
       .call(setSubmitting, false)
+      .put(setFormLoading(false))
       .run();
   });
 });
