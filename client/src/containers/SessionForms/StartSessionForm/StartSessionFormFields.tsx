@@ -86,6 +86,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
         value={values.role}
         fieldSize={FieldSize.Large}
         setFieldValue={setFieldValue}
+        disabled={!values.useRoles}
       />
       <FormField
         name="isObserver"
