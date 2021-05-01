@@ -15,11 +15,12 @@ type Props = {
   onOutsideClick: (e) => void;
   selectedOption: string;
   fieldSize: FieldSize;
+  stretch?: boolean;
 }
 
 const SelectDropdown: React.FC<Props> = (props) => {
-  const { options, uniqOptions, onSelect, selectedOption, onOutsideClick, fieldSize } = props;
-  const className = cx('dropdown', `dropdown--${fieldSize}`);
+  const { options, uniqOptions, onSelect, selectedOption, onOutsideClick, fieldSize, stretch } = props;
+  const className = cx('dropdown', `dropdown--${fieldSize}`, { 'dropdown--stretch': stretch });
 
   const handleSelect = (e: MouseEvent<HTMLButtonElement>, name: string) => {
     e.preventDefault();

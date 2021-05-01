@@ -1,9 +1,25 @@
 .button {
-  background: none;
-  border: 0;
+  $this: &;
+
+  @include transition(background-color $transition-time-slower $transition-ease);
+
+  color: var(--main-color);
+  line-height: 3;
+  padding: $input-text-padding;
+  text-align: left;
   width: 100%;
 
+  &:last-of-type {
+    border-radius: 0 0 ($input-border-radius - .1rem) ($input-border-radius - .1rem);
+  }
+
+  &:hover:not(#{$this}--selected) {
+    background: var(--theme-color-lighter);
+    color: var(--main-color);
+  }
+
   &--selected {
-    background: rgba(0, 0, 0, .3);
+    background: var(--theme-color);
+    color: var(--background-color);
   }
 }

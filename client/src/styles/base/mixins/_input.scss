@@ -22,3 +22,21 @@
     border-color: var(--danger-color-darker);
   }
 }
+
+@mixin input-sizes {
+  &--small {
+    width: $input-width-small;
+  }
+
+  &--medium {
+    width: $input-width-medium;
+  }
+
+  &--large {
+    width: $input-width-large;
+  }
+
+  &--stretch {
+    width: 100%;
+  }
+}

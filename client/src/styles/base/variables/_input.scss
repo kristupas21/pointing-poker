@@ -9,3 +9,4 @@ $input-width-large: 23rem;
 $input-label-offset: 1.5rem;
 $input-label-padding: $border-width * 2;
 $input-field-padding: .2rem ($input-label-offset + $border-width) 0 ($input-label-offset + $border-width);
+$input-text-padding: 0 ($input-label-offset + $border-width);

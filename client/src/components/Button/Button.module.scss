@@ -74,8 +74,13 @@
       @include shadow(-2px, 1px);
     }
 
-    #{$this}--selected & {
+    #{$this}--selected &,
+    #{$this}:active & {
       @include shadow(-1px, 1px);
+    }
+
+    #{$this}--selected & {
+      background: var(--theme-color-dark);
     }
 
     &:before {
@@ -104,7 +109,8 @@
         top: 1.7rem;
       }
 
-      #{$this}--selected & {
+      #{$this}--selected &,
+      #{$this}:active & {
         height: .1rem;
         top: 1.8rem;
       }
@@ -132,7 +138,8 @@
         top: 1.3rem;
       }
 
-      #{$this}:not(#{$this}--round)#{$this}--selected & {
+      #{$this}:not(#{$this}--round)#{$this}--selected &,
+      #{$this}:not(#{$this}--round)#{$this}:active & {
         height: .3rem;
         top: 1.4rem;
       }
@@ -176,10 +183,14 @@
       margin-top: .2rem
     }
 
-    #{$this}--selected & {
-      background: var(--theme-color);
+    #{$this}--selected &,
+    #{$this}:not(#{$this}--disabled):not(#{$this}--selected):active & {
       margin-left: .2rem;
       margin-top: .3rem;
+    }
+
+    #{$this}--selected & {
+      background: var(--theme-color);
     }
 
     #{$this}--colored:not(#{$this}--disabled)  & {

@@ -1,38 +1,49 @@
 .select {
+  $this: &;
+
   position: relative;
 
-  input {
+  &__input {
     cursor: pointer;
   }
 
+  &--open {
+    #{$this}__input {
+      border-radius: $input-border-radius $input-border-radius 0 0;
+    }
+  }
+
   &__arrow {
-    width: 22px;
+    $_arrow-size: 2.2rem;
+
+    width: $_arrow-size;
     display: inline-flex;
-    height: 22px;
+    height: $_arrow-size;
     position: absolute;
-    right: 10px;
-    top: 31px;
+    right: 1rem;
+    top: 3.1rem;
     cursor: pointer;
 
     &::after {
-      left: 6px;
-      top: 5px;
-      width: 7px;
-      height: 7px;
-      border: solid black;
-      border-width: 0 1px 1px 0;
+      left: .6rem;
+      top: .5rem;
+      width: .7rem;
+      height: .7rem;
+      border: $border;
+      border-color: var(--main-color);
+      border-width: 0 $border-width $border-width 0;
       transform: rotate(45deg);
       content: '';
       position: absolute;
     }
 
     &--up {
-      right: 11px;
+      right: 1.1rem;
 
       &::after {
         transform: rotate(-135deg);
-        left: 7px;
-        top: 9px;
+        left: .7rem;
+        top: .9rem;
       }
     }
   }

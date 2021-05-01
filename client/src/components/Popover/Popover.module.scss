@@ -1,11 +1,12 @@
 .popover {
-  background: #fff;
-  border: 2px solid var(--main-color);
-  border-radius: 7px;
+  background: var(--background-color);
+  border-radius: $input-border-radius;
+  border: $border;
+  border-color: var(--main-color);
   position: absolute;
   top: 100%;
-  z-index: 2;
   width: max-content;
+  z-index: $z-index-popover;
 
   &--left {
     left: 0;

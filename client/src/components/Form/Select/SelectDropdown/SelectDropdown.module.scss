@@ -1,17 +1,16 @@
-div.dropdown {
+.dropdown {
+  border-radius: 0 0 $input-border-radius $input-border-radius;
   display: flex;
   flex-direction: column;
-  top: 53px;
+  top: 6.5rem;
 
-  &--small {
-    width: 70px;
+  @include firefox {
+    top: -.6rem;
   }
 
-  &--medium {
-    width: 140px;
+  @include safari {
+    top: -2.1rem;
   }
 
-  &--large {
-    width: 230px;
-  }
+@include input-sizes;
 }

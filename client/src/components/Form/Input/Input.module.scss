@@ -5,21 +5,7 @@
   height: $input-height + ($input-error-height * 2);
   position: relative;
 
-  &--small {
-    width: $input-width-small;
-  }
-
-  &--medium {
-    width: $input-width-medium;
-  }
-
-  &--large {
-    width: $input-width-large;
-  }
-
-  &--stretch {
-    width: 100%;
-  }
+  @include input-sizes;
 
   &--disabled {
     opacity: $disabled-opacity;
@@ -32,7 +18,7 @@
     display: flex;
     height: $input-height;
     left: $border-width;
-    padding: 0 ($input-label-offset + $border-width);
+    padding: $input-text-padding;
     position: absolute;
     user-select: none;
     width: 100%;
@@ -131,7 +117,7 @@
       width: 100%;
       z-index: -1;
 
-      @supports (-moz-appearance:none) {
+      @include firefox {
         margin-top: 0;
       }
 
@@ -144,7 +130,7 @@
         top: -.2rem;
         width: .4rem;
 
-        @supports (-moz-appearance: none) {
+        @include firefox {
           top: -.3rem;
         }
       }

@@ -75,7 +75,7 @@ const Select: React.FC<SelectProps> = (props) => {
     : value);
 
   return (
-    <span className={cx('select')}>
+    <span className={cx('select', { 'select--open': isOpen })}>
       <Input
         value={getInputValue()}
         id={id}
@@ -90,7 +90,7 @@ const Select: React.FC<SelectProps> = (props) => {
         ref={inputRef}
         placeholder={placeholder}
         disabled={disabled}
-        className={className}
+        className={cx('select__input', className)}
       >
         <span
           className={cx('select__arrow', { 'select__arrow--up': isOpen })}
