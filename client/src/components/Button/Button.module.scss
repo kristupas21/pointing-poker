@@ -75,7 +75,7 @@
     }
 
     #{$this}--selected &,
-    #{$this}:active & {
+    #{$this}:not(#{$this}--selected):not(#{$this}--disabled):active & {
       @include shadow(-1px, 1px);
     }
 
