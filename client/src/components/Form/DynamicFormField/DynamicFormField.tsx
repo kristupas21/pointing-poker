@@ -1,4 +1,4 @@
-import React, { useRef, FocusEvent } from 'react';
+import React, { useRef, FocusEvent, ChangeEvent } from 'react';
 import Button, { ButtonVariant } from 'components/Button';
 import { IconId } from 'components/Icon';
 import { motion } from 'framer-motion';
@@ -11,26 +11,28 @@ import { InputProps } from '../Input';
 
 const cx = classNames.bind(styles);
 
-type Props = Omit<InputProps, 'onBlur'> & {
-  onRemoveClick: (id: string) => void;
-  isRemoveDisabled?: boolean;
-  isEditDisabled?: boolean;
-  onBlur: (e: FocusEvent<HTMLInputElement>, id: string, name?: string) => void;
+type Props = Omit<InputProps, 'onBlur' | 'onChange'> & {
   currentValue: string;
   fieldType?: FieldType.Input | FieldType.Number;
+  isEditDisabled?: boolean;
+  isRemoveDisabled?: boolean;
+  onBlur: (e: FocusEvent<HTMLInputElement>, id: string, name?: string) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>, id: string) => void;
+  onRemoveClick: (id: string) => void;
 }
 
 const DynamicFormField: React.FC<Props> = (props) => {
   const {
-    name,
-    id,
-    onRemoveClick,
-    isRemoveDisabled,
-    onBlur,
     currentValue,
-    isEditDisabled,
     fieldType = FieldType.Input,
+    id,
+    isEditDisabled,
     isReadonly,
+    isRemoveDisabled,
+    name,
+    onBlur,
+    onChange,
+    onRemoveClick,
     ...fieldProps
   } = props;
 
@@ -44,6 +46,10 @@ const DynamicFormField: React.FC<Props> = (props) => {
   const getFieldValue = () =>
     ((currentValue && currentValue !== FIELD_VALUE_PLACEHOLDER) ? currentValue : '');
 
+  const getOtherProps = () => ({
+    ...onChange && { onChange: (e) => onChange(e, id) }
+  });
+
   return (
     <motion.span key={id} {...animations.simpleOpacity} className={cx('field')}>
       <FormField
@@ -56,6 +62,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
         disabled={isEditDisabled}
         id={id}
         isReadonly={isReadonly}
+        {...getOtherProps()}
       />
       {isReadonly || (
         <Button

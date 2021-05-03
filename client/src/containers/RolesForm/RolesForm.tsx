@@ -1,49 +1,35 @@
-import React, { FocusEvent, useState } from 'react';
-import { Form, Formik } from 'formik';
+import React, { useState } from 'react';
+import { Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import {
   addSessionRole,
-  removeSessionRole,
-  saveSessionRoles,
-  resetSessionRoles, clearSessionPlaceholders,
+  resetSessionRoles,
+  clearSessionPlaceholders,
 } from 'state/session/sessionActions';
 import Button, { ButtonVariant } from 'components/Button';
 import { IconId } from 'components/Icon';
-import DynamicFormField from 'components/Form/DynamicFormField';
 import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles';
-import { unlockAppHiddenFeats } from 'state/app/appActions';
-import { getAppHiddenFeatsUnlocked } from 'state/app/appStateGetters';
-import { valueUnlocksHiddenFeats } from 'utils/hiddenFeats';
-import { mapRolesToFormData, withURF } from './utils';
-import { MAX_ROLES_COUNT, MIN_ROLES_COUNT } from './constants';
+import { FormProps } from 'utils/form/types';
+import { mapRolesToFormData } from './utils';
+import { MAX_ROLES_COUNT } from './constants';
+import { getRolesFormSchema } from './validationSchema';
+import RolesFormFields from './RolesFormFields';
 
 const actions = {
-  removeRole: removeSessionRole,
-  saveRoles: saveSessionRoles,
   addRole: addSessionRole,
-  resetRoles: resetSessionRoles,
-  unlockHiddenFeats: unlockAppHiddenFeats,
   clearPlaceholders: clearSessionPlaceholders,
+  resetRoles: resetSessionRoles,
 };
 
 const RolesForm: React.FC = () => {
   const roles = useSelector(getSessionRoles);
-  const hiddenFeatsUnlocked = useSelector(getAppHiddenFeatsUnlocked);
-  const {
-    removeRole,
-    saveRoles,
-    addRole,
-    resetRoles,
-    unlockHiddenFeats,
-    clearPlaceholders,
-  } = useMappedDispatch(actions);
+  const { addRole, resetRoles, clearPlaceholders } = useMappedDispatch(actions);
   const [isEditOn, setEditOn] = useState(false);
   const initialValues = mapRolesToFormData(roles);
   const text = useText();
-  const isRemoveDisabled = roles.length <= MIN_ROLES_COUNT;
   const isAddDisabled = !isEditOn || roles.length >= MAX_ROLES_COUNT;
 
   const handleEditClick = () => {
@@ -71,48 +57,11 @@ const RolesForm: React.FC = () => {
         enableReinitialize
         initialValues={initialValues}
         onSubmit={undefined}
+        validationSchema={getRolesFormSchema(roles)}
       >
-        {({ handleBlur, values, resetForm }) => {
-          const submitValues = (e: FocusEvent<HTMLInputElement>, id: string) => {
-            const value = values[id];
-            const duplicateOrEmpty = !value || roles.some((r) => r === value);
-
-            handleBlur(e);
-
-            if (!hiddenFeatsUnlocked && valueUnlocksHiddenFeats(value)) {
-              unlockHiddenFeats();
-              return resetForm();
-            }
-
-            if (duplicateOrEmpty) {
-              return resetForm();
-            }
-
-            return saveRoles(Object.values(values));
-          };
-
-          return (
-            <Form name={withURF('form')} noValidate>
-              {roles.map((role) => {
-                const name = withURF(role);
-                const handleRemoveClick = () => removeRole(role);
-
-                return (
-                  <DynamicFormField
-                    key={name}
-                    id={name}
-                    isRemoveDisabled={isRemoveDisabled}
-                    onRemoveClick={handleRemoveClick}
-                    onBlur={submitValues}
-                    name={name}
-                    currentValue={values[name]}
-                    isReadonly={!isEditOn}
-                  />
-                );
-              })}
-            </Form>
-          );
-        }}
+        {(formikProps: FormProps<Record<string, string>>) => (
+          <RolesFormFields {...formikProps} isReadonly={!isEditOn} />
+        )}
       </Formik>
       <Button
         variant={ButtonVariant.Primary}
