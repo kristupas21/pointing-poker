@@ -15,8 +15,6 @@ export const DEFAULT_POINT_VALUES: PointValue[] = [
   { id: 'default-7', pos: 7, value: '21' },
   { id: 'default-8', pos: 8, value: '40' },
   { id: 'default-9', pos: 9, value: '100' },
-  { id: 'default-10', pos: 10, value: POINT_VALUE_INFINITY, mandatoryId: 'infinity' },
-  { id: 'default-11', pos: 11, value: POINT_VALUE_UNKNOWN, mandatoryId: 'unknown' },
+  { id: 'immutable-1', pos: 10, value: POINT_VALUE_INFINITY, immutable: true },
+  { id: 'immutable-2', pos: 11, value: POINT_VALUE_UNKNOWN, immutable: true },
 ];
-
-export const generatePointValueId = () => `custom-${new Date().getTime()}`;

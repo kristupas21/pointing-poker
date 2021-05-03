@@ -2,10 +2,12 @@ import { ActionType, Reducer } from 'typesafe-actions';
 import storageService, { StorageKey } from 'utils/storageService';
 import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
-import { DEFAULT_POINT_VALUES, generatePointValueId } from 'utils/pointValues/constants';
+import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
+import { generatePointValueId, mapPointIndexToPos } from 'utils/pointValues/functions';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles';
-import { getRandomAvatar } from 'components/Avatar';
+import { getFirstAvatar } from 'components/Avatar';
 import { FIELD_ID_PLACEHOLDER, FIELD_VALUE_PLACEHOLDER } from 'utils/form/constants';
+import { insertAtIndex } from 'utils/common';
 import { SessionState } from './sessionModel';
 import { createPointValue, removePointValuePlaceholders, removeRolePlaceholders } from './sessionUtils';
 import {
@@ -67,18 +69,21 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
         }
       };
     }
-    case ADD_SESSION_POINT_VALUE:
+    case ADD_SESSION_POINT_VALUE: {
+      const filteredValues = state.pointValues.filter((p) => p.id !== FIELD_ID_PLACEHOLDER);
+      const index = filteredValues.findIndex((p) => p.immutable);
+      const pointValues = insertAtIndex(filteredValues, index, createPointValue())
+        .map(mapPointIndexToPos);
+
       return {
         ...state,
-        pointValues: [
-          ...state.pointValues.filter((p) => p.id !== FIELD_ID_PLACEHOLDER),
-          createPointValue({ pos: state.pointValues.length }),
-        ],
+        pointValues,
       };
+    }
     case REMOVE_SESSION_POINT_VALUE: {
       const pointValues = state.pointValues
         .filter((p) => p.id !== action.payload)
-        .map((p, pos) => createPointValue({ ...p, pos }));
+        .map(mapPointIndexToPos);
 
       storageService.set(StorageKey.PointValues, pointValues);
 
@@ -183,7 +188,7 @@ function initialUser(): User {
 
   return storageService.set<User>(
     StorageKey.User,
-    { avatarId: getRandomAvatar() },
+    { avatarId: getFirstAvatar() },
     true
   );
 }

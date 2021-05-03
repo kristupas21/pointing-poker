@@ -1,6 +1,6 @@
 export interface PointValue {
   id: string;
-  mandatoryId?: string;
+  immutable?: boolean;
   pos: number;
   value: string;
 }

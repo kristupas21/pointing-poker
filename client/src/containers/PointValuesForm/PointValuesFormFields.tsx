@@ -52,21 +52,21 @@ const PointValuesFormFields: React.FC<Props> = (props) => {
   return (
     <Form name={withPVF('form')} noValidate>
       {pointValues.map((point) => {
-        const { id, mandatoryId, pos } = point;
-        const name = withPVF(mandatoryId || pos);
+        const { id, immutable, pos } = point;
+        const name = withPVF(immutable ? id : pos);
 
         return (
           <DynamicFormField
             key={id}
             id={id}
-            isRemoveDisabled={isRemoveDisabled || !!mandatoryId}
+            isRemoveDisabled={isRemoveDisabled || immutable}
             onRemoveClick={removePointValue}
             onBlur={submitValues}
             name={name}
             currentValue={values[name]}
-            isEditDisabled={!!mandatoryId}
+            isEditDisabled={immutable}
             fieldSize={FieldSize.Small}
-            fieldType={mandatoryId ? FieldType.Input : FieldType.Number}
+            fieldType={immutable ? FieldType.Input : FieldType.Number}
             isReadonly={isReadonly}
           />
         );

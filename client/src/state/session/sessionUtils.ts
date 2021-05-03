@@ -15,13 +15,13 @@ export function createUser(props?: Partial<User>): User {
   };
 }
 
-export function createPointValue(props: Partial<PointValue>): PointValue {
-  const { id, value, pos, ...other } = props;
+export function createPointValue(props?: Partial<PointValue>): PointValue {
+  const { id, value, pos, ...other } = props || {};
 
   return {
     id: id || FIELD_ID_PLACEHOLDER,
     value: value || '',
-    pos,
+    pos: pos || 0,
     ...other,
   };
 }

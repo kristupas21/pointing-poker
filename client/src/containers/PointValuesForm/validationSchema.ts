@@ -6,10 +6,10 @@ import { withPVF } from './utils';
 
 export const getPointValuesFormSchema = (points: PointValue[]): SchemaOf<Record<string, any>> => {
   const getSchema = (): Record<string, any> => points.reduce((acc, curr) => {
-    if (curr.mandatoryId) {
+    if (curr.immutable) {
       return {
         ...acc,
-        [withPVF(curr.mandatoryId)]: undefined,
+        [withPVF(curr.id)]: undefined,
       };
     }
 
