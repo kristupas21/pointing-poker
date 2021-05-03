@@ -14,6 +14,4 @@ export const FORM_ERR_MIN: MessageId = 'form.validation.min';
 
 export const FORM_ERR_MAX: MessageId = 'form.validation.max';
 
-export const FIELD_VALUE_PLACEHOLDER = '__FIELD_VALUE__';
-
-export const FIELD_ID_PLACEHOLDER = '__FIELD_ID__';
+export const FIELD_PLACEHOLDER = '__FIELD_PLACEHOLDER__';

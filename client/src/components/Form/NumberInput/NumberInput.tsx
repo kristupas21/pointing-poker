@@ -48,7 +48,6 @@ const NumberInput: React.FC<NumberInputProps> = (props) => {
       <Field
         {...fieldProps}
         name={name}
-        id={name}
         type="number"
         min={min}
         max={max}

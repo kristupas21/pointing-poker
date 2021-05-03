@@ -6,7 +6,7 @@ import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
 import { generatePointValueId, mapPointIndexToPos } from 'utils/pointValues/functions';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles';
 import { getFirstAvatar } from 'components/Avatar';
-import { FIELD_ID_PLACEHOLDER, FIELD_VALUE_PLACEHOLDER } from 'utils/form/constants';
+import { FIELD_PLACEHOLDER } from 'utils/form/constants';
 import { insertAtIndex } from 'utils/common';
 import { SessionState } from './sessionModel';
 import { createPointValue, removePointValuePlaceholders, removeRolePlaceholders } from './sessionUtils';
@@ -70,7 +70,7 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
       };
     }
     case ADD_SESSION_POINT_VALUE: {
-      const filteredValues = state.pointValues.filter((p) => p.id !== FIELD_ID_PLACEHOLDER);
+      const filteredValues = state.pointValues.filter((p) => p.id !== FIELD_PLACEHOLDER);
       const index = filteredValues.findIndex((p) => p.immutable);
       const pointValues = insertAtIndex(filteredValues, index, createPointValue())
         .map(mapPointIndexToPos);
@@ -96,7 +96,7 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
       const { id } = action.payload;
       const pointValues = state.pointValues.map((p, pos) => {
         const props = id === p.id
-          ? { ...action.payload, pos, ...(id === FIELD_ID_PLACEHOLDER && { id: generatePointValueId() }) }
+          ? { ...action.payload, pos, ...(id === FIELD_PLACEHOLDER && { id: generatePointValueId() }) }
           : { ...p, pos };
 
         return createPointValue(props);
@@ -121,7 +121,7 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
       return {
         ...state,
         roles: [
-          ...new Set([...state.roles, FIELD_VALUE_PLACEHOLDER])
+          ...new Set([...state.roles, FIELD_PLACEHOLDER])
         ],
       };
     case REMOVE_SESSION_ROLE: {

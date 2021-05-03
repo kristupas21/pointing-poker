@@ -12,7 +12,7 @@ import { getSessionPointValues } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
 import { FormProps } from 'utils/form/types';
-import { mapPointValuesToFormData } from './utils';
+import { focusPointValuePlaceholder, mapPointValuesToFormData } from './utils';
 import { MAX_POINT_VALUES_COUNT } from './constants';
 import { getPointValuesFormSchema } from './validationSchema';
 import PointValuesFormFields from './PointValuesFormFields';
@@ -34,6 +34,11 @@ const PointValuesForm: React.FC = () => {
   const handleEditClick = () => {
     isEditOn && clearPlaceholders();
     setEditOn((wasEditOn) => !wasEditOn);
+  };
+
+  const handleAdd = () => {
+    addPointValue();
+    setTimeout(focusPointValuePlaceholder);
   };
 
   return (
@@ -63,7 +68,7 @@ const PointValuesForm: React.FC = () => {
         )}
       </Formik>
       <Button
-        onClick={addPointValue}
+        onClick={handleAdd}
         disabled={isAddDisabled}
         icon={IconId.Add}
         variant={ButtonVariant.Primary}

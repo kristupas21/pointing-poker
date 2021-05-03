@@ -4,7 +4,7 @@ import { IconId } from 'components/Icon';
 import { motion } from 'framer-motion';
 import animations from 'utils/animations';
 import classNames from 'classnames/bind';
-import { FIELD_VALUE_PLACEHOLDER } from 'utils/form/constants';
+import { FIELD_PLACEHOLDER } from 'utils/form/constants';
 import { FieldType, FormField } from '..';
 import styles from './DynamicFormField.module.scss';
 import { InputProps } from '../Input';
@@ -44,7 +44,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
   const handleBlur = (e) => onBlur(e, id, name);
 
   const getFieldValue = () =>
-    ((currentValue && currentValue !== FIELD_VALUE_PLACEHOLDER) ? currentValue : '');
+    ((currentValue && currentValue !== FIELD_PLACEHOLDER) ? currentValue : '');
 
   const getOtherProps = () => ({
     ...onChange && { onChange: (e) => onChange(e, id) }
@@ -64,7 +64,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
         isReadonly={isReadonly}
         {...getOtherProps()}
       />
-      {isReadonly || (
+      {isReadonly || isEditDisabled || (
         <Button
           onClick={handleRemoveClick}
           disabled={isRemoveDisabled}

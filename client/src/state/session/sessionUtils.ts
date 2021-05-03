@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
-import { FIELD_ID_PLACEHOLDER, FIELD_VALUE_PLACEHOLDER } from 'utils/form/constants';
+import { FIELD_PLACEHOLDER } from 'utils/form/constants';
 
 export function createUser(props?: Partial<User>): User {
   const { id, name, role = '', isObserver = false, ...other } = props;
@@ -19,7 +19,7 @@ export function createPointValue(props?: Partial<PointValue>): PointValue {
   const { id, value, pos, ...other } = props || {};
 
   return {
-    id: id || FIELD_ID_PLACEHOLDER,
+    id: id || FIELD_PLACEHOLDER,
     value: value || '',
     pos: pos || 0,
     ...other,
@@ -54,9 +54,9 @@ export function normalizePointValues(points: PointValue[]): PointValue[] {
 }
 
 export function removeRolePlaceholders(roles: string[]): string[] {
-  return (roles || []).filter((r) => r && r !== FIELD_VALUE_PLACEHOLDER);
+  return (roles || []).filter((r) => r && r !== FIELD_PLACEHOLDER);
 }
 
 export function removePointValuePlaceholders(points: PointValue[]): PointValue[] {
-  return (points || []).filter((p) => p.id !== FIELD_ID_PLACEHOLDER);
+  return (points || []).filter((p) => p.id !== FIELD_PLACEHOLDER);
 }

@@ -13,7 +13,7 @@ import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles';
 import { FormProps } from 'utils/form/types';
-import { mapRolesToFormData } from './utils';
+import { focusRolePlaceholder, mapRolesToFormData } from './utils';
 import { MAX_ROLES_COUNT } from './constants';
 import { getRolesFormSchema } from './validationSchema';
 import RolesFormFields from './RolesFormFields';
@@ -35,6 +35,11 @@ const RolesForm: React.FC = () => {
   const handleEditClick = () => {
     isEditOn && clearPlaceholders();
     setEditOn((wasEditOn) => !wasEditOn);
+  };
+
+  const handleAdd = () => {
+    addRole();
+    setTimeout(focusRolePlaceholder);
   };
 
   return (
@@ -66,7 +71,7 @@ const RolesForm: React.FC = () => {
       <Button
         variant={ButtonVariant.Primary}
         icon={IconId.Add}
-        onClick={addRole}
+        onClick={handleAdd}
         disabled={isAddDisabled}
         round
       />

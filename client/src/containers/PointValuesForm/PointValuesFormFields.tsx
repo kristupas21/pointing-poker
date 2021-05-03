@@ -59,7 +59,7 @@ const PointValuesFormFields: React.FC<Props> = (props) => {
           <DynamicFormField
             key={id}
             id={id}
-            isRemoveDisabled={isRemoveDisabled || immutable}
+            isRemoveDisabled={isRemoveDisabled}
             onRemoveClick={removePointValue}
             onBlur={submitValues}
             name={name}
