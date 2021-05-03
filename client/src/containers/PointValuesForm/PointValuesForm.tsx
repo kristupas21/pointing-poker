@@ -6,7 +6,7 @@ import {
   addSessionPointValue,
   removeSessionPointValue,
   saveSessionPointValue,
-  resetSessionPointValues,
+  resetSessionPointValues, clearSessionPlaceholders,
 } from 'state/session/sessionActions';
 import Button, { ButtonVariant } from 'components/Button';
 import { IconId } from 'components/Icon';
@@ -25,6 +25,7 @@ const actions = {
   savePointValue: saveSessionPointValue,
   addPointValue: addSessionPointValue,
   resetPointValues: resetSessionPointValues,
+  clearPlaceholders: clearSessionPlaceholders,
 };
 
 const PointValuesForm: React.FC = () => {
@@ -33,6 +34,7 @@ const PointValuesForm: React.FC = () => {
     savePointValue,
     addPointValue,
     resetPointValues,
+    clearPlaceholders,
   } = useMappedDispatch(actions);
   const pointValues = useSelector(getSessionPointValues);
   const [isEditOn, setEditOn] = useState(false);
@@ -41,11 +43,16 @@ const PointValuesForm: React.FC = () => {
   const isRemoveDisabled = pointValues.length <= MIN_POINT_VALUES_COUNT;
   const isAddDisabled = !isEditOn || pointValues.length >= MAX_POINT_VALUES_COUNT;
 
+  const handleEditClick = () => {
+    isEditOn && clearPlaceholders();
+    setEditOn((wasEditOn) => !wasEditOn);
+  };
+
   return (
     <>
       <h4>{text('session.pointValues')}</h4>
       <Button
-        onClick={() => setEditOn(!isEditOn)}
+        onClick={handleEditClick}
         icon={isEditOn ? IconId.Checkmark : IconId.Edit}
         variant={ButtonVariant.Primary}
         round

@@ -23,6 +23,7 @@ import {
   RESET_SESSION_STATE,
   RESET_SESSION_ROLES,
   RESET_SESSION_POINT_VALUES,
+  CLEAR_SESSION_PLACEHOLDERS,
 } from './sessionConstants';
 
 export const initSession = (params: Partial<SessionState>) =>
@@ -74,3 +75,5 @@ export const getSessionInfo = (
 export const resetSessionRoles = () => action(RESET_SESSION_ROLES);
 
 export const resetSessionPointValues = () => action(RESET_SESSION_POINT_VALUES);
+
+export const clearSessionPlaceholders = () => action(CLEAR_SESSION_PLACEHOLDERS);

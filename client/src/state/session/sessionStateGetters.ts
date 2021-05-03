@@ -2,7 +2,7 @@ import { State, User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
 import { AvatarId } from 'components/Avatar';
 import { SessionState } from './sessionModel';
-import { removeEmptyRoles } from './sessionUtils';
+import { removeRolePlaceholders } from './sessionUtils';
 
 export const getSessionState = (state: State): SessionState => state.session;
 
@@ -24,7 +24,7 @@ export const getSessionPointValues = (state: State): PointValue[] => state.sessi
 export const getSessionRoles = (state: State): string[] => state.session.roles;
 
 export const getNormalizedSessionRoles = (state: State): string[] =>
-  removeEmptyRoles(state.session.roles);
+  removeRolePlaceholders(state.session.roles);
 
 export const getSessionUseRoles = (state: State): boolean => state.session.useRoles;
 

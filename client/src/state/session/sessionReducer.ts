@@ -2,15 +2,16 @@ import { ActionType, Reducer } from 'typesafe-actions';
 import storageService, { StorageKey } from 'utils/storageService';
 import { User } from 'globalTypes';
 import { PointValue } from 'utils/pointValues/types';
-import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
+import { DEFAULT_POINT_VALUES, generatePointValueId } from 'utils/pointValues/constants';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles';
 import { getRandomAvatar } from 'components/Avatar';
 import { FIELD_ID_PLACEHOLDER, FIELD_VALUE_PLACEHOLDER } from 'utils/form/constants';
 import { SessionState } from './sessionModel';
-import { createPointValue } from './sessionUtils';
+import { createPointValue, removePointValuePlaceholders, removeRolePlaceholders } from './sessionUtils';
 import {
   ADD_SESSION_POINT_VALUE,
   ADD_SESSION_ROLE,
+  CLEAR_SESSION_PLACEHOLDERS,
   CLOSE_SESSION,
   INIT_SESSION,
   MODIFY_SESSION_USER,
@@ -87,10 +88,14 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
       };
     }
     case SAVE_SESSION_POINT_VALUE: {
-      const pointValues = state.pointValues.map((p) => ({
-        ...p,
-        ...(p.id === action.payload.id && action.payload)
-      }));
+      const { id } = action.payload;
+      const pointValues = state.pointValues.map((p, pos) => {
+        const props = id === p.id
+          ? { ...action.payload, pos, ...(id === FIELD_ID_PLACEHOLDER && { id: generatePointValueId() }) }
+          : { ...p, pos };
+
+        return createPointValue(props);
+      });
 
       storageService.set(StorageKey.PointValues, pointValues);
 
@@ -139,6 +144,19 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
       return {
         ...state,
         roles: DEFAULT_USER_ROLES,
+      };
+    }
+    case CLEAR_SESSION_PLACEHOLDERS: {
+      const pointValues = removePointValuePlaceholders(state.pointValues);
+      const roles = removeRolePlaceholders(state.roles);
+
+      storageService.set(StorageKey.PointValues, pointValues);
+      storageService.set(StorageKey.Roles, roles);
+
+      return {
+        ...state,
+        pointValues,
+        roles,
       };
     }
     case RESET_SESSION_STATE:

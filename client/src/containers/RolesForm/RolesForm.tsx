@@ -6,7 +6,7 @@ import {
   addSessionRole,
   removeSessionRole,
   saveSessionRoles,
-  resetSessionRoles,
+  resetSessionRoles, clearSessionPlaceholders,
 } from 'state/session/sessionActions';
 import Button, { ButtonVariant } from 'components/Button';
 import { IconId } from 'components/Icon';
@@ -26,6 +26,7 @@ const actions = {
   addRole: addSessionRole,
   resetRoles: resetSessionRoles,
   unlockHiddenFeats: unlockAppHiddenFeats,
+  clearPlaceholders: clearSessionPlaceholders,
 };
 
 const RolesForm: React.FC = () => {
@@ -36,7 +37,8 @@ const RolesForm: React.FC = () => {
     saveRoles,
     addRole,
     resetRoles,
-    unlockHiddenFeats
+    unlockHiddenFeats,
+    clearPlaceholders,
   } = useMappedDispatch(actions);
   const [isEditOn, setEditOn] = useState(false);
   const initialValues = mapRolesToFormData(roles);
@@ -44,11 +46,16 @@ const RolesForm: React.FC = () => {
   const isRemoveDisabled = roles.length <= MIN_ROLES_COUNT;
   const isAddDisabled = !isEditOn || roles.length >= MAX_ROLES_COUNT;
 
+  const handleEditClick = () => {
+    isEditOn && clearPlaceholders();
+    setEditOn((wasEditOn) => !wasEditOn);
+  };
+
   return (
     <>
       <h4>{text('session.roles')}</h4>
       <Button
-        onClick={() => setEditOn(!isEditOn)}
+        onClick={handleEditClick}
         icon={isEditOn ? IconId.Checkmark : IconId.Edit}
         variant={ButtonVariant.Primary}
         round

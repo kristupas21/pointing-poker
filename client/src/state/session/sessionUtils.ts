@@ -53,6 +53,10 @@ export function normalizePointValues(points: PointValue[]): PointValue[] {
   }));
 }
 
-export function removeEmptyRoles(roles: string[]): string[] {
+export function removeRolePlaceholders(roles: string[]): string[] {
   return (roles || []).filter((r) => r && r !== FIELD_VALUE_PLACEHOLDER);
+}
+
+export function removePointValuePlaceholders(points: PointValue[]): PointValue[] {
+  return (points || []).filter((p) => p.id !== FIELD_ID_PLACEHOLDER);
 }
