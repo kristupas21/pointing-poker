@@ -1,9 +1,7 @@
 .avatar {
-  background: #fff;
-  border: 1px solid #999;
+  background: var(--background-color);
   border-radius: 50%;
-  color: black;
+  box-shadow: box-shadow-border();
   display: inline-flex;
   overflow: hidden;
-  padding: 4px;
 }

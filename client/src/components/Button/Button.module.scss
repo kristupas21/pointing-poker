@@ -44,12 +44,11 @@
   }
 
   &__back {
-    @include shadow;
-    @include transition(box-shadow $transition-time $transition-ease, border-color $transition-time $transition-ease, background-color $transition-time $transition-ease);
+    @include transition(box-shadow $transition-time $transition-ease, background-color $transition-time $transition-ease);
 
     background: var(--theme-color-lighter);
     border-radius: $button-height;
-    border: $border;
+    box-shadow: box-shadow-border(var(--theme-color-darker)), shadow();
     bottom: 0;
     height: $button-height;
     left: 0;
@@ -62,8 +61,8 @@
     }
 
     #{$this}--disabled & {
-      background: var(--main-color-lighter);
-      border-color: var(--main-color);
+      background: var(--main-color-light);
+      box-shadow: box-shadow-border();
     }
 
     #{$this}--colored:not(#{$this}--disabled) & {
@@ -71,12 +70,12 @@
     }
 
     #{$this}:not(#{$this}--selected):not(#{$this}--disabled):hover & {
-      @include shadow(-2px, 1px);
+      box-shadow: box-shadow-border(var(--theme-color-darker)), -2px 1px 2px 0 var(--shadow-color); // TODO proper mixin for multiple shadows
     }
 
     #{$this}--selected &,
     #{$this}:not(#{$this}--selected):not(#{$this}--disabled):active & {
-      @include shadow(-1px, 1px);
+      box-shadow: box-shadow-border(var(--theme-color-darker)), -1px 1px 2px 0 var(--shadow-color);
     }
 
     #{$this}--selected & {
@@ -85,34 +84,32 @@
 
     &:before {
       background: var(--theme-color-lighter);
-      border: $border;
-      border-bottom: 0;
-      border-right: 0;
+      box-shadow: inset 1px 1px 0 0 var(--theme-color-darker);
       content: '';
-      height: .5rem;
-      left: 0;
+      height: .7rem;
+      left: .2rem;
       position: absolute;
-      top: 1.6rem;
-      width: $button-width-round - .2rem;
-      transform: rotate(46.5deg);
+      top: 1.5rem;
+      transform: rotate(45deg);
+      width: 4.1rem;
 
       #{$this}--round & {
-        border-right: $border;
+        box-shadow: inset 1px 1px 0 0 var(--theme-color-darker), 1px 0 0 0 var(--theme-color-darker);
       }
 
       #{$this}--disabled & {
-        border-color: var(--main-color);
+        box-shadow: box-shadow-border();
       }
-
-      #{$this}:not(#{$this}--selected):hover & {
-        height: .3rem;
-        top: 1.7rem;
+ 
+      #{$this}:not(#{$this}--selected):not(#{$this}:active):hover & {
+        height: .6rem;
+        top: 1.6rem;
       }
 
       #{$this}--selected &,
       #{$this}:active & {
-        height: .1rem;
-        top: 1.8rem;
+        height: .4rem;
+        top: 1.7rem;
       }
     }
 
@@ -121,43 +118,41 @@
         content: '';
       }
 
-      border: $border;
-      height: .7rem;
+      box-shadow: inset -1px 1px 0 0 var(--theme-color-darker);
+      height: .8rem;
       position: absolute;
-      right: -.4rem;
-      top: 1.2rem;
-      transform: rotate(46.5deg);
+      right: -.3rem;
+      top: 1.4rem;
+      transform: rotate(45deg);
       width: $button-width-round;
 
       #{$this}--disabled & {
-        border-color: var(--main-color);
+        box-shadow: box-shadow-border();
       }
 
       #{$this}:not(#{$this}--round)#{$this}:not(#{$this}--selected):hover & {
-        height: .5rem;
-        top: 1.3rem;
+        height: .7rem;
       }
 
       #{$this}:not(#{$this}--round)#{$this}--selected &,
       #{$this}:not(#{$this}--round)#{$this}:active & {
-        height: .3rem;
-        top: 1.4rem;
+        content: none;
       }
     }
 
     &:before,
     &:after {
-      @include transition(margin $transition-time $transition-ease, border-color $transition-time $transition-ease, background-color $transition-time $transition-ease);
+      @include transition(margin $transition-time $transition-ease, box-shadow $transition-time $transition-ease, background-color $transition-time $transition-ease);
     }
   }
 
   &__front {
-    @include transition(margin $transition-time $transition-ease, border-color $transition-time $transition-ease, background-color $transition-time $transition-ease);
+    @include transition(margin $transition-time $transition-ease, box-shadow $transition-time $transition-ease, background-color $transition-time $transition-ease);
 
     align-items: center;
     background: var(--background-color);
     border-radius: $button-height;
-    border: $border;
+    box-shadow: box-shadow-border(var(--theme-color-darker));
     display: flex;
     height: $button-height;
     justify-content: center;
@@ -174,8 +169,8 @@
     }
 
     #{$this}--disabled & {
-      border-color: var(--main-color);
       background: var(--background-color);
+      box-shadow: box-shadow-border();
     }
 
     #{$this}:not(#{$this}--selected):not(#{$this}--disabled):hover & {

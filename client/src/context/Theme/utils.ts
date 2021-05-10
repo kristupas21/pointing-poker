@@ -1,10 +1,11 @@
-import { colorWithOpacity, darkColor, darkerColor, generateCssVarName, lightColor, lighterColor } from 'utils/colors';
+import { colorWithOpacity, darkColor, darkerColor, generateCssVarName, lightColor, lighterColor, grayedColor } from 'utils/colors';
 import { COLOR_BLUE, COLOR_DARK, COLOR_GREEN, COLOR_PINK, COLOR_RED, COLOR_VIOLET, COLOR_WHITE } from 'utils/colors/constants';
 import { Theme, ThemeContextState, ThemeVariables } from './types';
 
 const themeColors = (color: string): ThemeVariables => ({
   mainColor: { default: COLOR_DARK, inverted: COLOR_WHITE },
-  mainColorLighter: { default: lighterColor(COLOR_DARK), inverted: lighterColor(COLOR_DARK) },
+  mainColorLight: { default: lighterColor(COLOR_DARK), inverted: lighterColor(COLOR_DARK) },
+  mainColorLighter: { default: grayedColor(COLOR_DARK), inverted: COLOR_DARK },
   backgroundColor: { default: COLOR_WHITE, inverted: COLOR_DARK },
   dangerColor: { default: COLOR_RED, inverted: COLOR_RED },
   dangerColorDark: { default: darkColor(COLOR_RED), inverted: darkColor(COLOR_RED) },

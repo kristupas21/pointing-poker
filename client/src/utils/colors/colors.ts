@@ -9,7 +9,7 @@ export function lightColor(color: string): string {
 }
 
 export function lighterColor(color: string): string {
-  return Color(color).lighten(0.27).mix(Color('#EEEEEE'), 0.8).hex();
+  return Color(color).lighten(0.27).mix(Color('#eeeeee'), 0.8).hex();
 }
 
 export function darkColor(color: string): string {
@@ -22,4 +22,8 @@ export function darkerColor(color: string): string {
 
 export function colorWithOpacity(color: string, alpha: number) {
   return Color(color).alpha(alpha).rgb();
+}
+
+export function grayedColor(color: string): string {
+  return Color(color).lighten(0.2).mix(Color('#EBECF2'), 0.97).hex();
 }

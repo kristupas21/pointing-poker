@@ -9,14 +9,15 @@ const cx = classNames.bind(styles);
 
 interface Props {
   id: AvatarId,
+  className?: string;
 }
 
 const Avatar: React.FC<Props> = (props) => {
-  const { id } = props;
+  const { id, className } = props;
   const icon = getAvatarIcon(id);
 
   return (
-    <span className={cx('avatar')}>
+    <span className={cx('avatar', className)}>
       <Icon id={icon} />
     </span>
   );

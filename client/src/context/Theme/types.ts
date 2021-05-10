@@ -28,6 +28,7 @@ type ThemeVariableKey =
     'dangerColorDarker' |
     'dangerColorLighter' |
     'mainColor' |
+    'mainColorLight' |
     'mainColorLighter' |
     'shadowColor' |
     'themeColor' |

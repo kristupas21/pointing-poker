@@ -1,13 +1,17 @@
 .avatar-selector {
-  align-items: center;
-  height: 43px;
-  justify-content: center;
-  padding: 0 4px;
+  height: min-content;
+  margin-top: 2.2rem;
   position: absolute;
-  right: 0;
-  top: 20px;
+  right: -5rem;
 }
 
 .input {
-  padding-right: 40px;
+  padding-right: 4rem;
+}
+
+
+.form {
+  &__name-wrapper {
+    display: flex;
+  }
 }

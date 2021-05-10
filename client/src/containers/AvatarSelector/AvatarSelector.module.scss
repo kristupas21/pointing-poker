@@ -1,4 +1,79 @@
-.selector {
-  display: flex;
-  position: relative;
+.avatar-selector {
+  &__popover-wrapper {
+    z-index: $z-index-popover;
+  }
+
+  &__popover {
+    @include shadow(2px, 2px, null, 4px, 0);
+
+    background: var(--main-color-lighter);
+    border-radius: $input-border-radius;
+    border: 1px solid var(--main-color-light);
+    margin-top: 1rem;
+    padding: 1.6rem;
+  }
+
+  &__popover-arrow {
+    top: -.2rem;
+    width: 0;
+    height: 0;
+    border-left: 1.3rem solid transparent;
+    border-right: 1.3rem solid transparent;
+    border-bottom: 1.3rem solid var(--main-color-light);
+
+    &:after {
+      border-bottom: .6rem solid var(--main-color-lighter);
+      border-left: .6rem solid transparent;
+      border-right: .6rem solid transparent;
+      content: '';
+      height: 0;
+      margin-left: -1.6rem;
+      position: absolute;
+      width: 2rem;
+    }
+  }
+
+  &__popover-arrow-inner {
+    border-bottom: 1rem solid var(--main-color-lighter);
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+    height: 0;
+    margin-left: -1rem;
+    margin-top: .1rem;
+    width: 0;
+  }
+
+  &__options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  &__option {
+    margin: .8rem;
+    line-height: .6;
+    position: relative;
+  }
+
+  &__selected-indicator {
+    align-items: center;
+    background: var(--theme-color);
+    border-radius: 50%;
+    bottom: -.5rem;
+    display: flex;
+    height: 1.8rem;
+    justify-content: center;
+    position: absolute;
+    right: -.5rem;
+    width: 1.8rem;
+  }
+
+  &__avatar {
+    &:hover {
+      @include transition(transform 250ms ease, box-shadow 200ms ease);
+      @include shadow(0, 0, null, 3px);
+      box-shadow: 0px 0px 3px 0px var(--shadow-color), inset 0px 0px 0 1px var(--main-color);
+
+      transform: scale(1.4) translate(-1px, -1px);
+    }
+  }
 }

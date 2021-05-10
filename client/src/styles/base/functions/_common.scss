@@ -1,0 +1,7 @@
+@function box-shadow-border($color: var(--main-color)) {
+  @return inset 0px 0px 0px 1px $color;
+};
+
+@function shadow($horizontal: -3px, $vertical: 2px, $blur: 2px, $spread: 0px, $color: var(--shadow-color)) {
+  @return $horizontal $vertical $blur $spread $color;
+}
