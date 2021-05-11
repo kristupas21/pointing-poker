@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import sortBy from 'lodash/sortBy';
 import { getVoteRoundUsers, getVotesShownValue } from 'state/voteRound/voteRoundStateGetters';
 import { getSessionUserId } from 'state/session/sessionStateGetters';
 import VoteRoundUser from './VoteRoundUser';
+import { sortUsersByName } from '../utils';
 
 const VoteRoundUsers: React.FC = () => {
   const users = useSelector(getVoteRoundUsers);
@@ -12,7 +12,7 @@ const VoteRoundUsers: React.FC = () => {
 
   return (
     <ul>
-      {sortBy(users, 'name').map((u) => (
+      {sortUsersByName(users).map((u) => (
         <li key={u.id}>
           <VoteRoundUser showVote={votesShown} {...u} isMe={userId === u.id} />
         </li>
