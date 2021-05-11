@@ -22,7 +22,7 @@ const actions = {
 
 const initialUserRoleSelector = makeInitialUserRoleSelector();
 
-const JoinSessionFormWrapper: React.FC = () => {
+const JoinSessionForm: React.FC = () => {
   const sessionId = useSelector(getSessionCurrentId);
   const sessionIdFromLocationState = useSessionId();
   const name = useSelector(getSessionUserName);
@@ -61,4 +61,4 @@ const JoinSessionFormWrapper: React.FC = () => {
   );
 };
 
-export default JoinSessionFormWrapper;
+export default JoinSessionForm;
