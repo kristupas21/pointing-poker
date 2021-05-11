@@ -9,7 +9,6 @@ import {
   getSessionCurrentId,
   getSessionUserIsObserver,
   getSessionUserName,
-  getSessionUseRoles
 } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useSessionId } from 'utils/customHooks';
 import { makeInitialUserRoleSelector } from 'utils/selectors';
@@ -26,7 +25,6 @@ const initialUserRoleSelector = makeInitialUserRoleSelector();
 const JoinSessionFormWrapper: React.FC = () => {
   const sessionId = useSelector(getSessionCurrentId);
   const sessionIdFromLocationState = useSessionId();
-  const useRoles = useSelector(getSessionUseRoles);
   const name = useSelector(getSessionUserName);
   const role = useSelector(initialUserRoleSelector);
   const isObserver = useSelector(getSessionUserIsObserver);
@@ -47,7 +45,7 @@ const JoinSessionFormWrapper: React.FC = () => {
     role,
     isObserver,
     name,
-    useRoles,
+    useRoles: false,
   };
 
   return (
