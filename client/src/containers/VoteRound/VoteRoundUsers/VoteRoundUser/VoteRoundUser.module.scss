@@ -1,0 +1,60 @@
+.user {
+  $this: &;
+
+  align-items: center;
+  background: var(--theme-color-tone);
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  padding: 1.2rem 2rem 1.2rem 1.6rem;
+
+  &--voted,
+  &--observer {
+    background: var(--background-color);
+  }
+
+  &__info {
+    align-items: center;
+    display: flex;
+  }
+
+  &__avatar {
+    margin-right: 1.2rem;
+    min-width: $button-width-round;
+    min-height: $button-width-round;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  &__name {
+    font-weight: 600;
+
+    &:after {
+      #{$this}--me & {
+        color: var(--theme-color);
+        content: '(me)';
+        font-size: $font-size-small;
+        font-weight: 400;
+        padding-left: .4rem;
+      }
+    }
+  }
+
+  &__role {
+    font-size: $font-size-small;
+  }
+
+  &__done {
+    color: var(--theme-color);
+    stroke-width: .1rem;
+  }
+
+  &__points {
+    font-size: 2rem;
+    font-weight: 500;
+  }
+}

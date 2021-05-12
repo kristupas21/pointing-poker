@@ -7,6 +7,13 @@
 
 @font-face {
   font-family: 'Baloo2';
+  src: url('#{$fonts-path}/Baloo2/Baloo2-SemiBold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Baloo2';
   src: url('#{$fonts-path}/Baloo2/Baloo2-Medium.ttf') format('truetype');
   font-style: normal;
   font-weight: 500;

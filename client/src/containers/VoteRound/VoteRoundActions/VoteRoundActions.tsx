@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import noop from 'lodash/noop';
+import classNames from 'classnames/bind';
 import {
   resetVoteRound as resetVoteRoundAction,
   hideVotes as hideVotesAction,
@@ -17,8 +18,13 @@ import {
   getVotesShownValue
 } from 'state/voteRound/voteRoundStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
-import { makeConsensusSelector, makeHasPermissionSelector, makeVotePercentageSelector } from 'utils/selectors';
+import { makeConsensusSelector, makeHasPermissionSelector, makeResultSelector, makeVotePercentageSelector } from 'utils/selectors';
 import { IconId } from 'components/Icon';
+import { calcClosestPoint } from 'utils/mathOps';
+import { getSessionPointValues } from 'state/session/sessionStateGetters';
+import styles from './VoteRoundActions.module.scss';
+
+const cx = classNames.bind(styles);
 
 type Actions = {
   resetVoteRound: typeof resetVoteRoundAction,
@@ -35,6 +41,7 @@ const actions = {
 const votePercentageSelector = makeVotePercentageSelector();
 const hasPermissionSelector = makeHasPermissionSelector();
 const consensusSelector = makeConsensusSelector();
+const resultSelector = makeResultSelector();
 
 const VoteRoundActions: React.FC = () => {
   const votesShown = useSelector(getVotesShownValue);
@@ -49,10 +56,13 @@ const VoteRoundActions: React.FC = () => {
   const percentageText = `${percentage}%`;
   const allVoted = percentage === 100;
   const hasConsensusClass = votesShown && allVoted && consensus;
+  const result = useSelector(resultSelector);
+  const points = useSelector(getSessionPointValues);
+  const closestPoint = calcClosestPoint(result, points);
 
   const evaluateBubbleText = (): string => {
     if (!hasPermission) return percentageText;
-    if (votesShown) return hideVotesText;
+    if (votesShown) return closestPoint;
     if (allVoted) return showVotesText;
 
     return percentageText;
@@ -75,21 +85,10 @@ const VoteRoundActions: React.FC = () => {
 
   useEffect(() => {
     setBubbleText(evaluateBubbleText());
-  }, [percentage, votesShown, hasPermission]);
+  }, [percentage, votesShown, hasPermission, closestPoint]);
 
   return (
     <div>
-      <Button
-        id="bubble-button"
-        onClick={handleBubbleClick}
-        onMouseEnter={getMouseHandler(showVotesText)}
-        onMouseLeave={getMouseHandler(percentageText)}
-        variant={ButtonVariant.Primary}
-        colored
-      >
-        {hasConsensusClass && _tempConsensusDiv(text('voteRound.consensus'))}
-        {bubbleText}
-      </Button>
       {hasPermission && (
         <Button
           onClick={resetVoteRound}
@@ -99,6 +98,18 @@ const VoteRoundActions: React.FC = () => {
           icon={IconId.Reset}
         />
       )}
+      <Button
+        id="bubble-button"
+        onClick={handleBubbleClick}
+        onMouseEnter={getMouseHandler(showVotesText)}
+        onMouseLeave={getMouseHandler(percentageText)}
+        variant={ButtonVariant.Primary}
+        mega
+        colored={votesShown && true}
+      >
+        {hasConsensusClass && _tempConsensusDiv(text('voteRound.consensus'))}
+        <span className={cx('result', { 'result--shown': votesShown })}>{bubbleText}</span>
+      </Button>
     </div>
   );
 };

@@ -2,8 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { makeResultByRoleSelector, makeResultSelector } from 'utils/selectors';
 import { getVotesShownValue } from 'state/voteRound/voteRoundStateGetters';
-import { getSessionPointValues, getSessionUseRoles } from 'state/session/sessionStateGetters';
-import { calcClosestPoint } from 'utils/mathOps';
+import { getSessionUseRoles } from 'state/session/sessionStateGetters';
 import { useText } from 'utils/customHooks';
 
 const _resultStyle = {
@@ -26,9 +25,7 @@ const VoteRoundResult: React.FC = () => {
   const resultByRole = useSelector(resultByRoleSelector);
   const votesShown = useSelector(getVotesShownValue);
   const useRoles = useSelector(getSessionUseRoles);
-  const points = useSelector(getSessionPointValues);
   const text = useText();
-  const closestPoint = calcClosestPoint(result, points);
 
   const conditionalDisplay = (v: any) => (votesShown
     ? <span style={_resultStyle}>{v}</span>
@@ -46,10 +43,6 @@ const VoteRoundResult: React.FC = () => {
       <div>
         {text('voteRound.average')}
         {conditionalDisplay(result || 0)}
-      </div>
-      <div>
-        {text('voteRound.storyPoints')}
-        {conditionalDisplay(closestPoint)}
       </div>
       {useRoles && resultByRole?.map(renderResultByRole)}
     </div>

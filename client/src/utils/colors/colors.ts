@@ -27,3 +27,7 @@ export function colorWithOpacity(color: string, alpha: number) {
 export function grayedColor(color: string): string {
   return Color(color).lighten(0.2).mix(Color('#EBECF2'), 0.97).hex();
 }
+
+export function colorTone(color: string): string {
+  return Color(color).lighten(0.2).mix(Color('#FAF9FC'), 0.97).hex();
+}

@@ -14,7 +14,8 @@
 
   /** Primary **/
 
-  &--primary {
+  &--primary,
+  &--mega {
     min-width: $button-width;
     position: relative;
     margin-right: .5rem;
@@ -23,6 +24,10 @@
   &--round {
     min-width: $button-width-round;
     width: $button-width-round;
+  }
+
+  &--mega {
+    width: $button-width-mega;
   }
 
   &--stretch {
@@ -41,6 +46,11 @@
   &__wrap {
     height: $button-height + .5rem;
     margin-right: -.5rem;
+
+    #{$this}--mega & {
+      height: $button-width-mega + 1.5rem;
+      margin-right: -1.5rem;
+    }
   }
 
   &__back {
@@ -60,6 +70,15 @@
       width: $button-width-round;
     }
 
+    #{$this}--mega & {
+      background: var(--background-color);
+      border-radius: $button-width-mega;
+      // box-shadow: box-shadow-border(var(--theme-color-darker)), -14px 14px 4px 0px rgba(#0E1330, .03), -5px 5px 5px 0px rgba(#0E1330, .03);
+      height: $button-width-mega;
+      margin-right: 1.4rem;
+      width: $button-width-mega;
+    }
+
     #{$this}--disabled & {
       background: var(--main-color-light);
       box-shadow: box-shadow-border();
@@ -69,13 +88,17 @@
       background: var(--theme-color-dark);
     }
 
-    #{$this}:not(#{$this}--selected):not(#{$this}--disabled):hover & {
+    #{$this}:not(#{$this}--selected):not(#{$this}--disabled):not(#{$this}--mega):hover & {
       box-shadow: box-shadow-border(var(--theme-color-darker)), -2px 1px 2px 0 var(--shadow-color); // TODO proper mixin for multiple shadows
     }
 
     #{$this}--selected &,
-    #{$this}:not(#{$this}--selected):not(#{$this}--disabled):active & {
+    #{$this}:not(#{$this}--selected):not(#{$this}--disabled):not(#{$this}--mega):active & {
       box-shadow: box-shadow-border(var(--theme-color-darker)), -1px 1px 2px 0 var(--shadow-color);
+    }
+
+    #{$this}--mega:not(#{$this}--colored):hover & {
+      box-shadow: box-shadow-border(var(--theme-color)), shadow();
     }
 
     #{$this}--selected & {
@@ -93,28 +116,44 @@
       transform: rotate(45deg);
       width: 4.1rem;
 
-      #{$this}--round & {
+      #{$this}--colored:not(#{$this}--disabled) & {
+        background: var(--theme-color-dark);
+      }
+
+      #{$this}--round &,
+      #{$this}--mega & {
         box-shadow: inset 1px 1px 0 0 var(--theme-color-darker), 1px 0 0 0 var(--theme-color-darker);
+      }
+
+      #{$this}--mega & {
+        background: var(--background-color);
+        height: 1.2rem;
+        top: 4.2rem;
+        width: $button-width-mega - .1rem;
       }
 
       #{$this}--disabled & {
         box-shadow: box-shadow-border();
       }
- 
-      #{$this}:not(#{$this}--selected):not(#{$this}:active):hover & {
+
+      #{$this}:not(#{$this}--selected):not(#{$this}:active):not(#{$this}--mega):hover & {
         height: .6rem;
         top: 1.6rem;
       }
 
+      #{$this}--mega:not(#{$this}--colored):hover & {
+        box-shadow: inset 1px 1px 0 0 var(--theme-color), 1px 0 0 0 var(--theme-color);
+      }
+
       #{$this}--selected &,
-      #{$this}:active & {
+      #{$this}:not(#{$this}--mega)#{$this}:active & {
         height: .4rem;
         top: 1.7rem;
       }
     }
 
     &:after {
-      #{$this}:not(#{$this}--round) & {
+      #{$this}:not(#{$this}--round):not(#{$this}--mega) & {
         content: '';
       }
 
@@ -168,18 +207,30 @@
       width: $button-width-round;
     }
 
+    #{$this}--mega & {
+      width: $button-width-mega;
+      height: $button-width-mega;
+      border-radius: $button-width-mega;
+      margin-left: .7rem;
+      margin-top: .8rem;
+    }
+
     #{$this}--disabled & {
       background: var(--background-color);
       box-shadow: box-shadow-border();
     }
 
-    #{$this}:not(#{$this}--selected):not(#{$this}--disabled):hover & {
+    #{$this}:not(#{$this}--selected):not(#{$this}--disabled):not(#{$this}--mega):hover & {
       margin-left: .3rem;
       margin-top: .2rem
     }
 
+    #{$this}--mega:not(#{$this}--colored):hover & {
+      box-shadow: box-shadow-border(var(--theme-color));
+    }
+
     #{$this}--selected &,
-    #{$this}:not(#{$this}--disabled):not(#{$this}--selected):active & {
+    #{$this}:not(#{$this}--disabled):not(#{$this}--selected):not(#{$this}--mega):active & {
       margin-left: .2rem;
       margin-top: .3rem;
     }
@@ -207,6 +258,14 @@
 
     #{$this}--round & {
       width: $button-width-round;
+    }
+
+    #{$this}--mega & {
+      font-size: 1.8rem;
+    }
+
+    #{$this}--mega:hover & {
+      color: var(--theme-color);
     }
 
     #{$this}--disabled  & {

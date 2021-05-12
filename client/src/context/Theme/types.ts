@@ -35,6 +35,7 @@ type ThemeVariableKey =
     'themeColorDark' |
     'themeColorDarker' |
     'themeColorLight' |
-    'themeColorLighter';
+    'themeColorLighter' |
+    'themeColorTone';
 
 export type ThemeVariables = Record<ThemeVariableKey, ThemeVariableProps>;
