@@ -14,7 +14,12 @@ describe('voteRoundSaga', () => {
           currentSessionId: 'id',
           user: {
             id,
-          }
+          },
+        },
+        voteRound: {
+          users: [
+            { id, voteValue: '1' }
+          ]
         }
       };
       const updatedProps: Partial<User> = {
@@ -23,7 +28,7 @@ describe('voteRoundSaga', () => {
 
       await expectSaga(modifyVoteRoundUserSaga, modifySessionUser(updatedProps))
         .withState(mockState)
-        .put(addUserToVoteRound({ id, isObserver: true } as User))
+        .put(addUserToVoteRound({ id, isObserver: true, voteValue: '1' } as User))
         .run();
     });
   });

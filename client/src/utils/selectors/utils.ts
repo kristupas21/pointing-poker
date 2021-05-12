@@ -23,7 +23,7 @@ export function divideUsersByRole(users: User[], roles: string[]): { [role: stri
   }, {});
 }
 
-function findUserById(users: User[], userId: string): User {
+export function findUserById(users: User[], userId: string): User {
   return users.find((u) => u.id === userId);
 }
 

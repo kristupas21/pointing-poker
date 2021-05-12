@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import sortBy from 'lodash/sortBy';
 import classNames from 'classnames/bind';
 import { User } from 'globalTypes';
 import { getVoteRoundUsers, getVotesShownValue } from 'state/voteRound/voteRoundStateGetters';
 import { getSessionUserId } from 'state/session/sessionStateGetters';
+import { sortUsersByName } from '../utils';
 import VoteRoundUser from './VoteRoundUser';
 import styles from './VoteRoundUsers.module.scss';
 
@@ -20,7 +20,7 @@ const VoteRoundUsers: React.FC = () => {
 
   const renderUserList = (list: User[]) => (
     <ul className={cx('users__list')}>
-      {sortBy(list, 'name').map((u) => (
+      {sortUsersByName(list).map((u) => (
         <li className={cx('users__item')} key={u.id}>
           <VoteRoundUser showVote={votesShown} {...u} isMe={userId === u.id} />
         </li>
