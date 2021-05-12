@@ -10,5 +10,5 @@ const resultSelector = makeResultSelector();
 export default () => createSelector<State, string, PointValue[], string>(
   resultSelector,
   getSessionPointValues,
-  (result, points) => calcClosestPoint(result, points),
+  calcClosestPoint,
 );

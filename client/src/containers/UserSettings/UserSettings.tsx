@@ -7,7 +7,6 @@ import { useMappedDispatch, useText } from 'utils/customHooks';
 import renderNotification, { NotificationContent } from 'utils/notificationContent';
 import { copyToClipboard } from 'utils/commands';
 import styles from './UserSettings.module.scss';
-import AvatarSelector from '../AvatarSelector';
 
 const cx = classNames.bind(styles);
 
@@ -39,7 +38,6 @@ const UserSettingsOpener: React.FC = () => {
           <div className={cx('settings__session-id')}>{currentSessionId}</div>
         </div>
       )}
-      <AvatarSelector />
     </div>
   );
 };

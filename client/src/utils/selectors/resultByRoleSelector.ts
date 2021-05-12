@@ -16,7 +16,11 @@ export default () => createSelector<State, boolean, User[], string[], [string, s
 
     const groups = divideUsersByRole(users, roles);
 
-    return Object.entries(groups).map(([key, value]) =>
-      [key, calcAverage(filterAndMapVotes(value))]);
+    return Object.entries(groups).map(([roleName, groupUsers]) => {
+      const votesArray = filterAndMapVotes(groupUsers);
+      const average = calcAverage(votesArray);
+
+      return [roleName, average];
+    });
   }
 );

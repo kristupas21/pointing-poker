@@ -6,6 +6,10 @@ import { filterAndMapVotes } from './utils';
 
 export default () => createSelector<State, User[], string>(
   getVoteRoundUsers,
-  (users) =>
-    calcFixedNumber.ofTypeString(calcAverage(filterAndMapVotes(users)) || '0')
+  (users) => {
+    const votesArray = filterAndMapVotes(users);
+    const average = calcAverage(votesArray) || '0';
+
+    return calcFixedNumber.ofTypeString(average);
+  }
 );
