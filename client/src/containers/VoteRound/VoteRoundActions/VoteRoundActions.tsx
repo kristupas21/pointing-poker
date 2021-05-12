@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import noop from 'lodash/noop';
 import classNames from 'classnames/bind';
 import {
   resetVoteRound as resetVoteRoundAction,
@@ -18,10 +17,13 @@ import {
   getVotesShownValue
 } from 'state/voteRound/voteRoundStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
-import { makeConsensusSelector, makeHasPermissionSelector, makeResultSelector, makeVotePercentageSelector } from 'utils/selectors';
+import {
+  makeClosestPointSelector,
+  makeConsensusSelector,
+  makeHasPermissionSelector,
+  makeVotePercentageSelector
+} from 'utils/selectors';
 import { IconId } from 'components/Icon';
-import { calcClosestPoint } from 'utils/mathOps';
-import { getSessionPointValues } from 'state/session/sessionStateGetters';
 import styles from './VoteRoundActions.module.scss';
 
 const cx = classNames.bind(styles);
@@ -41,7 +43,7 @@ const actions = {
 const votePercentageSelector = makeVotePercentageSelector();
 const hasPermissionSelector = makeHasPermissionSelector();
 const consensusSelector = makeConsensusSelector();
-const resultSelector = makeResultSelector();
+const closestPointSelector = makeClosestPointSelector();
 
 const VoteRoundActions: React.FC = () => {
   const votesShown = useSelector(getVotesShownValue);
@@ -49,38 +51,41 @@ const VoteRoundActions: React.FC = () => {
   const hasPermission = useSelector(hasPermissionSelector);
   const percentage = useSelector(votePercentageSelector);
   const consensus = useSelector(consensusSelector);
+  const closestPoint = useSelector(closestPointSelector);
   const { resetVoteRound, hideVotes, showVotes } = useMappedDispatch(actions);
   const text = useText();
-  const hideVotesText = text('voteRound.action.hideVotes');
-  const showVotesText = text('voteRound.action.showVotes');
-  const percentageText = `${percentage}%`;
   const allVoted = percentage === 100;
   const hasConsensusClass = votesShown && allVoted && consensus;
-  const result = useSelector(resultSelector);
-  const points = useSelector(getSessionPointValues);
-  const closestPoint = calcClosestPoint(result, points);
+
+  const texts = useMemo(() => ({
+    percentage: `${percentage}%`,
+    storyPoints: closestPoint,
+    hideVotes: text('voteRound.action.hideVotes'),
+    showVotes: text('voteRound.action.showVotes'),
+  }), [text, percentage, closestPoint]);
 
   const evaluateBubbleText = (): string => {
-    if (!hasPermission) return percentageText;
-    if (votesShown) return closestPoint;
-    if (allVoted) return showVotesText;
-
-    return percentageText;
+    if (votesShown) return texts.storyPoints;
+    if (!hasPermission) return texts.percentage;
+    if (allVoted) return texts.showVotes;
+    return texts.percentage;
   };
 
   const [bubbleText, setBubbleText] = useState(evaluateBubbleText());
 
   const handleBubbleClick = () => {
-    if (!hasPermission) return;
-    if (votesShown) hideVotes();
-    else showVotes();
+    if (votesShown) return hideVotes();
+    return showVotes();
   };
 
-  const getMouseHandler = (newText: string) => {
-    const handler = () =>
-      votesShown || allVoted || setBubbleText(newText);
+  const handleBubbleMouseEnter = () => {
+    if (votesShown) return setBubbleText(texts.hideVotes);
+    if (allVoted) return undefined;
+    return setBubbleText(texts.showVotes);
+  };
 
-    return hasPermission ? handler : noop;
+  const handleBubbleMouseLeave = () => {
+    setBubbleText(evaluateBubbleText());
   };
 
   useEffect(() => {
@@ -100,12 +105,13 @@ const VoteRoundActions: React.FC = () => {
       )}
       <Button
         id="bubble-button"
-        onClick={handleBubbleClick}
-        onMouseEnter={getMouseHandler(showVotesText)}
-        onMouseLeave={getMouseHandler(percentageText)}
+        onClick={hasPermission ? handleBubbleClick : undefined}
+        onMouseEnter={hasPermission ? handleBubbleMouseEnter : undefined}
+        onMouseLeave={hasPermission ? handleBubbleMouseLeave : undefined}
         variant={ButtonVariant.Primary}
         mega
-        colored={votesShown && true}
+        colored={votesShown}
+        style={{ pointerEvents: hasPermission ? 'initial' : 'none' }}
       >
         {hasConsensusClass && _tempConsensusDiv(text('voteRound.consensus'))}
         <span className={cx('result', { 'result--shown': votesShown })}>{bubbleText}</span>
