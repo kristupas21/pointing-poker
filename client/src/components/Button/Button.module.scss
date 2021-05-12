@@ -14,8 +14,7 @@
 
   /** Primary **/
 
-  &--primary,
-  &--mega {
+  &--primary {
     min-width: $button-width;
     position: relative;
     margin-right: .5rem;
@@ -73,7 +72,6 @@
     #{$this}--mega & {
       background: var(--background-color);
       border-radius: $button-width-mega;
-      // box-shadow: box-shadow-border(var(--theme-color-darker)), -14px 14px 4px 0px rgba(#0E1330, .03), -5px 5px 5px 0px rgba(#0E1330, .03);
       height: $button-width-mega;
       margin-right: 1.4rem;
       width: $button-width-mega;
@@ -208,11 +206,11 @@
     }
 
     #{$this}--mega & {
-      width: $button-width-mega;
-      height: $button-width-mega;
       border-radius: $button-width-mega;
+      height: $button-width-mega;
       margin-left: .7rem;
       margin-top: .8rem;
+      width: $button-width-mega;
     }
 
     #{$this}--disabled & {
