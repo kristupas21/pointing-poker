@@ -1,12 +1,14 @@
 $input-height: 4.6rem;
+$input-height-small: 3.6rem;
 $input-error-height: 2rem;
 $input-border-radius: .4rem;
 
-$input-width-small: 7rem;
+$input-width-small: $input-height;
 $input-width-medium: 14rem;
 $input-width-large: 23rem;
 
 $input-label-offset: 1.5rem;
 $input-label-padding: $border-width * 2;
 $input-field-padding: .2rem ($input-label-offset + $border-width) 0 ($input-label-offset + $border-width);
+$input-field-padding-small: .2rem .8rem 0 .8rem;
 $input-text-padding: 0 ($input-label-offset + $border-width);

@@ -10,8 +10,13 @@ import { unlockAppHiddenFeats } from 'state/app/appActions';
 import { useMappedDispatch } from 'utils/customHooks';
 import { removeSessionRole, saveSessionRoles } from 'state/session/sessionActions';
 import DynamicFormField from 'components/Form/DynamicFormField';
+import { DynamicFieldType } from 'components/Form/DynamicFormField/DynamicFormField';
+import classNames from 'classnames/bind';
 import { withURF } from './utils';
 import { MAX_ROLE_CHARS_COUNT, MIN_ROLES_COUNT } from './constants';
+import styles from '../SessionForms/SessionForms.module.scss';
+
+const cx = classNames.bind(styles);
 
 const actions = {
   removeRole: removeSessionRole,
@@ -72,7 +77,7 @@ const RolesFormFields: React.FC<Props> = (props) => {
   };
 
   return (
-    <Form name={withURF('form')} noValidate>
+    <Form name={withURF('form')} className={cx('form--roles__fields')} noValidate>
       {roles.map((role) => {
         const name = withURF(role);
         const handleRemoveClick = () => removeRole(role);
@@ -88,6 +93,8 @@ const RolesFormFields: React.FC<Props> = (props) => {
             currentValue={values[name]}
             isReadonly={isReadonly}
             onChange={handleFieldChange}
+            type={DynamicFieldType.Role}
+            classes={{ field: cx('form--roles__field'), input: cx('form--roles__input') }}
           />
         );
       })}

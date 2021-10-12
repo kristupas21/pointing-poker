@@ -8,8 +8,13 @@ import { useMappedDispatch } from 'utils/customHooks';
 import DynamicFormField from 'components/Form/DynamicFormField';
 import { FieldSize, FieldType } from 'components/Form';
 import { getSessionPointValues } from 'state/session/sessionStateGetters';
+import { DynamicFieldType } from 'components/Form/DynamicFormField/DynamicFormField';
+import classNames from 'classnames/bind';
 import { withPVF } from './utils';
 import { MIN_POINT_VALUES_COUNT } from './constants';
+import styles from '../SessionForms/SessionForms.module.scss';
+
+const cx = classNames.bind(styles);
 
 const actions = {
   removePointValue: removeSessionPointValue,
@@ -50,7 +55,7 @@ const PointValuesFormFields: React.FC<Props> = (props) => {
   };
 
   return (
-    <Form name={withPVF('form')} noValidate>
+    <Form className={cx('form', 'form--points')} name={withPVF('form')} noValidate>
       {pointValues.map((point) => {
         const { id, immutable, pos } = point;
         const name = withPVF(immutable ? id : pos);
@@ -68,6 +73,7 @@ const PointValuesFormFields: React.FC<Props> = (props) => {
             fieldSize={FieldSize.Small}
             fieldType={immutable ? FieldType.Input : FieldType.Number}
             isReadonly={isReadonly}
+            type={DynamicFieldType.Point}
           />
         );
       })}

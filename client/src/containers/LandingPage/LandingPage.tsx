@@ -5,6 +5,10 @@ import { useText } from 'utils/customHooks';
 import { AppRoute } from 'utils/routes';
 import { isTouchDevice } from 'utils/navigator';
 import BreakpointsContext from 'context/Breakpoints';
+import classNames from 'classnames/bind';
+import styles from './LandingPage.module.scss';
+
+const cx = classNames.bind(styles);
 
 type Props = RouteChildrenProps;
 
@@ -20,18 +24,19 @@ const LandingPage: React.FC<Props> = (props) => {
     history.push(AppRoute.JoinSession);
 
   return (
-    <div>
-      <p>
+    <div className={cx('landing')}>
+      {/* <p>
         {isMobile && 'MOBILE'}
         {isTablet && 'TABLET'}
         {isDesktop && 'DESKTOP'}
         <br />
         {`TOUCH: ${isTouchDevice()}`}
-      </p>
-      <Button variant={ButtonVariant.Primary} colored onClick={handleStartClick} role="link">
+      </p> */}
+      <Button className={cx('landing__button')} variant={ButtonVariant.Primary} colored onClick={handleStartClick} role="link">
         {text('session.start')}
       </Button>
-      <Button variant={ButtonVariant.Primary} onClick={handleJoinClick} role="link">
+      {text('global.or')}
+      <Button className={cx('landing__button')} variant={ButtonVariant.Primary} onClick={handleJoinClick} role="link">
         {text('session.join')}
       </Button>
     </div>

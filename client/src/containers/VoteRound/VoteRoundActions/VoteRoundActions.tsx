@@ -108,9 +108,6 @@ const VoteRoundActions: React.FC = () => {
         onClick={hasPermission ? handleBubbleClick : undefined}
         onMouseEnter={hasPermission ? handleBubbleMouseEnter : undefined}
         onMouseLeave={hasPermission ? handleBubbleMouseLeave : undefined}
-        variant={ButtonVariant.Primary}
-        mega
-        colored={votesShown}
         style={{ pointerEvents: hasPermission ? 'initial' : 'none' }}
       >
         {hasConsensusClass && _tempConsensusDiv(text('voteRound.consensus'))}

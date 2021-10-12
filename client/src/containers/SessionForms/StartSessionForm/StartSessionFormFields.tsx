@@ -54,7 +54,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
   };
 
   return (
-    <Form onSubmit={onFormSubmit} noValidate>
+    <Form className={cx('form', 'form--start')} onSubmit={onFormSubmit} noValidate>
       <FormField
         name="name"
         type={FieldType.Input}
@@ -63,7 +63,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
         fieldSize={FieldSize.Large}
         placeholder={text('session.field.name.placeholder')}
         block
-        className={cx('input')}
+        classes={{ wrapper: cx('input') }}
         onChange={handleNameFieldChange}
       >
         <AvatarSelector className={cx('avatar-selector')} />
@@ -74,6 +74,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
         label={text('session.field.useRoles.label')}
         onChange={handleUseRolesChange}
         block
+        classes={{ wrapper: cx('form__switch') }}
       />
       <FormField
         name="role"
@@ -90,9 +91,10 @@ const StartSessionForm: React.FC<Props> = (props) => {
       />
       <FormField
         name="isObserver"
-        type={FieldType.Checkbox}
+        type={FieldType.Switch}
         label={text('session.field.observer.label')}
         block
+        classes={{ wrapper: cx('form__switch', 'form__switch--observer') }}
       />
       <FormField
         name="usePermissions"
@@ -100,8 +102,9 @@ const StartSessionForm: React.FC<Props> = (props) => {
         label={text('session.field.usePermissions.label')}
         onChange={handleUsePermissionsChange}
         block
+        classes={{ wrapper: cx('form__switch') }}
       />
-      <Button variant={ButtonVariant.Primary} colored type="submit" disabled={submitDisabled}>
+      <Button variant={ButtonVariant.Primary} className={cx('submit-button')} colored type="submit" disabled={submitDisabled}>
         {text('session.start')}
       </Button>
     </Form>

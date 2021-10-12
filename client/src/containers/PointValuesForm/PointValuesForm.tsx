@@ -12,10 +12,14 @@ import { getSessionPointValues } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { DEFAULT_POINT_VALUES } from 'utils/pointValues/constants';
 import { FormProps } from 'utils/form/types';
+import classNames from 'classnames/bind';
 import { focusPointValuePlaceholder, mapPointValuesToFormData } from './utils';
 import { MAX_POINT_VALUES_COUNT } from './constants';
 import { getPointValuesFormSchema } from './validationSchema';
 import PointValuesFormFields from './PointValuesFormFields';
+import styles from '../SessionForms/SessionForms.module.scss';
+
+const cx = classNames.bind(styles);
 
 const actions = {
   addPointValue: addSessionPointValue,
@@ -42,21 +46,25 @@ const PointValuesForm: React.FC = () => {
   };
 
   return (
-    <>
-      <h4>{text('session.pointValues')}</h4>
-      <Button
-        onClick={handleEditClick}
-        icon={isEditOn ? IconId.Checkmark : IconId.Edit}
-        variant={ButtonVariant.Primary}
-        round
-      />
-      <Button
-        onClick={resetPointValues}
-        disabled={isEqual(pointValues, DEFAULT_POINT_VALUES)}
-        icon={IconId.Reset}
-        variant={ButtonVariant.Primary}
-        round
-      />
+    <div className={cx('form')}>
+      <div className={cx('form__title')}>
+        <h4 className={cx('form__title-text')}>{text('session.pointValues')}</h4>
+        <div className={cx('form__title-controls')}>
+          <Button
+            onClick={handleEditClick}
+            icon={isEditOn ? IconId.Checkmark : IconId.Edit}
+            variant={ButtonVariant.Primary}
+            round
+          />
+          <Button
+            onClick={resetPointValues}
+            disabled={isEqual(pointValues, DEFAULT_POINT_VALUES)}
+            icon={IconId.Reset}
+            variant={ButtonVariant.Primary}
+            round
+          />
+        </div>
+      </div>
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -67,14 +75,17 @@ const PointValuesForm: React.FC = () => {
           <PointValuesFormFields {...formikProps} isReadonly={!isEditOn} />
         )}
       </Formik>
-      <Button
-        onClick={handleAdd}
-        disabled={isAddDisabled}
-        icon={IconId.Add}
-        variant={ButtonVariant.Primary}
-        round
-      />
-    </>
+      {isEditOn && (
+        <Button
+          onClick={handleAdd}
+          disabled={isAddDisabled}
+          icon={IconId.Add}
+          variant={ButtonVariant.Primary}
+          round
+          className={cx('form__add-button')}
+        />
+      )}
+    </div>
   );
 };
 

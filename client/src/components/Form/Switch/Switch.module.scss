@@ -1,13 +1,16 @@
 .switch {
   $this: &;
-  $_background-color: var(--theme-color);
-  $_circle-color: var(--main-color);
 
   display: flex;
 
   &__label {
-    font-size: 14px;
-    margin-left: 6px;
+    align-items: center;
+    display: flex;
+    margin-left: .6rem;
+  }
+
+  &__wrapper {
+    margin-left: -.7rem;
   }
 
   &__field {
@@ -16,7 +19,8 @@
     &:checked {
       & ~ #{$this}__ui {
         &::after {
-          transform: translateX(18px);
+          background-color: var(--theme-color);
+          transform: translateX(3rem);
         }
       }
     }
@@ -29,24 +33,44 @@
   }
 
   &__ui {
-    border-radius: 10px;
-    border: 2px solid $_circle-color;
-    display: inline-flex;
-    height: 19px;
     position: relative;
-    transition: all .15s;
-    width: 36px;
+    transform: scale($button-scale-normal);
 
     &::after {
-      top: 1px;
-      width: 13px;
-      height: 13px;
-      content: '';
-      position: absolute;
-      transition: all .15s;
       border-radius: 50%;
-      background: $_circle-color;
+      box-shadow: box-shadow-border(var(--theme-color-darker));
+      content: '';
+      height: 3rem;
+      left: .8rem;
+      position: absolute;
+      top: .6rem;
       transform: translateX(1px);
+      transition: all .15s;
+      width: 3rem;
     }
+  }
+
+  &__front {
+    background: var(--background-color);
+    border-radius: $button-height;
+    box-shadow: box-shadow-border(var(--theme-color-darker));
+    display: inline-flex;
+    height: $button-height;
+    margin-left: .3rem;
+    margin-right: -.3rem;
+    position: relative;
+    transition: all .15s;
+    width: $button-height * 1.7;
+  }
+
+  &__back {
+    background: var(--theme-color-lighter);
+    border-radius: $button-height;
+    bottom: -1px;
+    box-shadow: box-shadow-border(var(--theme-color-darker)), shadow();
+    height: $button-height;
+    left: 0;
+    position: absolute;
+    width: 100%;
   }
 }

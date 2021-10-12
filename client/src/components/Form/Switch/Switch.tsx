@@ -23,7 +23,10 @@ const Switch: React.FC<SwitchProps> = (props) => {
           type="checkbox"
           className={cx('switch__field', className)}
         />
-        <span className={cx('switch__ui')} />
+        <div className={cx('switch__ui')}>
+          <div className={cx('switch__back')} />
+          <div className={cx('switch__front')} />
+        </div>
         <span className={cx('switch__label')}>
           {label}
         </span>

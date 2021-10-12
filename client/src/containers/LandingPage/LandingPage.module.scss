@@ -1,0 +1,10 @@
+.landing {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  &__button {
+    margin: 5vh;
+    width: $button-width;
+  }
+}

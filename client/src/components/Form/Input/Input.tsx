@@ -21,6 +21,7 @@ const Input: React.FC<InputProps> = (props) => {
     isText,
     value,
     className,
+    wrapperClassName,
     stretch,
     disabled,
     onFocus,
@@ -39,7 +40,7 @@ const Input: React.FC<InputProps> = (props) => {
     'input--error': !!error,
     'input--disabled': !!disabled,
     'input--stretch': !!stretch,
-  });
+  }, wrapperClassName);
 
   const getValueProps = () => (value != null ? { value } : {});
 

@@ -1,4 +1,24 @@
 .field {
+  $this: &;
+
   align-items: center;
   display: inline-flex;
+  height: auto;
+
+  &--point#{$this}--readonly {
+    border-radius: $button-height;
+    box-shadow: box-shadow-border(var(--theme-color-darker));
+    height: $input-height;
+    width: $input-height;
+  }
+
+  &--role {
+    border-bottom: 1px solid var(--main-color-lighter);
+    height: $input-height;
+    justify-content: space-between;
+  }
+}
+
+.delete-button {
+  margin-left: .3rem;
 }

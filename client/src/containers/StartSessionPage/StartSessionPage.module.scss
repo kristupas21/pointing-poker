@@ -1,0 +1,11 @@
+.start-session {
+  display: grid;
+  grid-template-columns: min-content min-content 44rem min-content min-content;
+
+  &__divider {
+    border-right: 1px solid var(--main-color-light);
+    height: auto;
+    margin-bottom: 6rem;
+    margin-top: 6rem;
+  }
+}

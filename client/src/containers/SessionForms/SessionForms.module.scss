@@ -9,9 +9,84 @@
   padding-right: 4rem;
 }
 
-
 .form {
+  $this: &;
+
+  padding: 0 5rem;
+
+  &--join {
+    margin-left: 4rem;
+  }
+
+  &--start {
+    display: flex;
+    flex-direction: column;
+    margin-top: 7rem;
+    padding-right: 7rem;
+  }
+
+  &--points {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 1.2rem;
+    padding: 0;
+  }
+
+  &--roles {
+    width: 30rem;
+
+    &__fields {
+      display: flex;
+      flex-direction: column;
+      margin-top: -1.5rem;
+    }
+
+    &#{$this}--edit-mode & {
+      &__field {
+        bottom: auto;
+        height: $input-height-small;
+        padding: $input-field-padding-small;
+        position: relative;
+      }
+    }
+
+    &__input {
+      height: auto;
+      position: relative;
+    }
+  }
+
   &__name-wrapper {
     display: flex;
   }
+
+  &__title {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    line-height: 2;
+
+    &-text {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+  }
+
+  &__switch {
+    margin-top: -1rem;
+    width: $input-width-large;
+
+    &--observer {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__add-button {
+    margin-top: 2rem;
+  }
+}
+
+.submit-button {
+  margin-top: 4rem;
+  width: $input-width-large;
 }

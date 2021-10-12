@@ -3,24 +3,24 @@
 @keyframes wiggle {
   0%,
   100% {
-    transform: translateY(0);
+    transform: scale($button-scale-normal) translateY(0);
   }
   10%,
   30%,
   50%,
   70% {
-    transform: translateY(-1px);
+    transform: scale($button-scale-normal) translateY(-1px);
   }
   20%,
   40%,
   60% {
-    transform: translateY(1px);
+    transform: scale($button-scale-normal) translateY(1px);
   }
   80% {
-    transform: translateY(.6px);
+    transform: scale($button-scale-normal) translateY(.6px);
   }
   90% {
-    transform: translateY(-.6px);
+    transform: scale($button-scale-normal) translateY(-.6px);
   }
 }
 

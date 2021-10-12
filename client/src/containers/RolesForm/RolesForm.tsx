@@ -13,10 +13,14 @@ import { getSessionRoles } from 'state/session/sessionStateGetters';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import { DEFAULT_USER_ROLES } from 'utils/userRoles';
 import { FormProps } from 'utils/form/types';
+import classNames from 'classnames/bind';
 import { focusRolePlaceholder, mapRolesToFormData } from './utils';
 import { MAX_ROLES_COUNT } from './constants';
 import { getRolesFormSchema } from './validationSchema';
 import RolesFormFields from './RolesFormFields';
+import styles from '../SessionForms/SessionForms.module.scss';
+
+const cx = classNames.bind(styles);
 
 const actions = {
   addRole: addSessionRole,
@@ -43,21 +47,25 @@ const RolesForm: React.FC = () => {
   };
 
   return (
-    <>
-      <h4>{text('session.roles')}</h4>
-      <Button
-        onClick={handleEditClick}
-        icon={isEditOn ? IconId.Checkmark : IconId.Edit}
-        variant={ButtonVariant.Primary}
-        round
-      />
-      <Button
-        onClick={resetRoles}
-        disabled={isEqual(roles, DEFAULT_USER_ROLES)}
-        icon={IconId.Reset}
-        variant={ButtonVariant.Primary}
-        round
-      />
+    <div className={cx('form', 'form--roles', { 'form--edit-mode': isEditOn })}>
+      <div className={cx('form__title')}>
+        <h4 className={cx('form__title-text')}>{text('session.roles')}</h4>
+        <div className={cx('form__title-controls')}>
+          <Button
+            onClick={handleEditClick}
+            icon={isEditOn ? IconId.Checkmark : IconId.Edit}
+            variant={ButtonVariant.Primary}
+            round
+          />
+          <Button
+            onClick={resetRoles}
+            disabled={isEqual(roles, DEFAULT_USER_ROLES)}
+            icon={IconId.Reset}
+            variant={ButtonVariant.Primary}
+            round
+          />
+        </div>
+      </div>
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -68,14 +76,17 @@ const RolesForm: React.FC = () => {
           <RolesFormFields {...formikProps} isReadonly={!isEditOn} />
         )}
       </Formik>
-      <Button
-        variant={ButtonVariant.Primary}
-        icon={IconId.Add}
-        onClick={handleAdd}
-        disabled={isAddDisabled}
-        round
-      />
-    </>
+      {isEditOn && (
+        <Button
+          variant={ButtonVariant.Primary}
+          icon={IconId.Add}
+          onClick={handleAdd}
+          disabled={isAddDisabled}
+          round
+          className={cx('form__add-button')}
+        />
+      )}
+    </div>
   );
 };
 

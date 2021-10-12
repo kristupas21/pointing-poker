@@ -11,6 +11,11 @@ import { InputProps } from '../Input';
 
 const cx = classNames.bind(styles);
 
+export enum DynamicFieldType {
+  Point = 'point',
+  Role = 'role',
+}
+
 type Props = Omit<InputProps, 'onBlur' | 'onChange'> & {
   currentValue: string;
   fieldType?: FieldType.Input | FieldType.Number;
@@ -19,6 +24,11 @@ type Props = Omit<InputProps, 'onBlur' | 'onChange'> & {
   onBlur: (e: FocusEvent<HTMLInputElement>, id: string, name?: string) => void;
   onChange?: (e: ChangeEvent<HTMLInputElement>, id: string) => void;
   onRemoveClick: (id: string) => void;
+  type?: DynamicFieldType;
+  classes?: {
+    field?: string;
+    input?: string;
+  };
 }
 
 const DynamicFormField: React.FC<Props> = (props) => {
@@ -33,6 +43,8 @@ const DynamicFormField: React.FC<Props> = (props) => {
     onBlur,
     onChange,
     onRemoveClick,
+    type,
+    classes = {},
     ...fieldProps
   } = props;
 
@@ -51,7 +63,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
   });
 
   return (
-    <motion.span key={id} {...animations.simpleOpacity} className={cx('field')}>
+    <motion.span key={id} {...animations.simpleOpacity} className={cx('field', `field--${type}`, { 'field--readonly': isReadonly })}>
       <FormField
         {...fieldProps}
         name={name}
@@ -63,6 +75,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
         id={id}
         isReadonly={isReadonly}
         {...getOtherProps()}
+        classes={{ input: classes.input, field: classes.field }}
       />
       {isReadonly || isEditDisabled || (
         <Button
@@ -71,6 +84,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
           icon={IconId.Delete}
           variant={ButtonVariant.Primary}
           round
+          className={cx('delete-button')}
         />
       )}
     </motion.span>

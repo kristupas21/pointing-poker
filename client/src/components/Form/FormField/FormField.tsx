@@ -15,10 +15,15 @@ type Props = FieldAttributes<any> & SharedFieldProps & {
   setRef?: RefObject<any>;
   block?: boolean;
   type: FieldType;
+  classes?: {
+    field?: string;
+    input?: string;
+    wrapper?: string;
+  };
 }
 
 const FormField: React.FC<Props> = (props) => {
-  const { type, block, setRef, isReadonly, ...fieldProps } = props;
+  const { type, block, setRef, classes = {}, isReadonly, ...fieldProps } = props;
 
   const renderContent = () => {
     switch (type) {
@@ -29,6 +34,8 @@ const FormField: React.FC<Props> = (props) => {
             ref={setRef}
             autoComplete="off"
             isText={isReadonly}
+            wrapperClassName={classes.input}
+            className={classes.field}
           />
         );
       case FieldType.Select:
@@ -68,7 +75,7 @@ const FormField: React.FC<Props> = (props) => {
   };
 
   return (
-    <span className={cx('field', { 'field--block': block })}>
+    <span className={cx('field', `field--${type}`, { 'field--block': block }, classes.wrapper)}>
       {renderContent()}
     </span>
   );

@@ -20,10 +20,11 @@ const messages = {
   'global.reset': 'Reset',
   'global.session': 'Session',
   'global.tryAgain': 'Try Again',
+  'global.or': 'or',
 
-  'form.validation.max': 'Max {chars} characters',
-  'form.validation.min': 'Min {chars} characters',
-  'form.validation.required': 'Required',
+  'form.validation.max': 'Max {chars} characters.',
+  'form.validation.min': 'Min {chars} characters.',
+  'form.validation.required': 'No name no game.',
 
   'session.id': 'Session ID',
   'session.join': 'Join session',

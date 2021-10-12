@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames/bind';
+import ModeSelector from '../../containers/ModeSelector';
 import styles from './AppFooter.module.scss';
 
 const cx = classNames.bind(styles);
@@ -11,6 +12,7 @@ const AppFooter: React.FC = ({ children }) => {
 
   return (
     <footer className={cx('footer')}>
+      <ModeSelector />
       <div>{children}</div>
       <div className={cx('wrapper')}>
         <div className={cx('darker')} />

@@ -71,7 +71,7 @@ const JoinSessionFormFields: React.FC<Props> = (props) => {
   }, []);
 
   return (
-    <Form onSubmit={onFormSubmit} noValidate>
+    <Form onSubmit={onFormSubmit} noValidate className={cx('form', 'form--join')}>
       <FormField
         name="sessionId"
         type={FieldType.Input}
@@ -92,7 +92,7 @@ const JoinSessionFormFields: React.FC<Props> = (props) => {
         placeholder={text('session.field.name.placeholder')}
         block
         onChange={handleNameFieldChange}
-        className={cx('input')}
+        classes={{ wrapper: cx('input') }}
       >
         <AvatarSelector className={cx('avatar-selector')} />
       </FormField>
@@ -110,11 +110,11 @@ const JoinSessionFormFields: React.FC<Props> = (props) => {
       />
       <FormField
         name="isObserver"
-        type={FieldType.Checkbox}
+        type={FieldType.Switch}
         label={text('session.field.observer.label')}
         block
       />
-      <Button variant={ButtonVariant.Primary} colored type="submit" disabled={submitDisabled}>
+      <Button variant={ButtonVariant.Primary} colored type="submit" disabled={submitDisabled} className={cx('submit-button')}>
         {text('session.join')}
       </Button>
     </Form>

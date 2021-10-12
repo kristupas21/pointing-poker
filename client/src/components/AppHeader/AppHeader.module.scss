@@ -1,0 +1,34 @@
+.header  {
+  align-items: center;
+  display: flex;
+  padding: 2rem;
+  position: relative;
+
+  &:not(&--session) {
+    justify-content: center;
+  }
+
+  &__logo {
+    display: flex;
+  }
+
+  &__session {
+    color: var(--main-color);
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    margin-top: .3rem;
+    text-align: left;
+
+    &-id {
+      color: var(--theme-color);
+      font-weight: 500;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    position: absolute;
+    right: 2rem;
+  }
+}

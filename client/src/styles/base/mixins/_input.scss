@@ -25,6 +25,7 @@
 
 @mixin input-sizes {
   &--small {
+    height: $input-height-small;
     width: $input-width-small;
   }
 

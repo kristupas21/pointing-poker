@@ -27,7 +27,6 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   selected?: boolean;
   round?: boolean;
   colored?: boolean;
-  mega?: boolean;
 }
 
 const Button: React.FC<Props> = (props) => {
@@ -46,7 +45,6 @@ const Button: React.FC<Props> = (props) => {
     selected,
     round,
     colored,
-    mega,
     ...other
   } = props;
 
@@ -61,7 +59,6 @@ const Button: React.FC<Props> = (props) => {
       'button--selected': selected,
       'button--round': round,
       'button--colored': colored,
-      'button--mega': mega,
     },
     className);
 

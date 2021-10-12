@@ -15,11 +15,16 @@
   }
 
   &__route {
-    padding: 15px;
+    padding: 2rem;
     position: relative;
 
-    &--with-sidebar {
-      padding-left: 80px;
+    &:not(&--session) {
+      display: flex;
+      justify-content: center;
+    }
+
+    &--session  {
+      padding: 2rem 15rem;
     }
 
     &--loading {

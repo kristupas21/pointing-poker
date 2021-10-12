@@ -12,16 +12,29 @@
     pointer-events: none;
   }
 
+  &--small {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
   &__text {
     align-items: center;
-    bottom: $input-error-height;
     display: flex;
-    height: $input-height;
-    left: $border-width;
-    padding: $input-text-padding;
-    position: absolute;
     user-select: none;
-    width: 100%;
+
+    &:not(#{$this}--small) & {
+      bottom: $input-error-height;
+      height: $input-height;
+      left: $border-width;
+      padding: $input-text-padding;
+      position: absolute;
+      width: 100%;
+    }
+
+    #{$this}--small & {
+      color: var(--theme-color-darker);
+    }
   }
 
   &__field {
@@ -32,14 +45,23 @@
     border: $border;
     border-color: var(--main-color);
     border-radius: $input-border-radius;
-    bottom: $input-error-height;
     color: var(--main-color);
+    outline: 0;
+    padding: $input-field-padding;
+    width: 100%;
+
+    bottom: $input-error-height;
     height: $input-height;
     left: 0;
-    padding: $input-field-padding;
     position: absolute;
-    outline: 0;
-    width: 100%;
+
+    #{$this}--small & {
+      bottom: unset;
+      height: $input-height-small;
+      left: auto;
+      padding: $input-field-padding-small;
+      width: $input-width-small;
+    }
 
     &--hidden {
       @extend %visually-hidden;
