@@ -35,10 +35,6 @@
     opacity: $disabled-opacity;
   }
 
-  &--selected {
-    //cursor: default;
-  }
-
   &__wrap {
     height: $button-height + .5rem;
     margin-right: -.5rem;
