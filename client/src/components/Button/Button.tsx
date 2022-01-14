@@ -63,7 +63,7 @@ const Button: React.FC<Props> = (props) => {
     className);
 
   const handleClick = (e) => {
-    if (disabled || selected || !onClick) {
+    if (disabled || !onClick) {
       return;
     }
 

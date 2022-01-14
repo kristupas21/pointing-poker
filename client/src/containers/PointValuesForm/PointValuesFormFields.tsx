@@ -44,7 +44,7 @@ const PointValuesFormFields: React.FC<Props> = (props) => {
 
     handleBlur(e);
 
-    if (inputValue && !errors[name]) {
+    if (inputValue != null && inputValue !== '' && !errors[name]) {
       const value = calcFixedNumber.ofTypeString(inputValue);
 
       setFieldValue(name, value);

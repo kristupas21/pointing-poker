@@ -29,9 +29,10 @@ export const calcFixedNumber = {
 
   ofTypeString(stringValue: string, digits = 1): string {
     const numberValue = Number(stringValue);
-
-    return Number.isInteger(numberValue)
-      ? `${parseFloat(stringValue)}`
+    const value = Number.isInteger(numberValue)
+      ? stringValue
       : numberValue.toFixed(digits);
+
+    return `${parseFloat(value)}`;
   },
 };

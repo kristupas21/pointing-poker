@@ -56,7 +56,7 @@ const DynamicFormField: React.FC<Props> = (props) => {
   const handleBlur = (e) => onBlur(e, id, name);
 
   const getFieldValue = () =>
-    ((currentValue && currentValue !== FIELD_PLACEHOLDER) ? currentValue : '');
+    ((currentValue != null && currentValue !== FIELD_PLACEHOLDER) ? currentValue : '');
 
   const getOtherProps = () => ({
     ...onChange && { onChange: (e) => onChange(e, id) }

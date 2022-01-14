@@ -32,14 +32,22 @@ const VoteRoundOptions: React.FC = () => {
 
   const renderButton = ({ value }: PointValue) => {
     const isSelected = value === currentUserVote;
-    const handleClick = () => setVoteValue(user, value);
+    const handleClick = () => {
+      setVoteValue(user, isSelected ? null : value);
+    };
 
     return (
       <li
         key={value}
         className={cx('item', { 'item--selected': isSelected })}
       >
-        <Button variant={ButtonVariant.Primary} className={cx('votes__button')} round onClick={handleClick} selected={isSelected}>
+        <Button
+          variant={ButtonVariant.Primary}
+          className={cx('votes__button')}
+          round
+          onClick={handleClick}
+          selected={isSelected}
+        >
           {value}
         </Button>
       </li>

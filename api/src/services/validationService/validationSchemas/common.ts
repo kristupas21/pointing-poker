@@ -31,7 +31,6 @@ const pointValue: ValidationSchema<PointValue> = {
     { key: STRING },
   ],
   value: [
-    { key: REQUIRED },
     { key: STRING_NUMBER, exceptions: [POINT_VALUE_UNKNOWN, POINT_VALUE_INFINITY] },
     { key: STRING_NUMBER_MIN, args: [NUMBER_INPUT_MIN]},
     { key: STRING_NUMBER_MAX, args: [NUMBER_INPUT_MAX]},
