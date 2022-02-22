@@ -9,7 +9,11 @@ import { getFirstAvatar } from 'components/Avatar';
 import { FIELD_PLACEHOLDER } from 'utils/form/constants';
 import { insertAtIndex } from 'utils/common';
 import { SessionState } from './sessionModel';
-import { createPointValue, removePointValuePlaceholders, removeRolePlaceholders } from './sessionUtils';
+import {
+  createPointValue,
+  removePointValuePlaceholders,
+  removeRolePlaceholders
+} from './sessionUtils';
 import {
   ADD_SESSION_POINT_VALUE,
   ADD_SESSION_ROLE,
@@ -95,11 +99,15 @@ const sessionReducer: Reducer<State, Action> = (state = initialState, action) =>
     case SAVE_SESSION_POINT_VALUE: {
       const { id } = action.payload;
       const pointValues = state.pointValues.map((p, pos) => {
-        const props = id === p.id
-          ? { ...action.payload, pos, ...(id === FIELD_PLACEHOLDER && { id: generatePointValueId() }) }
-          : { ...p, pos };
+        if (id === p.id) {
+          return createPointValue({
+            ...action.payload,
+            pos,
+            ...(id === FIELD_PLACEHOLDER && { id: generatePointValueId() })
+          });
+        }
 
-        return createPointValue(props);
+        return createPointValue({ ...p, pos });
       });
 
       storageService.set(StorageKey.PointValues, pointValues);

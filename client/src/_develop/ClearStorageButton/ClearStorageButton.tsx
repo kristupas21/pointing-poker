@@ -1,5 +1,7 @@
 import React from 'react';
-import { pushNotification as pushNotificationAction } from 'state/notifications/notificationsActions';
+import {
+  pushNotification as pushNotificationAction
+} from 'state/notifications/notificationsActions';
 import Button from 'components/Button/Button';
 import storageService from 'utils/storageService/storageService';
 import { useMappedDispatch } from 'utils/customHooks';

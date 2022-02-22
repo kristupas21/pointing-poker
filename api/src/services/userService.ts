@@ -5,11 +5,19 @@ class UserService {
     return User.findOneAndDelete({ id: userId, sessionId }).lean();
   }
 
-  public async setUserVoteValue(sessionId: string, userId: string, voteValue: string): Promise<void> {
+  public async setUserVoteValue(
+    sessionId: string,
+    userId: string,
+    voteValue: string
+  ): Promise<void> {
     await User.findOneAndUpdate({ id: userId, sessionId }, { voteValue });
   }
 
-  public async modifyUser(sessionId: string, userId: string, params: Partial<UserSchemaProps>): Promise<UserSchema> {
+  public async modifyUser(
+    sessionId: string,
+    userId: string,
+    params: Partial<UserSchemaProps>
+  ): Promise<UserSchema> {
     return User.findOneAndUpdate({ id: userId, sessionId }, params, { new: true }).lean();
   }
 
@@ -29,7 +37,11 @@ class UserService {
     return User.exists({ sessionId, name });
   }
 
-  public async registerUser(sessionId: string, user: UserSchemaProps, hasPermission: boolean): Promise<UserSchemaProps> {
+  public async registerUser(
+    sessionId: string,
+    user: UserSchemaProps,
+    hasPermission: boolean
+  ): Promise<UserSchemaProps> {
     const filter = { id: user.id, sessionId };
     const userParams = { ...user, sessionId, hasPermission };
 

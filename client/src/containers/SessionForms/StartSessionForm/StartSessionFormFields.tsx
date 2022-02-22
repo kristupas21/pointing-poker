@@ -9,11 +9,13 @@ import AvatarSelector from 'containers/AvatarSelector';
 import Button, { ButtonVariant } from 'components/Button/Button';
 import { FormProps } from 'utils/form/types';
 import { useSessionFormUtils, useText } from 'utils/customHooks';
-import { getNormalizedSessionRoles } from 'state/session/sessionStateGetters';
+import { makeNormalizedSessionRolesSelector } from 'utils/selectors';
 import { SessionFormData } from '../types';
 import styles from '../SessionForms.module.scss';
 
 const cx = classNames.bind(styles);
+
+const normalizedSessionRolesSelector = makeNormalizedSessionRolesSelector();
 
 type Props = FormProps<SessionFormData>;
 
@@ -26,7 +28,7 @@ const StartSessionForm: React.FC<Props> = (props) => {
     submitForm,
   } = props;
 
-  const roles = useSelector(getNormalizedSessionRoles);
+  const roles = useSelector(normalizedSessionRolesSelector);
   const text = useText();
 
   const {
@@ -104,7 +106,13 @@ const StartSessionForm: React.FC<Props> = (props) => {
         block
         classes={{ wrapper: cx('form__switch') }}
       />
-      <Button variant={ButtonVariant.Primary} className={cx('submit-button')} colored type="submit" disabled={submitDisabled}>
+      <Button
+        variant={ButtonVariant.Primary}
+        className={cx('submit-button')}
+        colored
+        type="submit"
+        disabled={submitDisabled}
+      >
         {text('session.start')}
       </Button>
     </Form>

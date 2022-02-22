@@ -5,3 +5,7 @@ export function insertAtIndex<T>(arr: T[], idx: number, ...items: T[]): T[] {
     ...arr.slice(idx)
   ];
 }
+
+export function sortAlphabetically(items: string[]): string[] {
+  return (items || []).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+}

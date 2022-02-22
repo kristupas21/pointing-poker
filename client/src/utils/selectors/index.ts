@@ -13,3 +13,5 @@ export { default as makeConsensusSelector } from './consensusSelector';
 export { default as makeInitialUserRoleSelector } from './initialUserRoleSelector';
 
 export { default as makeClosestPointSelector } from './closestPointSelector';
+
+export { default as makeNormalizedSessionRolesSelector } from './normalizedSessionRolesSelector';

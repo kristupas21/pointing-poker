@@ -63,7 +63,11 @@ const DynamicFormField: React.FC<Props> = (props) => {
   });
 
   return (
-    <motion.span key={id} {...animations.simpleOpacity} className={cx('field', `field--${type}`, { 'field--readonly': isReadonly })}>
+    <motion.span
+      key={id}
+      {...animations.simpleOpacity}
+      className={cx('field', `field--${type}`, { 'field--readonly': isReadonly })}
+    >
       <FormField
         {...fieldProps}
         name={name}

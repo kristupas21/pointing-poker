@@ -1,4 +1,9 @@
-import { IdGenerator, JoinSessionBody, SessionInfoParams, StartSessionBody } from '@models/sessionModel';
+import {
+  IdGenerator,
+  JoinSessionBody,
+  SessionInfoParams,
+  StartSessionBody
+} from '@models/sessionModel';
 import shortid from 'shortid';
 import Session, { SessionSchemaProps } from '@schemas/sessionSchema';
 import { UserSchemaProps } from '@schemas/userSchema';
@@ -41,7 +46,9 @@ class SessionService {
     return Session.findOne({ id }).lean();
   }
 
-  public async modifySessionParams(id: string, params: Partial<SessionSchemaProps>): Promise<SessionSchemaProps> {
+  public async modifySessionParams(
+    id: string, params: Partial<SessionSchemaProps>
+  ): Promise<SessionSchemaProps> {
     return Session.findOneAndUpdate({ id }, params).lean();
   }
 

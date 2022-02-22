@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getSessionCurrentId } from 'state/session/sessionStateGetters';
-import { pushNotification as pushNotificationAction } from 'state/notifications/notificationsActions';
+import {
+  pushNotification as pushNotificationAction
+} from 'state/notifications/notificationsActions';
 import classNames from 'classnames/bind';
 import { useMappedDispatch, useText } from 'utils/customHooks';
 import renderNotification, { NotificationContent } from 'utils/notificationContent';

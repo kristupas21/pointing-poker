@@ -2,15 +2,17 @@ import { useSelector } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import { useEffect } from 'react';
 import { CustomFormError, CustomFormErrors } from 'utils/form/types';
-import { getNormalizedSessionRoles } from 'state/session/sessionStateGetters';
 import { getFormIsLoading } from 'state/form/formStateGetters';
 import { resetSessionState as resetSessionStateAction } from 'state/session/sessionActions';
+import { makeNormalizedSessionRolesSelector } from 'utils/selectors';
 import useText from './useText';
 import useMappedDispatch from './useMappedDispatch';
 
 const actions = {
   resetSessionState: resetSessionStateAction,
 };
+
+const normalizedSessionRolesSelector = makeNormalizedSessionRolesSelector();
 
 type HookReturnValue = {
   getErrorText: (e: CustomFormError) => string;
@@ -23,7 +25,7 @@ export default (
   setFieldValue: (key: string, value: any) => void,
   isSubmitting: boolean,
 ): HookReturnValue => {
-  const roles = useSelector(getNormalizedSessionRoles);
+  const roles = useSelector(normalizedSessionRolesSelector);
   const isLoading = useSelector(getFormIsLoading);
   const { resetSessionState } = useMappedDispatch(actions);
   const text = useText();

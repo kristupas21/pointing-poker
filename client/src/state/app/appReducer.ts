@@ -3,7 +3,12 @@ import storageService from 'utils/storageService/storageService';
 import { StorageKey } from 'utils/storageService';
 import { LocaleKey } from 'lang';
 import { AppState } from './appModel';
-import { SET_APP_LOADING, SET_APP_LOCALE, SET_APP_SIDEBAR_OPEN, UNLOCK_APP_HIDDEN_FEATS } from './appConstants';
+import {
+  SET_APP_LOADING,
+  SET_APP_LOCALE,
+  SET_APP_SIDEBAR_OPEN,
+  UNLOCK_APP_HIDDEN_FEATS
+} from './appConstants';
 
 type Action = ActionType<typeof import('./appActions')>;
 

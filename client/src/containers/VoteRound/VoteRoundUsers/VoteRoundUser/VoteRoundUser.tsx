@@ -24,7 +24,11 @@ const VoteRoundUser: React.FC<Props> = (props) => {
   const text = useText();
   const hasVoted = voteValue != null;
 
-  const waiting = <span className={cx('user__waiting')}>{text('voteRound.waiting')}</span>; // TODO animate dots
+  const waiting = (
+    <span className={cx('user__waiting')}>
+      {text('voteRound.waiting')}
+    </span>
+  ); // TODO animate dots
 
   const renderValue = () => (hasVoted
     ? <span className={cx('user__points')}>{getDisplayValue(voteValue)}</span>
@@ -36,8 +40,16 @@ const VoteRoundUser: React.FC<Props> = (props) => {
     : waiting
   );
 
+  const wrapperClasses = cx(
+    'user',
+    { 'user--me': isMe },
+    { 'user--voted': hasVoted },
+    { 'user--observer': isObserver },
+    className
+  );
+
   return (
-    <div className={cx('user', { 'user--me': isMe }, { 'user--voted': hasVoted }, { 'user--observer': isObserver }, className)}>
+    <div className={wrapperClasses}>
       <span className={cx('user__info')}>
         <Avatar id={avatarId} className={cx('user__avatar')} />
         <span className={cx('user__text')}>

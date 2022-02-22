@@ -19,7 +19,9 @@ import {
 import commonValidationSchema from '@services/validationService/validationSchemas/common';
 import { INPUT_MAX_CHARS, INPUT_MIN_CHARS } from '@shared-with-ui/constants';
 
-const getSchema = <T extends WSMessage>(schema: ValidationSchema<T['body']>): ValidationSchema<T> => ({
+const getSchema = <T extends WSMessage>(
+  schema: ValidationSchema<T['body']>
+): ValidationSchema<T> => ({
   ...commonValidationSchema.session,
   body: [
     { key: REQUIRED },

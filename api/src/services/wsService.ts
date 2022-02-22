@@ -136,7 +136,11 @@ class WsService {
       return;
     }
 
-    await sessionService.modifySessionParams(this.sessionId, { showVotes: false, currentTopic: '' });
+    await sessionService.modifySessionParams(
+      this.sessionId,
+      { showVotes: false, currentTopic: '' }
+    );
+
     await userService.clearAllVoteValues(this.sessionId);
 
     this.getBroadcast().emit(WS_RESET_VOTE_ROUND, message);

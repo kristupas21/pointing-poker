@@ -19,8 +19,21 @@ type Props = {
 }
 
 const SelectDropdown: React.FC<Props> = (props) => {
-  const { options, uniqOptions, onSelect, selectedOption, onOutsideClick, fieldSize, stretch } = props;
-  const className = cx('dropdown', `dropdown--${fieldSize}`, { 'dropdown--stretch': stretch });
+  const {
+    options,
+    uniqOptions,
+    onSelect,
+    selectedOption,
+    onOutsideClick,
+    fieldSize,
+    stretch
+  } = props;
+
+  const className = cx(
+    'dropdown',
+    `dropdown--${fieldSize}`,
+    { 'dropdown--stretch': stretch }
+  );
 
   const handleSelect = (e: MouseEvent<HTMLButtonElement>, name: string) => {
     e.preventDefault();

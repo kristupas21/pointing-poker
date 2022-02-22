@@ -8,7 +8,11 @@ import {
   BOOLEAN,
   STRING
 } from '@services/validationService/validatorKeys';
-import { MAX_POINT_VALUES_COUNT, MAX_ROLES_COUNT, MIN_POINT_VALUES_COUNT } from '@shared-with-ui/constants';
+import {
+  MAX_POINT_VALUES_COUNT,
+  MAX_ROLES_COUNT,
+  MIN_POINT_VALUES_COUNT
+} from '@shared-with-ui/constants';
 import commonValidationSchema from '@services/validationService/validationSchemas/common';
 
 const START_SESSION_BODY: ValidationSchema<StartSessionBody> = {

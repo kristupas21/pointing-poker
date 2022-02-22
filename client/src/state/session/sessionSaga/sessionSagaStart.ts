@@ -7,17 +7,20 @@ import { throwAppError } from 'state/error/errorActions';
 import { setAppLoading } from 'state/app/appActions';
 import errorParser from 'utils/errorParser';
 import { setFormLoading } from 'state/form/formActions';
+import { makeNormalizedSessionRolesSelector } from 'utils/selectors';
 import { startSession } from '../sessionActions';
 import sessionApi from '../sessionApi';
 import { START_SESSION } from '../sessionConstants';
 import { acquireCurrentUser } from './sessionSagaUtils';
-import { getNormalizedSessionRoles, getSessionPointValues } from '../sessionStateGetters';
+import { getSessionPointValues } from '../sessionStateGetters';
 import { normalizePointValues } from '../sessionUtils';
 import { StartSessionResponse } from '../sessionModel';
 
+const normalizedSessionRolesSelector = makeNormalizedSessionRolesSelector();
+
 export function* startSessionSaga(action: ActionType<typeof startSession>) {
   const { useRoles, usePermissions, ...userProps } = action.payload;
-  const roles = yield select(getNormalizedSessionRoles);
+  const roles = yield select(normalizedSessionRolesSelector);
 
   const params = {
     useRoles,

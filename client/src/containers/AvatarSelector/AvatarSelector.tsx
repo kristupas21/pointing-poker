@@ -63,11 +63,22 @@ const AvatarSelector: React.FC<Props> = (props) => {
           <Avatar id={avatarId} />
         </Button>
         {isPopoverOpen && (
-          <motion.div {...animations.simpleOpacity} transition={{ duration: 0.2 }} ref={setPopperElement} className={cx('avatar-selector__popover-wrapper')} style={styles.popper} {...attributes.popper}>
+          <motion.div
+            {...animations.simpleOpacity}
+            transition={{ duration: 0.2 }}
+            ref={setPopperElement}
+            className={cx('avatar-selector__popover-wrapper')}
+            style={styles.popper}
+            {...attributes.popper}
+          >
             <div className={cx('avatar-selector__popover')}>
               <AvatarOptions onSelect={handleAvatarSelect} value={avatarId} />
             </div>
-            <div className={cx('avatar-selector__popover-arrow')} ref={setArrowElement} style={styles.arrow}>
+            <div
+              className={cx('avatar-selector__popover-arrow')}
+              ref={setArrowElement}
+              style={styles.arrow}
+            >
               <div className={cx('avatar-selector__popover-arrow-inner')} />
             </div>
           </motion.div>

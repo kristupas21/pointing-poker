@@ -10,7 +10,10 @@ import {
 } from 'state/voteRound/voteRoundActions';
 import { pushNotification } from 'state/notifications/notificationsActions';
 import renderNotification, { NotificationContent } from 'utils/notificationContent';
-import { getVotesShownValue, getVoteValueByIdStateGetter } from 'state/voteRound/voteRoundStateGetters';
+import {
+  getVotesShownValue,
+  getVoteValueByIdStateGetter
+} from 'state/voteRound/voteRoundStateGetters';
 import { setSessionParams } from 'state/session/sessionActions';
 import { getSessionUserId } from 'state/session/sessionStateGetters';
 import { throwAppError } from 'state/error/errorActions';

@@ -8,11 +8,13 @@ import AvatarSelector from 'containers/AvatarSelector';
 import Button, { ButtonVariant } from 'components/Button/Button';
 import { useMappedDispatch, useSessionFormUtils, useText } from 'utils/customHooks';
 import { getSessionInfo } from 'state/session/sessionActions';
-import { getNormalizedSessionRoles } from 'state/session/sessionStateGetters';
+import { makeNormalizedSessionRolesSelector } from 'utils/selectors';
 import { SessionFormData } from '../types';
 import styles from '../SessionForms.module.scss';
 
 const cx = classNames.bind(styles);
+
+const normalizedSessionRolesSelector = makeNormalizedSessionRolesSelector();
 
 const actions = {
   getInfo: getSessionInfo,
@@ -32,7 +34,7 @@ const JoinSessionFormFields: React.FC<Props> = (props) => {
   } = props;
 
   const { getInfo } = useMappedDispatch(actions);
-  const roles = useSelector(getNormalizedSessionRoles);
+  const roles = useSelector(normalizedSessionRolesSelector);
   const text = useText();
 
   const {
@@ -114,7 +116,13 @@ const JoinSessionFormFields: React.FC<Props> = (props) => {
         label={text('session.field.observer.label')}
         block
       />
-      <Button variant={ButtonVariant.Primary} colored type="submit" disabled={submitDisabled} className={cx('submit-button')}>
+      <Button
+        variant={ButtonVariant.Primary}
+        colored
+        type="submit"
+        disabled={submitDisabled}
+        className={cx('submit-button')}
+      >
         {text('session.join')}
       </Button>
     </Form>
